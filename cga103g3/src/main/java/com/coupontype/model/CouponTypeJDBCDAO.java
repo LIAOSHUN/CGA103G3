@@ -200,6 +200,9 @@ public class CouponTypeJDBCDAO implements CouponTypeDAO_interface{
 //		dao.delete(26011);
 //		-- 刪除某張優惠券
 //		dao.delete(26011);
+		
+//		-- 刪除某張優惠券
+//		dao.delete(26011);
 	}
 
 	
