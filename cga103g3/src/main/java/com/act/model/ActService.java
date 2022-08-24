@@ -11,29 +11,29 @@ public class ActService {
 	}
 
 	public ActVO addAct(Integer storeID, String actTitle, String actDescription,
-			Timestamp actDate, Integer actStatus, Integer actFee, Integer actRegistration, 
-			Timestamp actTimeStart, Timestamp actTimeEnd, Integer regisMax) {
+			Timestamp actTimeStart, Timestamp actTimeEnd, Timestamp actDate, Integer regisMax, 
+			Integer actFee, Integer actRegistration, Integer actStatus) {
 
 		ActVO actVO = new ActVO();
 
 		actVO.setStoreID(storeID);
 		actVO.setActTitle(actTitle);
 		actVO.setActDescription(actDescription);
-		actVO.setActDate(actDate);
-		actVO.setActStatus(actStatus);
-		actVO.setActFee(actFee);
-		actVO.setActRegistration(actRegistration);
 		actVO.setActTimeStart(actTimeStart);
 		actVO.setActTimeEnd(actTimeEnd);
+		actVO.setActDate(actDate);
 		actVO.setRegisMax(regisMax);
+		actVO.setActFee(actFee);
+		actVO.setActRegistration(actRegistration);
+		actVO.setActStatus(actStatus);
 		dao.insert(actVO);
 
 		return actVO;
 	}
 
 	public ActVO updateAct(Integer actID, Integer storeID, String actTitle, String actDescription,
-			Timestamp actDate, Integer actStatus, Integer actFee, Integer actRegistration, 
-			Timestamp actTimeStart, Timestamp actTimeEnd, Integer regisMax) {
+			Timestamp actTimeStart, Timestamp actTimeEnd, Timestamp actDate, Integer regisMax, 
+			Integer actFee, Integer actRegistration, Integer actStatus) {
 
 		ActVO actVO = new ActVO();
 		
@@ -41,13 +41,13 @@ public class ActService {
 		actVO.setStoreID(storeID);
 		actVO.setActTitle(actTitle);
 		actVO.setActDescription(actDescription);
-		actVO.setActDate(actDate);
-		actVO.setActStatus(actStatus);
-		actVO.setActFee(actFee);
-		actVO.setActRegistration(actRegistration);
 		actVO.setActTimeStart(actTimeStart);
 		actVO.setActTimeEnd(actTimeEnd);
+		actVO.setActDate(actDate);
 		actVO.setRegisMax(regisMax);
+		actVO.setActFee(actFee);
+		actVO.setActRegistration(actRegistration);
+		actVO.setActStatus(actStatus);
 		dao.update(actVO);
 
 		return actVO;
