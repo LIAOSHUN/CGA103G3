@@ -46,7 +46,7 @@ public class CouponTypeServlet extends HttpServlet {
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/coupontype/couponType_select_page.jsp");
+							.getRequestDispatcher("/backend/coupontype/couponType_select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -59,7 +59,7 @@ public class CouponTypeServlet extends HttpServlet {
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/coupontype/couponType_select_page.jsp");
+							.getRequestDispatcher("/backend/coupontype/couponType_select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -74,14 +74,14 @@ public class CouponTypeServlet extends HttpServlet {
 				}
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/coupontype/couponType_select_page.jsp");
+							.getRequestDispatcher("/backend/coupontype/couponType_select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("couponTypeVO", couponTypeVO); // 資料庫取出的couponTypeVO物件,存入req
-				String url = "/coupontype/listOneCouponType.jsp";
+				String url = "/backend/coupontype/listOneCouponType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneCouponType.jsp
 				successView.forward(req, res);
 		}
@@ -102,7 +102,7 @@ public class CouponTypeServlet extends HttpServlet {
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("couponTypeVO", couponTypeVO);         // 資料庫取出的couponTypeVO物件,存入req
-				String url = "/coupontype/updateCouponType.jsp";
+				String url = "/backend/coupontype/updateCouponType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 updateCouponType.jsp
 				successView.forward(req, res);
 		}
@@ -181,7 +181,7 @@ public class CouponTypeServlet extends HttpServlet {
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("couponTypeVO", couponTypeVO); // 含有輸入格式錯誤的empVO物件,也存入req；當使用者有部分欄位錯，可保留部分欄位
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/coupontype/updateCouponType.jsp");
+						.getRequestDispatcher("/backend/coupontype/updateCouponType.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -192,7 +192,7 @@ public class CouponTypeServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 			req.setAttribute("couponTypeVO", couponTypeVO);// 資料庫update成功後,正確的的couponTypeVO物件,存入req
-			String url = "/coupontype/listOneCouponType.jsp";
+			String url = "/backend/coupontype/listOneCouponType.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneCouponType.jsp
 			successView.forward(req, res);	
 		}
@@ -273,7 +273,7 @@ public class CouponTypeServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("couponTypeVO", couponTypeVO); // 含有輸入格式錯誤的empVO物件,也存入req；當使用者有部分欄位錯，可保留部分欄位
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/coupontype/addCouponType.jsp");
+							.getRequestDispatcher("/backend/coupontype/addCouponType.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -286,7 +286,7 @@ public class CouponTypeServlet extends HttpServlet {
 				
 			
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/coupontype/listAllCouponType.jsp";
+				String url = "/backend/coupontype/listAllCouponType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllCouponType.jsp
 				successView.forward(req, res);				
 		}
@@ -305,7 +305,7 @@ public class CouponTypeServlet extends HttpServlet {
 				couponTypeSvc.delete(coupTypeNo);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/coupontype/listAllCouponType.jsp";
+				String url = "/backend/coupontype/listAllCouponType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 		}

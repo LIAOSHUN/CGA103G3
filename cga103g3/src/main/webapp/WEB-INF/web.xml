@@ -15,6 +15,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>CouponTypeServlet</servlet-name>
-    <url-pattern>/coupontype/coupontype.do</url-pattern>
+    <url-pattern>/backend/coupontype/coupontype.do</url-pattern>
   </servlet-mapping>
 </web-app>
