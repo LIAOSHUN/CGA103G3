@@ -6,14 +6,15 @@
 
 <%
     ActRegisService actRegisSvc = new ActRegisService();
-    List<ActRegisVO> list = actRegisSvc.getAll();
+//     List<ActRegisVO> listMemRegis = actRegisSvc.getMemRegis(request.getAttribute("會員登入後擷取會員ID"));
+    List<ActRegisVO> list = actRegisSvc.getMemRegis(11001);
     pageContext.setAttribute("list",list);
 %>
 
 
 <html>
 <head>
-<title>所有活動報名資料 - listAllActRegis.jsp</title>
+<title>會員報名的所有活動資料 - listMemRegis.jsp</title>
 
 <style>
   table#table-1 {
@@ -54,7 +55,7 @@
 <h4>此頁練習採用 EL 的寫法取值:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>所有活動報名資料 - listAllActRegis.jsp</h3>
+		 <h3>會員報名的所有活動資料 - listMemRegis.jsp</h3>
 		 <h4><a href="select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -67,11 +68,11 @@
 		<th>報名人數</th>
 		<th>報名總費用</th>
 		<th>繳費狀態</th>
-		<th>報名狀態</th>
-		<th>活動評價</th>
-		<th>滿意度</th>
-		<th>評價日期</th>
-		<th>修改</th>
+<!-- 		<th>報名狀態</th> -->
+<!-- 		<th>活動評價</th> -->
+<!-- 		<th>滿意度</th> -->
+<!-- 		<th>評價日期</th> -->
+		<th>評價<br>取消報名</th>
 	</tr>
 	<%@ include file="page1.file" %> 
 	<c:forEach var="actRegisVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -83,17 +84,23 @@
 			<td>${actRegisVO.actNum}</td>
 			<td>${actRegisVO.actFee}</td>
 			<td>${actRegisVO.feeStatus}</td> 
-			<td>${actRegisVO.regisStatus}</td> 
-			<td>${actRegisVO.actReview}</td> 
-			<td>${actRegisVO.satisfaction}</td> 
-			<td>${actRegisVO.reviewDate}</td> 
+<%-- 			<td>${actRegisVO.regisStatus}</td>  --%>
+<%-- 			<td>${actRegisVO.actReview}</td>  --%>
+<%-- 			<td>${actRegisVO.satisfaction}</td>  --%>
+<%-- 			<td>${actRegisVO.reviewDate}</td>  --%>
 <%-- 			<td>${actRegisVO.deptno}-[${actRegisVO.deptVO.dname}]</td> --%>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/actregis/actRegis.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
+			     <input type="submit" value="評價">
 			     <input type="hidden" name="memID"  value="${actRegisVO.memID}">
 			     <input type="hidden" name="actID"  value="${actRegisVO.actID}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			     <input type="hidden" name="action"	value="update_review"></FORM>
+			     <br>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/actregis/actRegis.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="取消報名">
+			     <input type="hidden" name="memID"  value="${actRegisVO.memID}">
+			     <input type="hidden" name="actID"  value="${actRegisVO.actID}">
+			     <input type="hidden" name="action"	value="cancel"></FORM>
 			</td>
 		</tr>
 	</c:forEach>

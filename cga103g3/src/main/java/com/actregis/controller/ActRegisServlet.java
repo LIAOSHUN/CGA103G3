@@ -73,7 +73,7 @@ public class ActRegisServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("actRegisVO", actRegisVO); // 資料庫取出的actRegisVO物件,存入req
-				String url = "/backend/actregis/listOneActRegis.jsp";
+				String url = "/backend/actregis/listActRegistered.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneActRegis.jsp
 				successView.forward(req, res);
 		}
@@ -126,7 +126,7 @@ public class ActRegisServlet extends HttpServlet {
 			
 			/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 			req.setAttribute("actRegisVO", actRegisVO); // 資料庫取出的actRegisVO物件,存入req
-			String url = "/backend/actregis/listOneActRegis.jsp";
+			String url = "/backend/actregis/listMemRegis.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneActRegis.jsp
 			successView.forward(req, res);
 		}
@@ -149,13 +149,13 @@ public class ActRegisServlet extends HttpServlet {
 				String param = "?memID="  +actRegisVO.getMemID()+
 						       "&actID="  +actRegisVO.getActID()+
 						       "&regisTime="    +actRegisVO.getRegisTime()+
-						       "&actNum="+actRegisVO.getActNum()+
+						       "&actNum="	+actRegisVO.getActNum()+
 						       "&actFee="    +actRegisVO.getActFee()+
 						       "&feeStatus="   +actRegisVO.getFeeStatus()+
 						       "&regisStatus="   +actRegisVO.getRegisStatus()+
 						       "&actReview="   +actRegisVO.getActReview()+
 						       "&satisfaction="   +actRegisVO.getSatisfaction()+
-						       "&reviewDate=" +actRegisVO.getReviewDate();
+						       "&reviewDate=" 	+actRegisVO.getReviewDate();
 				String url = "/backend/actregis/update_actregis_input.jsp"+param;
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_actregis_input.jsp
 				successView.forward(req, res);
