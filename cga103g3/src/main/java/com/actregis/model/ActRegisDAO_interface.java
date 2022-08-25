@@ -6,5 +6,6 @@ public interface ActRegisDAO_interface {
 	public void insert(ActRegisVO actRegisVO);
     public void update(ActRegisVO actRegisVO);
     public List<ActRegisVO> findByPrimaryKey(Integer actID);
+    public ActRegisVO findByDbPrimaryKey(Integer memID, Integer actID);
     public List<ActRegisVO> getAll();
 }

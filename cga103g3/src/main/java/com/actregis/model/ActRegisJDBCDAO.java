@@ -25,6 +25,10 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 		"select MemID, ActID, RegisTime, ActNum, ActFee, FeeStatus, "
 		+ "RegisStatus, ActReview, Satisfaction, ReviewDate "
 		+ "from actregistered where ActID = ?";
+	private static final String GET_ONE_FORUPDATE = 
+			"select MemID, ActID, RegisTime, ActNum, ActFee, FeeStatus, "
+			+ "RegisStatus, ActReview, Satisfaction, ReviewDate "
+			+ "from actregistered where MemID = ? and ActID = ?";
 	private static final String UPDATE = 
 		"update actregistered set RegisTime=Now(), ActNum=?, ActFee=?, FeeStatus=?, "
 		+ "RegisStatus=?, ActReview=?, Satisfaction=?, ReviewDate=Now() where MemID = ? and ActID = ?";
@@ -131,6 +135,47 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 		}
 		return listRegis;
 	}
+	
+	@Override
+	public ActRegisVO findByDbPrimaryKey(Integer memID, Integer actID) {
+		ActRegisVO actRegisVO = null;
+
+		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+				PreparedStatement pstmt = con.prepareStatement(GET_ONE_FORUPDATE);
+				) {
+				Class.forName(driver);
+
+			pstmt.setInt(1, memID);
+			pstmt.setInt(2, actID);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				// actRegisVO 也稱為 Domain objects
+				actRegisVO = new ActRegisVO();
+				actRegisVO.setMemID(rs.getInt("memID"));
+				actRegisVO.setActID(rs.getInt("actID"));
+				actRegisVO.setRegisTime(rs.getTimestamp("regisTime"));
+				actRegisVO.setActNum(rs.getInt("actNum"));
+				actRegisVO.setActFee(rs.getInt("actFee"));
+				actRegisVO.setFeeStatus(rs.getInt("feeStatus"));
+				actRegisVO.setRegisStatus(rs.getInt("regisStatus"));
+				actRegisVO.setActReview(rs.getString("actReview"));
+				actRegisVO.setSatisfaction(rs.getInt("satisfaction"));
+				actRegisVO.setReviewDate(rs.getDate("reviewDate"));	
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		}
+		return actRegisVO;
+	}
 
 	@Override
 	public List<ActRegisVO> getAll() {
@@ -215,6 +260,21 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 			System.out.println(aActRegismem.getReviewDate());
 			System.out.println("---------------------");
 		}
+		
+		// 查詢 單一報名
+		ActRegisVO actRegisVO = dao.findByDbPrimaryKey(11001, 61001);
+		System.out.print(actRegisVO.getMemID() + ",");
+		System.out.print(actRegisVO.getActID() + ",");
+		System.out.print(actRegisVO.getRegisTime() + ",");
+		System.out.print(actRegisVO.getActNum() + ",");
+		System.out.print(actRegisVO.getActFee() + ",");
+		System.out.print(actRegisVO.getFeeStatus() + ",");
+		System.out.print(actRegisVO.getRegisStatus() + ",");
+		System.out.print(actRegisVO.getActReview() + ",");
+		System.out.print(actRegisVO.getSatisfaction() + ",");
+		System.out.println(actRegisVO.getReviewDate());
+		System.out.println("---------------------");
+			
 		// 查詢
 		List<ActRegisVO> list = dao.getAll();
 		for (ActRegisVO aActRegis : list) {
