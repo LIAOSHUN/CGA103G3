@@ -25,7 +25,7 @@ public class ActRegisServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		
 		
-		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
+		if ("getByOneAct_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -59,7 +59,7 @@ public class ActRegisServlet extends HttpServlet {
 				
 				/***************************2.開始查詢資料*****************************************/
 				ActRegisService actRegisSvc = new ActRegisService();
-				List<ActRegisVO> actRegisVO = actRegisSvc.getActRegis(actID);
+				List<ActRegisVO> actRegisVO = actRegisSvc.getActRegistered(actID);
 				if (actRegisVO == null) {
 					errorMsgs.put("actID","查無資料");
 				}
@@ -76,6 +76,59 @@ public class ActRegisServlet extends HttpServlet {
 				String url = "/backend/actregis/listOneActRegis.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneActRegis.jsp
 				successView.forward(req, res);
+		}
+		
+		if ("getByOneMem_For_Display".equals(action)) { // 來自select_page.jsp的請求
+			
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+			String str = req.getParameter("memID");
+			if (str == null || (str.trim()).length() == 0) {
+				errorMsgs.put("memID","請輸入會員編號");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/actregis/select_page.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+			
+			Integer memID = null;
+			try {
+				memID = Integer.valueOf(str);
+			} catch (Exception e) {
+				errorMsgs.put("memID","會員編號格式不正確");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/actregis/select_page.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+			
+			/***************************2.開始查詢資料*****************************************/
+			ActRegisService actRegisSvc = new ActRegisService();
+			List<ActRegisVO> actRegisVO = actRegisSvc.getMemRegis(memID);
+			if (actRegisVO == null) {
+				errorMsgs.put("memID","查無資料");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/actregis/select_page.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+			
+			/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+			req.setAttribute("actRegisVO", actRegisVO); // 資料庫取出的actRegisVO物件,存入req
+			String url = "/backend/actregis/listOneActRegis.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneActRegis.jsp
+			successView.forward(req, res);
 		}
 		
 		

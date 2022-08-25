@@ -71,11 +71,15 @@ public class ActRegisService {
 		return actRegisVO;
 	}
 
-	public List<ActRegisVO> getActRegis(Integer actID) {
-		return dao.findByPrimaryKey(actID);
+	public List<ActRegisVO> getActRegistered(Integer actID) {
+		return dao.findByActPrimaryKey(actID);
 	}
+	public List<ActRegisVO> getMemRegis(Integer memID) {
+		return dao.findByMemPrimaryKey(memID);
+	}
+	
 	public ActRegisVO getOneActRegis(Integer memID, Integer actID) {
-		return dao.findByDbPrimaryKey(memID, actID);
+		return dao.findByPrimaryKey(memID, actID);
 	}
 
 	public List<ActRegisVO> getAll() {
