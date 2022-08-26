@@ -282,7 +282,7 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 //
 //
 //		// 刪除
-//		dao.delete(14002);
+		dao.delete(14006);
 //
 //		// 查詢
 //		NotificationVO notificationVO2 = dao.findByPrimaryKey(14004);
