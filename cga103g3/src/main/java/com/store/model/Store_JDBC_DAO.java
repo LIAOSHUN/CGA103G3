@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import static common.Common.*;
 
 public class Store_JDBC_DAO implements StoreVO_interface {
 	//管理員可以新增店面
