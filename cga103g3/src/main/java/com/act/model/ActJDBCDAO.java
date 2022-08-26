@@ -8,20 +8,20 @@ public class ActJDBCDAO implements ActDAO_interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
 
 	private static final String INSERT_STMT = 
-		"insert into activity (StoreID, ActTitle, ActDescription, ActDate, ActStatus, ActFee, "
-		+ "ActRegistration, ActTimeStart, ActTimeEnd, RegisMax) "
+		"insert into activity (StoreID, ActTitle, ActDescription, ActTimeStart, ActTimeEnd, "
+		+ "ActDate, RegisMax, ActFee, ActRegistration, ActStatus) "
 		+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
-		"select ActID, StoreID, ActTitle, ActDescription, ActDate, ActStatus, ActFee, "
-		+ "ActRegistration, ActTimeStart, ActTimeEnd, RegisMax "
+		"select ActID, StoreID, ActTitle, ActDescription, ActTimeStart, ActTimeEnd, "
+		+ "ActDate, RegisMax, ActFee, ActRegistration, ActStatus "
 		+ "from activity order by ActID";
 	private static final String GET_ONE_STMT = 
-		"select ActID, StoreID, ActTitle, ActDescription, ActDate, ActStatus, ActFee, "
-		+ "ActRegistration, ActTimeStart, ActTimeEnd, RegisMax "
+		"select ActID, StoreID, ActTitle, ActDescription, ActTimeStart, ActTimeEnd, "
+		+ "ActDate, RegisMax, ActFee, ActRegistration, ActStatus "
 		+ "from activity where ActID = ?";
 	private static final String UPDATE = 
-		"update activity set StoreID=?, ActTitle=?, ActDescription=?, ActDate=?, ActStatus=?, ActFee=?, "
-		+ "ActRegistration=?, ActTimeStart=?, ActTimeEnd=?, RegisMax=? where ActID = ?";
+		"update activity set StoreID=?, ActTitle=?, ActDescription=?, ActTimeStart=?, ActTimeEnd=?, "
+		+ "ActDate=?, RegisMax=?, ActFee=?, ActRegistration=?, ActStatus=? where ActID = ?";
 	
 	
 	@Override
@@ -33,13 +33,13 @@ public class ActJDBCDAO implements ActDAO_interface{
 			pstmt.setInt(1, actVO.getStoreID());
 			pstmt.setString(2, actVO.getActTitle());
 			pstmt.setString(3, actVO.getActDescription());
-			pstmt.setTimestamp(4, actVO.getActDate());
-			pstmt.setInt(5, actVO.getActStatus());
-			pstmt.setInt(6, actVO.getActFee());
-			pstmt.setInt(7, actVO.getActRegistration());
-			pstmt.setTimestamp(8, actVO.getActTimeStart());
-			pstmt.setTimestamp(9, actVO.getActTimeEnd());
-			pstmt.setInt(10, actVO.getRegisMax());
+			pstmt.setTimestamp(4, actVO.getActTimeStart());
+			pstmt.setTimestamp(5, actVO.getActTimeEnd());
+			pstmt.setTimestamp(6, actVO.getActDate());
+			pstmt.setInt(7, actVO.getRegisMax());
+			pstmt.setInt(8, actVO.getActFee());
+			pstmt.setInt(9, actVO.getActRegistration());
+			pstmt.setInt(10, actVO.getActStatus());
 
 			pstmt.executeUpdate();
 
@@ -63,13 +63,13 @@ public class ActJDBCDAO implements ActDAO_interface{
 			pstmt.setInt(1, actVO.getStoreID());
 			pstmt.setString(2, actVO.getActTitle());
 			pstmt.setString(3, actVO.getActDescription());
-			pstmt.setTimestamp(4, actVO.getActDate());
-			pstmt.setInt(5, actVO.getActStatus());
-			pstmt.setInt(6, actVO.getActFee());
-			pstmt.setInt(7, actVO.getActRegistration());
-			pstmt.setTimestamp(8, actVO.getActTimeStart());
-			pstmt.setTimestamp(9, actVO.getActTimeEnd());
-			pstmt.setInt(10, actVO.getRegisMax());
+			pstmt.setTimestamp(4, actVO.getActTimeStart());
+			pstmt.setTimestamp(5, actVO.getActTimeEnd());
+			pstmt.setTimestamp(6, actVO.getActDate());
+			pstmt.setInt(7, actVO.getRegisMax());
+			pstmt.setInt(8, actVO.getActFee());
+			pstmt.setInt(9, actVO.getActRegistration());
+			pstmt.setInt(10, actVO.getActStatus());
 			pstmt.setInt(11, actVO.getActID());
 
 			pstmt.executeUpdate();
@@ -105,13 +105,13 @@ public class ActJDBCDAO implements ActDAO_interface{
 				actVO.setStoreID(rs.getInt("storeID"));
 				actVO.setActTitle(rs.getString("actTitle"));
 				actVO.setActDescription(rs.getString("actDescription"));
-				actVO.setActDate(rs.getTimestamp("actDate"));
-				actVO.setActStatus(rs.getInt("actStatus"));
-				actVO.setActFee(rs.getInt("actFee"));
-				actVO.setActRegistration(rs.getInt("actRegistration"));
 				actVO.setActTimeStart(rs.getTimestamp("actTimeStart"));
 				actVO.setActTimeEnd(rs.getTimestamp("actTimeEnd"));
+				actVO.setActDate(rs.getTimestamp("actDate"));
 				actVO.setRegisMax(rs.getInt("regisMax"));				
+				actVO.setActFee(rs.getInt("actFee"));
+				actVO.setActRegistration(rs.getInt("actRegistration"));
+				actVO.setActStatus(rs.getInt("actStatus"));
 			}
 
 			// Handle any driver errors
@@ -145,13 +145,13 @@ public class ActJDBCDAO implements ActDAO_interface{
 				actVO.setStoreID(rs.getInt("storeID"));
 				actVO.setActTitle(rs.getString("actTitle"));
 				actVO.setActDescription(rs.getString("actDescription"));
-				actVO.setActDate(rs.getTimestamp("actDate"));
-				actVO.setActStatus(rs.getInt("actStatus"));
-				actVO.setActFee(rs.getInt("actFee"));
-				actVO.setActRegistration(rs.getInt("actRegistration"));
 				actVO.setActTimeStart(rs.getTimestamp("actTimeStart"));
 				actVO.setActTimeEnd(rs.getTimestamp("actTimeEnd"));
+				actVO.setActDate(rs.getTimestamp("actDate"));
 				actVO.setRegisMax(rs.getInt("regisMax"));
+				actVO.setActFee(rs.getInt("actFee"));
+				actVO.setActRegistration(rs.getInt("actRegistration"));
+				actVO.setActStatus(rs.getInt("actStatus"));
 				list.add(actVO); // Store the row in the list
 			}
 
@@ -176,13 +176,13 @@ public class ActJDBCDAO implements ActDAO_interface{
 		actVO1.setStoreID(51001);
 		actVO1.setActTitle("結伴玩桌遊testtt");
 		actVO1.setActDescription("引入新桌遊「I.A.裝置譯述家」，邀請各位一起體驗");
-		actVO1.setActDate(Timestamp.valueOf("2022-10-22 14:00:00"));
-		actVO1.setActStatus(1);
-		actVO1.setActFee(100);
-		actVO1.setActRegistration(0);
 		actVO1.setActTimeStart(Timestamp.valueOf("2022-10-08 10:00:00"));
 		actVO1.setActTimeEnd(Timestamp.valueOf("2022-10-20 21:00:00"));
+		actVO1.setActDate(Timestamp.valueOf("2022-10-22 14:00:00"));
 		actVO1.setRegisMax(6);
+		actVO1.setActFee(100);
+		actVO1.setActRegistration(0);
+		actVO1.setActStatus(1);
 		dao.insert(actVO1);
 
 		// 修改
@@ -190,13 +190,13 @@ public class ActJDBCDAO implements ActDAO_interface{
 		actVO2.setStoreID(51001);
 		actVO2.setActTitle("結伴玩桌遊");
 		actVO2.setActDescription("引入新桌遊「I.A.裝置譯述家」~~邀請各位一起體驗");
-		actVO2.setActDate(Timestamp.valueOf("2022-10-22 14:00:00"));
-		actVO2.setActStatus(1);
-		actVO2.setActFee(100);
-		actVO2.setActRegistration(0);
 		actVO2.setActTimeStart(Timestamp.valueOf("2022-10-08 10:00:00"));
 		actVO2.setActTimeEnd(Timestamp.valueOf("2022-10-20 21:00:00"));
+		actVO2.setActDate(Timestamp.valueOf("2022-10-22 14:00:00"));
 		actVO2.setRegisMax(6);
+		actVO2.setActFee(100);
+		actVO2.setActRegistration(0);
+		actVO2.setActStatus(1);
 		actVO2.setActID(61001);
 		dao.update(actVO2);
 
@@ -206,13 +206,13 @@ public class ActJDBCDAO implements ActDAO_interface{
 		System.out.print(actVO3.getStoreID() + ", ");
 		System.out.print(actVO3.getActTitle() + ", ");
 		System.out.print(actVO3.getActDescription() + ", ");
-		System.out.print(actVO3.getActDate() + ", ");
-		System.out.print(actVO3.getActStatus() + ", ");
-		System.out.print(actVO3.getActFee() + ", ");
-		System.out.print(actVO3.getActRegistration() + ", ");
 		System.out.print(actVO3.getActTimeStart() + ", ");
 		System.out.print(actVO3.getActTimeEnd() + ", ");
-		System.out.println(actVO3.getRegisMax());
+		System.out.print(actVO3.getActDate() + ", ");
+		System.out.print(actVO3.getRegisMax() + ", ");
+		System.out.print(actVO3.getActFee() + ", ");
+		System.out.print(actVO3.getActRegistration() + ", ");
+		System.out.println(actVO3.getActStatus());
 		System.out.println("---------------------");
 
 		// 查詢
@@ -222,13 +222,13 @@ public class ActJDBCDAO implements ActDAO_interface{
 			System.out.print(aAct.getStoreID() + ", ");
 			System.out.print(aAct.getActTitle() + ", ");
 			System.out.print(aAct.getActDescription() + ", ");
-			System.out.print(aAct.getActDate() + ", ");
-			System.out.print(aAct.getActStatus() + ", ");
-			System.out.print(aAct.getActFee() + ", ");
-			System.out.print(aAct.getActRegistration() + ", ");
 			System.out.print(aAct.getActTimeStart() + ", ");
 			System.out.print(aAct.getActTimeEnd() + ", ");
-			System.out.print(aAct.getRegisMax());
+			System.out.print(aAct.getActDate() + ", ");
+			System.out.print(aAct.getRegisMax() + ", ");
+			System.out.print(aAct.getActFee() + ", ");
+			System.out.print(aAct.getActRegistration() + ", ");
+			System.out.print(aAct.getActStatus());
 			System.out.println();
 		}
 	}

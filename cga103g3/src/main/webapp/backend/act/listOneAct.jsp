@@ -8,7 +8,7 @@ ActVO actVO = (ActVO) request.getAttribute("actVO"); //ActServlet.java(Concrolle
 
 <html>
 <head>
-<title>員工資料 - listOneAct.jsp</title>
+<title>活動資訊 - listOneAct.jsp</title>
 
 <style>
 table#table-1 {
@@ -54,7 +54,7 @@ th, td {
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>員工資料 - ListOneAct.jsp</h3>
+				<h3>活動資訊 - ListOneAct.jsp</h3>
 				<h4>
 					<a href="select_page.jsp"><img src="images/back1.gif"
 						width="100" height="32" border="0">回首頁</a>
@@ -89,6 +89,12 @@ th, td {
 			<td>${actVO.actFee}</td>
 			<td>${actVO.actRegistration}</td>
 			<td>${actVO.actStatus}</td>
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/act/act.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改">
+			     <input type="hidden" name="actID"  value="${actVO.actID}">
+			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			</td>
 		</tr>
 	</table>
 

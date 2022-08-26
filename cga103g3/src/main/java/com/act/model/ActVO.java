@@ -7,13 +7,13 @@ public class ActVO implements java.io.Serializable {
 	private Integer storeID;
 	private String actTitle;
 	private String actDescription;
-	private Timestamp actDate;
-	private Integer actStatus;
-	private Integer actFee;
-	private Integer actRegistration;
 	private Timestamp actTimeStart;
 	private Timestamp actTimeEnd;
+	private Timestamp actDate;
 	private Integer regisMax;
+	private Integer actFee;
+	private Integer actRegistration;
+	private Integer actStatus;
 	
 	public Integer getActID() {
 		return actID;

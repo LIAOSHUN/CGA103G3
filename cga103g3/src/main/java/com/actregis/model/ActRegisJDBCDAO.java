@@ -21,10 +21,18 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 		"select MemID, ActID, RegisTime, ActNum, ActFee, FeeStatus, "
 		+ "RegisStatus, ActReview, Satisfaction, ReviewDate "
 		+ "from actregistered order by ActID";
-	private static final String GET_ONE_STMT = 
+	private static final String GET_ONEACT_STMT = 
 		"select MemID, ActID, RegisTime, ActNum, ActFee, FeeStatus, "
 		+ "RegisStatus, ActReview, Satisfaction, ReviewDate "
 		+ "from actregistered where ActID = ?";
+	private static final String GET_ONEMEM_STMT = 
+		"select MemID, ActID, RegisTime, ActNum, ActFee, FeeStatus, "
+		+ "RegisStatus, ActReview, Satisfaction, ReviewDate "
+		+ "from actregistered where MemID = ?";
+	private static final String GET_ONE_FORUPDATE = 
+			"select MemID, ActID, RegisTime, ActNum, ActFee, FeeStatus, "
+			+ "RegisStatus, ActReview, Satisfaction, ReviewDate "
+			+ "from actregistered where MemID = ? and ActID = ?";
 	private static final String UPDATE = 
 		"update actregistered set RegisTime=Now(), ActNum=?, ActFee=?, FeeStatus=?, "
 		+ "RegisStatus=?, ActReview=?, Satisfaction=?, ReviewDate=Now() where MemID = ? and ActID = ?";
@@ -90,12 +98,12 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 	}
 
 	@Override
-	public List<ActRegisVO> findByPrimaryKey(Integer actID) {
-		List<ActRegisVO> listRegis = new ArrayList<ActRegisVO>();
+	public List<ActRegisVO> findByActPrimaryKey(Integer actID) {
+		List<ActRegisVO> listRegistered = new ArrayList<ActRegisVO>();
 		ActRegisVO actRegisVO = null;
 
 		try (Connection con = DriverManager.getConnection(url, userid, passwd);
-				PreparedStatement pstmt = con.prepareStatement(GET_ONE_STMT);
+				PreparedStatement pstmt = con.prepareStatement(GET_ONEACT_STMT);
 				) {
 				Class.forName(driver);
 
@@ -116,7 +124,7 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 				actRegisVO.setActReview(rs.getString("actReview"));
 				actRegisVO.setSatisfaction(rs.getInt("satisfaction"));
 				actRegisVO.setReviewDate(rs.getDate("reviewDate"));	
-				listRegis.add(actRegisVO); // Store the row in the list
+				listRegistered.add(actRegisVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -129,7 +137,91 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		}
-		return listRegis;
+		return listRegistered;
+	}
+	
+	@Override
+	public List<ActRegisVO> findByMemPrimaryKey(Integer memID) {
+		List<ActRegisVO> listMemRegis = new ArrayList<ActRegisVO>();
+		ActRegisVO actRegisVO = null;
+		
+		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+				PreparedStatement pstmt = con.prepareStatement(GET_ONEMEM_STMT);
+				) {
+			Class.forName(driver);
+			
+			pstmt.setInt(1, memID);
+			ResultSet rs = pstmt.executeQuery();
+			
+			
+			while (rs.next()) {
+				// actRegisVO 也稱為 Domain objects
+				actRegisVO = new ActRegisVO();
+				actRegisVO.setMemID(rs.getInt("memID"));
+				actRegisVO.setActID(rs.getInt("actID"));
+				actRegisVO.setRegisTime(rs.getTimestamp("regisTime"));
+				actRegisVO.setActNum(rs.getInt("actNum"));
+				actRegisVO.setActFee(rs.getInt("actFee"));
+				actRegisVO.setFeeStatus(rs.getInt("feeStatus"));
+				actRegisVO.setRegisStatus(rs.getInt("regisStatus"));
+				actRegisVO.setActReview(rs.getString("actReview"));
+				actRegisVO.setSatisfaction(rs.getInt("satisfaction"));
+				actRegisVO.setReviewDate(rs.getDate("reviewDate"));	
+				listMemRegis.add(actRegisVO); // Store the row in the list
+			}
+			
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		}
+		return listMemRegis;
+	}
+	
+	@Override
+	public ActRegisVO findByPrimaryKey(Integer memID, Integer actID) {
+		ActRegisVO actRegisVO = null;
+
+		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+				PreparedStatement pstmt = con.prepareStatement(GET_ONE_FORUPDATE);
+				) {
+				Class.forName(driver);
+
+			pstmt.setInt(1, memID);
+			pstmt.setInt(2, actID);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				// actRegisVO 也稱為 Domain objects
+				actRegisVO = new ActRegisVO();
+				actRegisVO.setMemID(rs.getInt("memID"));
+				actRegisVO.setActID(rs.getInt("actID"));
+				actRegisVO.setRegisTime(rs.getTimestamp("regisTime"));
+				actRegisVO.setActNum(rs.getInt("actNum"));
+				actRegisVO.setActFee(rs.getInt("actFee"));
+				actRegisVO.setFeeStatus(rs.getInt("feeStatus"));
+				actRegisVO.setRegisStatus(rs.getInt("regisStatus"));
+				actRegisVO.setActReview(rs.getString("actReview"));
+				actRegisVO.setSatisfaction(rs.getInt("satisfaction"));
+				actRegisVO.setReviewDate(rs.getDate("reviewDate"));	
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		}
+		return actRegisVO;
 	}
 
 	@Override
@@ -201,20 +293,51 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 		dao.update(actRegisVO2);
 
 		// 查詢 報名活動的所有會員
-		List<ActRegisVO> listRegis = dao.findByPrimaryKey(61001);
-		for (ActRegisVO aActRegismem : listRegis) {
-			System.out.print(aActRegismem.getMemID() + ", ");
-			System.out.print(aActRegismem.getActID() + ", ");
-			System.out.print(aActRegismem.getRegisTime() + ", ");
-			System.out.print(aActRegismem.getActNum() + ", ");
-			System.out.print(aActRegismem.getActFee() + ", ");
-			System.out.print(aActRegismem.getFeeStatus() + ", ");
-			System.out.print(aActRegismem.getRegisStatus() + ", ");
-			System.out.print(aActRegismem.getActReview() + ", ");
-			System.out.print(aActRegismem.getSatisfaction() + ", ");
-			System.out.println(aActRegismem.getReviewDate());
+		List<ActRegisVO> listRegistered = dao.findByActPrimaryKey(61001);
+		for (ActRegisVO aActRegistered : listRegistered) {
+			System.out.print(aActRegistered.getMemID() + ", ");
+			System.out.print(aActRegistered.getActID() + ", ");
+			System.out.print(aActRegistered.getRegisTime() + ", ");
+			System.out.print(aActRegistered.getActNum() + ", ");
+			System.out.print(aActRegistered.getActFee() + ", ");
+			System.out.print(aActRegistered.getFeeStatus() + ", ");
+			System.out.print(aActRegistered.getRegisStatus() + ", ");
+			System.out.print(aActRegistered.getActReview() + ", ");
+			System.out.print(aActRegistered.getSatisfaction() + ", ");
+			System.out.println(aActRegistered.getReviewDate());
 			System.out.println("---------------------");
 		}
+		
+		// 查詢 會員所報名的活動
+		List<ActRegisVO> listMemRegis = dao.findByMemPrimaryKey(11001);
+		for (ActRegisVO aActRegisMem : listMemRegis) {
+			System.out.print(aActRegisMem.getMemID() + ", ");
+			System.out.print(aActRegisMem.getActID() + ", ");
+			System.out.print(aActRegisMem.getRegisTime() + ", ");
+			System.out.print(aActRegisMem.getActNum() + ", ");
+			System.out.print(aActRegisMem.getActFee() + ", ");
+			System.out.print(aActRegisMem.getFeeStatus() + ", ");
+			System.out.print(aActRegisMem.getRegisStatus() + ", ");
+			System.out.print(aActRegisMem.getActReview() + ", ");
+			System.out.print(aActRegisMem.getSatisfaction() + ", ");
+			System.out.println(aActRegisMem.getReviewDate());
+			System.out.println("---------------------");
+		}
+		
+		// 查詢 單一報名
+		ActRegisVO actRegisVO = dao.findByPrimaryKey(11001, 61001);
+		System.out.print(actRegisVO.getMemID() + ",");
+		System.out.print(actRegisVO.getActID() + ",");
+		System.out.print(actRegisVO.getRegisTime() + ",");
+		System.out.print(actRegisVO.getActNum() + ",");
+		System.out.print(actRegisVO.getActFee() + ",");
+		System.out.print(actRegisVO.getFeeStatus() + ",");
+		System.out.print(actRegisVO.getRegisStatus() + ",");
+		System.out.print(actRegisVO.getActReview() + ",");
+		System.out.print(actRegisVO.getSatisfaction() + ",");
+		System.out.println(actRegisVO.getReviewDate());
+		System.out.println("---------------------");
+			
 		// 查詢
 		List<ActRegisVO> list = dao.getAll();
 		for (ActRegisVO aActRegis : list) {

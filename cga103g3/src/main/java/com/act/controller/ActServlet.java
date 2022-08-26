@@ -124,25 +124,6 @@ public class ActServlet extends HttpServlet {
 				if (actDescription == null || actDescription.trim().length() == 0) {
 					errorMsgs.add("內文請勿空白");
 				}
-				Timestamp actDate = null;
-				try {
-					actDate = Timestamp.valueOf(req.getParameter("actDate").trim()+":00");
-				} catch (IllegalArgumentException e) {
-					errorMsgs.add("請輸入日期!");
-				}
-
-				Integer actStatus = Integer.valueOf(req.getParameter("actStatus").trim());
-				Integer actFee = null;
-				try {
-					actFee = Integer.valueOf(req.getParameter("actFee").trim());
-					if(actFee <= 0){
-						errorMsgs.add("金額不得小於0");
-					}
-				} catch (Exception e) {
-					errorMsgs.add("請輸入金額");
-				}
-				
-				Integer actRegistration = Integer.valueOf(req.getParameter("actRegistration").trim());
 				
 				Timestamp actTimeStart = null;
 				try {
@@ -156,7 +137,27 @@ public class ActServlet extends HttpServlet {
 				} catch (IllegalArgumentException e) {
 					errorMsgs.add("請輸入日期!");
 				}
+				Timestamp actDate = null;
+				try {
+					actDate = Timestamp.valueOf(req.getParameter("actDate").trim()+":00");
+				} catch (IllegalArgumentException e) {
+					errorMsgs.add("請輸入日期!");
+				}
+				
 				Integer regisMax = Integer.valueOf(req.getParameter("regisMax").trim());
+				Integer actFee = null;
+				try {
+					actFee = Integer.valueOf(req.getParameter("actFee").trim());
+					if(actFee <= 0){
+						errorMsgs.add("金額不得小於0");
+					}
+				} catch (Exception e) {
+					errorMsgs.add("請輸入金額");
+				}
+				
+				Integer actRegistration = Integer.valueOf(req.getParameter("actRegistration").trim());
+				Integer actStatus = Integer.valueOf(req.getParameter("actStatus").trim());
+				
 				
 				
 				ActVO actVO = new ActVO();
@@ -164,13 +165,13 @@ public class ActServlet extends HttpServlet {
 				actVO.setStoreID(storeID);
 				actVO.setActTitle(actTitle);
 				actVO.setActDescription(actDescription);
-				actVO.setActDate(actDate);
-				actVO.setActStatus(actStatus);
-				actVO.setActFee(actFee);
-				actVO.setActRegistration(actRegistration);
 				actVO.setActTimeStart(actTimeStart);
 				actVO.setActTimeEnd(actTimeEnd);
+				actVO.setActDate(actDate);
 				actVO.setRegisMax(regisMax);
+				actVO.setActFee(actFee);
+				actVO.setActRegistration(actRegistration);
+				actVO.setActStatus(actStatus);
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -183,8 +184,8 @@ public class ActServlet extends HttpServlet {
 				
 				/***************************2.開始修改資料*****************************************/
 				ActService actSvc = new ActService();
-				actVO = actSvc.updateAct(actID, storeID, actTitle, actDescription, actDate, actStatus, actFee, 
-										actRegistration, actTimeStart, actTimeEnd, regisMax);
+				actVO = actSvc.updateAct(actID, storeID, actTitle, actDescription, actTimeStart, actTimeEnd, 
+										actDate, regisMax, actFee, actRegistration, actStatus);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("actVO", actVO); // 資料庫update成功後,正確的的actVO物件,存入req
@@ -212,26 +213,6 @@ public class ActServlet extends HttpServlet {
 					errorMsgs.add("內文請勿空白");
 				}
 				
-				Timestamp actDate = null;
-				try {
-					actDate = Timestamp.valueOf(req.getParameter("actDate").trim()+":00");
-				} catch (IllegalArgumentException e) {
-					errorMsgs.add("請輸入日期!");
-				}
-
-				Integer actStatus = Integer.valueOf(req.getParameter("actStatus").trim());
-				Integer actFee = null;
-				try {
-					actFee = Integer.valueOf(req.getParameter("actFee").trim());
-					if(actFee <= 0){
-						errorMsgs.add("金額不得小於0");
-					}
-				} catch (Exception e) {
-					errorMsgs.add("請輸入金額");
-				}
-				
-				Integer actRegistration = Integer.valueOf(req.getParameter("actRegistration").trim());
-				
 				Timestamp actTimeStart = null;
 				try {
 					actTimeStart = Timestamp.valueOf(req.getParameter("actTimeStart").trim()+":00");
@@ -245,19 +226,39 @@ public class ActServlet extends HttpServlet {
 				} catch (IllegalArgumentException e) {
 					errorMsgs.add("請輸入日期!");
 				}
+				Timestamp actDate = null;
+				try {
+					actDate = Timestamp.valueOf(req.getParameter("actDate").trim()+":00");
+				} catch (IllegalArgumentException e) {
+					errorMsgs.add("請輸入日期!");
+				}
+
 				Integer regisMax = Integer.valueOf(req.getParameter("regisMax").trim());
+				Integer actFee = null;
+				try {
+					actFee = Integer.valueOf(req.getParameter("actFee").trim());
+					if(actFee <= 0){
+						errorMsgs.add("金額不得小於0");
+					}
+				} catch (Exception e) {
+					errorMsgs.add("請輸入金額");
+				}
+				
+				Integer actRegistration = Integer.valueOf(req.getParameter("actRegistration").trim());
+				Integer actStatus = Integer.valueOf(req.getParameter("actStatus").trim());
+				
 				
 				ActVO actVO = new ActVO();
 				actVO.setStoreID(storeID);
 				actVO.setActTitle(actTitle);
 				actVO.setActDescription(actDescription);
-				actVO.setActDate(actDate);
-				actVO.setActStatus(actStatus);
-				actVO.setActFee(actFee);
-				actVO.setActRegistration(actRegistration);
 				actVO.setActTimeStart(actTimeStart);
 				actVO.setActTimeEnd(actTimeEnd);
+				actVO.setActDate(actDate);
 				actVO.setRegisMax(regisMax);
+				actVO.setActFee(actFee);
+				actVO.setActRegistration(actRegistration);
+				actVO.setActStatus(actStatus);
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -270,8 +271,8 @@ public class ActServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				ActService actSvc = new ActService();
-				actVO = actSvc.addAct(storeID, actTitle, actDescription, actDate, actStatus, actFee, 
-						actRegistration, actTimeStart, actTimeEnd, regisMax);
+				actVO = actSvc.addAct(storeID, actTitle, actDescription, actTimeStart, actTimeEnd, 
+						actDate, regisMax, actFee, actRegistration, actStatus);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/backend/act/listAllAct.jsp";
