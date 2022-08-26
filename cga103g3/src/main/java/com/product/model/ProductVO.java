@@ -4,62 +4,66 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class ProductVO implements java.io.Serializable {
-	private Integer PdID;
-	private String PdName;
-	private Integer PdPrice;
-	private Integer PdAmount;
-	private String PdDescription;
-	private Integer PdStatus;
-	private Integer PdStar;
-	private Timestamp PdUpdate;
+	private Integer pdID;
+	private String pdName;
+	private Integer pdPrice;
+	private Integer pdAmount;
+	private String pdDescription;
+	private Integer pdStatus;
+	private Integer pdStar;
+	private Timestamp pdUpdate;
+	
 	public Integer getPdID() {
-		return PdID;
+		return pdID;
 	}
 	public void setPdID(Integer pdID) {
-		PdID = pdID;
+		this.pdID = pdID;
 	}
 	public String getPdName() {
-		return PdName;
+		return pdName;
 	}
 	public void setPdName(String pdName) {
-		PdName = pdName;
+		this.pdName = pdName;
 	}
 	public Integer getPdPrice() {
-		return PdPrice;
+		return pdPrice;
 	}
 	public void setPdPrice(Integer pdPrice) {
-		PdPrice = pdPrice;
+		this.pdPrice = pdPrice;
 	}
 	public Integer getPdAmount() {
-		return PdAmount;
+		return pdAmount;
 	}
 	public void setPdAmount(Integer pdAmount) {
-		PdAmount = pdAmount;
+		this.pdAmount = pdAmount;
 	}
 	public String getPdDescription() {
-		return PdDescription;
+		return pdDescription;
 	}
 	public void setPdDescription(String pdDescription) {
-		PdDescription = pdDescription;
+		this.pdDescription = pdDescription;
 	}
 	public Integer getPdStatus() {
-		return PdStatus;
+		return pdStatus;
 	}
 	public void setPdStatus(Integer pdStatus) {
-		PdStatus = pdStatus;
+		this.pdStatus = pdStatus;
 	}
 	public Integer getPdStar() {
-		return PdStar;
+		return pdStar;
 	}
 	public void setPdStar(Integer pdStar) {
-		PdStar = pdStar;
+		this.pdStar = pdStar;
 	}
 	public Timestamp getPdUpdate() {
-		return PdUpdate;
+		return pdUpdate;
 	}
 	public void setPdUpdate(Timestamp pdUpdate) {
-		PdUpdate = pdUpdate;
+		this.pdUpdate = pdUpdate;
 	}
+	
+	
+	
 
 	}
 

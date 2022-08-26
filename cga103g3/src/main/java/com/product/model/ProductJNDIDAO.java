@@ -25,7 +25,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 		private static final String GET_ALL_STMT = 
 			"SELECT PdID,PdName,PdPrice,PdAmount,PdDescription,PdStatus,PdStar,PdUpdate FROM product order by PdID";
 		private static final String GET_ONE_STMT = 
-			"SELECT PdID,PdName,PdPrice,PdAmount,PdDescription,PdStatus,PdStar,PdUpdate FROM product where empno = ?";
+			"SELECT PdID,PdName,PdPrice,PdAmount,PdDescription,PdStatus,PdStar,PdUpdate FROM product where PdID = ?";
 		private static final String DELETE = 
 			"DELETE FROM product where PdID = ?";
 		private static final String UPDATE = 
@@ -42,14 +42,13 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-//			pstmt.setInt(1, productVO.getPdID());
+//"INSERT INTO product (PdName,PdPrice,PdAmount,PdDescription,PdStatus,PdStar) VALUES (?, ?, ?, ?, ?, ?)";
 			pstmt.setString(1, productVO.getPdName());
 			pstmt.setInt(2, productVO.getPdPrice());
 			pstmt.setInt(3, productVO.getPdAmount());
 			pstmt.setString(4, productVO.getPdDescription());
 			pstmt.setInt(5, productVO.getPdStatus());
 			pstmt.setInt(6, productVO.getPdStar());
-//			pstmt.setTimestamp(7, productVO.getPdUpdate());
 
 			pstmt.executeUpdate();
 
@@ -88,7 +87,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-//			pstmt.setInt(1, productVO.getPdID());
+//"UPDATE product set PdName=?, PdPrice=?, PdAmount=?, PdDescription=?, PdStatus=?, PdStar=? where PdID = ?";
 			pstmt.setString(1, productVO.getPdName());
 			pstmt.setInt(2, productVO.getPdPrice());
 			pstmt.setInt(3, productVO.getPdAmount());
@@ -124,7 +123,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer PdId) {
+	public void delete(Integer pdId) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -134,7 +133,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, PdId);
+			pstmt.setInt(1, pdId);
 
 			pstmt.executeUpdate();
 
@@ -163,7 +162,7 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public ProductVO findByPrimaryKey(Integer PdId) {
+	public ProductVO findByPrimaryKey(Integer pdId) {
 
 		ProductVO productVO = null;
 		Connection con = null;
@@ -175,21 +174,21 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, PdId);
+			pstmt.setInt(1, pdId);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
-				// empVo �]�٬� Domain objects
+				
 				productVO = new ProductVO();
-				productVO.setPdID(rs.getInt("PdID"));
-				productVO.setPdName(rs.getString("PdName"));
-				productVO.setPdPrice(rs.getInt("PdPrice"));
-				productVO.setPdAmount(rs.getInt("PdAmount"));
-				productVO.setPdDescription(rs.getString("PdDescription"));
-				productVO.setPdStatus(rs.getInt("PdStatus"));
-				productVO.setPdStar(rs.getInt("PdStar"));
-				productVO.setPdUpdate(rs.getTimestamp("PdUpdate"));
+				productVO.setPdID(rs.getInt("pdID"));
+				productVO.setPdName(rs.getString("pdName"));
+				productVO.setPdPrice(rs.getInt("pdPrice"));
+				productVO.setPdAmount(rs.getInt("pdAmount"));
+				productVO.setPdDescription(rs.getString("pdDescription"));
+				productVO.setPdStatus(rs.getInt("pdStatus"));
+				productVO.setPdStar(rs.getInt("pdStar"));
+				productVO.setPdUpdate(rs.getTimestamp("pdUpdate"));
 			}
 
 			// Handle any driver errors
@@ -241,14 +240,14 @@ public class ProductJNDIDAO implements ProductDAO_interface {
 			while (rs.next()) {
 				// empVO �]�٬� Domain objects
 				productVO = new ProductVO();
-				productVO.setPdID(rs.getInt("PdID"));
-				productVO.setPdName(rs.getString("PdName"));
-				productVO.setPdPrice(rs.getInt("PdPrice"));
-				productVO.setPdAmount(rs.getInt("PdAmount"));
-				productVO.setPdDescription(rs.getString("PdDescription"));
-				productVO.setPdStatus(rs.getInt("PdStatus"));
-				productVO.setPdStar(rs.getInt("PdStar"));
-				productVO.setPdUpdate(rs.getTimestamp("PdUpdate"));
+				productVO.setPdID(rs.getInt("pdID"));
+				productVO.setPdName(rs.getString("pdName"));
+				productVO.setPdPrice(rs.getInt("pdPrice"));
+				productVO.setPdAmount(rs.getInt("pdAmount"));
+				productVO.setPdDescription(rs.getString("pdDescription"));
+				productVO.setPdStatus(rs.getInt("pdStatus"));
+				productVO.setPdStar(rs.getInt("pdStar"));
+				productVO.setPdUpdate(rs.getTimestamp("pdUpdate"));
 				list.add(productVO); // Store the row in the list
 			}
 
