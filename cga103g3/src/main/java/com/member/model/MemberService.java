@@ -59,11 +59,11 @@ public class MemberService {
 		return memberVO;
 	}
 
-	public void deletemember(Integer memID) {
+	public void deleteMember(Integer memID) {
 		dao.delete(memID);
 	}
 
-	public MemberVO getOnemember(Integer memID) {
+	public MemberVO getOneMember(Integer memID) {
 		return dao.findByPrimaryKey(memID);
 	}
 
