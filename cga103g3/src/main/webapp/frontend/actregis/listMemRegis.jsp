@@ -74,7 +74,7 @@
 <!-- 		<th>評價日期</th> -->
 		<th>評價<br>取消報名</th>
 	</tr>
-	<%@ include file="page1.file" %> 
+	<%@ include file="page1.file" %>
 	<c:forEach var="actRegisVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
