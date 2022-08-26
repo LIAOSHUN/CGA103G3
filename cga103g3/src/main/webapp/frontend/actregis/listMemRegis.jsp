@@ -6,7 +6,8 @@
 
 <%
     ActRegisService actRegisSvc = new ActRegisService();
-//     List<ActRegisVO> listMemRegis = actRegisSvc.getMemRegis(request.getAttribute("會員登入後擷取會員ID"));
+//     ActRegisVO actRegisVO = (ActRegisVO) session.getAttribute("member");("會員登入後擷取會員ID"));
+//     List<ActRegisVO> list = actRegisSvc.getMemRegis(member.getMemID());("會員登入後擷取會員ID"));
     List<ActRegisVO> list = actRegisSvc.getMemRegis(11001);
     pageContext.setAttribute("list",list);
 %>
