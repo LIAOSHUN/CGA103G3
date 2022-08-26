@@ -15,7 +15,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		private static final String GET_ALL_STMT = 
 			"SELECT PdID,PdName,PdPrice,PdAmount,PdDescription,PdStatus,PdStar,PdUpdate FROM product order by PdID";
 		private static final String GET_ONE_STMT = 
-			"SELECT PdID,PdName,PdPrice,PdAmount,PdDescription,PdStatus,PdStar,PdUpdate FROM product where empno = ?";
+			"SELECT PdID,PdName,PdPrice,PdAmount,PdDescription,PdStatus,PdStar,PdUpdate FROM product where PdID = ?";
 		private static final String DELETE = 
 			"DELETE FROM product where PdID = ?";
 		private static final String UPDATE = 
@@ -33,15 +33,13 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-//			pstmt.setInt(1, productVO.getPdID());
+//"INSERT INTO product (PdName,PdPrice,PdAmount,PdDescription,PdStatus,PdStar) VALUES (?, ?, ?, ?, ?, ?)";
 			pstmt.setString(1, productVO.getPdName());
 			pstmt.setInt(2, productVO.getPdPrice());
 			pstmt.setInt(3, productVO.getPdAmount());
 			pstmt.setString(4, productVO.getPdDescription());
 			pstmt.setInt(5, productVO.getPdStatus());
 			pstmt.setInt(6, productVO.getPdStar());
-//			pstmt.setTimestamp(7, productVO.getPdUpdate());
-
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -84,7 +82,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-//			pstmt.setInt(1, productVO.getPdID());
+//			"UPDATE product set PdName=?, PdPrice=?, PdAmount=?, PdDescription=?, PdStatus=?, PdStar=? where PdID = ?";
 			pstmt.setString(1, productVO.getPdName());
 			pstmt.setInt(2, productVO.getPdPrice());
 			pstmt.setInt(3, productVO.getPdAmount());
@@ -126,7 +124,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer PdId) {
+	public void delete(Integer pdId) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -137,7 +135,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, PdId);
+			pstmt.setInt(1, pdId);
 
 			pstmt.executeUpdate();
 
@@ -170,7 +168,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	}
 
 	@Override
-	public ProductVO findByPrimaryKey(Integer PdId) {
+	public ProductVO findByPrimaryKey(Integer pdId) {
 
 		ProductVO productVO = null;
 		Connection con = null;
@@ -183,21 +181,21 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, PdId);
+			pstmt.setInt(1, pdId);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// empVo �]�٬� Domain objects
 				productVO = new ProductVO();
-				productVO.setPdID(rs.getInt("PdID"));
-				productVO.setPdName(rs.getString("PdName"));
-				productVO.setPdPrice(rs.getInt("PdPrice"));
-				productVO.setPdAmount(rs.getInt("PdAmount"));
-				productVO.setPdDescription(rs.getString("PdDescription"));
-				productVO.setPdStatus(rs.getInt("PdStatus"));
-				productVO.setPdStar(rs.getInt("PdStar"));
-				productVO.setPdUpdate(rs.getTimestamp("PdUpdate"));
+				productVO.setPdID(rs.getInt("pdID"));
+				productVO.setPdName(rs.getString("pdName"));
+				productVO.setPdPrice(rs.getInt("pdPrice"));
+				productVO.setPdAmount(rs.getInt("pdAmount"));
+				productVO.setPdDescription(rs.getString("pdDescription"));
+				productVO.setPdStatus(rs.getInt("pdStatus"));
+				productVO.setPdStar(rs.getInt("pdStar"));
+				productVO.setPdUpdate(rs.getTimestamp("pdUpdate"));
 			}
 
 			// Handle any driver errors
@@ -254,14 +252,14 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			while (rs.next()) {
 				// empVO �]�٬� Domain objects
 				productVO = new ProductVO();
-				productVO.setPdID(rs.getInt("PdID"));
-				productVO.setPdName(rs.getString("PdName"));
-				productVO.setPdPrice(rs.getInt("PdPrice"));
-				productVO.setPdAmount(rs.getInt("PdAmount"));
-				productVO.setPdDescription(rs.getString("PdDescription"));
-				productVO.setPdStatus(rs.getInt("PdStatus"));
-				productVO.setPdStar(rs.getInt("PdStar"));
-				productVO.setPdUpdate(rs.getTimestamp("PdUpdate"));
+				productVO.setPdID(rs.getInt("pdID"));
+				productVO.setPdName(rs.getString("pdName"));
+				productVO.setPdPrice(rs.getInt("pdPrice"));
+				productVO.setPdAmount(rs.getInt("pdAmount"));
+				productVO.setPdDescription(rs.getString("pdDescription"));
+				productVO.setPdStatus(rs.getInt("pdStatus"));
+				productVO.setPdStar(rs.getInt("pdStar"));
+				productVO.setPdUpdate(rs.getTimestamp("pdUpdate"));
 				list.add(productVO); // Store the row in the list
 			}
 
@@ -312,34 +310,36 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		productVO1.setPdDescription("這是89");
 		productVO1.setPdStatus(0);
 		productVO1.setPdStar(3);
-//		productVO1.setPdUpdate(Timestamp.valueOf(LocalDateTime.now())
-//);
+		productVO1.setPdUpdate(Timestamp.valueOf(LocalDateTime.now())
+);
 		dao.insert(productVO1);
+//		"UPDATE product set PdName=?, PdPrice=?, PdAmount=?, PdDescription=?, PdStatus=?, PdStar=? where PdID = ?";
 
 		// �ק�
-//		ProductVO productVO2 = new ProductVO();
-//		productVO2.setPdID(21005);
-//		productVO2.setPdName("大富翁8+10");
-//		productVO2.setPdPrice(11);
-//		productVO2.setPdAmount(11);
-//		productVO2.setPdDescription("這是810");
-//		productVO2.setPdStatus(0);
-//		productVO2.setPdStar(3);
-//		dao.update(productVO2);
+		ProductVO productVO2 = new ProductVO();
+		productVO2.setPdID(21015);
+		productVO2.setPdName("吃你媽的飯");
+		productVO2.setPdPrice(11);
+		productVO2.setPdAmount(11);
+		productVO2.setPdDescription("這是你媽");
+		productVO2.setPdStatus(0);
+		productVO2.setPdStar(3);
+		dao.update(productVO2);
 
 		// �R��
-//		dao.delete(21006);
+		dao.delete(21006);
 
 		// �d�� 沒有打PDUPDATE
-//		ProductVO productVO3= dao.findByPrimaryKey(21001);
-//		System.out.print(productVO3.getPdID() + ",");
-//		System.out.print(productVO3.getPdName() +",");
-//		System.out.print(productVO3.getPdPrice() + ",");
-//		System.out.print(productVO3.getPdAmount() + ",");
-//		System.out.print(productVO3.getPdDescription() + ",");
-//		System.out.print(productVO3.getPdStatus() + ",");
-//		System.out.println(productVO3.getPdStar() + ",");
-//		System.out.println("---------------------");
+		ProductVO productVO3= dao.findByPrimaryKey(21001);
+		System.out.print(productVO3.getPdID() + ",");
+		System.out.print(productVO3.getPdName() +",");
+		System.out.print(productVO3.getPdPrice() + ",");
+		System.out.print(productVO3.getPdAmount() + ",");
+		System.out.print(productVO3.getPdDescription() + ",");
+		System.out.print(productVO3.getPdStatus() + ",");
+		System.out.println(productVO3.getPdStar() + ",");
+		System.out.println(productVO3.getPdUpdate() + ",");
+		System.out.println("---------------------");
 
 		// �d��
 		List<ProductVO> list = dao.getAll();
