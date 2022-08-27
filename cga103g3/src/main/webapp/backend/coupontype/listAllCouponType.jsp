@@ -120,7 +120,8 @@
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/coupontype/coupontype.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
 			     <input type="hidden" name="coupTypeNo"  value="${couponTypeVO.coupTypeNo}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			     <input type="hidden" name="action"	value="getOne_For_Update">
+			  </FORM>
 			</td>
 <!-- 			<td> -->
 <%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/coupontype/coupontype.do" style="margin-bottom: 0px;"> --%>

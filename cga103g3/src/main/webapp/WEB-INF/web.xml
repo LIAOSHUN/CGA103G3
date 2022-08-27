@@ -20,6 +20,15 @@
 		<servlet-name>CouponTypeServlet</servlet-name>
 		<url-pattern>/backend/coupontype/coupontype.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CartServlet</servlet-name>
+		<servlet-class>com.cart.controller.CartServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CartServlet</servlet-name>
+		<url-pattern>/frontend/cart/cart.do</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>ActServlet</servlet-name>
