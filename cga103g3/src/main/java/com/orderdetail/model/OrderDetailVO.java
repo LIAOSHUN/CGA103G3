@@ -12,6 +12,7 @@ public class OrderDetailVO implements Serializable {
  		
  	}
 
+
 	public OrderDetailVO(Integer ordNo, Integer pdID, Integer itemSales, Integer price) {
 		super();
 		this.ordNo = ordNo;

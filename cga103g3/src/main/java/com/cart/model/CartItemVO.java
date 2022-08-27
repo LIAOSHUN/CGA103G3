@@ -1,6 +1,6 @@
 package com.cart.model;
 
-public class CartVO {
+public class CartItemVO {
 	
 	
 	private Integer pdID;
@@ -10,12 +10,12 @@ public class CartVO {
 	
 	
 	
-	public CartVO() {
+	public CartItemVO() {
 	
 	}
 	
 	
-	public CartVO(Integer pdID, String pdName, Integer count,  Integer pdPrice) {
+	public CartItemVO(Integer pdID, String pdName, Integer count,  Integer pdPrice) {
 		super();
 		
 		this.pdID = pdID;
