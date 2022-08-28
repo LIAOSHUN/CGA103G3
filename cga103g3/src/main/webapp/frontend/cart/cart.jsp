@@ -45,7 +45,8 @@
 <body>
 <br>
    <% 
-   List<CartItemVO> cartItems = (List<CartItemVO>) request.getAttribute("cartItems");%>
+   List<CartItemVO> cartItems = (List<CartItemVO>) request.getAttribute("cartItems");
+   %>
 <%if (cartItems != null && (cartItems.size() > 0)) {%>
 
 <font size="+1">購物車明細</font>
@@ -60,17 +61,26 @@
     </tr>
 </table>
 
-<table>
+
 
 	<%
 	 for (int index = 0; index < cartItems.size(); index++) {
 		 CartItemVO CartItem = cartItems.get(index);
 	%>
+	<table>
 	<tr>
 		<td width="200"><%=CartItem.getPdName()%>   </td>
-		<td width="100"><%=CartItem.getPdPrice()%>  元</td>
-		<td width="100"><%=CartItem.getCount()%>	</td>
-		<td width="100"><%=CartItem.getPdPrice() * CartItem.getCount()%>   元 </td>
+		<td width="100">$<%=CartItem.getPdPrice()%>  </td>
+		<td width="100">
+			<form action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
+				<input type="hidden" name="action"  value="changeItemCount">
+				<input type="hidden" name="pdID"  value="<%=CartItem.getPdID()%>">
+				<input type="submit" value="+">
+				<input type="TEXT" name="count" size="1" value="<%=CartItem.getCount()%>" />
+				<input type="submit" value="-">
+			</form>
+		</td>
+		<td width="100">$<%=CartItem.getPdPrice() * CartItem.getCount()%>  </td>
 		
         <td width="120">
           <form name="deleteForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
@@ -80,13 +90,36 @@
           </form>
          </td>
 	</tr>
+	</table>	
 	<%}%>
-</table>
-<p>
-          <form name="deleteCartForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
-              <input type="hidden" name="action"  value="deleteCart"> 
-              <input type="submit" value="付款結帳" class="button">
-          </form>
-<%}%>
+	<div>
+		<form name="checkoutForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
+              <input type="hidden" name="action"  value="checkout"> 
+              <input type="submit" value="前往結帳" class="button">
+        </form>
+    </div>
+<%}else{%>
+		<font size="+1">購物車明細</font>
+
+		<table id="table-1">
+    		<tr> 
+      			<th width="200">遊戲名稱</th>
+      			<th width="100">單價</th>
+      			<th width="100">數量</th>
+      			<th width="100">價格</th>
+      			<th width="120">移除購買項目</th>
+    		</tr>
+		</table>
+
+		<table>
+			<tr>
+				<td width="620">目前尚無商品</td>
+			</tr>
+		</table>
+	<%}%>
+	
+	<div>
+		<a href="testpro.jsp"><font size="+1" color="green"> 繼 續 購 物</font></a>
+	</div>
 </body>
 </html>

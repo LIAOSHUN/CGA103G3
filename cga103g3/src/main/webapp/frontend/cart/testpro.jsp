@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>testpro</title>
 
 
 <style>
@@ -87,7 +87,7 @@
 			     <input type="hidden" name="pdPrice"  value="490">
 			     <input type="hidden" name="count"  value="2">
 			     <input type="hidden" name="action"	value="addItem">
-			 
+			 </FORM>
 			</td>
 		</tr>
 </table>

@@ -45,11 +45,11 @@ public class CartService {
 	
 //	===============================================================================================================
 	
-	//點擊購物車的按鈕，進入購物車，要先找這個人的車，去redis裡找購物車
+	//點擊購物車的按鈕，進入購物車
 	public List<CartItemVO> getCart(String sessionId) {
 		List cartItemsList = new ArrayList();
 
-		// search cart from redis
+		// search cart from redis//要先找這個人的車，去redis裡找購物車
 		List<String> cartItems = CartRedisDAO.getCart(sessionId); // {"itemId": "xxx", "count": "x"}
 		for (int i = 0; i < cartItems.size(); i++) {
 			CartItemVO cartItemVO = gson.fromJson(cartItems.get(i), CartItemVO.class);
@@ -70,7 +70,16 @@ public class CartService {
 		cartItemVO.setCount(count);
 
 		daoR.addItem(sessionId, cartItemVO);
+	}
+	
+	//在購物車內改變商品數量
+	public void changeItemCount(String sessionId, Integer pdID, Integer count) {
 
+		CartItemVO cartItemVO = new CartItemVO();
+		cartItemVO.setPdID(pdID);
+		cartItemVO.setCount(count);
+
+		daoR.changeItemCount(sessionId, cartItemVO);
 	}
 
 	public void deleteItem(String sessionId, Integer itemId) {

@@ -94,19 +94,11 @@ public class CartServlet extends HttpServlet {
 			CartService cartSvc = new CartService();
 			List<CartItemVO> cartItems = null;
 			cartItems = cartSvc.getCart(sessionId);
-
-			
 			
 			req.setAttribute("cartItems", cartItems);
 			String url = "/frontend/cart/cart.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
-			
-//			PrintWriter out = res.getWriter();
-//			String cartItemsJson = gson.toJson(cartItems);
-//			out.write(cartItemsJson);
-//			out.flush();
-//			out.close();
 		}
 
 		// 點擊加入購物車時
@@ -121,6 +113,23 @@ public class CartServlet extends HttpServlet {
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 		}
+		
+		//在購物車內改變商品數量
+		if ("changeItemCount".equals(action)) {
+			Integer pdID = new Integer(req.getParameter("pdID"));
+			Integer count = new Integer(req.getParameter("count"));
+			String sessionId = (String) req.getSession().getAttribute("sessionId");
+			CartService cartSvc = new CartService();
+			cartSvc.changeItemCount(sessionId, pdID, count);
+			
+			List<CartItemVO> cartItems = null;
+			cartItems = cartSvc.getCart(sessionId);
+
+			req.setAttribute("cartItems", cartItems);
+			String url = "/frontend/cart/cart.jsp";
+			RequestDispatcher rd = req.getRequestDispatcher(url);
+			rd.forward(req, res);
+		}
 
 		// 點擊刪除商品時
 		if ("deleteItem".equals(action)) {
@@ -128,13 +137,29 @@ public class CartServlet extends HttpServlet {
 			String sessionId = (String) req.getSession().getAttribute("sessionId");
 			CartService cartSvc = new CartService();
 			cartSvc.deleteItem(sessionId, pdID);
-			
+			List<CartItemVO> cartItems = null;
+			cartItems = cartSvc.getCart(sessionId);
+
+			req.setAttribute("cartItems", cartItems);
 			String url = "/frontend/cart/cart.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 		}
+		//按下前往結帳
+		if ("checkout".equals(action)) {
+			Gson gson = new Gson();
+			String sessionId = (String) req.getSession().getAttribute("sessionId");//取得session的ID
+			CartService cartSvc = new CartService();
+			List<CartItemVO> cartItems = null;
+			cartItems = cartSvc.getCart(sessionId);
 
-		// 成功結帳欲清空購物車時
+			req.setAttribute("cartItems", cartItems);
+			String url = "/frontend/cart/checkout.jsp";
+			RequestDispatcher rd = req.getRequestDispatcher(url);
+			rd.forward(req, res);
+		}
+
+		// 送出訂單欲清空購物車時
 		if ("deleteCart".equals(action)) {
 			String sessionId = (String) req.getSession().getAttribute("sessionId");
 			CartService cartSvc = new CartService();
