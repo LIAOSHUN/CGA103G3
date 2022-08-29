@@ -3,6 +3,7 @@ package com.act.model;
 import java.sql.*;
 import java.util.*;
 
+import com.actimg.model.ActImgJDBCDAO;
 import com.actimg.model.ActImgVO;
 
 import static common_35.Common.*;
@@ -203,8 +204,87 @@ public class ActJDBCDAO implements ActDAO_interface{
 
 	@Override
 	public void insertWithActImgs(ActVO actVO, List<ActImgVO> list) {
-		// TODO Auto-generated method stub
-		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			// 將auto commit解除
+			con.setAutoCommit(false);
+			
+			// 新增活動
+			String cols[] = {"ActID"};
+			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt.setInt(1, actVO.getStoreID());
+			pstmt.setString(2, actVO.getActTitle());
+			pstmt.setString(3, actVO.getActDescription());
+			pstmt.setTimestamp(4, actVO.getActTimeStart());
+			pstmt.setTimestamp(5, actVO.getActTimeEnd());
+			pstmt.setTimestamp(6, actVO.getActDate());
+			pstmt.setInt(7, actVO.getRegisMax());
+			pstmt.setInt(8, actVO.getActFee());
+			pstmt.setInt(9, actVO.getActRegistration());
+			pstmt.setInt(10, actVO.getActStatus());
+			pstmt.executeUpdate();
+			
+			// 取得自增主鍵的值
+			String nextActID = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			if (rs.next()) {
+				nextActID = rs.getString(1);
+				System.out.println("自增主鍵值= " + nextActID +"(剛新增成功的活動編號)");
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			rs.close();
+			
+			// 再新增照片
+			ActImgJDBCDAO dao = new ActImgJDBCDAO();
+			for (ActImgVO aActImg : list) {
+				aActImg.setActID(new Integer(nextActID));
+				dao.insertfromAct(aActImg, con);
+			}
+			
+			// commit與交還連線
+			con.commit();
+			con.setAutoCommit(true);	// 從連線池取出的連線，要將AutoCommit改回預設值的true才將連線還給連線池
+			
+			
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-act");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}		
 	}
 
 	public static void main(String[] args) {
