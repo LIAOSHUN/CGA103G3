@@ -241,6 +241,7 @@ public class ActServlet extends HttpServlet {
 						errorMsgs.add("金額不得小於0");
 					}
 				} catch (Exception e) {
+					actFee = 100;
 					errorMsgs.add("請輸入金額");
 				}
 				
