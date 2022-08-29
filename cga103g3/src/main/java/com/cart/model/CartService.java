@@ -75,7 +75,7 @@ public class CartService {
 	//在購物車內改變商品數量
 	public void changeItemCount(String sessionId, Integer pdID, Integer count) {
 
-		if(count >= 1) {
+		if(count > 0) {
 			
 			CartItemVO cartItemVO = new CartItemVO();
 			cartItemVO.setPdID(pdID);

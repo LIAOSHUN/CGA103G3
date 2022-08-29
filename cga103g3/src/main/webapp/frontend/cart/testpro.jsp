@@ -46,7 +46,7 @@
 
 </head>
 <body>
-<table>
+<table >
 	<tr>
 		<th>商品id</th>
 		<th>商品名稱</th>
@@ -117,4 +117,9 @@
 	<input type="hidden" name="action"	value="getCart">
  </FORM>
 </body>
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+
+
+</script>
 </html>

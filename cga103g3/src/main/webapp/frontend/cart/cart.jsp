@@ -62,13 +62,13 @@
 </table>
 
 
-
+<table >
 	<%
 	 for (int index = 0; index < cartItems.size(); index++) {
 		 CartItemVO CartItem = cartItems.get(index);
 	%>
-	<table>
-	<tr>
+	
+	<tr class='tr' >
 		<td width="200"><%=CartItem.getPdName()%>   </td>
 		<td width="100" >
 			$<span class='price'><%=CartItem.getPdPrice()%></span>  </td>
@@ -76,9 +76,9 @@
 			<form class='form' action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
 				<input type="hidden" name="action"  value="changeItemCount">
 				<input class="pdID" type="hidden" name="pdID"  value="<%=CartItem.getPdID()%>">
-				<input class="plus" type="submit" value="+" style="background-color:lightgreen;outline-style: none ;border: 1px solid #ccc;border-radius: 3px;box-shadow: 0 0 35px 15px gray outset;">
-				<input class="count" type="text" readonly  style="background-color:lightgray;width:22px;height:23px;outline-style: none ;border: 1px solid #ccc;border-radius: 3px;text-align:center;padding-left:2px;" name="count"  value="<%=CartItem.getCount()%>" />
-				<input class="sub" type="submit" value="-" style="background-color:lightgreen;outline-style: none ;border: 1px solid #ccc;border-radius: 3px;box-shadow: 0 0 35px 15px gray outset;">
+				<input class="plus" type="button" value="+" style="background-color:lightgreen;outline-style: none ;border: 1px solid #ccc;border-radius: 3px;box-shadow: 0 0 35px 15px gray outset;">
+				<input class="count" type="text" readonly  name="count"  style="background-color:lightgray;width:22px;height:23px;outline-style: none ;border: 1px solid #ccc;border-radius: 3px;text-align:center;padding-left:2px;" value="<%=CartItem.getCount()%>" />
+				<input class="sub" type="button" value="-" style="background-color:lightgreen;outline-style: none ;border: 1px solid #ccc;border-radius: 3px;box-shadow: 0 0 35px 15px gray outset;">
 			</form>
 		</td>
 		<td width="100">
@@ -92,8 +92,9 @@
           </form>
          </td>
 	</tr>
-	</table>	
+	
 	<%}%>
+	</table>	
 	<div>
 		<form name="checkoutForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
               <input type="hidden" name="action"  value="checkout"> 
@@ -135,34 +136,107 @@
 	let smallPrice = document.querySelectorAll('.smallPrice');
 	let pdIDs = document.querySelectorAll('.pdID');
 	let forms = document.querySelectorAll('.form');
+	let trs = document.getElementsByClassName('tr');
 	
+<%-- 		for(let index = 0; index < <%=cartItems.size()%>;index++){ --%>
+			
+// 			plus[index].addEventListener('click', function () {
+//     			let newCount = parseInt(counts[index].value) + 1;
+//     			counts[index].value = newCount;
+    			
+//     			smallPrice[index].innerText = newCount * price[index].innerText;
+// 			});
+		
+
+// 			sub[index].addEventListener('click', function () {
+				
+				
+// 				if(parseInt(counts[index].value) > 1){
+// 					let newCount = parseInt(counts[index].value) - 1;
+			
+//     				counts[index].value = newCount;
+//     				smallPrice[index].innerText = newCount * price[index].innerText;
+// 				}else if(parseInt(counts[index].value) === 1){
+// 					var yes = confirm('你確定要刪除嗎？');
+// 					if(yes){
+// 						let newCount = parseInt(counts[index].value) - 1;
+// 						counts[index].value = newCount;
+// 		    			smallPrice[index].innerText = newCount * price[index].innerText;
+// 					}else{
+					    
+// 					};
+// 				 };	
+// 			 }); 
+// 		 }	 
+// 					==============================================
+					
+
 		for(let index = 0; index < <%=cartItems.size()%>;index++){
+			
+			let pdID = parseInt(pdIDs[index].value);
 			
 			plus[index].addEventListener('click', function () {
     			let newCount = parseInt(counts[index].value) + 1;
     			counts[index].value = newCount;
     			
     			smallPrice[index].innerText = newCount * price[index].innerText;
+    			
+    			$.ajax({
+					url: "cart.do",
+					type: "POST",
+					data: {
+							action: "changeItemCount",
+							count:newCount,
+							pdID:pdID,
+						},
+				})	
 			});
 		
 
-			sub[index].addEventListener('click', function (deleteCartItem) {
-				
+			sub[index].addEventListener('click', function () {
 				
 				if(parseInt(counts[index].value) > 1){
 					let newCount = parseInt(counts[index].value) - 1;
 			
     				counts[index].value = newCount;
     				smallPrice[index].innerText = newCount * price[index].innerText;
+    				
+    				$.ajax({
+						url: "cart.do",
+						type: "POST",
+						data: {
+								action: "changeItemCount",
+								count:newCount,
+								pdID:pdID,
+							},
+					})	
 				}else if(parseInt(counts[index].value) === 1){
-					var yes = confirm('你確定要刪除嗎？');
+					var yes = confirm('您要移除此商品嗎？');
 					if(yes){
 						let newCount = parseInt(counts[index].value) - 1;
-						counts[index].value = newCount;
-		    			smallPrice[index].innerText = newCount * price[index].innerText;
-					}else {
-					    
-					};
+	    				
+	    				$.ajax({
+							url: "cart.do",
+							type: "POST",
+							data: {
+									action: "changeItemCount",
+									count:newCount,
+									pdID:pdID,
+								},
+							success: function(){
+// 								alert('隱形');
+								trs[index].setAttribute('style', 'display: none');
+							}
+						})	
+					}
+				}
+				
+			 }); 
+		 }						
+					
+					
+					
+					
 // 					if (yes) {
 // 						$.ajax({
 // 			           	 	type:"POST",
@@ -172,14 +246,28 @@
 // 					} else {
 // 					    alert('你按了取消按鈕');
 // 					}
-				};
-			});
-		}
-	
-		function deleteCartItem() {
+					
+					
+					
+// 					$.ajax({
+// 						url: "cart.do",
+// 						type: "POST",
+// 						data: {
+// 							action: "changeItemCount",
+// 							count:1
+// 						},
+// 						success: function(){
+							
+// 						}
+// 					})
+					
+					
+// 					============================
+				
 			
+		
+	
 
-		}
 
 	
 	
