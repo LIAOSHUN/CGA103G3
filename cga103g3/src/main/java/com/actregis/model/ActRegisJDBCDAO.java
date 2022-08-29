@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ActRegisJDBCDAO implements ActRegisDAO_interface {
-	String driver = "com.mysql.cj.jdbc.Driver";
 
 	private static final String INSERT_STMT = 
 		"insert into actregistered (MemID, ActID, RegisTime, ActNum, ActFee, FeeStatus, "

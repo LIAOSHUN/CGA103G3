@@ -9,7 +9,6 @@ import com.actimg.model.ActImgVO;
 import static common_35.Common.*;
 
 public class ActJDBCDAO implements ActDAO_interface{
-	String driver = "com.mysql.cj.jdbc.Driver";
 
 	private static final String INSERT_STMT = 
 		"insert into activity (StoreID, ActTitle, ActDescription, ActTimeStart, ActTimeEnd, "
@@ -203,7 +202,7 @@ public class ActJDBCDAO implements ActDAO_interface{
 	}
 
 	@Override
-	public void insertWithActImgs(ActVO actVO, List<ActImgVO> list) {
+	public void insertWithActImgs(ActVO actVO, List<ActImgVO> imglist) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -240,7 +239,7 @@ public class ActJDBCDAO implements ActDAO_interface{
 			
 			// 再新增照片
 			ActImgJDBCDAO dao = new ActImgJDBCDAO();
-			for (ActImgVO aActImg : list) {
+			for (ActImgVO aActImg : imglist) {
 				aActImg.setActID(new Integer(nextActID));
 				dao.insertfromAct(aActImg, con);
 			}

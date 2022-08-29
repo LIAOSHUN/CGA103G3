@@ -12,7 +12,6 @@ import java.util.List;
 
 
 public class ActImgJDBCDAO implements ActImgDAO_interface{
-	String driver = "com.mysql.cj.jdbc.Driver";
 
 	private static final String INSERT_STMT = 
 		"insert into actimg (ActID, ActImgFile) "
