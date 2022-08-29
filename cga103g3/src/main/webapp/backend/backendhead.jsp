@@ -1,10 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html
   lang="en"
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-  data-assets-path="../backend_template/assets/"
+  data-assets-path="<%=request.getContextPath()%>/backend/backend_template/assets/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -16,7 +18,7 @@
     <title>絆桌-ServerSide</title>
     <meta name="description" content="" />
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="../backend_template/html/board-game (1).png" />
+    <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/backend/backend_template/html/board-game (1).png" />
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -25,20 +27,20 @@
       rel="stylesheet"
     />
     <!-- Icons. Uncomment required icon fonts -->
-    <link rel="stylesheet" href="../backend_template/assets/vendor/fonts/boxicons.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/fonts/boxicons.css" />
     <!-- Core CSS -->
-    <link rel="stylesheet" href="../backend_template/assets/vendor/css/core.css" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="../backend_template/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
-    <link rel="stylesheet" href="../backend_template/assets/css/demo.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/css/core.css" class="template-customizer-core-css" />
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend/backend_template/assets/css/demo.css" />
     <!-- Vendors CSS -->
-    <link rel="stylesheet" href="../backend_template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
-    <link rel="stylesheet" href="../backend_template/assets/vendor/libs/apex-charts/apex-charts.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+    <link rel="stylesheet" href="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/apex-charts/apex-charts.css" />
     <!-- Page CSS -->
     <!-- Helpers -->
-    <script src="../backend_template/assets/vendor/js/helpers.js"></script>
+    <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/js/helpers.js"></script>
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="../backend_template/assets/js/config.js"></script>
+    <script src="<%=request.getContextPath()%>/backend/backend_template/assets/js/config.js"></script>
     <!-- ================================================================================================ -->
   </head>
   <body>
@@ -50,7 +52,7 @@
           <div class="app-brand demo">
             <a href="Top&Fot.html" class="app-brand-link">
               <span class="app-brand-logo demo">
-               <img src="../backend_template/html/board-game (1).png" alt="LogoTest" width="35px">
+               <img src="<%=request.getContextPath()%>/backend/backend_template/html/board-game (1).png" alt="LogoTest" width="35px">
               </span>
               <span class="app-brand-text demo menu-text fw-bolder ms-2">絆桌</span>
             </a>
@@ -63,7 +65,7 @@
 <!-- ======================================================================================================= -->
 
             <!-- Dashboard -->
-            <li class="menu-item active">
+            <li class="menu-item ">
               <a href="Top&Fot.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">首頁</div>
@@ -106,7 +108,7 @@
                 </ul>
               </li>
 <!-- ======================================================================================================= -->
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-box"></i>
                 <div data-i18n="Account Settings">商品管理</div>
@@ -272,7 +274,7 @@
                 <li class="nav-item navbar-dropdown dropdown-user dropdown">
                   <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                     <div class="avatar avatar-online">
-                      <img src="../backend_template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                      <img src="<%=request.getContextPath()%>/backend/backend_template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                     </div>
                   </a>
                   <ul class="dropdown-menu dropdown-menu-end">
@@ -281,7 +283,7 @@
                         <div class="d-flex">
                           <div class="flex-shrink-0 me-3">
                             <div class="avatar avatar-online">
-                              <img src="../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
+                              <img src="<%=request.getContextPath()%>/backend/backend_template/assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle" />
                             </div>
                           </div>
                           <div class="flex-grow-1">
@@ -319,27 +321,13 @@
           </nav>
           <!-- / Navbar -->
           <!-- Content wrapper -->
-          <div class="content-wrapper">
             <!-- =============================================================================================== -->
             <!-- Content內容-->
-               
-            <div>   </div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-
-
+           
+          
             <!-- / Content -->
             <!-- =============================================================================================== -->
             <div class="content-backdrop fade"></div>
-          </div>
           <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
@@ -350,24 +338,27 @@
     <!-- / Layout wrapper -->
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
-    <script src="../backend_template/assets/vendor/libs/jquery/jquery.js"></script>
-    <script src="../backend_template/assets/vendor/libs/popper/popper.js"></script>
-    <script src="../backend_template/assets/vendor/js/bootstrap.js"></script>
-    <script src="../backend_template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
+    <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/jquery/jquery.js"></script>
+    <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/popper/popper.js"></script>
+    <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/js/bootstrap.js"></script>
+    <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js"></script>
 
-    <script src="../backend_template/assets/vendor/js/menu.js"></script>
+    <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/js/menu.js"></script>
     <!-- endbuild -->
 
     <!-- Vendors JS -->
-    <script src="../backend_template/assets/vendor/libs/apex-charts/apexcharts.js"></script>
+    <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/apex-charts/apexcharts.js"></script>
 
     <!-- Main JS -->
-    <script src="../backend_template/assets/js/main.js"></script>
+    <script src="<%=request.getContextPath()%>/backend/backend_template/assets/js/main.js"></script>
 
     <!-- Page JS -->
-    <script src="../backend_template/assets/js/dashboards-analytics.js"></script>
+    <script src="<%=request.getContextPath()%>/backend/backend_template/assets/js/dashboards-analytics.js"></script>
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+       <input type="hidden" name="action" value="insert">
+      
+      
   </body>
 </html>

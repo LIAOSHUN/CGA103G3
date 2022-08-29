@@ -1,3 +1,7 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.product.model.*"%>
+
 <!DOCTYPE html>
 <html
   lang="en"
@@ -13,7 +17,7 @@
       name="viewport"
       content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
     />
-    <title>çµ†æ¡Œ-ServerSide</title>
+    <title>²Ì®à-ServerSide</title>
     <meta name="description" content="" />
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="../backend_template/html/board-game (1).png" />
@@ -52,7 +56,7 @@
               <span class="app-brand-logo demo">
                <img src="../backend_template/html/board-game (1).png" alt="LogoTest" width="35px">
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">çµ†æ¡Œ</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">²Ì®à</span>
             </a>
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
               <i class="bx bx-chevron-left bx-sm align-middle"></i>
@@ -63,10 +67,10 @@
 <!-- ======================================================================================================= -->
 
             <!-- Dashboard -->
-            <li class="menu-item active">
+            <li class="menu-item ">
               <a href="Top&Fot.html" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">é¦–é </div>
+                <div data-i18n="Analytics">­º­¶</div>
               </a>
             </li>
 <!-- ======================================================================================================= -->
@@ -77,17 +81,17 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-dock-top"></i>
-                <div data-i18n="Account Settings">ä½¿ç”¨è€…ç®¡ç†</div>
+                <div data-i18n="Account Settings">¨Ï¥ÎªÌºŞ²z</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">ç®¡ç†å“¡è³‡æ–™ç®¡ç†</div>
+                    <div data-i18n="Account">ºŞ²z­û¸ê®ÆºŞ²z</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">ç®¡ç†å“¡æ¬Šé™ç®¡ç†</div>
+                    <div data-i18n="Notifications">ºŞ²z­ûÅv­­ºŞ²z</div>
                   </a>
                 </li>
               </ul>
@@ -95,36 +99,36 @@
               <li class="menu-item">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                   <i class="menu-icon tf-icons bx bx-file "></i>
-                  <div data-i18n="Account Settings">å‰å°ç¶²ç«™ç®¡ç†</div>
+                  <div data-i18n="Account Settings">«e¥xºô¯¸ºŞ²z</div>
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item">
                     <a href="pages-account-settings-account.html" class="menu-link">
-                      <div data-i18n="Account">æœƒå“¡è³‡æ–™ç®¡ç†</div>
+                      <div data-i18n="Account">·|­û¸ê®ÆºŞ²z</div>
                     </a>
                   </li>
                 </ul>
               </li>
 <!-- ======================================================================================================= -->
-            <li class="menu-item">
+            <li class="menu-item active">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-box"></i>
-                <div data-i18n="Account Settings">å•†å“ç®¡ç†</div>
+                <div data-i18n="Account Settings">°Ó«~ºŞ²z</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">æ–°å¢å•†å“</div>
+                    <div data-i18n="Account">·s¼W°Ó«~</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">ä¿®æ”¹å•†å“</div>
+                    <div data-i18n="Notifications">­×§ï°Ó«~</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="pages-account-settings-connections.html" class="menu-link">
-                    <div data-i18n="Connections">è¨‚å–®ç®¡ç†</div>
+                    <div data-i18n="Connections">­q³æºŞ²z</div>
                   </a>
                 </li>
               </ul>
@@ -133,12 +137,12 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-detail"></i>
-                <div data-i18n="Account Settings">éŠæˆ²åˆ†é¡ç®¡ç†</div>
+                <div data-i18n="Account Settings">¹CÀ¸¤ÀÃşºŞ²z</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">éŠæˆ²ç¨®é¡ç®¡ç†</div>
+                    <div data-i18n="Account">¹CÀ¸ºØÃşºŞ²z</div>
                   </a>
                 </li>
               </ul>
@@ -147,12 +151,12 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-collection "></i>
-                <div data-i18n="Account Settings">è¨è«–å€ç®¡ç†</div>
+                <div data-i18n="Account Settings">°Q½×°ÏºŞ²z</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">æ–‡ç« ç®¡ç†</div>
+                    <div data-i18n="Account">¤å³¹ºŞ²z</div>
                   </a>
                 </li>
               </ul>
@@ -161,12 +165,12 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-credit-card "></i>
-                <div data-i18n="Account Settings">è¨‚ä½ç®¡ç†</div>
+                <div data-i18n="Account Settings">­q¦ìºŞ²z</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">è¨‚ä½è³‡è¨Šç®¡ç†</div>
+                    <div data-i18n="Account">­q¦ì¸ê°TºŞ²z</div>
                   </a>
                 </li>
               </ul>
@@ -175,12 +179,12 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-mobile-alt "></i>
-                <div data-i18n="Account Settings">æ´»å‹•ç®¡ç†</div>
+                <div data-i18n="Account Settings">¬¡°ÊºŞ²z</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">å ±åç®¡ç†</div>
+                    <div data-i18n="Account">³ø¦WºŞ²z</div>
                   </a>
                 </li>
               </ul>
@@ -189,22 +193,22 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-lock-open-alt "></i>
-                <div data-i18n="Account Settings">æª¢èˆ‰ç®¡ç†</div>
+                <div data-i18n="Account Settings">ÀËÁ|ºŞ²z</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">æ–‡ç« æª¢èˆ‰</div>
+                    <div data-i18n="Account">¤å³¹ÀËÁ|</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">æœƒå“¡æª¢èˆ‰</div>
+                    <div data-i18n="Notifications">·|­ûÀËÁ|</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">ç•™è¨€æª¢èˆ‰</div>
+                    <div data-i18n="Notifications">¯d¨¥ÀËÁ|</div>
                   </a>
                 </li>
               </ul>
@@ -213,22 +217,22 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-user "></i>
-                <div data-i18n="Account Settings">è¡ŒéŠ·ç®¡ç†</div>
+                <div data-i18n="Account Settings">¦æ¾PºŞ²z</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">æ–°å¢å„ªæƒ åˆ¸</div>
+                    <div data-i18n="Account">·s¼WÀu´f¨é</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">å„ªæƒ åˆ¸ç™¼æ”¾</div>
+                    <div data-i18n="Account">Àu´f¨éµo©ñ</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">å„ªæƒ åˆ¸ç®¡ç†</div>
+                    <div data-i18n="Account">Àu´f¨éºŞ²z</div>
                   </a>
                 </li>
               </ul>
@@ -237,17 +241,17 @@
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-search "></i>
-                <div data-i18n="Account Settings">FQç®¡ç†</div>
+                <div data-i18n="Account Settings">FQºŞ²z</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
                   <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">ç·šä¸Šæ–‡å­—å®¢æœ</div>
+                    <div data-i18n="Account">½u¤W¤å¦r«ÈªA</div>
                   </a>
                 </li>
                 <li class="menu-item">
                   <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">èŠå¤©æ©Ÿå™¨äººè¨­å®š</div>
+                    <div data-i18n="Notifications">²á¤Ñ¾÷¾¹¤H³]©w</div>
                   </a>
                 </li>
               </ul>
@@ -297,7 +301,7 @@
                     <li>
                       <a class="dropdown-item" href="#">
                         <i class="bx bx-cog me-2"></i>
-                        <span class="align-middle">è¨­å®š</span>
+                        <span class="align-middle">³]©w</span>
                       </a>
                     </li>
                     <li>
@@ -308,7 +312,7 @@
                     <li>
                       <a class="dropdown-item" href="auth-login-basic.html">
                         <i class="bx bx-power-off me-2"></i>
-                        <span class="align-middle">ç™»å‡º</span>
+                        <span class="align-middle">µn¥X</span>
                       </a>
                     </li>
                   </ul>
@@ -319,27 +323,13 @@
           </nav>
           <!-- / Navbar -->
           <!-- Content wrapper -->
-          <div class="content-wrapper">
             <!-- =============================================================================================== -->
-            <!-- Contentå…§å®¹-->
-               
-            <div>   </div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-            <div>Test</div>
-
-
+            <!-- Content¤º®e-->
+           
+          
             <!-- / Content -->
             <!-- =============================================================================================== -->
             <div class="content-backdrop fade"></div>
-          </div>
           <!-- Content wrapper -->
         </div>
         <!-- / Layout page -->
@@ -369,5 +359,8 @@
 
     <!-- Place this tag in your head or just before your close body tag. -->
     <script async defer src="https://buttons.github.io/buttons.js"></script>
+       <input type="hidden" name="action" value="insert">
+      
+      
   </body>
 </html>

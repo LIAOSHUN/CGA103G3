@@ -291,6 +291,7 @@ svg {
 }
 
 table {
+  white-space: pre-wrap;
   caption-side: bottom;
   border-collapse: collapse;
 }
@@ -1127,7 +1128,8 @@ progress {
 
   .row-cols-md-6 > * {
     flex: 0 0 auto;
-    width: 16.6666666667%;
+    align-items: center;
+    width: 50%;
   }
 
   .col-md-auto {
@@ -1162,7 +1164,7 @@ progress {
 
   .col-md-6 {
     flex: 0 0 auto;
-    width: 50%;
+    width: 100%;
   }
 
   .col-md-7 {
