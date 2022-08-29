@@ -90,6 +90,23 @@
 			 </FORM>
 			</td>
 		</tr>
+		<tr>
+			<td>21003</td>
+			<td>妙語說書人</td>
+			<td>870</td>
+			<td>3</td>
+		
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/cart/cart.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="加入購物車">
+			     <input type="hidden" name="pdID"  value="21003">
+			     <input type="hidden" name="pdName"  value="妙語說書人">
+			     <input type="hidden" name="pdPrice"  value="870">
+			     <input type="hidden" name="count"  value="3">
+			     <input type="hidden" name="action"	value="addItem">
+			 </FORM>
+			</td>
+		</tr>
 </table>
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/cart/cart.do" style="margin-bottom: 0px;">
 	<input type="submit" value="測試cookie">

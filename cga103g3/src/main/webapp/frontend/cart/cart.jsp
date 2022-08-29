@@ -70,17 +70,19 @@
 	<table>
 	<tr>
 		<td width="200"><%=CartItem.getPdName()%>   </td>
-		<td width="100">$<%=CartItem.getPdPrice()%>  </td>
+		<td width="100" >
+			$<span class='price'><%=CartItem.getPdPrice()%></span>  </td>
 		<td width="100">
 			<form action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
 				<input type="hidden" name="action"  value="changeItemCount">
-				<input type="hidden" name="pdID"  value="<%=CartItem.getPdID()%>">
-				<input type="submit" value="+">
-				<input type="TEXT" name="count" size="1" value="<%=CartItem.getCount()%>" />
-				<input type="submit" value="-">
+				<input class="pdID" type="hidden" name="pdID"  value="<%=CartItem.getPdID()%>">
+				<input class="plus" type="submit" value="+" style="background-color:lightgreen;outline-style: none ;border: 1px solid #ccc;border-radius: 3px;box-shadow: 0 0 35px 15px gray outset;">
+				<input class="count" type="text" readonly  style="background-color:lightgray;width:22px;height:23px;outline-style: none ;border: 1px solid #ccc;border-radius: 3px;text-align:center;padding-left:2px;" name="count"  value="<%=CartItem.getCount()%>" />
+				<input class="sub" type="submit" value="-" style="background-color:lightgreen;outline-style: none ;border: 1px solid #ccc;border-radius: 3px;box-shadow: 0 0 35px 15px gray outset;">
 			</form>
 		</td>
-		<td width="100">$<%=CartItem.getPdPrice() * CartItem.getCount()%>  </td>
+		<td width="100">
+			$<span class='smallPrice'><%=CartItem.getPdPrice() * CartItem.getCount()%></span></td>
 		
         <td width="120">
           <form name="deleteForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
@@ -122,4 +124,52 @@
 		<a href="testpro.jsp"><font size="+1" color="green"> 繼 續 購 物</font></a>
 	</div>
 </body>
+
+<script>
+
+
+	let counts = document.getElementsByName('count');
+	let plus = document.querySelectorAll('.plus');
+	let sub = document.querySelectorAll('.sub');
+	let price = document.querySelectorAll('.price');
+	let smallPrice = document.querySelectorAll('.smallPrice');
+	let pdIDs = document.querySelectorAll('.pdID');
+	
+		for(let index = 0; index < <%=cartItems.size()%>;index++){
+			
+			plus[index].addEventListener('click', function () {
+    			let newCount = parseInt(counts[index].value) + 1;
+    			counts[index].value = newCount;
+    			
+    			smallPrice[index].innerText = newCount * price[index].innerText;
+			});
+		
+
+			sub[index].addEventListener('click', function () {
+				
+				
+				if(parseInt(counts[index].value)>1){
+					let newCount = parseInt(counts[index].value) - 1;
+			
+    			counts[index].value = newCount;
+    			smallPrice[index].innerText = newCount * price[index].innerText;
+				}else{
+					
+				};
+				
+				
+    			
+    			
+			});
+			
+			
+			pdIDs[index].value
+			counts[index].value
+				
+		}
+	
+
+	
+	
+</script>
 </html>

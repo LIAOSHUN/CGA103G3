@@ -34,6 +34,8 @@ public class CartServlet extends HttpServlet {
 		HttpSession session = req.getSession();
 
 		
+		
+		
 //		頁面先設一個假button作為進入網站得住發事件，須改為filter註冊到網站每個頁面
 		
 		if ("init".equals(action)) {
@@ -145,8 +147,9 @@ public class CartServlet extends HttpServlet {
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 		}
-		//按下前往結帳
+		//按下前往結帳 (先把改變的數量存入redis ，再把購物車get出來)
 		if ("checkout".equals(action)) {
+			
 			Gson gson = new Gson();
 			String sessionId = (String) req.getSession().getAttribute("sessionId");//取得session的ID
 			CartService cartSvc = new CartService();
