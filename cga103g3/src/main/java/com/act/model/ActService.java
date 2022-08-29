@@ -2,6 +2,9 @@ package com.act.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Set;
+
+import com.actimg.model.ActImgVO;
 
 public class ActService {
 	private ActDAO_interface dao;
@@ -59,5 +62,9 @@ public class ActService {
 
 	public List<ActVO> getAll() {
 		return dao.getAll();
+	}
+	
+	public Set<ActImgVO> getImgsByAct(Integer actID) {
+		return dao.getImgsByAct(actID);
 	}
 }
