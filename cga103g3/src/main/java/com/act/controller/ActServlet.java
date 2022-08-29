@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -13,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.act.model.ActService;
 import com.act.model.ActVO;
+import com.actimg.model.ActImgVO;
 
 public class ActServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
@@ -152,14 +154,13 @@ public class ActServlet extends HttpServlet {
 						errorMsgs.add("金額不得小於0");
 					}
 				} catch (Exception e) {
+					actFee = 100;
 					errorMsgs.add("請輸入金額");
 				}
 				
 				Integer actRegistration = Integer.valueOf(req.getParameter("actRegistration").trim());
 				Integer actStatus = Integer.valueOf(req.getParameter("actStatus").trim());
-				
-				
-				
+						
 				ActVO actVO = new ActVO();
 				actVO.setActID(actID);
 				actVO.setStoreID(storeID);
@@ -194,7 +195,7 @@ public class ActServlet extends HttpServlet {
 				successView.forward(req, res);
 		}
 
-        if ("insert".equals(action)) { // 來自addAct.jsp的請求  
+        if ("insert".equals(action)) { // 來自addAct.jsp的請求  要改成連img一起新增
 			
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
@@ -278,7 +279,68 @@ public class ActServlet extends HttpServlet {
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/backend/act/listAllAct.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllAct.jsp
-				successView.forward(req, res);				
+				successView.forward(req, res);		
+		}
+        
+        if ("getOneActImgs".equals(action)) { // 來自select_page.jsp的請求
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String str = req.getParameter("actID");
+				if (str == null || (str.trim()).length() == 0) {
+					errorMsgs.add("請輸入活動編號");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/backend/act/select_page.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				Integer actID = null;
+				try {
+					actID = Integer.valueOf(str);
+				} catch (Exception e) {
+					errorMsgs.add("活動編號格式不正確");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/backend/act/select_page.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/***************************2.開始查詢資料*****************************************/
+				ActService actSvc = new ActService();
+				Set<ActImgVO> set = actSvc.getImgsByAct(actID);
+				if (set == null) {
+					errorMsgs.add("查無資料");
+				}
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/backend/act/select_page.jsp");
+					failureView.forward(req, res);
+					return;//程式中斷
+				}
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("getOneActImgs", set); // 資料庫取出的actVO物件,存入req
+				String url = "/backend/act/listGetOneActImgs.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneAct.jsp
+				successView.forward(req, res);
+				/*************************** 其他可能的錯誤處理 *************************************/
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+//				RequestDispatcher failureView = req.getRequestDispatcher("/front-mem-end/front-nav-bar.jsp");
+//				failureView.forward(req, res);
+			}
 		}
 	}
 }

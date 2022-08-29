@@ -13,5 +13,5 @@ public interface ActDAO_interface {
   //查詢某活動的照片(一對多)(回傳 Set)
     public Set<ActImgVO> getImgsByAct(Integer actID);
   //同時新增活動與活動照片
-    public void insertWithActImgs(ActVO actVO , List<ActImgVO> list);
+    public void insertWithActImgs(ActVO actVO , List<ActImgVO> imglist);
 }

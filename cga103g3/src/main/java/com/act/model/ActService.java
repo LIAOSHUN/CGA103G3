@@ -67,4 +67,8 @@ public class ActService {
 	public Set<ActImgVO> getImgsByAct(Integer actID) {
 		return dao.getImgsByAct(actID);
 	}
+	
+	public void insertWithActImgs(ActVO actVO , List<ActImgVO> imglist) {
+		dao.insertWithActImgs(actVO, imglist);
+	}
 }
