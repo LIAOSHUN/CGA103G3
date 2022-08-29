@@ -154,7 +154,7 @@
     			counts[index].value = newCount;
     			smallPrice[index].innerText = newCount * price[index].innerText;
 				}else{
-					
+					XXX
 				};
 				
 				
