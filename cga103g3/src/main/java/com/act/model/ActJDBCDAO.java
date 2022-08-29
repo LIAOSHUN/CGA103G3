@@ -2,6 +2,9 @@ package com.act.model;
 
 import java.sql.*;
 import java.util.*;
+
+import com.actimg.model.ActImgVO;
+
 import static common_35.Common.*;
 
 public class ActJDBCDAO implements ActDAO_interface{
@@ -22,6 +25,8 @@ public class ActJDBCDAO implements ActDAO_interface{
 	private static final String UPDATE = 
 		"update activity set StoreID=?, ActTitle=?, ActDescription=?, ActTimeStart=?, ActTimeEnd=?, "
 		+ "ActDate=?, RegisMax=?, ActFee=?, ActRegistration=?, ActStatus=? where ActID = ?";
+	private static final String GET_IMGS_BYACTID_STMT = "SELECT ActImgID, ActID, ActImgFile "
+			+ "FROM actimg where ActID = ? order by ActImgID ";
 	
 	
 	@Override
@@ -167,6 +172,41 @@ public class ActJDBCDAO implements ActDAO_interface{
 		return list;
 	}
 	
+	@Override
+	public Set<ActImgVO> getImgsByAct(Integer actID) {
+		Set<ActImgVO> set = new HashSet<ActImgVO>();
+		ActImgVO actImgVO = null;
+		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+				PreparedStatement pstmt = con.prepareStatement(GET_IMGS_BYACTID_STMT)) {
+			Class.forName(driver);
+			
+			pstmt.setInt(1, actID);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				actImgVO = new ActImgVO();
+				actImgVO.setActImgID(rs.getInt("actImgID"));
+				actImgVO.setActID(rs.getInt("actID"));
+				actImgVO.setActImgFile(rs.getBytes("actImgFile"));
+				set.add(actImgVO);
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}		
+		return set;
+	}
+
+	@Override
+	public void insertWithActImgs(ActVO actVO, List<ActImgVO> list) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	public static void main(String[] args) {
 
 		ActJDBCDAO dao = new ActJDBCDAO();
