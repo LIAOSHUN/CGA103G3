@@ -91,7 +91,6 @@ public class CartServlet extends HttpServlet {
 
 		// 點擊購物車時
 		if ("getCart".equals(action)) {
-			Gson gson = new Gson();
 			String sessionId = (String) req.getSession().getAttribute("sessionId");//取得session的ID
 			CartService cartSvc = new CartService();
 			List<CartItemVO> cartItems = null;
@@ -147,10 +146,26 @@ public class CartServlet extends HttpServlet {
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 		}
+		
+//		if ("dcartItem".equals(action)) {
+//			Integer pdID = new Integer(req.getParameter("pdID"));
+//			Integer count = new Integer(req.getParameter("count"));
+//			String sessionId = (String) req.getSession().getAttribute("sessionId");
+//			CartService cartSvc = new CartService();
+//			cartSvc.changeItemCount(sessionId, pdID, count);
+//			
+//			List<CartItemVO> cartItems = null;
+//			cartItems = cartSvc.getCart(sessionId);
+//
+//			req.setAttribute("cartItems", cartItems);
+//			String url = "/frontend/cart/cart.jsp";
+//			RequestDispatcher rd = req.getRequestDispatcher(url);
+//			rd.forward(req, res);
+//		}
+		
 		//按下前往結帳 (先把改變的數量存入redis ，再把購物車get出來)
 		if ("checkout".equals(action)) {
 			
-			Gson gson = new Gson();
 			String sessionId = (String) req.getSession().getAttribute("sessionId");//取得session的ID
 			CartService cartSvc = new CartService();
 			List<CartItemVO> cartItems = null;

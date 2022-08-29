@@ -73,7 +73,7 @@
 		<td width="100" >
 			$<span class='price'><%=CartItem.getPdPrice()%></span>  </td>
 		<td width="100">
-			<form action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
+			<form class='form' action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
 				<input type="hidden" name="action"  value="changeItemCount">
 				<input class="pdID" type="hidden" name="pdID"  value="<%=CartItem.getPdID()%>">
 				<input class="plus" type="submit" value="+" style="background-color:lightgreen;outline-style: none ;border: 1px solid #ccc;border-radius: 3px;box-shadow: 0 0 35px 15px gray outset;">
@@ -124,7 +124,7 @@
 		<a href="testpro.jsp"><font size="+1" color="green"> 繼 續 購 物</font></a>
 	</div>
 </body>
-
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
 
@@ -134,6 +134,7 @@
 	let price = document.querySelectorAll('.price');
 	let smallPrice = document.querySelectorAll('.smallPrice');
 	let pdIDs = document.querySelectorAll('.pdID');
+	let forms = document.querySelectorAll('.form');
 	
 		for(let index = 0; index < <%=cartItems.size()%>;index++){
 			
@@ -145,29 +146,40 @@
 			});
 		
 
-			sub[index].addEventListener('click', function () {
+			sub[index].addEventListener('click', function (deleteCartItem) {
 				
 				
-				if(parseInt(counts[index].value)>1){
+				if(parseInt(counts[index].value) > 1){
 					let newCount = parseInt(counts[index].value) - 1;
 			
-    			counts[index].value = newCount;
-    			smallPrice[index].innerText = newCount * price[index].innerText;
-				}else{
-					XXX
+    				counts[index].value = newCount;
+    				smallPrice[index].innerText = newCount * price[index].innerText;
+				}else if(parseInt(counts[index].value) === 1){
+					var yes = confirm('你確定要刪除嗎？');
+					if(yes){
+						let newCount = parseInt(counts[index].value) - 1;
+						counts[index].value = newCount;
+		    			smallPrice[index].innerText = newCount * price[index].innerText;
+					}else {
+					    
+					};
+// 					if (yes) {
+// 						$.ajax({
+// 			           	 	type:"POST",
+// 			            	url:"cart.do",
+// 			            	data:$('.'+'forms'+'['+ index+ ']').serialize(),  //直接傳表單裡的資料
+// 			        	});      
+// 					} else {
+// 					    alert('你按了取消按鈕');
+// 					}
 				};
-				
-				
-    			
-    			
 			});
-			
-			
-			pdIDs[index].value
-			counts[index].value
-				
 		}
 	
+		function deleteCartItem() {
+			
+
+		}
 
 	
 	

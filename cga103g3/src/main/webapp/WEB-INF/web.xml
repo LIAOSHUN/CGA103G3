@@ -29,6 +29,15 @@
 		<servlet-name>CartServlet</servlet-name>
 		<url-pattern>/frontend/cart/cart.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DcartServlet</servlet-name>
+		<servlet-class>com.cart.controller.DcartServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DcartServlet</servlet-name>
+		<url-pattern>/frontend/cart/dcart.do</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>ActServlet</servlet-name>

@@ -75,15 +75,22 @@ public class CartService {
 	//在購物車內改變商品數量
 	public void changeItemCount(String sessionId, Integer pdID, Integer count) {
 
-		CartItemVO cartItemVO = new CartItemVO();
-		cartItemVO.setPdID(pdID);
-		cartItemVO.setCount(count);
-
-		daoR.changeItemCount(sessionId, cartItemVO);
+		if(count >= 1) {
+			
+			CartItemVO cartItemVO = new CartItemVO();
+			cartItemVO.setPdID(pdID);
+			cartItemVO.setCount(count);
+			
+			daoR.changeItemCount(sessionId, cartItemVO);
+		}else {
+			daoR.deleteItem(sessionId, pdID);
+		};
+		
+		
 	}
 
-	public void deleteItem(String sessionId, Integer itemId) {
-		daoR.deleteItem(sessionId, itemId);
+	public void deleteItem(String sessionId, Integer pdID) {
+		daoR.deleteItem(sessionId, pdID);
 	}
 
 	public void deleteCart(String sessionId) {
