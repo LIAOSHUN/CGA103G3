@@ -10,39 +10,89 @@
 <meta charset="UTF-8">
 <title>cart.jsp</title>
 <style>
-  table#table-1 {
-	background-color: lightgreen;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
-
-<style>
-  table {
+  
+    table {
 	width: 800px;
-	background-color: white;
+	
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
   table, th, td {
-    border: 1px solid #CCCCFF;
+    border: 1px solid gray;
   }
   th, td {
-    padding: 5px;
+    padding: 15px;
     text-align: center;
   }
 </style>
+
+<style>
+	.count{
+		display: inline-block;
+	}
+	#checkout{
+		background-color: #39ac7e  !important;
+	}
+
+  .plus, .sub{
+  	width: 10px;
+  	
+  	justify-content: center;
+	-ms-align-items: center;
+	align-items: center;
+	font-family: Poppins-Medium;
+	
+    font-size: 15px;
+  	line-height: 1.466667;
+  	text-transform: uppercase;
+  
+  	color: black;
+  	font-family: fantasy;
+  	font-weight: bold;
+  
+  	background-color: #7ed3cd;
+  
+  	border-radius: 25px;
+  
+  	padding-left: 15px;
+  	padding-right: 15px;
+    
+  	-webkit-transition: all 0.4s;
+  	-o-transition: all 0.4s;
+  	-moz-transition: all 0.4s;
+  	transition: all 0.4s;
+  
+  	display: inline-block;
+  }
+  
+  .plus:hover {
+  border-color: #fff;
+  background-color: gray;
+  color: white;
+	}
+
+  .plus:hover i {
+  	color: #fff;
+  }
+  .sub:hover {
+  	border-color: #fff;
+  	background-color: gray;
+  	color: white;
+  }
+
+  .sub:hover i {
+  	color: #fff;
+  }
+  
+  .table_head{
+  }
+  
+ 
+
+</style>
 </head>
 <body>
+<%@ include file="../frontendhead.jsp" %>
 <br>
    <% 
    List<CartItemVO> cartItems = (List<CartItemVO>) request.getAttribute("cartItems");
@@ -51,85 +101,86 @@
 
 <font size="+1">購物車明細</font>
 
-<table id="table-1">
-    <tr> 
-      <th width="200">遊戲名稱</th>
-      <th width="100">單價</th>
-      <th width="100">數量</th>
-      <th width="100">價格</th>
-      <th width="120">移除購買項目</th>
+
+<table class="wrap-table-shopping-cart">
+    <tr class="table_head"> 
+      <th class="column-1">遊戲名稱</th>
+      <th class="column-3">單價</th>
+      <th class="column-4">數量</th>
+      <th class="column-5">價格</th>
+      <th width="20">移除商品</th>
     </tr>
-</table>
 
-
-<table >
 	<%
 	 for (int index = 0; index < cartItems.size(); index++) {
 		 CartItemVO CartItem = cartItems.get(index);
 	%>
 	
-	<tr class='tr' >
-		<td width="200"><%=CartItem.getPdName()%>   </td>
-		<td width="100" >
+	<tr class="tr table_row" >
+		<td class="column-1"><%=CartItem.getPdName()%>   </td>
+		<td class="column-3" >
 			$<span class='price'><%=CartItem.getPdPrice()%></span>  </td>
-		<td width="100">
+		<td class="column-4">
 			<form class='form' action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
 				<input type="hidden" name="action"  value="changeItemCount">
 				<input class="pdID" type="hidden" name="pdID"  value="<%=CartItem.getPdID()%>">
-				<input class="plus" type="button" value="+" style="background-color:lightgreen;outline-style: none ;border: 1px solid #ccc;border-radius: 3px;box-shadow: 0 0 35px 15px gray outset;">
-				<input class="count" type="text" readonly  name="count"  style="background-color:lightgray;width:22px;height:23px;outline-style: none ;border: 1px solid #ccc;border-radius: 3px;text-align:center;padding-left:2px;" value="<%=CartItem.getCount()%>" />
-				<input class="sub" type="button" value="-" style="background-color:lightgreen;outline-style: none ;border: 1px solid #ccc;border-radius: 3px;box-shadow: 0 0 35px 15px gray outset;">
+				<input class="plus" type="button" value="+" >
+				<span class="count"><%=CartItem.getCount()%></span>
+				<input class="sub" type="button" value="-" >
 			</form>
 		</td>
-		<td width="100">
+		<td class="column-5">
 			$<span class='smallPrice'><%=CartItem.getPdPrice() * CartItem.getCount()%></span></td>
 		
-        <td width="120">
-          <form name="deleteForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
+        <td width="20">
+          <form class="deleteForm" name="deleteForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
               <input type="hidden" name="action"  value="deleteItem">
               <input type="hidden" name="pdID"  value="<%=CartItem.getPdID()%>">
-              <input type="submit" value="刪 除" class="button">
+              <input type="button" id='delete' value="刪除" class="flex-c-m stext-101 cl0 size-202 bg3 bor7 hov-btn3 p-lr-15 trans-04 pointer">
           </form>
          </td>
 	</tr>
 	
 	<%}%>
-	</table>	
+</table>
+	
 	<div>
 		<form name="checkoutForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
               <input type="hidden" name="action"  value="checkout"> 
-              <input type="submit" value="前往結帳" class="button">
+              <input type="submit" id='checkout' value="前往結帳" class="flex-c-m stext-101 cl0 size-101 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer">
         </form>
     </div>
 <%}else{%>
 		<font size="+1">購物車明細</font>
 
-		<table id="table-1">
-    		<tr> 
-      			<th width="200">遊戲名稱</th>
-      			<th width="100">單價</th>
-      			<th width="100">數量</th>
-      			<th width="100">價格</th>
-      			<th width="120">移除購買項目</th>
-    		</tr>
+		<table class="wrap-table-shopping-cart">
+    		<tr class="table_head"> 
+     			<th class="column-1">遊戲名稱</th>
+      			<th class="column-3">單價</th>
+      			<th class="column-4">數量</th>
+      			<th class="column-5">價格</th>
+      			<th width="20">移除商品</th>
+   			 </tr>
 		</table>
 
 		<table>
-			<tr>
+			<tr class="table_row">
 				<td width="620">目前尚無商品</td>
 			</tr>
 		</table>
 	<%}%>
 	
 	<div>
-		<a href="testpro.jsp"><font size="+1" color="green"> 繼 續 購 物</font></a>
+		<a href="testpro.jsp" class="flex-c-m stext-101 cl0 size-101 bg2  hov-btn3 p-lr-15 trans-04 pointer"> 繼 續 購 物</a>
 	</div>
+	
+	<%@ include file="../frontendfoot.jsp" %>
 </body>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 
 
-	let counts = document.getElementsByName('count');
+	let counts = document.querySelectorAll('.count');
 	let plus = document.querySelectorAll('.plus');
 	let sub = document.querySelectorAll('.sub');
 	let price = document.querySelectorAll('.price');
@@ -137,6 +188,7 @@
 	let pdIDs = document.querySelectorAll('.pdID');
 	let forms = document.querySelectorAll('.form');
 	let trs = document.getElementsByClassName('tr');
+	let deleteForms = document.getElementsByClassName('deleteForm');
 	
 <%-- 		for(let index = 0; index < <%=cartItems.size()%>;index++){ --%>
 			
@@ -169,16 +221,37 @@
 // 			 }); 
 // 		 }	 
 // 					==============================================
-					
+		
+		for(let index = 0; index < <%=cartItems.size()%>;index++){
+			
+			let pdID = parseInt(pdIDs[index].value);
+			
+			deleteForms[index].addEventListener('click', function () {
+				$.ajax({
+					url: "cart.do",
+					type: "POST",
+					data: {
+							action: "deleteItem",
+							pdID:pdID,
+						},
+						success: function(){
+//								alert('隱形');
+							trs[index].setAttribute('style', 'display: none');
+						}
+				})	
+			});
+		}
+	
+	
+	
 
 		for(let index = 0; index < <%=cartItems.size()%>;index++){
 			
 			let pdID = parseInt(pdIDs[index].value);
 			
 			plus[index].addEventListener('click', function () {
-    			let newCount = parseInt(counts[index].value) + 1;
-    			counts[index].value = newCount;
-    			
+    			let newCount = parseInt(counts[index].innerText) + 1;
+    			counts[index].innerText = newCount;
     			smallPrice[index].innerText = newCount * price[index].innerText;
     			
     			$.ajax({
@@ -195,10 +268,10 @@
 
 			sub[index].addEventListener('click', function () {
 				
-				if(parseInt(counts[index].value) > 1){
-					let newCount = parseInt(counts[index].value) - 1;
+				if(parseInt(counts[index].innerText) > 1){
+					let newCount = parseInt(counts[index].innerText) - 1;
 			
-    				counts[index].value = newCount;
+    				counts[index].innerText = newCount;
     				smallPrice[index].innerText = newCount * price[index].innerText;
     				
     				$.ajax({
@@ -210,10 +283,10 @@
 								pdID:pdID,
 							},
 					})	
-				}else if(parseInt(counts[index].value) === 1){
+				}else if(parseInt(counts[index].innerText) === 1){
 					var yes = confirm('您要移除此商品嗎？');
 					if(yes){
-						let newCount = parseInt(counts[index].value) - 1;
+						let newCount = parseInt(counts[index].innerText) - 1;
 	    				
 	    				$.ajax({
 							url: "cart.do",

@@ -44,6 +44,7 @@
 
 </head>
 <body>
+<%@ include file="../frontendhead.jsp" %>
 <br>
    <% 
    List<CartItemVO> cartItems = (List<CartItemVO>) request.getAttribute("cartItems");
@@ -62,21 +63,21 @@
 </table>
 
 
-
+<table>
 	<%
 	 for (int index = 0; index < cartItems.size(); index++) {
 		 CartItemVO CartItem = cartItems.get(index);
 	%>
-	<table>
+	
 	<tr>
 		<td width="200"><%=CartItem.getPdName()%>   </td>
 		<td width="100"><%=CartItem.getPdPrice()%>  元</td>
 		<td width="100"><%=CartItem.getCount()%>	</td>
 		<td width="100"><%=CartItem.getPdPrice() * CartItem.getCount()%>   元 </td>
 	</tr>
-	</table>	
+		
 	<%}%>
-<%}%>
+</table>
 
 
 
@@ -220,5 +221,27 @@
               <input type="submit" value="更改購物車品項" class="button">
           </form>
 	</div>
+	
+<%}else{%>
+		<font size="+1">購物車明細</font>
+
+		<table id="table-1">
+    		<tr> 
+      			<th width="200">遊戲名稱</th>
+      			<th width="100">單價</th>
+      			<th width="100">數量</th>
+      			<th width="100">價格</th>
+      			<th width="120">移除購買項目</th>
+    		</tr>
+		</table>
+
+		<table>
+			<tr>
+				<td width="620">目前尚無商品</td>
+			</tr>
+		</table>
+		<a href="testpro.jsp"><font size="+1" color="green"> 請 繼 續 逛 商 城</font></a>
+	<%}%>	
+	<%@ include file="../frontendfoot.jsp" %>
 </body>
 </html>

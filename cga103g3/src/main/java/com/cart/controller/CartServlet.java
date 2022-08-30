@@ -123,13 +123,13 @@ public class CartServlet extends HttpServlet {
 			CartService cartSvc = new CartService();
 			cartSvc.changeItemCount(sessionId, pdID, count);
 			
-			List<CartItemVO> cartItems = null;
-			cartItems = cartSvc.getCart(sessionId);
-
-			req.setAttribute("cartItems", cartItems);
-			String url = "/frontend/cart/cart.jsp";
-			RequestDispatcher rd = req.getRequestDispatcher(url);
-			rd.forward(req, res);
+//			List<CartItemVO> cartItems = null;
+//			cartItems = cartSvc.getCart(sessionId);
+//
+//			req.setAttribute("cartItems", cartItems);
+//			String url = "/frontend/cart/cart.jsp";
+//			RequestDispatcher rd = req.getRequestDispatcher(url);
+//			rd.forward(req, res);
 		}
 
 		// 點擊刪除商品時
@@ -138,22 +138,6 @@ public class CartServlet extends HttpServlet {
 			String sessionId = (String) req.getSession().getAttribute("sessionId");
 			CartService cartSvc = new CartService();
 			cartSvc.deleteItem(sessionId, pdID);
-			List<CartItemVO> cartItems = null;
-			cartItems = cartSvc.getCart(sessionId);
-
-			req.setAttribute("cartItems", cartItems);
-			String url = "/frontend/cart/cart.jsp";
-			RequestDispatcher rd = req.getRequestDispatcher(url);
-			rd.forward(req, res);
-		}
-		
-//		if ("dcartItem".equals(action)) {
-//			Integer pdID = new Integer(req.getParameter("pdID"));
-//			Integer count = new Integer(req.getParameter("count"));
-//			String sessionId = (String) req.getSession().getAttribute("sessionId");
-//			CartService cartSvc = new CartService();
-//			cartSvc.changeItemCount(sessionId, pdID, count);
-//			
 //			List<CartItemVO> cartItems = null;
 //			cartItems = cartSvc.getCart(sessionId);
 //
@@ -161,7 +145,9 @@ public class CartServlet extends HttpServlet {
 //			String url = "/frontend/cart/cart.jsp";
 //			RequestDispatcher rd = req.getRequestDispatcher(url);
 //			rd.forward(req, res);
-//		}
+		}
+		
+
 		
 		//按下前往結帳 (先把改變的數量存入redis ，再把購物車get出來)
 		if ("checkout".equals(action)) {

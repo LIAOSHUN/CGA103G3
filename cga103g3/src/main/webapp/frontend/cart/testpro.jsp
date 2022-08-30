@@ -46,6 +46,7 @@
 
 </head>
 <body>
+<%@ include file="../frontendhead.jsp" %>
 <table >
 	<tr>
 		<th>商品id</th>
@@ -107,6 +108,40 @@
 			 </FORM>
 			</td>
 		</tr>
+		<tr>
+			<td>21004</td>
+			<td>拉密</td>
+			<td>700</td>
+			<td>4</td>
+		
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/cart/cart.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="加入購物車">
+			     <input type="hidden" name="pdID"  value="21004">
+			     <input type="hidden" name="pdName"  value="拉密">
+			     <input type="hidden" name="pdPrice"  value="700">
+			     <input type="hidden" name="count"  value="4">
+			     <input type="hidden" name="action"	value="addItem">
+			 </FORM>
+			</td>
+		</tr>
+		<tr>
+			<td>21005</td>
+			<td>卡卡頌</td>
+			<td>1040</td>
+			<td>5</td>
+		
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/cart/cart.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="加入購物車">
+			     <input type="hidden" name="pdID"  value="21005">
+			     <input type="hidden" name="pdName"  value="卡卡頌">
+			     <input type="hidden" name="pdPrice"  value="1040">
+			     <input type="hidden" name="count"  value="5">
+			     <input type="hidden" name="action"	value="addItem">
+			 </FORM>
+			</td>
+		</tr>
 </table>
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/cart/cart.do" style="margin-bottom: 0px;">
 	<input type="submit" value="測試cookie">
@@ -116,6 +151,7 @@
 	<input type="submit" value="查看購物車">
 	<input type="hidden" name="action"	value="getCart">
  </FORM>
+ <%@ include file="../frontendfoot.jsp" %>
 </body>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
