@@ -4,18 +4,18 @@ import java.util.List;
 
 public interface MemCouponDAO_interface {
 	
-//	-- 新增一筆會員優惠券資料
+//	-- 新增一筆會員優惠券資料  	(發放、領取)
 	public void insert(MemCouponVO memCouponVO);
-//	-- 更改 會員擁有的優惠券 資料內容
+//	-- 更改 會員擁有的優惠券 資料內容	(暫不用)
 	public void update(MemCouponVO memCouponVO);
-//	-- 找出 某個會員 擁有的所有優惠券
+//	-- 找出 某個會員 擁有的所有優惠券	(myCoupon)
 	public List<MemCouponVO> findMemCouponByMemID(Integer memID);
-//	-- 找出 某個會員 已使用(未使用、過期的)的所有優惠券
+//	-- 找出 某個會員 已使用(未使用、過期的)的所有優惠券		(搭配ajax 動態找出不同狀態的優惠券)
 	public List<MemCouponVO> findMemCouponByStatus(Integer memID, Integer coupStatus);
-//	-- 找出 某個會員 擁有的某種優惠券
+//	-- 找出 某個會員 擁有的某種優惠券			(暫不用)
 	public List<MemCouponVO> findMemCouponByCoupTypeNo(Integer memID, Integer coupTypeNo);
 //	-- 找出 某個會員 剩3天要到期的優惠券
 	
-//	-- 找出 所有會員 擁有的優惠券
+//	-- 找出 所有會員 擁有的優惠券			(暫不用)
 	public List<MemCouponVO> getAll();
 }

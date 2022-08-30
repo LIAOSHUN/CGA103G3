@@ -22,6 +22,19 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>MyCouponServlet</servlet-name>
+		<servlet-class>com.coupontype.controller.MyCouponServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CouponTypeServlet</servlet-name>
+		<url-pattern>/frontend/memcoupon/mycoupon.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>CouponTypeServlet</servlet-name>
+		<url-pattern>/backend/coupontype/mycoupon.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>CartServlet</servlet-name>
 		<servlet-class>com.cart.controller.CartServlet</servlet-class>
 	</servlet>

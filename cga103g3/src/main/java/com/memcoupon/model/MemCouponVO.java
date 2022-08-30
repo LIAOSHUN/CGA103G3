@@ -2,6 +2,9 @@ package com.memcoupon.model;
 
 import java.sql.Timestamp;
 
+import com.coupontype.model.CouponTypeService;
+import com.coupontype.model.CouponTypeVO;
+
 public class MemCouponVO {
 	private Integer coupNo;
 	private Integer memID;
@@ -59,6 +62,12 @@ public class MemCouponVO {
 	}
 	public void setCoupGetDate(Timestamp coupGetDate) {
 		this.coupGetDate = coupGetDate;
+	}
+	// for join coupName & coupDiscount & coupDuration from coupTypeNo
+	public CouponTypeVO getCouponTypeVO(){
+		CouponTypeService couponTypeSvc = new CouponTypeService();
+		CouponTypeVO couponTypeVO = couponTypeSvc.showCouponTypeByType(coupTypeNo);
+		return couponTypeVO;
 	}
 	
 	
