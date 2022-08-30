@@ -177,6 +177,7 @@
 	<%@ include file="../frontendfoot.jsp" %>
 </body>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
 
 
@@ -190,38 +191,12 @@
 	let trs = document.getElementsByClassName('tr');
 	let deleteForms = document.getElementsByClassName('deleteForm');
 	
-<%-- 		for(let index = 0; index < <%=cartItems.size()%>;index++){ --%>
-			
-// 			plus[index].addEventListener('click', function () {
-//     			let newCount = parseInt(counts[index].value) + 1;
-//     			counts[index].value = newCount;
-    			
-//     			smallPrice[index].innerText = newCount * price[index].innerText;
-// 			});
 		
+	
 
-// 			sub[index].addEventListener('click', function () {
-				
-				
-// 				if(parseInt(counts[index].value) > 1){
-// 					let newCount = parseInt(counts[index].value) - 1;
-			
-//     				counts[index].value = newCount;
-//     				smallPrice[index].innerText = newCount * price[index].innerText;
-// 				}else if(parseInt(counts[index].value) === 1){
-// 					var yes = confirm('你確定要刪除嗎？');
-// 					if(yes){
-// 						let newCount = parseInt(counts[index].value) - 1;
-// 						counts[index].value = newCount;
-// 		    			smallPrice[index].innerText = newCount * price[index].innerText;
-// 					}else{
-					    
-// 					};
-// 				 };	
-// 			 }); 
-// 		 }	 
-// 					==============================================
-		
+	
+	
+		//在購物車內商品刪除商品
 		for(let index = 0; index < <%=cartItems.size()%>;index++){
 			
 			let pdID = parseInt(pdIDs[index].value);
@@ -235,16 +210,17 @@
 							pdID:pdID,
 						},
 						success: function(){
-//								alert('隱形');
+							//alert('隱形');
 							trs[index].setAttribute('style', 'display: none');
 						}
-				})	
+				})
 			});
 		}
 	
-	
-	
 
+	
+	
+		//在購物車內改變商品數量
 		for(let index = 0; index < <%=cartItems.size()%>;index++){
 			
 			let pdID = parseInt(pdIDs[index].value);
@@ -307,9 +283,6 @@
 			 }); 
 		 }						
 					
-					
-					
-					
 // 					if (yes) {
 // 						$.ajax({
 // 			           	 	type:"POST",
@@ -319,30 +292,16 @@
 // 					} else {
 // 					    alert('你按了取消按鈕');
 // 					}
-					
-					
-					
-// 					$.ajax({
-// 						url: "cart.do",
-// 						type: "POST",
-// 						data: {
-// 							action: "changeItemCount",
-// 							count:1
-// 						},
-// 						success: function(){
-							
-// 						}
-// 					})
-					
-					
-// 					============================
+// 		function f1(){
+<%-- 			for(let index = 0; index < <%=cartItems.size()%>;index++){ --%>
 				
-			
-		
-	
+// 				//如果全部商品(tr)都隱形的話(購物車內沒東西)，需顯示出購物車無物品，redis其實已刪，利用重新整理，抓出購物車現況
+// 				if(trs[index].getAttribute('style') === 'display: none'){
+// 					location.reload();//利用重新整理
+// 					return;
+// 				}
+// 			}
+// 		};
 
-
-	
-	
 </script>
 </html>

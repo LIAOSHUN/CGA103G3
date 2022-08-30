@@ -11,46 +11,20 @@ import com.google.gson.Gson;
 import com.product.model.ProductVO;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
 
 public class CartRedisDAO  {
 
-	public static void main(String[] args) throws JSONException {
-//		Jedis jedis = new Jedis("localhost", 6379);
-//		jedis.select(1);
-//
-//		String jsonStr = "";
-//		String s = "";
-//		String key = "";
-//
-//		String pdName = "阿瓦隆";
-//		Integer ccount = 10;
-//		Integer memID = 11002;
-//
-//		key = memID.toString();
-//		jsonStr = "[{ " + pdName + ":" + ccount + "}]";
-//
-//		JSONArray jsonArray = new JSONArray(jsonStr);
-//
-//		// JSON to List
-//
-//		jedis.lpush(key, jsonStr);
-////		jedis.lpush( "11001", "[{阿瓦隆:1}]");
-//
-//		jedis.close();
-		
-	}
-		
 
-
-//	====================================================================
-
+	private static JedisPool pool = JedisPoolUtil.getJedisPool();
 	//List<String> cartItems:購物車內所有商品
 //	orgItem :購物車裡面原有的商品
 //	wantAddItem:欲加入購物車的商品
 	
 	//取得現在購物車狀況
 	public static List<String> getCart(String sessionId) {
-		Jedis jedis = new Jedis("localhost", 6379);
+		Jedis jedis = null;
+		jedis = pool.getResource();
 		jedis.select(1);
 		
 
@@ -62,7 +36,8 @@ public class CartRedisDAO  {
 	public static void addItem(String sessionId, CartItemVO cartItemVO) {
 
 		Gson gson = new Gson();
-		Jedis jedis = new Jedis("localhost", 6379);
+		Jedis jedis = null;
+		jedis = pool.getResource();
 		jedis.select(1);
 		
 
@@ -85,6 +60,7 @@ public class CartRedisDAO  {
 					//更新後的數量再存回redis
 					String str = gson.toJson(orgItem);
 					jedis.lset(sessionId, i, str);
+					jedis.expire(sessionId, 60 * 60 * 24 * 3);
 					jedis.close();
 					return;
 				}
@@ -93,6 +69,7 @@ public class CartRedisDAO  {
 			// 若沒有該商品ID則新增
 			String strVO = gson.toJson(cartItemVO);
 			jedis.rpush(sessionId, strVO);
+			jedis.expire(sessionId, 60 * 60 * 24 * 3);
 			jedis.close();
 		}
 
@@ -102,7 +79,8 @@ public class CartRedisDAO  {
 	//在購物車內改變商品數量
 	public static void changeItemCount(String sessionId, CartItemVO cartItemVO) {
 		Gson gson = new Gson();
-		Jedis jedis = new Jedis("localhost", 6379);
+		Jedis jedis = null;
+		jedis = pool.getResource();
 		jedis.select(1);
 		
 		
@@ -133,7 +111,8 @@ public class CartRedisDAO  {
 	//在購物車內商品刪除商品
 	public static void deleteItem(String sessionId, Integer pdID) {
 		Gson gson = new Gson();
-		Jedis jedis = new Jedis("localhost", 6379);
+		Jedis jedis = null;
+		jedis = pool.getResource();
 		jedis.select(1);
 
 		List<String> cartItems = getCart(sessionId);
@@ -150,7 +129,8 @@ public class CartRedisDAO  {
 	}
 	//成立訂單，殺掉購物車
 	public static void deleteCart(String sessionId) {
-		Jedis jedis = new Jedis("localhost", 6379);
+		Jedis jedis = null;
+		jedis = pool.getResource();
 		jedis.select(1);
 		
 		
