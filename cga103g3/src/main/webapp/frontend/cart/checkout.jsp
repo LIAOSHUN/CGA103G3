@@ -10,36 +10,45 @@
 <title>checkout</title>
 
 <style>
-  table#table-1 {
-	background-color: lightgreen;
-    border: 2px solid black;
+  
+    table {
+	width: 800px;
+	
+	margin-top: 5px;
+	margin-bottom: 5px;
+  }
+   table, th{ 
+    border: 1px solid gray; 
+   } 
+   th{
+   background-color: #39ac7e  !important;
+   text-align: center  !important;
+   color: black !important;
+   }
+  th, td {
+    padding: 15px;
     text-align: center;
   }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
+  
+  tr:nth-child(odd){
+  	background-color: #eee
   }
 </style>
 
 <style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-  }
-  table, th, td {
-    border: 1px solid #CCCCFF;
-  }
-  th, td {
-    padding: 5px;
-    text-align: center;
-  }
+
+	#deleteCartForm{
+		background-color: #e3e66c  !important;
+	}
+	
+	#deleteCartForm_div{
+		display: inline-block;
+		position: fixed;
+  		bottom: 0;
+  		right: 0;
+ 		width: 200px;
+	}
+  
 </style>
 
 </head>
@@ -51,7 +60,7 @@
    %>
 <%if (cartItems != null && (cartItems.size() > 0)) {%>
 
-<font size="+1">結帳</font>
+<font size="+2">結帳</font>
 
 <table id="table-1">
     <tr> 
@@ -157,8 +166,7 @@
                                 </div>
                                 
  <!-- ================================金額計算============================================== -->
-                                <div class="col-sm-6" style="width: 49%;">
-                                    <div class="card">
+                                
                                         <div class="card-header bg-transparent py-3">
                                             <h6 class="m-0 mb-1" style="font-size: 1.8em;">本次訂單</h6>
                                         </div>
@@ -181,8 +189,9 @@
                                                 </li>
                                             </ul>
                                         </div>
-                                    </div>
-                                </div>
+                                        
+                                        
+<!--                                         ================================== -->
                             </div>
                         </div>
                     </form>
@@ -209,19 +218,20 @@
 
 
 <!-- ================================確認送出========================================== -->
-	<div>
-          <form name="deleteCartForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
-              <input type="hidden" name="action"  value="deleteCart"> 
-              <input type="submit" value="送出訂單" class="button">
-          </form>
-    </div>
+
 	<div>
 		 <form name="backCartForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
               <input type="hidden" name="action"  value="getCart"> 
-              <input type="submit" value="更改購物車品項" class="button">
+              <input type="submit" value="更改購物車品項" class="flex-c-m stext-101 cl0 size-102 bg2  bor14 hov-btn3 p-lr-15 trans-04 pointer">
           </form>
 	</div>
 	
+	<div id='deleteCartForm_div'>
+          <form name="deleteCartForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
+              <input type="hidden" name="action"  value="deleteCart"> 
+              <input type="submit" id="deleteCartForm" value="送出訂單" class="flex-c-m stext-101 cl0 size-218 size-115 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+          </form>
+    </div>
 <%}else{%>
 		<font size="+1">購物車明細</font>
 

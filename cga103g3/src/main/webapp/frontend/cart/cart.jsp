@@ -12,17 +12,26 @@
 <style>
   
     table {
-	width: 800px;
+	width: 950px;
 	
 	margin-top: 5px;
 	margin-bottom: 5px;
   }
-  table, th, td {
-    border: 1px solid gray;
-  }
+   table, th{ 
+    border: 1px solid gray; 
+   } 
+   th{
+   background-color: #39ac7e  !important;
+   text-align: center  !important;
+   color: black !important;
+   }
   th, td {
     padding: 15px;
     text-align: center;
+  }
+  
+  tr:nth-child(odd){
+  	background-color: #eee
   }
 </style>
 
@@ -84,8 +93,19 @@
   	color: #fff;
   }
   
-  .table_head{
-  }
+ #all, #else{
+ 	padding: 10px 100px 30px 100px;
+
+ }
+ #else th{
+ 	padding-top: 0.4px;
+	padding-bottom: 0.4px;
+	max-height: 10px;
+ }
+ 
+ #checkoutForm{
+ 	padding-left: 790px;
+ }
   
  
 
@@ -99,9 +119,9 @@
    %>
 <%if (cartItems != null && (cartItems.size() > 0)) {%>
 
+
+<div id="all">
 <font size="+1">購物車明細</font>
-
-
 <table class="wrap-table-shopping-cart">
     <tr class="table_head"> 
       <th class="column-1">遊戲名稱</th>
@@ -144,13 +164,15 @@
 	<%}%>
 </table>
 	
-	<div>
+	<div id="checkoutForm">
 		<form name="checkoutForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
               <input type="hidden" name="action"  value="checkout"> 
-              <input type="submit" id='checkout' value="前往結帳" class="flex-c-m stext-101 cl0 size-101 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+              <input type="submit" id='checkout' value="結帳就對了!" class="flex-c-m stext-101 cl0 size-101 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer">
         </form>
     </div>
+</div>    
 <%}else{%>
+<div id="else">
 		<font size="+1">購物車明細</font>
 
 		<table class="wrap-table-shopping-cart">
@@ -168,10 +190,11 @@
 				<td width="620">目前尚無商品</td>
 			</tr>
 		</table>
+</div>		
 	<%}%>
 	
 	<div>
-		<a href="testpro.jsp" class="flex-c-m stext-101 cl0 size-101 bg2  hov-btn3 p-lr-15 trans-04 pointer"> 繼 續 購 物</a>
+		<a href="testpro.jsp" class="flex-c-m stext-101 cl0 size-101 bg2  hov-btn3 p-lr-15 trans-04 pointer"> 前 往 商 城 繼 續 絆 桌</a>
 	</div>
 	
 	<%@ include file="../frontendfoot.jsp" %>
@@ -260,26 +283,54 @@
 							},
 					})	
 				}else if(parseInt(counts[index].innerText) === 1){
-					var yes = confirm('您要移除此商品嗎？');
-					if(yes){
-						let newCount = parseInt(counts[index].innerText) - 1;
-	    				
-	    				$.ajax({
-							url: "cart.do",
-							type: "POST",
-							data: {
-									action: "changeItemCount",
-									count:newCount,
-									pdID:pdID,
-								},
-							success: function(){
-// 								alert('隱形');
-								trs[index].setAttribute('style', 'display: none');
-							}
-						})	
-					}
-				}
+					/* sweetalert */
+		 			 const swalWithBootstrapButtons = Swal.mixin({
+		 		        customClass: {
+		 		            confirmButton: 'btn btn-success ml-3',
+		 		            cancelButton: 'btn btn-danger mr-3'
+		 		        },
+		 		        buttonsStyling: false
+		 		    })
+
+					
+// 					=====================================
+					
+					 swalWithBootstrapButtons.fire({
+ 		        		title: '確定將此遊戲移除購物車嗎?',
+ 		        		text: "請珍惜每次的羈絆",
+ 		        		icon: 'warning',
+ 		        		showCancelButton: true,
+ 		        		confirmButtonText: '是的!',
+ 		        		cancelButtonText: '我再想想',
+ 		        		reverseButtons: true
+ 		    		}).then((result) => {
+ 		    			if (result.isConfirmed) {
+ 		 		            swalWithBootstrapButtons.fire(
+ 		 		                '已成功刪除此遊戲商品!',
+ 		 		                '若想再次將商品加入購物車，請至購物商城',
+ 		 		                'success'
+ 		 		            )
+ 		    			
+ 		 		          	let newCount = parseInt(counts[index].innerText) - 1;
+ 		    				
+ 		    					$.ajax({
+ 									url: "cart.do",
+ 									type: "POST",
+ 									data: {
+ 											action: "changeItemCount",
+ 											count:newCount,
+ 											pdID:pdID,
+ 										},
+ 									success: function(){
+ 										trs[index].setAttribute('style', 'display: none');
+ 									}
+ 								})	
+ 		    			  }
+ 		    			
+ 		    			
+					})
 				
+				  }
 			 }); 
 		 }						
 					
