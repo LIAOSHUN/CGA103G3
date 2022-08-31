@@ -39,9 +39,7 @@
 	.count{
 		display: inline-block;
 	}
-	#checkout{
-		background-color: #39ac7e  !important;
-	}
+
 
   .plus, .sub{
   	width: 10px;
@@ -106,9 +104,10 @@
  #checkoutForm{
  	padding-left: 790px;
  }
+ #checkout{
+	background-color: #39ac7e  !important;
+ }
   
- 
-
 </style>
 </head>
 <body>
@@ -141,23 +140,16 @@
 		<td class="column-3" >
 			$<span class='price'><%=CartItem.getPdPrice()%></span>  </td>
 		<td class="column-4">
-			<form class='form' action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
-				<input type="hidden" name="action"  value="changeItemCount">
 				<input class="pdID" type="hidden" name="pdID"  value="<%=CartItem.getPdID()%>">
 				<input class="plus" type="button" value="+" >
 				<span class="count"><%=CartItem.getCount()%></span>
 				<input class="sub" type="button" value="-" >
-			</form>
 		</td>
 		<td class="column-5">
 			$<span class='smallPrice'><%=CartItem.getPdPrice() * CartItem.getCount()%></span></td>
 		
         <td width="20">
-          <form class="deleteForm" name="deleteForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
-              <input type="hidden" name="action"  value="deleteItem">
-              <input type="hidden" name="pdID"  value="<%=CartItem.getPdID()%>">
-              <input type="button" id='delete' value="刪除" class="flex-c-m stext-101 cl0 size-202 bg3 bor7 hov-btn3 p-lr-15 trans-04 pointer">
-          </form>
+              <input type="button" id='delete' value="刪除" class="delete flex-c-m stext-101 cl0 size-202 bg3 bor7 hov-btn3 p-lr-15 trans-04 pointer">
          </td>
 	</tr>
 	
@@ -210,9 +202,8 @@
 	let price = document.querySelectorAll('.price');
 	let smallPrice = document.querySelectorAll('.smallPrice');
 	let pdIDs = document.querySelectorAll('.pdID');
-	let forms = document.querySelectorAll('.form');
 	let trs = document.getElementsByClassName('tr');
-	let deleteForms = document.getElementsByClassName('deleteForm');
+	let deletes = document.getElementsByClassName('delete');
 	
 		
 	
@@ -224,7 +215,7 @@
 			
 			let pdID = parseInt(pdIDs[index].value);
 			
-			deleteForms[index].addEventListener('click', function () {
+			deletes[index].addEventListener('click', function () {
 				$.ajax({
 					url: "cart.do",
 					type: "POST",
