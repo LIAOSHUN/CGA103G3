@@ -1,5 +1,7 @@
 package com.cart.model;
 
+import java.util.List;
+
 import com.product.model.ProductVO;
 
 public interface CartDAO_interface {
@@ -7,4 +9,6 @@ public interface CartDAO_interface {
 	public ProductVO getOne(Integer pdID);
 //	-- 更改某樣商品資訊
 	public void update(ProductVO productVO);
+	
+	
 }

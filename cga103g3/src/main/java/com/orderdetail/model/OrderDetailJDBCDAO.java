@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,6 +57,49 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	@Override
+	public void insert2(OrderDetailVO orderDetailVO, Connection con) {
+		PreparedStatement pstmt = null;
+
+		try {
+
+     		pstmt = con.prepareStatement(Insert);
+
+     		pstmt.setInt(1, orderDetailVO.getOrdNo());
+     		pstmt.setInt(2, orderDetailVO.getPdID());
+     		pstmt.setInt(3, orderDetailVO.getItemSales());
+     		pstmt.setInt(4, orderDetailVO.getPrice());
+
+			pstmt.executeUpdate();
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-orderdetail");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
 	}
 
 	@Override
@@ -223,6 +267,8 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 		
 		
 	}
+
+
 
 
 

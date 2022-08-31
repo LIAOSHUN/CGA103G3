@@ -3,6 +3,8 @@ package com.orderlist.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import com.orderdetail.model.OrderDetailVO;
+
 public class OrderListService {
 	private OrderListDAO_interface dao;
 	
@@ -11,7 +13,53 @@ public class OrderListService {
 	}
 	
 //	-- 新增訂單資料-使用優惠券
-	public OrderListVO updateOrderList(Integer ordNo, Integer memID, Integer coupNo, Double ordOriPrice, Double ordLastPrice,
+	public OrderListVO addOrderList2(Integer ordNo, Integer memID, Integer coupNo, Double ordOriPrice, Double ordLastPrice,
+			Integer ordFee, Integer ordStatus, Timestamp ordCreate, String recName, String recAddress, String recPhone,
+			Integer ordPick, List<OrderDetailVO> list) {
+		OrderListVO orderListVO = new OrderListVO();
+		
+		orderListVO.setOrdNo(ordNo);
+		orderListVO.setMemID(memID);
+		orderListVO.setCoupNo(coupNo);
+		orderListVO.setOrdOriPrice(ordOriPrice);
+		orderListVO.setOrdLastPrice(ordLastPrice);
+		orderListVO.setOrdFee(ordFee);
+		orderListVO.setOrdStatus(ordStatus);
+		orderListVO.setOrdCreate(ordCreate);
+		orderListVO.setRecName(recName);
+		orderListVO.setRecAddress(recAddress);
+		orderListVO.setRecPhone(recPhone);
+		orderListVO.setOrdPick(ordPick);
+		dao.insertWithOrderDetails(orderListVO, list);
+		return orderListVO;
+		
+	}
+	
+	
+//	-- 新增訂單資料-沒使用優惠券
+	public OrderListVO addOrderListNc2(Integer ordNo, Integer memID, Double ordOriPrice, Double ordLastPrice,
+			Integer ordFee, Integer ordStatus, Timestamp ordCreate, String recName, String recAddress, String recPhone,
+			Integer ordPick, List<OrderDetailVO> list) {
+		OrderListVO orderListVO = new OrderListVO();
+		
+		orderListVO.setOrdNo(ordNo);
+		orderListVO.setMemID(memID);
+		orderListVO.setOrdOriPrice(ordOriPrice);
+		orderListVO.setOrdLastPrice(ordLastPrice);
+		orderListVO.setOrdFee(ordFee);
+		orderListVO.setOrdStatus(ordStatus);
+		orderListVO.setOrdCreate(ordCreate);
+		orderListVO.setRecName(recName);
+		orderListVO.setRecAddress(recAddress);
+		orderListVO.setRecPhone(recPhone);
+		orderListVO.setOrdPick(ordPick);
+		dao.insertWithOrderDetailsNoCoupon(orderListVO, list);
+		return orderListVO;
+		
+	}
+	
+//	-- 新增訂單資料-使用優惠券
+	public OrderListVO addOrderList(Integer ordNo, Integer memID, Integer coupNo, Double ordOriPrice, Double ordLastPrice,
 			Integer ordFee, Integer ordStatus, Timestamp ordCreate, String recName, String recAddress, String recPhone,
 			Integer ordPick) {
 		OrderListVO orderListVO = new OrderListVO();
@@ -49,12 +97,12 @@ public class OrderListService {
 		orderListVO.setRecAddress(recAddress);
 		orderListVO.setRecPhone(recPhone);
 		orderListVO.setOrdPick(ordPick);
-		dao.update(orderListVO);
+		dao.insertNoCoupon(orderListVO);
 		return orderListVO;
 		
 	}
 //	-- 更改訂單內容
-	public OrderListVO addOrderList(Integer ordNo, Integer memID, Integer coupNo, Double ordOriPrice, Double ordLastPrice,
+	public OrderListVO updateOrderList(Integer ordNo, Integer memID, Integer coupNo, Double ordOriPrice, Double ordLastPrice,
 			Integer ordFee, Integer ordStatus, Timestamp ordCreate, String recName, String recAddress, String recPhone,
 			Integer ordPick) {
 		OrderListVO orderListVO = new OrderListVO();
@@ -71,7 +119,7 @@ public class OrderListService {
 		orderListVO.setRecAddress(recAddress);
 		orderListVO.setRecPhone(recPhone);
 		orderListVO.setOrdPick(ordPick);
-		dao.insert(orderListVO);
+		dao.update(orderListVO);
 		return orderListVO;
 		
 	}
