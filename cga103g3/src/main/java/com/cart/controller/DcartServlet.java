@@ -1,6 +1,7 @@
 package com.cart.controller;
 
 import java.io.IOException;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -9,10 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.cart.model.CartItemVO;
-import com.cart.model.CartService;
 
 @WebServlet("/DcartServlet")
 public class DcartServlet extends HttpServlet {
@@ -25,22 +22,20 @@ public class DcartServlet extends HttpServlet {
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		req.setCharacterEncoding("UTF-8");
-		String action = req.getParameter("action");
-		HttpSession session = req.getSession();
-
-		if ("cdeleteItem".equals(action)) {
-			Integer pdID = new Integer(req.getParameter("pdID"));
-			String sessionId = (String) req.getSession().getAttribute("sessionId");
-			CartService cartSvc = new CartService();
-			cartSvc.deleteItem(sessionId, pdID);
-			List<CartItemVO> cartItems = null;
-			cartItems = cartSvc.getCart(sessionId);
-
-			req.setAttribute("cartItems", cartItems);
-			String url = "/frontend/cart/cart.jsp";
-			RequestDispatcher rd = req.getRequestDispatcher(url);
-			rd.forward(req, res);
+		Enumeration en = req.getParameterNames();
+		while (en.hasMoreElements()) {
+			String name = (String) en.nextElement();
+			String values[] = req.getParameterValues(name);
+			if (values != null && values.equals("")) {
+				for (int i = 0; i < values.length; i++) {
+					req.setAttribute(name, values[i]);
+					
+				}
+			}
 		}
+		String url = "/frontend/cart/checkout2.jsp";
+		RequestDispatcher rd = req.getRequestDispatcher(url);
+		rd.forward(req, res);
 		
 	}	
 }
