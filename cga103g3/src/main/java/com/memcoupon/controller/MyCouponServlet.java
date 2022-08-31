@@ -1,6 +1,8 @@
 package com.memcoupon.controller;
 
 import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,7 +29,10 @@ public class MyCouponServlet extends HttpServlet {
 		
 		
 		
-		
+		req.setAttribute("couponTypeVO", couponTypeVO); // 資料庫取出的couponTypeVO物件,存入req
+		String url = "/backend/coupontype/listOneCouponType.jsp";
+		RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneCouponType.jsp
+		successView.forward(req, res);
 	}
 	
 	

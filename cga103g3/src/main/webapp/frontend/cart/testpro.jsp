@@ -147,7 +147,7 @@
 	<input type="submit" value="測試cookie">
 	<input type="hidden" name="action"	value="init">
  </FORM>
- <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/cart/cart.do" style="margin-bottom: 0px;">
+ <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/cart/cart.do">
 	<input type="submit" value="查看購物車">
 	<input type="hidden" name="action"	value="getCart">
  </FORM>
@@ -159,6 +159,7 @@
 
 
 
-
+	
 </script>
+
 </html>

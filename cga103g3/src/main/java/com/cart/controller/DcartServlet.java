@@ -26,7 +26,7 @@ public class DcartServlet extends HttpServlet {
 		while (en.hasMoreElements()) {
 			String name = (String) en.nextElement();
 			String values[] = req.getParameterValues(name);
-			if (values != null && values.equals("")) {
+			if (values != null ) {
 				for (int i = 0; i < values.length; i++) {
 					req.setAttribute(name, values[i]);
 					

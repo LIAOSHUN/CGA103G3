@@ -61,9 +61,7 @@
 							<li>
 								<a href="product.html">商城</a>
 							</li>
-							<li>
-								<a href="shoping-cart.html">購物車</a>
-							</li>
+
 							<li>
 								<a href="#">訂位</a>
 							</li>
@@ -168,7 +166,7 @@
 		<div class="sidebar flex-col-l p-t-22 p-b-25">
 			<div class="flex-r w-full p-b-30 p-r-27">
 				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-sidebar">
-					<i class="zmdi zmdi-close"></i>
+					<i id="shoppingcart" class="zmdi zmdi-close"></i>
 				</div>
 			</div>
 
