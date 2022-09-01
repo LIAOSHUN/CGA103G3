@@ -20,6 +20,15 @@
 		<servlet-name>CouponTypeServlet</servlet-name>
 		<url-pattern>/backend/coupontype/coupontype.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CartServlet</servlet-name>
+		<servlet-class>com.cart.controller.CartServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CartServlet</servlet-name>
+		<url-pattern>/frontend/cart/cart.do</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>ActServlet</servlet-name>
@@ -59,4 +68,40 @@
 		<servlet-name>ActImgServlet</servlet-name>
 		<url-pattern>/frontend/actimg/actimg.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>ProductServlet</servlet-name>
+		<servlet-class>com.product.controller.ProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/backend/product/product.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	
+	<servlet>
+		<servlet-name>ProductImgServlet</servlet-name>
+		<servlet-class>com.product.controller.ProductImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ProductServlet</servlet-name>
+		<url-pattern>/backend/productimg/productimg.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	
+	<servlet>
+		<servlet-name>ShowproductimgServlet</servlet-name>
+		<servlet-class>com.productimg.controller.showproductimg</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ShowproductimgServlet</servlet-name>
+		<url-pattern>/backend/productimg/showproductimg.do</url-pattern>
+	</servlet-mapping>
+	
+	
+	
 </web-app>

@@ -2,6 +2,7 @@ package com.orderdetail.model;
 
 import java.util.List;
 
+
 public interface OrderDetailDAO_interface {
 
 //	-- 新增一筆訂單明細
@@ -16,5 +17,7 @@ public interface OrderDetailDAO_interface {
 	public OrderDetailVO findOneOrderDetailPd(Integer ordNo, Integer pdID);
 //	-- 找出所有訂單明細
 	public List<OrderDetailVO> getAll();
+	//同時新增訂單與訂單明細
+	public void insert2 (OrderDetailVO orderDetailVO , java.sql.Connection con);
 	
 }

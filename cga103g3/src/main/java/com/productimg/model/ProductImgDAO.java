@@ -1,4 +1,4 @@
-package com.product_img.model;
+package com.productimg.model;
 
 import java.util.*;
 import java.sql.*;
@@ -24,7 +24,7 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 	}
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO productimg (PdId,PdImg,PdImgName) VALUES (?, ?, ?)";
+		"INSERT INTO productimg (PdImg,PdImgName) VALUES (?,?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT PdImgId,PdId,PdImg,PdImgName FROM productimg order by PdImgId";
 	private static final String GET_ONE_STMT = 
@@ -44,11 +44,9 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
-
-			pstmt.setInt(1, productImgVO.getPdImgId());
-			pstmt.setInt(2, productImgVO.getPdId());
-			pstmt.setBlob(3, productImgVO.getPdImg());
-			pstmt.setString(4, productImgVO.getPdImgName());
+//			"INSERT INTO productimg (PdImg,PdImgName) VALUES (?, ?)";
+			pstmt.setBytes(1, productImgVO.getPdImg());
+			pstmt.setString(2, productImgVO.getPdImgName());
 
 			pstmt.executeUpdate();
 
@@ -86,11 +84,10 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
-
-			pstmt.setInt(1, productImgVO.getPdImgId());
-			pstmt.setInt(2, productImgVO.getPdId());
-			pstmt.setBlob(3, productImgVO.getPdImg());
-			pstmt.setString(4, productImgVO.getPdImgName());
+//			"UPDATE productimg set PdImg=?, PdImgName=? where PdImgId = ?";
+			pstmt.setBytes(1, productImgVO.getPdImg());
+			pstmt.setString(2, productImgVO.getPdImgName());
+			pstmt.setInt(3, productImgVO.getPdImgID());
 
 
 			pstmt.executeUpdate();
@@ -120,7 +117,7 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer PdImgId) {
+	public void delete(Integer pdImgId) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -130,7 +127,7 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, PdImgId);
+			pstmt.setInt(1, pdImgId);
 
 			pstmt.executeUpdate();
 
@@ -159,7 +156,7 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 	}
 
 	@Override
-	public ProductImgVO findByPrimaryKey(Integer PdImgId) {
+	public ProductImgVO findByPrimaryKey(Integer pdImgId) {
 
 		ProductImgVO productImgVO = null;
 		Connection con = null;
@@ -171,17 +168,17 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, PdImgId);
+			pstmt.setInt(1, pdImgId);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// empVo �]�٬� Domain objects
 				productImgVO = new ProductImgVO();
-				productImgVO.setPdImgId(rs.getInt("PdImgId"));
-				productImgVO.setPdId(rs.getInt("PdId"));
-				productImgVO.setPdImg(rs.getBlob("PdImg"));
-				productImgVO.setPdImgName(rs.getString("PdImgName"));
+				productImgVO.setPdImgID(rs.getInt("pdImgID"));
+				productImgVO.setPdID(rs.getInt("pdID"));
+				productImgVO.setPdImg(rs.getBytes("pdImg"));
+				productImgVO.setPdImgName(rs.getString("pdImgName"));
 			}
 
 			// Handle any driver errors
@@ -233,10 +230,10 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 			while (rs.next()) {
 				// empVO �]�٬� Domain objects
 				productImgVO = new ProductImgVO();
-				productImgVO.setPdImgId(rs.getInt("PdImgId"));
-				productImgVO.setPdId(rs.getInt("PdId"));
-				productImgVO.setPdImg(rs.getBlob("PdImg"));
-				productImgVO.setPdImgName(rs.getString("PdImgName"));
+				productImgVO.setPdImgID(rs.getInt("pdImgID"));
+				productImgVO.setPdID(rs.getInt("pdID"));
+				productImgVO.setPdImg(rs.getBytes("pdImg"));
+				productImgVO.setPdImgName(rs.getString("pdImgName"));
 				list.add(productImgVO); // Store the row in the list
 			}
 

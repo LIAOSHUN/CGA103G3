@@ -1,16 +1,28 @@
-package com.product_img.model;
+package com.productimg.model;
 
 import java.util.*;
 import java.sql.*;
 
-public class ProductImgJDBCDAO implements  ProductImgDAO_interface {
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/db01?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "871104";
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+public class ProductImgJNDIDAO implements ProductImgDAO_interface {
+
+	// �@�����ε{����,�w��@�Ӹ�Ʈw ,�@�Τ@��DataSource�Y�i
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
 
 	private static final String INSERT_STMT = 
-			"INSERT INTO productimg (PdId,PdImg,PdImgName) VALUES (?, ?, ?)";
+			"INSERT INTO productimg (PdImg,PdImgName) VALUES (?,?)";
 		private static final String GET_ALL_STMT = 
 			"SELECT PdImgId,PdId,PdImg,PdImgName FROM productimg order by PdImgId";
 		private static final String GET_ONE_STMT = 
@@ -28,21 +40,15 @@ public class ProductImgJDBCDAO implements  ProductImgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, productImgVO.getPdImgId());
-			pstmt.setInt(2, productImgVO.getPdId());
-			pstmt.setBlob(3, productImgVO.getPdImg());
-			pstmt.setString(4, productImgVO.getPdImgName());
+			pstmt.setBytes(1, productImgVO.getPdImg());
+			pstmt.setString(2, productImgVO.getPdImgName());
+
 
 			pstmt.executeUpdate();
 
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -75,23 +81,17 @@ public class ProductImgJDBCDAO implements  ProductImgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, productImgVO.getPdImgId());
-			pstmt.setInt(2, productImgVO.getPdId());
-			pstmt.setBlob(3, productImgVO.getPdImg());
-			pstmt.setString(4, productImgVO.getPdImgName());
-
+			pstmt.setBytes(1, productImgVO.getPdImg());
+			pstmt.setString(2, productImgVO.getPdImgName());
+			pstmt.setInt(3, productImgVO.getPdImgID());
+;
 
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -116,26 +116,21 @@ public class ProductImgJDBCDAO implements  ProductImgDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer PdImgId) {
+	public void delete(Integer empno) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, PdImgId);
+			pstmt.setInt(1, empno);
 
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -160,7 +155,7 @@ public class ProductImgJDBCDAO implements  ProductImgDAO_interface {
 	}
 
 	@Override
-	public ProductImgVO findByPrimaryKey(Integer empno) {
+	public ProductImgVO findByPrimaryKey(Integer PdImgId) {
 
 		ProductImgVO productImgVO = null;
 		Connection con = null;
@@ -169,28 +164,23 @@ public class ProductImgJDBCDAO implements  ProductImgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, empno);
+			pstmt.setInt(1, PdImgId);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// empVo �]�٬� Domain objects
 				productImgVO = new ProductImgVO();
-//				productImgVO.setPdImgId(rs.getInt("21005"));
-				productImgVO.setPdId(rs.getInt("21001"));
-//				productImgVO.setPdImg(rs.getBlob(""));
-				productImgVO.setPdImgName(rs.getString("87遊戲"));
+				productImgVO.setPdImgID(rs.getInt("pdImgID"));
+				productImgVO.setPdID(rs.getInt("pdID"));
+				productImgVO.setPdImg(rs.getBytes("pdImg"));
+				productImgVO.setPdImgName(rs.getString("pdImgName"));
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -232,26 +222,21 @@ public class ProductImgJDBCDAO implements  ProductImgDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// empVO �]�٬� Domain objects
 				productImgVO = new ProductImgVO();
-//				productImgVO.setPdImgId(rs.getInt("21005"));
-				productImgVO.setPdId(rs.getInt("21001"));
-//				productImgVO.setPdImg(rs.getBlob(""));
-				productImgVO.setPdImgName(rs.getString("87遊戲"));
+				productImgVO.setPdImgID(rs.getInt("pdImgID"));
+				productImgVO.setPdID(rs.getInt("pdID"));
+				productImgVO.setPdImg(rs.getBytes("pdImg"));
+				productImgVO.setPdImgName(rs.getString("pdImgName"));
 				list.add(productImgVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
@@ -280,45 +265,5 @@ public class ProductImgJDBCDAO implements  ProductImgDAO_interface {
 			}
 		}
 		return list;
-	}
-
-	public static void main(String[] args) {
-
-		ProductImgJDBCDAO dao = new ProductImgJDBCDAO();
-
-		// �s�W
-		ProductImgVO productimgVO1 = new ProductImgVO();
-		productimgVO1.setPdId(21001);
-//		productimgVO1.setPdImg("");
-		productimgVO1.setPdImgName("遊戲87");
-		dao.insert(productimgVO1);
-
-		// �ק�
-		ProductImgVO productimgVO2 = new ProductImgVO();
-		productimgVO2.setPdId(21002);
-//		productimgVO2.setPdImg("");
-		productimgVO2.setPdImgName("遊戲877777");
-		dao.update(productimgVO2);
-
-		// �R��
-		dao.delete(7014);
-
-		// �d��
-		ProductImgVO productimgVO3 = dao.findByPrimaryKey(21001);
-		System.out.print(productimgVO3.getPdImgId() + ",");
-		System.out.print(productimgVO3.getPdId() + ",");
-		System.out.print(productimgVO3.getPdImg() + ",");
-		System.out.print(productimgVO3.getPdImgName() + ",");
-		System.out.println("---------------------");
-
-		// �d��
-		List<ProductImgVO> list = dao.getAll();
-		for (ProductImgVO aProductimg : list) {
-			System.out.print(aProductimg.getPdImgId() + ",");
-			System.out.print(aProductimg.getPdId() + ",");
-			System.out.print(aProductimg.getPdImg() + ",");
-			System.out.print(aProductimg.getPdImgName() + ",");
-			System.out.println();
-		}
 	}
 }

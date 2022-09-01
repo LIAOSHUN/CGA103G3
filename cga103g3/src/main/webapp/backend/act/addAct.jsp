@@ -132,14 +132,11 @@ th, td {
 				<td>活動狀態:<font color=red><b>*</b></font></td>
 				<td><select size="1" name="actStatus">
 						<option value="0"
-							<c:if test="${actVO.actStatus == '0' }">selected</c:if>>0
-							: 活動中止</option>
+							<c:if test="${actVO.actStatus == '0' }">selected</c:if>>0：活動中止</option>
 						<option value="1"
-							<c:if test="${actVO.actStatus == '1' }">selected</c:if>>1
-							: 報名中</option>
+							<c:if test="${actVO.actStatus == '1' }">selected</c:if>>1：報名中</option>
 						<option value="2"
-							<c:if test="${actVO.actStatus == '2' }">selected</c:if>>2
-							: 額滿截止</option>
+							<c:if test="${actVO.actStatus == '2' }">selected</c:if>>2：額滿截止</option>
 				</select></td>
 			</tr>
 		</table>
