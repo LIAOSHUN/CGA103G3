@@ -32,6 +32,43 @@ public class CartRedisDAO  {
 		jedis.close();
 		return cartItems;
 	}
+	//被選取商品與購物車狀況比較
+	public static CartItemVO getOneChecked(String sessionId, Integer pdID) {
+		Gson gson = new Gson();
+		Jedis jedis = null;
+		jedis = pool.getResource();
+		jedis.select(1);
+		
+		List<String> cartItems = getCart(sessionId);//先把他的車叫出來
+		
+		
+			CartItemVO cartItemVO = new CartItemVO();
+			for (int i = 0; i < cartItems.size(); i++) {
+				CartItemVO orgItem = gson.fromJson(cartItems.get(i), CartItemVO.class);//將他的車的商品一個一個取出來
+
+				Integer checkedPdID = pdID;
+				Integer orgItemId = orgItem.getPdID();
+				// 若購物車內已有該商品ID則傳回vo
+				if (checkedPdID.equals(orgItemId)) {
+					
+					CartService cartSvc = new CartService();
+					ProductVO productVO = cartSvc.getOne(pdID);
+					String pdName = productVO.getPdName();
+					Integer price = productVO.getPdPrice();
+					Integer count = orgItem.getCount();
+					
+					cartItemVO.setPdID(pdID);
+					cartItemVO.setPdName(pdName);
+					cartItemVO.setCount(count);
+					cartItemVO.setPdPrice(price);
+					
+					
+					jedis.close();
+				};
+			}
+			return cartItemVO;
+		
+	}
 	//在商城中:點擊加入購物車，將商品加入購物車中
 	public static void addItem(String sessionId, CartItemVO cartItemVO) {
 

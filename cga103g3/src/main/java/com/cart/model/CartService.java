@@ -97,6 +97,9 @@ public class CartService {
 		daoR.deleteCart(sessionId);
 	};
 	
+	public CartItemVO getOneChecked(String sessionId, Integer pdID) {
+		return daoR.getOneChecked(sessionId, pdID);
+	}
 	
 	
 	// 購物車存活七天

@@ -38,6 +38,28 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/frontend/frontend_template/css/util.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/frontend/frontend_template/css/main.css">
 	<!--===============================================================================================-->
+<script>
+window.onload = function (){
+
+	let shoppingcart222 = document.getElementById('shoppingcart222');
+	
+	shoppingcart222.addEventListener('click', function () {
+		
+		
+		$.ajax({
+			url: "cart.do",
+			type: "POST",
+			data: {
+					action: "getCart",
+				},
+		})	
+	});
+
+
+}
+		
+	
+	</script>
 </head>
 
 <body class="animsition">
@@ -85,7 +107,7 @@
 							<div class="flex-c-m h-full p-l-18 p-r-25 bor5">
 								<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11  js-show-cart">
 									<!-- <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="2"></div> -->
-									<i class="zmdi zmdi-shopping-cart"></i>
+									<i id="shoppingcart222" class="zmdi zmdi-shopping-cart"></i>
 								</div>
 							</div>
 						</a>
@@ -116,7 +138,7 @@
 				<div class="flex-c-m h-full p-lr-10 bor5">
 					<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart"
 						data-notify="2">
-						<i class="zmdi zmdi-shopping-cart"></i>
+						<i  class="zmdi zmdi-shopping-cart"></i>
 					</div>
 				</div>
 			</div>
@@ -166,7 +188,7 @@
 		<div class="sidebar flex-col-l p-t-22 p-b-25">
 			<div class="flex-r w-full p-b-30 p-r-27">
 				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-sidebar">
-					<i id="shoppingcart" class="zmdi zmdi-close"></i>
+					<i class="zmdi zmdi-close"></i>
 				</div>
 			</div>
 

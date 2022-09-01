@@ -97,7 +97,7 @@ public class CartServlet extends HttpServlet {
 			cartItems = cartSvc.getCart(sessionId);
 			
 			req.setAttribute("cartItems", cartItems);
-			String url = "/frontend/cart/cart.jsp";
+			String url = "/frontend/cart/cart2.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 		}
@@ -158,7 +158,7 @@ public class CartServlet extends HttpServlet {
 			cartItems = cartSvc.getCart(sessionId);
 
 			req.setAttribute("cartItems", cartItems);
-			String url = "/frontend/cart/checkout.jsp";
+			String url = "/frontend/cart/checkout2.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 		}

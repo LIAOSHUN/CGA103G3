@@ -56,7 +56,9 @@
 <%@ include file="../frontendhead.jsp" %>
 <br>
 
-
+<% 
+   List<CartItemVO> checklist = (List<CartItemVO>) request.getAttribute("checklist");
+%>
 
 <font size="+2">結帳</font>
 
@@ -71,19 +73,16 @@
 
 
 <table>
-   <% 
-   Enumeration en = request.getAttributeNames();
-   
-	while (en.hasMoreElements()) {
-		String name = (String) en.nextElement();
-		Integer pdID =  Integer.parseInt((String)request.getAttribute(name));
+	<%
+	 for (int index = 0; index < checklist.size(); index++) {
+		 CartItemVO CartItem = checklist.get(index);
 	%>
-		
+	
 	<tr>
-		<td width="200"><%=pdID%>   </td>
-		<td width="100"><%=1%>  元</td>
-		<td width="100"><%=1%>	</td>
-		<td width="100"><%=1%>   元 </td>
+		<td width="200"><%=CartItem.getPdName()%>   </td>
+		<td width="100"><%=CartItem.getPdPrice()%>  元</td>
+		<td width="100"><%=CartItem.getCount()%>	</td>
+		<td width="100"><%=CartItem.getPdPrice() * CartItem.getCount()%>   元 </td>
 	</tr>
 		
 	<%}%>

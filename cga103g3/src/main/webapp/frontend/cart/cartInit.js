@@ -6,7 +6,7 @@ function init() {
 				action: "init"
 			},
 			success: function(){
-				alert('成功');
+				
 			}
 		})
 }

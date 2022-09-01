@@ -220,22 +220,7 @@
 	<!--===============================================================================================-->
 	<script src="<%=request.getContextPath()%>/frontend/frontend_template/js/main.js"></script>
 	<script src="<%= request.getContextPath() %>/frontend/cart/cartInit.js"></script>
-	<script>
-		let shoppingcart = document.getElementById('shoppingcart');
-		
-		shoppingcart.addEventListener('click', function () {
-			
-			
-			$.ajax({
-				url: "cart.do",
-				type: "POST",
-				data: {
-						action: "getCart",
-					},
-			})	
-		});
-	
-	</script>
+
 
 	
 

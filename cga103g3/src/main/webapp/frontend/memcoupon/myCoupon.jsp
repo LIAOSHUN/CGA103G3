@@ -69,9 +69,9 @@
 		
 		<tr>
 			<td>${memCouponVO.coupNo}</td>
-<%-- 			<td>${memCouponVO.coupName}</td> --%>
-<%-- 			<td>${memCouponVO.}</td> --%>
-<%-- 			<td>${memCouponVO.}</td> --%>
+			<td>${memCouponVO.couponTypeVO.coupName}</td>
+			<td>${memCouponVO.couponTypeVO.coupDiscount}</td>
+			<td>${memCouponVO.coupExpDate}</td>
 			<td>${memCouponVO.coupStatus}</td>
 		</tr>
 	</c:forEach>
