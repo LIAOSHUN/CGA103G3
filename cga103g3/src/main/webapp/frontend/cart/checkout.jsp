@@ -56,9 +56,9 @@
 <%@ include file="../frontendhead.jsp" %>
 <br>
    <% 
-   List<CartItemVO> cartItems = (List<CartItemVO>) request.getAttribute("cartItems");
+   List<CartItemVO> checkedlist = (List<CartItemVO>) request.getAttribute("checkedlist");
    %>
-<%if (cartItems != null && (cartItems.size() > 0)) {%>
+<%if (checkedlist != null && (checkedlist.size() > 0)) {%>
 
 <font size="+2">結帳</font>
 
@@ -74,15 +74,17 @@
 
 <table>
 	<%
-	 for (int index = 0; index < cartItems.size(); index++) {
-		 CartItemVO CartItem = cartItems.get(index);
+	 for (int index = 0; index < checkedlist.size(); index++) {
+		 CartItemVO cartItem = checkedlist.get(index);
+		 
 	%>
 	
+	
 	<tr>
-		<td width="200"><%=CartItem.getPdName()%>   </td>
-		<td width="100"><%=CartItem.getPdPrice()%>  元</td>
-		<td width="100"><%=CartItem.getCount()%>	</td>
-		<td width="100"><%=CartItem.getPdPrice() * CartItem.getCount()%>   元 </td>
+		<td width="200"><%=cartItem.getPdName()%>   </td>
+		<td width="100"><%=cartItem.getPdPrice()%>  元</td>
+		<td width="100"><%=cartItem.getCount()%>	</td>
+		<td width="100"><%=cartItem.getPdPrice() * cartItem.getCount()%>   元 </td>
 	</tr>
 		
 	<%}%>

@@ -32,18 +32,13 @@ public class CartServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
-
-		
-		
 		
 //		頁面先設一個假button作為進入網站得住發事件，須改為filter註冊到網站每個頁面
 		
 		if ("init".equals(action)) {
 
 			Cookie[] cookies = req.getCookies();
-
-			
-			
+		
 			//cookie的cookiekey:shoppingCart cookieValue:sessionid
 			//Redis：(cookieValue(sessionid), {"itemId": "xxx","count": "x"})
 			
@@ -70,19 +65,9 @@ public class CartServlet extends HttpServlet {
 				session.setAttribute("sessionId", session.getId());
 				res.addCookie(shoppingCart);
 
-				
-				
-//				req.setAttribute("cartItems", cartItems);
 				String url = "/frontend/cart/testpro.jsp";
 				RequestDispatcher rd = req.getRequestDispatcher(url);
 				rd.forward(req, res);
-				
-				
-				//?????
-//				PrintWriter out = res.getWriter();
-//				out.write(session.getId());
-//				out.flush();
-//				out.close();
 			}
 		}
 		
@@ -97,7 +82,7 @@ public class CartServlet extends HttpServlet {
 			cartItems = cartSvc.getCart(sessionId);
 			
 			req.setAttribute("cartItems", cartItems);
-			String url = "/frontend/cart/cart2.jsp";
+			String url = "/frontend/cart/cart.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 		}
@@ -122,14 +107,6 @@ public class CartServlet extends HttpServlet {
 			String sessionId = (String) req.getSession().getAttribute("sessionId");
 			CartService cartSvc = new CartService();
 			cartSvc.changeItemCount(sessionId, pdID, count);
-			
-//			List<CartItemVO> cartItems = null;
-//			cartItems = cartSvc.getCart(sessionId);
-//
-//			req.setAttribute("cartItems", cartItems);
-//			String url = "/frontend/cart/cart.jsp";
-//			RequestDispatcher rd = req.getRequestDispatcher(url);
-//			rd.forward(req, res);
 		}
 
 		// 點擊刪除商品時
@@ -138,13 +115,6 @@ public class CartServlet extends HttpServlet {
 			String sessionId = (String) req.getSession().getAttribute("sessionId");
 			CartService cartSvc = new CartService();
 			cartSvc.deleteItem(sessionId, pdID);
-//			List<CartItemVO> cartItems = null;
-//			cartItems = cartSvc.getCart(sessionId);
-//
-//			req.setAttribute("cartItems", cartItems);
-//			String url = "/frontend/cart/cart.jsp";
-//			RequestDispatcher rd = req.getRequestDispatcher(url);
-//			rd.forward(req, res);
 		}
 		
 
@@ -158,7 +128,7 @@ public class CartServlet extends HttpServlet {
 			cartItems = cartSvc.getCart(sessionId);
 
 			req.setAttribute("cartItems", cartItems);
-			String url = "/frontend/cart/checkout2.jsp";
+			String url = "/frontend/cart/checkout.jsp";
 			RequestDispatcher rd = req.getRequestDispatcher(url);
 			rd.forward(req, res);
 		}

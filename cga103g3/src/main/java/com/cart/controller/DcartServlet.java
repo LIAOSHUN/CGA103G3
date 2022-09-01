@@ -34,7 +34,7 @@ public class DcartServlet extends HttpServlet {
 			String name = (String) en.nextElement();
 			String values[] = req.getParameterValues(name);
 			
-			List<CartItemVO> checklist = new ArrayList<CartItemVO>();
+			List<CartItemVO> checkedlist = new ArrayList<CartItemVO>();
 			Integer pdID = 0;
 			if (values != null ) {
 				for (int i = 0; i < values.length; i++) {
@@ -43,16 +43,19 @@ public class DcartServlet extends HttpServlet {
 					pdID = Integer.valueOf(values[i]);
 					CartItemVO itemchecked = cartSvc.getOneChecked(sessionId, pdID);
 					
-					checklist.add(itemchecked);
+					checkedlist.add(itemchecked);
 				}
 				
 				
-				req.setAttribute("checklist", checklist);
-				String url = "/frontend/cart/checkout2.jsp";
+				req.setAttribute("checkedlist", checkedlist);
+				String url = "/frontend/cart/checkout.jsp";
 				RequestDispatcher rd = req.getRequestDispatcher(url);
 				rd.forward(req, res);
 				
+			}else {
+				
 			}
+			
 		}
 		
 		

@@ -102,7 +102,7 @@
  }
  
  #checkoutForm{
- 	padding-left: 790px;
+ 	padding-left: 30px;
  }
  #checkout{
 	background-color: #39ac7e  !important;
@@ -116,49 +116,50 @@
    <% 
    List<CartItemVO> cartItems = (List<CartItemVO>) request.getAttribute("cartItems");
    %>
-<%if (cartItems != null && (cartItems.size() > 0)) {%>
+	<%if (cartItems != null && (cartItems.size() > 0)) {%>
 
 
 <div id="all">
-<font size="+1">購物車明細</font>
-<table class="wrap-table-shopping-cart">
-    <tr class="table_head"> 
-      <th class="column-1">遊戲名稱</th>
-      <th class="column-3">單價</th>
-      <th class="column-4">數量</th>
-      <th class="column-5">價格</th>
-      <th width="20">移除商品</th>
-    </tr>
-
-	<%
-	 for (int index = 0; index < cartItems.size(); index++) {
-		 CartItemVO CartItem = cartItems.get(index);
-	%>
-	
-	<tr class="tr table_row" >
-		<td class="column-1"><%=CartItem.getPdName()%>   </td>
-		<td class="column-3" >
-			$<span class='price'><%=CartItem.getPdPrice()%></span>  </td>
-		<td class="column-4">
-				<input class="pdID" type="hidden" name="pdID"  value="<%=CartItem.getPdID()%>">
-				<input class="plus" type="button" value="+" >
-				<span class="count"><%=CartItem.getCount()%></span>
-				<input class="sub" type="button" value="-" >
-		</td>
-		<td class="column-5">
-			$<span class='smallPrice'><%=CartItem.getPdPrice() * CartItem.getCount()%></span></td>
-		
-        <td width="20">
-              <input type="button" id='delete' value="刪除" class="delete flex-c-m stext-101 cl0 size-202 bg3 bor7 hov-btn3 p-lr-15 trans-04 pointer">
-         </td>
-	</tr>
-	
-	<%}%>
-</table>
-	
 	<div id="checkoutForm">
-		<form name="checkoutForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
-              <input type="hidden" name="action"  value="checkout"> 
+		<form name="checkoutForm" action="<%=request.getContextPath()%>/frontend/cart/dcart.do" method="POST">
+		<font size="+1">購物車明細</font>
+		<table class="wrap-table-shopping-cart">
+    		<tr class="table_head"> 
+      			<th class="column-1">遊戲名稱</th>
+      			<th class="column-3">單價</th>
+      			<th class="column-4">數量</th>
+      			<th class="column-5">價格</th>
+      			<th width="20">移除商品</th>
+   			</tr>
+
+			<%
+	 			for (int index = 0; index < cartItems.size(); index++) {
+				 	CartItemVO cartItem = cartItems.get(index);
+			%>
+	
+			<tr class="tr table_row" >
+				<td class="column-1"><%=cartItem.getPdName()%> 
+					<div>
+						<input class="pdID" type="checkbox" name="pdID"  value="<%=cartItem.getPdID().toString()%>">
+					</div>  
+				</td>
+				<td class="column-3" >
+					$<span class='price'><%=cartItem.getPdPrice()%></span>
+				</td>
+				<td class="column-4">
+					<input class="plus" type="button" value="+" >
+					<span class="count"><%=cartItem.getCount()%></span>
+					<input class="sub" type="button" value="-" >
+				</td>
+				<td class="column-5">
+					$<span class='smallPrice'><%=cartItem.getPdPrice() * cartItem.getCount()%></span>
+				</td>
+		        <td width="20">
+		            <input type="button" id='delete' value="刪除" class="delete flex-c-m stext-101 cl0 size-202 bg3 bor7 hov-btn3 p-lr-15 trans-04 pointer">
+		        </td>
+			</tr>
+	<%}%>
+		</table>
               <input type="submit" id='checkout' value="結帳就對了!" class="flex-c-m stext-101 cl0 size-101 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer">
         </form>
     </div>
