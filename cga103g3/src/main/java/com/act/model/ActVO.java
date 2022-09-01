@@ -2,6 +2,9 @@ package com.act.model;
 
 import java.sql.Timestamp;
 
+import com.store.model.StoreService;
+import com.store.model.StoreVO;
+
 public class ActVO implements java.io.Serializable {
 	private Integer actID;
 	private Integer storeID;
@@ -81,5 +84,17 @@ public class ActVO implements java.io.Serializable {
 	public void setRegisMax(Integer regisMax) {
 		this.regisMax = regisMax;
 	}
+//	public Timestamp getDateNum(Integer actDate) {
+//		Timestamp dateNum = actDate.
+//		return 
+//	}
+	
+	// for join storeName from storeID
+	public StoreVO getStoreVO() {
+		StoreService storeSvc = new StoreService();
+		StoreVO storeVO = storeSvc.getOneStore(storeID);
+		return storeVO;
+	}
+	
 }
 

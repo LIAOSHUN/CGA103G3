@@ -343,6 +343,10 @@ public class ActServlet extends HttpServlet {
 			}
 		}
         
+        if ("insertWithImgs".equals(action)) {
+        	
+        }
+        
 //        if ("insertWithOrder_details".equals(action)) {
 //			 List<String> errorMsgs = new LinkedList<String>();
 //			 req.setAttribute("errorMsgs", errorMsgs);
