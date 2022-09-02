@@ -38,10 +38,10 @@ public class CartService {
 		return dao.getOne(pdID);
 	}
 
-//	-- 更改某樣商品資訊
-	public void updatePdAmount(ProductVO productVO) {
-		dao.update(productVO);
-	}
+//	-- 更改某樣商品庫存
+//	public void updatePdAmount(Integer count, Integer pdID) {
+//		dao.update(count, pdID);
+//	}
 	
 //	===============================================================================================================
 	
@@ -96,12 +96,40 @@ public class CartService {
 	public void deleteCart(String sessionId) {
 		daoR.deleteCart(sessionId);
 	};
-	
+	//處理被勾選的商品，呈現在結帳頁面
 	public CartItemVO getOneChecked(String sessionId, Integer pdID) {
 		return daoR.getOneChecked(sessionId, pdID);
 	}
 	
+	//結帳時刪除被選取的商品(有部分商品留在購物車裡面)
+	public void deleteItemChecked(String sessionId, Integer pdID) {
+		//刪除購物車商品
+		daoR.deleteItem(sessionId, pdID);
+	}
 	
-	// 購物車存活七天
+	
+	//結帳時刪除被選取的商品(有部分商品留在購物車裡面) ----更改某樣商品庫存
+	public void updatePdAmount(String sessionId, Integer pdID) {	
+		
+		//更新資料庫數量
+		List<String> cartItems = CartRedisDAO.getCart(sessionId);//先把他的車叫出來
+		
+		Integer rediscount = 0;
+		Integer pdAmount = 0;
+		for (int i = 0; i < cartItems.size(); i++) {
+			CartItemVO orgItem = gson.fromJson(cartItems.get(i), CartItemVO.class);
+			Integer checkedPdID = pdID;
+			Integer orgItemId = orgItem.getPdID();
+			// 找出選了哪個商品ID
+			if (pdID.equals(orgItemId)) {
+				rediscount = orgItem.getCount();
+				pdAmount = dao.getOne(orgItemId).getPdAmount();
+				
+//				Integer count = (pdAmount - rediscount);
+			}
+		};
+		dao.update((pdAmount - rediscount), pdID);
+	}
+	
 
 }

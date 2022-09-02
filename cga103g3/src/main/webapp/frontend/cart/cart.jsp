@@ -104,9 +104,21 @@
  #checkoutForm{
  	padding-left: 30px;
  }
+ #checkoutbutton{
+ 	padding-left: 790px;
+ }
+ #checkItemsbutton{
+ 	padding-left: 15px;
+ 	padding-top: 10px;
+ }
+ #pdIDbutton{
+ 	padding-left: 10px;
+ 	display: inline;
+ }
  #checkout{
 	background-color: #39ac7e  !important;
  }
+ 
   
 </style>
 </head>
@@ -121,8 +133,9 @@
 
 <div id="all">
 	<div id="checkoutForm">
-		<form name="checkoutForm" action="<%=request.getContextPath()%>/frontend/cart/dcart.do" method="POST">
+		<form id="Form" name="checkoutForm" action="<%=request.getContextPath()%>/frontend/cart/dcart.do" method="POST">
 		<font size="+1">購物車明細</font>
+		
 		<table class="wrap-table-shopping-cart">
     		<tr class="table_head"> 
       			<th class="column-1">遊戲名稱</th>
@@ -139,7 +152,7 @@
 	
 			<tr class="tr table_row" >
 				<td class="column-1"><%=cartItem.getPdName()%> 
-					<div>
+					<div id="pdIDbutton">
 						<input class="pdID" type="checkbox" name="pdID"  value="<%=cartItem.getPdID().toString()%>">
 					</div>  
 				</td>
@@ -155,14 +168,30 @@
 					$<span class='smallPrice'><%=cartItem.getPdPrice() * cartItem.getCount()%></span>
 				</td>
 		        <td width="20">
-		            <input type="button" id='delete' value="刪除" class="delete flex-c-m stext-101 cl0 size-202 bg3 bor7 hov-btn3 p-lr-15 trans-04 pointer">
+		            <input type="button" id='delete' value="x" class="delete flex-c-m stext-101 cl0 size-202 bg3 bor7 hov-btn3 p-lr-15 trans-04 pointer">
 		        </td>
 			</tr>
 	<%}%>
 		</table>
-              <input type="submit" id='checkout' value="結帳就對了!" class="flex-c-m stext-101 cl0 size-101 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer">
         </form>
+        <div id="checkItemsbutton">
+    		<input type="checkbox" name="checkItems" id="checkItems" value="全選/全不選"><span>全選</span>
+        </div>
+        	<div id='checkoutbutton'>
+        		<button form="Form" type="submit" id='checkout' value="結帳就對了!" class="flex-c-m stext-101 cl0 size-101 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+    			結帳就對了!
+    			</button>
+        	</div>
+        
+        <c:if test="${not empty errorMsgs}">
+			<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color:red">${message}</li>
+			</c:forEach>
+			</ul>
+		</c:if>
     </div>
+    
 </div>    
 <%}else{%>
 <div id="else">
@@ -194,6 +223,23 @@
 </body>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+<script>
+// window.onload = function (){
+
+
+// 		$.ajax({
+// 			url: "cart.do",
+// 			type: "POST",
+// 			data: {
+// 					action: "getCart",
+// 				},
+// 		})	
+// 	});
+
+</script>
+
 <script>
 
 
@@ -206,15 +252,39 @@
 	let trs = document.getElementsByClassName('tr');
 	let deletes = document.getElementsByClassName('delete');
 	
-		
 	
+			
+			
+				
+				
+			//全選/不選
+	        document.getElementById('checkItems').onclick = function () {
+	            // 獲取所有的複選框
+	            var checkElements = document.getElementsByName('pdID');
+	            if (this.checked) {
+	            	for(let index = 0; index < <%=cartItems.size()%>;index++){
+	            		
+	                    var checkElement = checkElements[index];
+	                    checkElement.checked = "checked";
+	            	}
+	            }
+	            else {
+	            	for(let index = 0; index < <%=cartItems.size()%>;index++){
+	            		
+	                    var checkElement = checkElements[index];
+	                    checkElement.checked = null;
+	            	}
+	                
+	            }
+			}
+			
 
-	
 	
 		//在購物車內商品刪除商品
 		for(let index = 0; index < <%=cartItems.size()%>;index++){
 			
 			let pdID = parseInt(pdIDs[index].value);
+			var checkElements = document.getElementsByName('pdID');
 			
 			deletes[index].addEventListener('click', function () {
 				$.ajax({
@@ -227,6 +297,8 @@
 						success: function(){
 							//alert('隱形');
 							trs[index].setAttribute('style', 'display: none');
+							var checkElement = checkElements[index];
+		                    checkElement.checked = null;
 						}
 				})
 			});
@@ -239,7 +311,8 @@
 		for(let index = 0; index < <%=cartItems.size()%>;index++){
 			
 			let pdID = parseInt(pdIDs[index].value);
-			
+			var checkElements = document.getElementsByName('pdID');
+			//+1
 			plus[index].addEventListener('click', function () {
     			let newCount = parseInt(counts[index].innerText) + 1;
     			counts[index].innerText = newCount;
@@ -256,7 +329,7 @@
 				})	
 			});
 		
-
+			//-1
 			sub[index].addEventListener('click', function () {
 				
 				if(parseInt(counts[index].innerText) > 1){
@@ -284,8 +357,6 @@
 		 		        buttonsStyling: false
 		 		    })
 
-					
-// 					=====================================
 					
 					 swalWithBootstrapButtons.fire({
  		        		title: '確定將此遊戲移除購物車嗎?',
@@ -315,6 +386,8 @@
  										},
  									success: function(){
  										trs[index].setAttribute('style', 'display: none');
+ 										var checkElement = checkElements[index];
+ 					                    checkElement.checked = null;
  									}
  								})	
  		    			  }

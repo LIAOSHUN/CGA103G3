@@ -57,11 +57,11 @@ public class CartJDBCDAO implements CartDAO_interface{
 	}
 
 	@Override
-	public void update(ProductVO productVO) {
+	public void update(Integer count, Integer pdID) {
 		try (Connection con = DriverManager.getConnection(url, userid, passwd);
 				PreparedStatement ps = con.prepareStatement(Update)){
-			ps.setInt(1, productVO.getPdAmount());
-			ps.setInt(2, productVO.getPdID());
+			ps.setInt(1, count);
+			ps.setInt(2, pdID);
 			
 			
 			int rowcount = ps.executeUpdate();
@@ -72,7 +72,7 @@ public class CartJDBCDAO implements CartDAO_interface{
 		
 	}
 	
-	
+
 	
 	
 	
@@ -80,24 +80,23 @@ public class CartJDBCDAO implements CartDAO_interface{
 		CartJDBCDAO dao = new CartJDBCDAO();
 		
 //		-- 找出某樣商品資訊
-		ProductVO productVO3= dao.getOne(21001);
-		System.out.print(productVO3.getPdID() + ",");
-		System.out.print(productVO3.getPdName() +",");
-		System.out.print(productVO3.getPdPrice() + ",");
-		System.out.print(productVO3.getPdAmount() + ",");
-		System.out.print(productVO3.getPdDescription() + ",");
-		System.out.print(productVO3.getPdStatus() + ",");
-		System.out.println(productVO3.getPdStar() + ",");
-		System.out.println("---------------------");
+//		ProductVO productVO3= dao.getOne(21001);
+//		System.out.print(productVO3.getPdID() + ",");
+//		System.out.print(productVO3.getPdName() +",");
+//		System.out.print(productVO3.getPdPrice() + ",");
+//		System.out.print(productVO3.getPdAmount() + ",");
+//		System.out.print(productVO3.getPdDescription() + ",");
+//		System.out.print(productVO3.getPdStatus() + ",");
+//		System.out.println(productVO3.getPdStar() + ",");
+//		System.out.println("---------------------");
 		
 //		-- 更改某樣商品資訊
-//		ProductVO productVO2 = new ProductVO();
-//		productVO2.setPdAmount(100);
-//		productVO2.setPdID(21005);
-//		
-//		dao.update(productVO2);
+		
+		dao.update(221, 21005);
 
 	}
+
+
 
 
 

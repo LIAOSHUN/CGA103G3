@@ -16,7 +16,7 @@ public class JedisPoolUtil {
 				if (pool == null) {
 					JedisPoolConfig config = new JedisPoolConfig();
 					// 如果Redis使用量大的時候可以調整MaxTotal為30
-					config.setMaxTotal(8);
+					config.setMaxTotal(30);
 					config.setMaxIdle(8);
 					config.setMaxWaitMillis(10000);
 					pool = new JedisPool(config, "localhost", 6379);

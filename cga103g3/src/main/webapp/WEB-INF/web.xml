@@ -51,6 +51,15 @@
 		<servlet-name>DcartServlet</servlet-name>
 		<url-pattern>/frontend/cart/dcart.do</url-pattern>
 	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>CheckoutServlet</servlet-name>
+		<servlet-class>com.cart.controller.CheckoutServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>CheckoutServlet</servlet-name>
+		<url-pattern>/frontend/cart/checkout.do</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>ActServlet</servlet-name>

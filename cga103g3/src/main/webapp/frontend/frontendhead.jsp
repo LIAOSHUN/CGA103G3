@@ -38,28 +38,7 @@
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/frontend/frontend_template/css/util.css">
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/frontend/frontend_template/css/main.css">
 	<!--===============================================================================================-->
-<script>
-window.onload = function (){
 
-	let shoppingcart222 = document.getElementById('shoppingcart222');
-	
-	shoppingcart222.addEventListener('click', function () {
-		
-		
-		$.ajax({
-			url: "cart.do",
-			type: "POST",
-			data: {
-					action: "getCart",
-				},
-		})	
-	});
-
-
-}
-		
-	
-	</script>
 </head>
 
 <body class="animsition">
@@ -103,11 +82,11 @@ window.onload = function (){
 					</div>
 					<!-- Icon header 搜尋、購物車、漢堡 -->
 					<div class="wrap-icon-header flex-w flex-r-m h-full">
-						<a href="./BackEndTemplate.html">
+						<a href="cart.jsp" id="shoppingcart222">
 							<div class="flex-c-m h-full p-l-18 p-r-25 bor5">
 								<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11  js-show-cart">
 									<!-- <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="2"></div> -->
-									<i id="shoppingcart222" class="zmdi zmdi-shopping-cart"></i>
+									<i  class="zmdi zmdi-shopping-cart"></i>
 								</div>
 							</div>
 						</a>
@@ -208,7 +187,12 @@ window.onload = function (){
 
 					<li class="p-b-13">
 						<a href="#" class="stext-102 cl2 hov-cl1 trans-04">
-							訂單查詢
+							我的訂單
+						</a>
+					</li>
+					<li class="p-b-13">
+						<a href="#" class="stext-102 cl2 hov-cl1 trans-04">
+							我的優惠券
 						</a>
 					</li>
 

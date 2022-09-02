@@ -2,6 +2,8 @@ package com.cart.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -78,7 +80,7 @@ public class CartServlet extends HttpServlet {
 		if ("getCart".equals(action)) {
 			String sessionId = (String) req.getSession().getAttribute("sessionId");//取得session的ID
 			CartService cartSvc = new CartService();
-			List<CartItemVO> cartItems = null;
+			List<CartItemVO> cartItems = new ArrayList<CartItemVO>();
 			cartItems = cartSvc.getCart(sessionId);
 			
 			req.setAttribute("cartItems", cartItems);
@@ -119,19 +121,47 @@ public class CartServlet extends HttpServlet {
 		
 
 		
-		//按下前往結帳 (先把改變的數量存入redis ，再把購物車get出來)
-		if ("checkout".equals(action)) {
+		//按下前往結帳 (先把改變的數量存入redis ，再把購物車get出來)(現暫不用，由DcartServlet處理)
+//		if ("checkout".equals(action)) {
+//			
+//			String sessionId = (String) req.getSession().getAttribute("sessionId");//取得session的ID
+//			CartService cartSvc = new CartService();
+//			List<CartItemVO> cartItems = null;
+//			cartItems = cartSvc.getCart(sessionId);
+//
+//			req.setAttribute("cartItems", cartItems);
+//			String url = "/frontend/cart/checkout.jsp";
+//			RequestDispatcher rd = req.getRequestDispatcher(url);
+//			rd.forward(req, res);
+//		}
+		//結帳時刪除被選取的商品(有部分商品留在購物車裡面)
+		if ("deleteItemChecked".equals(action)) {
 			
-			String sessionId = (String) req.getSession().getAttribute("sessionId");//取得session的ID
-			CartService cartSvc = new CartService();
-			List<CartItemVO> cartItems = null;
-			cartItems = cartSvc.getCart(sessionId);
-
-			req.setAttribute("cartItems", cartItems);
-			String url = "/frontend/cart/checkout.jsp";
-			RequestDispatcher rd = req.getRequestDispatcher(url);
-			rd.forward(req, res);
+			Enumeration<String> en = req.getParameterNames();
+			while (en.hasMoreElements()) {
+				String name = (String) en.nextElement();
+				String values[] = req.getParameterValues(name);
+				
+				Integer pdID = 0;
+				if(values != null) {
+					
+					for (int i = 0; i < values.length; i++) {
+						String sessionId = (String) req.getSession().getAttribute("sessionId");
+						CartService cartSvc = new CartService();
+						System.out.println(values[i]);
+						pdID = Integer.valueOf(values[i]);
+						System.out.println("pdID=" + pdID);
+						cartSvc.deleteItemChecked(sessionId, pdID);
+					}
+				}
+			
+			}
+//			String url = "/frontend/cart/cart.jsp";
+//			RequestDispatcher rd = req.getRequestDispatcher(url);
+//			rd.forward(req, res);
 		}
+		
+		
 
 		// 送出訂單欲清空購物車時
 		if ("deleteCart".equals(action)) {

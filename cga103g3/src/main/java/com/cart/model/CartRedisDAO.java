@@ -32,7 +32,7 @@ public class CartRedisDAO  {
 		jedis.close();
 		return cartItems;
 	}
-	//被選取商品與購物車狀況比較
+	//被打勾選取的商品呈現在結帳頁
 	public static CartItemVO getOneChecked(String sessionId, Integer pdID) {
 		Gson gson = new Gson();
 		Jedis jedis = null;
@@ -48,15 +48,16 @@ public class CartRedisDAO  {
 
 				Integer checkedPdID = pdID;
 				Integer orgItemId = orgItem.getPdID();
-				// 若購物車內已有該商品ID則傳回vo
+				// 找出選了哪個商品ID
 				if (checkedPdID.equals(orgItemId)) {
 					
 					CartService cartSvc = new CartService();
 					ProductVO productVO = cartSvc.getOne(pdID);
 					String pdName = productVO.getPdName();
 					Integer price = productVO.getPdPrice();
-					Integer count = orgItem.getCount();
+					Integer count = orgItem.getCount();//從redis取出此商品ID，現在的數量，代表前面購物車買的數量
 					
+					//將所得到的商品資訊，設值給此購物車商品
 					cartItemVO.setPdID(pdID);
 					cartItemVO.setPdName(pdName);
 					cartItemVO.setCount(count);
@@ -164,6 +165,9 @@ public class CartRedisDAO  {
 			}
 		}
 	}
+	
+	
+	
 	//成立訂單，殺掉購物車
 	public static void deleteCart(String sessionId) {
 		Jedis jedis = null;

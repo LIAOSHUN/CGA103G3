@@ -1,23 +1,21 @@
 package com.cart.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Enumeration;
-import java.util.LinkedList;
-import java.util.List;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.cart.model.CartItemVO;
 import com.cart.model.CartService;
 
-@WebServlet("/DcartServlet")
-public class DcartServlet extends HttpServlet {
+/**
+ * Servlet implementation class CheckoutServlet
+ */
+@WebServlet("/CheckoutServlet")
+public class CheckoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -28,47 +26,34 @@ public class DcartServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String sessionId = null;
-		
-		//此servlet處理被勾選的商品，呈現在結帳頁面
+	
 		Enumeration<String> en = req.getParameterNames();
 		while (en.hasMoreElements()) {
 			String name = (String) en.nextElement();
 			String values[] = req.getParameterValues(name);
 			
-			List<CartItemVO> checkedlist = new ArrayList<CartItemVO>();
-			List<String> errorMsgs = new LinkedList<String>();
 			Integer pdID = 0;
-			if (values == null) {
+			if(values != null) {
 				
-				errorMsgs.add("您未勾選商品");
-				req.setAttribute("errorMsgs", errorMsgs);
-				
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/frontend/cart/cart.jsp");
-				failureView.forward(req, res);
-				return;
-				
-				
-			}else {
 				for (int i = 0; i < values.length; i++) {
 					sessionId = (String) req.getSession().getAttribute("sessionId");
 					CartService cartSvc = new CartService();
 					pdID = Integer.valueOf(values[i]);
-					CartItemVO itemchecked = cartSvc.getOneChecked(sessionId, pdID);
-					
-					checkedlist.add(itemchecked);//將每一個被選取的商品加入被選取商品的list
+					cartSvc.updatePdAmount(sessionId, pdID);
+					cartSvc.deleteItemChecked(sessionId, pdID);
 				}
-				
-				//回傳被選取商品的list
-				req.setAttribute("checkedlist", checkedlist);
-				String url = "/frontend/cart/checkout.jsp";
-				RequestDispatcher rd = req.getRequestDispatcher(url);
-				rd.forward(req, res);
-				
-			};
-			
+			}
+		
 		}
-		
-		
-	}	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	}
+
 }
