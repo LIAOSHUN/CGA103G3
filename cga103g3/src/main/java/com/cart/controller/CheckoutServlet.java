@@ -41,6 +41,7 @@ public class CheckoutServlet extends HttpServlet {
 					pdID = Integer.valueOf(values[i]);
 					cartSvc.updatePdAmount(sessionId, pdID);
 					cartSvc.deleteItemChecked(sessionId, pdID);
+					
 				}
 			}
 		
