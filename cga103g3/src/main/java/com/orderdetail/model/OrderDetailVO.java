@@ -2,7 +2,10 @@ package com.orderdetail.model;
 
 import java.io.Serializable;
 
-public class OrderDetailVO implements Serializable {
+import com.product.model.ProductService;
+import com.product.model.ProductVO;
+
+public class OrderDetailVO  {
  	private Integer ordNo;
  	private Integer pdID;
  	private Integer itemSales;
@@ -44,7 +47,12 @@ public class OrderDetailVO implements Serializable {
 	public void setPrice(Integer price) {
 		this.price = price;
 	}
- 	
+	// for join pdName  from pdID
+	public ProductVO getProductVO(Integer pdID){
+		ProductService productService = new ProductService();
+		ProductVO productVO = productService.getOneProduct(pdID);
+		return productVO;
+	}
  	
  	
 }

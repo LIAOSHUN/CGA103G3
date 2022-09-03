@@ -177,11 +177,15 @@
         <div id="checkItemsbutton">
     		<input type="checkbox" name="checkItems" id="checkItems" value="全選/全不選"><span>全選</span>
         </div>
-        	<div id='checkoutbutton'>
-        		<button form="Form" type="submit" id='checkout' value="結帳就對了!" class="flex-c-m stext-101 cl0 size-101 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer">
-    			結帳就對了!
-    			</button>
-        	</div>
+        
+        	<c:if
+				test="${orderListVO.ordStatus != 2 && orderListVO.ordStatus != 3}" >
+        		<div id='checkoutbutton'>
+        			<button form="Form" type="submit" id='checkout' value="結帳就對了!" class="flex-c-m stext-101 cl0 size-101 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+    					結帳就對了!
+    				</button>
+        		</div>
+			</c:if>									
         
         <c:if test="${not empty errorMsgs}">
 			<ul>

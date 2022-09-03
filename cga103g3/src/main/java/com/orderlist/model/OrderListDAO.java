@@ -11,14 +11,26 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
 import com.orderdetail.model.OrderDetailJDBCDAO;
 import com.orderdetail.model.OrderDetailVO;
 
-public class OrderListJDBCDAO implements OrderListDAO_interface {
-	String driver = "com.mysql.cj.jdbc.Driver";
-	String url = "jdbc:mysql://localhost:3306/boardgame?serverTimezone=Asia/Taipei";
-	String userid = "root";
-	String passwd = "asd12377";
+
+public class OrderListDAO implements OrderListDAO_interface {
+	private static DataSource ds = null;
+	static {
+		try {
+			Context ctx = new InitialContext();
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/boardgame");
+		} catch (NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
 
 //	-- 新增訂單資料-使用優惠券
 	private static final String  Insert= 
@@ -50,14 +62,14 @@ public class OrderListJDBCDAO implements OrderListDAO_interface {
 	private static final String  GetAll= 
 		"SELECT OrdNo, MemID, CoupNo, OrdOriPrice, OrdLastPrice, OrdFee, OrdStatus, OrdCreate, RecName, RecAddress, RecPhone, OrdPick "
 		+ "FROM orderlist "
-		+ "order by MemID";
+		+ "order by OrdNo";
 	
 	
 	
 	
 	@Override
 	public void insert(OrderListVO orderListVO) {
-		try(Connection con = DriverManager.getConnection(url, userid, passwd);
+		try(Connection con = ds.getConnection();
 				PreparedStatement ps = con.prepareStatement(Insert)) {
 			
 			ps.setInt(1, orderListVO.getMemID());
@@ -83,7 +95,7 @@ public class OrderListJDBCDAO implements OrderListDAO_interface {
 
 	@Override
 	public void insertNoCoupon(OrderListVO orderListVO) {
-		try(Connection con = DriverManager.getConnection(url, userid, passwd);
+		try(Connection con = ds.getConnection();
 				PreparedStatement ps = con.prepareStatement(InsertNoCoupon)) {
 			
 			ps.setInt(1, orderListVO.getMemID());
@@ -113,8 +125,8 @@ public class OrderListJDBCDAO implements OrderListDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con = ds.getConnection();
 			
 			// 1●設定於 pstm.executeUpdate()之前
     		con.setAutoCommit(false);
@@ -204,8 +216,8 @@ public class OrderListJDBCDAO implements OrderListDAO_interface {
 
 		try {
 
-			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con = ds.getConnection();
 			
 			// 1●設定於 pstm.executeUpdate()之前
     		con.setAutoCommit(false);
@@ -289,7 +301,7 @@ public class OrderListJDBCDAO implements OrderListDAO_interface {
 
 	@Override
 	public void update(OrderListVO orderListVO) {
-		try(Connection con = DriverManager.getConnection(url, userid, passwd);
+		try(Connection con = ds.getConnection();
 				PreparedStatement ps = con.prepareStatement(Update)) {
 			
 			ps.setInt(1, orderListVO.getCoupNo());
@@ -315,7 +327,7 @@ public class OrderListJDBCDAO implements OrderListDAO_interface {
 	@Override
 	public OrderListVO findOneOrder(Integer ordNo) {
 		OrderListVO orderListVO = null;
-		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+		try (Connection con = ds.getConnection();
 				PreparedStatement ps = con.prepareStatement(FindOneOrder)){
 			ps.setInt(1, ordNo);
 			
@@ -346,7 +358,7 @@ public class OrderListJDBCDAO implements OrderListDAO_interface {
 		OrderListVO orderListVO = null;
 		List<OrderListVO> list = new ArrayList<OrderListVO>();
 		
-		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+		try (Connection con = ds.getConnection();
 				PreparedStatement ps = con.prepareStatement(FindOrderByStatus)){
 			ps.setInt(1, ordStatus);
 			
@@ -378,7 +390,7 @@ public class OrderListJDBCDAO implements OrderListDAO_interface {
 		OrderListVO orderListVO = null;
 		List<OrderListVO> list = new ArrayList<OrderListVO>();
 		
-		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+		try (Connection con = ds.getConnection();
 				PreparedStatement ps = con.prepareStatement(GetAll)){
 			
 			
@@ -407,140 +419,71 @@ public class OrderListJDBCDAO implements OrderListDAO_interface {
 	
 	@Override
 	public List<OrderListVO> getAll(Map<String, String[]> map) {
-
 		
-		return null;
+		List<OrderListVO> list = new ArrayList<OrderListVO>();
+		OrderListVO orderListVO = null;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try {
+
+			con = ds.getConnection();
+			String finalSQL = "select * from orderlist "
+			          + jdbcUtil_CompositeQuery_orderlist.get_WhereCondition(map)
+			          + "order by OrdNo";
+				pstmt = con.prepareStatement(finalSQL);
+				System.out.println("●●finalSQL(by DAO) = "+finalSQL);
+				rs = pstmt.executeQuery();
+		
+				while (rs.next()) {
+					orderListVO = new OrderListVO();
+					orderListVO.setOrdNo(rs.getInt("OrdNo"));
+					orderListVO.setMemID(rs.getInt("MemID"));
+					orderListVO.setCoupNo(rs.getInt("CoupNo"));
+					orderListVO.setOrdOriPrice(rs.getDouble("OrdOriPrice"));
+					orderListVO.setOrdLastPrice(rs.getDouble("OrdLastPrice"));
+					orderListVO.setOrdFee(rs.getInt("OrdFee"));
+					orderListVO.setOrdCreate(rs.getTimestamp("OrdCreate"));
+					orderListVO.setOrdStatus(rs.getInt("OrdStatus"));
+					orderListVO.setRecName(rs.getString("RecName"));
+					orderListVO.setRecAddress(rs.getString("RecAddress"));
+					orderListVO.setRecPhone(rs.getString("RecPhone"));
+					orderListVO.setOrdPick(rs.getInt("OrdPick"));
+					list.add(orderListVO);
+				}
+		
+			
+				// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
 	}
-
-	
-	
-	
-	public static void main(String[] args) {
-		OrderListJDBCDAO dao = new OrderListJDBCDAO();
-		
-		
-		List<OrderDetailVO> list = new ArrayList<OrderDetailVO>() ;
-		OrderDetailVO orderDetailVO1 = new OrderDetailVO();
-		OrderDetailVO orderDetailVO2 = new OrderDetailVO();
-		orderDetailVO1.setPdID(21002);
-		orderDetailVO1.setItemSales(4);
-		orderDetailVO1.setPrice(180);
-		orderDetailVO2.setPdID(21001);
-		orderDetailVO2.setItemSales(5);
-		orderDetailVO2.setPrice(180);
-		list.add(orderDetailVO1);
-		list.add(orderDetailVO2);
-		
-		
-//		-- 新增訂單資料-使用優惠券
-//		OrderListVO orderListVO1 = new OrderListVO();
-//		
-//		orderListVO1.setMemID(11001);
-//		orderListVO1.setCoupNo(27002);
-//		orderListVO1.setOrdOriPrice(180.0);
-//		orderListVO1.setOrdLastPrice(160.0);
-//		orderListVO1.setOrdFee(30);
-//		orderListVO1.setOrdStatus(1);
-//		orderListVO1.setRecName("王曉明");
-//		orderListVO1.setRecAddress("台北市中山區");
-//		orderListVO1.setRecPhone("01-22222");
-//		orderListVO1.setOrdPick(1);
-////		dao.insert(orderListVO1);
-//		dao.insertWithOrderDetails(orderListVO1, list);
-		
-//		-- 新增訂單資料-沒使用優惠券
-		OrderListVO orderListVO2 = new OrderListVO();
-		
-		orderListVO2.setMemID(11002);
-		orderListVO2.setOrdOriPrice(200.0);
-		orderListVO2.setOrdLastPrice(180.0);
-		orderListVO2.setOrdFee(60);
-		orderListVO2.setOrdStatus(3);
-		orderListVO2.setRecName("曾可愛");
-		orderListVO2.setRecAddress("舊金山");
-		orderListVO2.setRecPhone("01-333");
-		orderListVO2.setOrdPick(2);
-//		dao.insertNoCoupon(orderListVO2);
-		dao.insertWithOrderDetailsNoCoupon(orderListVO2, list);
-		
-//		-- 更改訂單內容		
-//		OrderListVO orderListVO3 = new OrderListVO();
-//		orderListVO3.setCoupNo(27003);
-//		orderListVO3.setOrdOriPrice(200.6);
-//		orderListVO3.setOrdLastPrice(180.0);
-//		orderListVO3.setOrdFee(60);
-//		orderListVO3.setOrdStatus(3);
-//		orderListVO3.setRecName("曾饅頭");
-//		orderListVO3.setRecAddress("舊金山");
-//		orderListVO3.setRecPhone("01-333");
-//		orderListVO3.setOrdPick(2);
-//		orderListVO3.setOrdNo(22003);
-//		dao.update(orderListVO3);
-		
-//		-- 找出某一筆訂單的所有資料
-//		OrderListVO orderListVO4 = dao.findOneOrder(22001);
-//		System.out.println(orderListVO4.getOrdNo() + ",");
-//		System.out.println(orderListVO4.getMemID() + ",");
-//		System.out.println(orderListVO4.getCoupNo() + ",");
-//		System.out.println(orderListVO4.getOrdOriPrice() + ",");
-//		System.out.println(orderListVO4.getOrdLastPrice() + ",");
-//		System.out.println(orderListVO4.getOrdFee() + ",");
-//		System.out.println(orderListVO4.getOrdStatus() + ",");
-//		System.out.println(orderListVO4.getOrdCreate() + ",");
-//		System.out.println(orderListVO4.getRecName() + ",");
-//		System.out.println(orderListVO4.getRecAddress() + ",");
-//		System.out.println(orderListVO4.getRecPhone() + ",");
-//		System.out.println(orderListVO4.getOrdPick() );
-//		System.out.println();
-		
-//		-- 找出某種出貨狀態的訂單
-//		List<OrderListVO> list = dao.findOrderByStatus(0);
-//		for(OrderListVO od : list) {
-//			System.out.println(od.getOrdNo() + ",");
-//			System.out.println(od.getMemID() + ",");
-//			System.out.println(od.getCoupNo() + ",");
-//			System.out.println(od.getOrdOriPrice() + ",");
-//			System.out.println(od.getOrdLastPrice() + ",");
-//			System.out.println(od.getOrdFee() + ",");
-//			System.out.println(od.getOrdStatus() + ",");
-//			System.out.println(od.getOrdCreate() + ",");
-//			System.out.println(od.getRecName() + ",");
-//			System.out.println(od.getRecAddress() + ",");
-//			System.out.println(od.getRecPhone() + ",");
-//			System.out.println(od.getOrdPick() );
-//			System.out.println();
-//		}
-		
-//		-- 找出所有訂單
-//		List<OrderListVO> list2 = dao.getAll();
-//		for(OrderListVO od : list2) {
-//			System.out.println(od.getOrdNo() + ",");
-//			System.out.println(od.getMemID() + ",");
-//			System.out.println(od.getCoupNo() + ",");
-//			System.out.println(od.getOrdOriPrice() + ",");
-//			System.out.println(od.getOrdLastPrice() + ",");
-//			System.out.println(od.getOrdFee() + ",");
-//			System.out.println(od.getOrdStatus() + ",");
-//			System.out.println(od.getOrdCreate() + ",");
-//			System.out.println(od.getRecName() + ",");
-//			System.out.println(od.getRecAddress() + ",");
-//			System.out.println(od.getRecPhone() + ",");
-//			System.out.println(od.getOrdPick() );
-//			System.out.println();
-//		}
-		
-		
-	}
-
-
-
-
-
-
-
-
-
-
 
 
 

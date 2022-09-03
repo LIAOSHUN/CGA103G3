@@ -2,6 +2,7 @@ package com.orderlist.model;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import com.orderdetail.model.OrderDetailVO;
 
@@ -9,7 +10,7 @@ public class OrderListService {
 	private OrderListDAO_interface dao;
 	
 	public OrderListService() {
-		dao = new OrderListJDBCDAO();
+		dao = new OrderListDAO();
 	}
 	
 //	-- 新增訂單資料-使用優惠券
@@ -134,6 +135,10 @@ public class OrderListService {
 //  -- 秀出所有訂單
 	public List<OrderListVO> getAll(){
 		return dao.getAll();
+	}
+//  -- 秀出所有訂單(複合查詢)
+	public List<OrderListVO> getAll(Map<String, String[]> map){
+		return dao.getAll(map);
 	}
 	
 }

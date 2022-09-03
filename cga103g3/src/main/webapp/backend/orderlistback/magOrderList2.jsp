@@ -7,6 +7,7 @@
 <%@ page import="com.orderdetail.model.*"%>
 
 <jsp:useBean id="orderListSvc" scope="page" class="com.orderlist.model.OrderListService" />
+<jsp:useBean id="orderDetailSvc" scope="page" class="com.orderdetail.model.OrderDetailService" />
 <%
 	
 	List<OrderListVO> list = orderListSvc.getAll();
@@ -77,8 +78,11 @@
     text-align: center;
   }
 
-  tbody tr:nth-child(odd){
+  tr:nth-child(odd){
   	background-color: #eee
+  }
+  #page2{
+  	padding-left: 690px;
   }
 
 </style>
@@ -346,17 +350,13 @@
 								</h6>
 							</div>
 							<div class="col">
-								<b>訂單編號:</b> <input type="text" name="orderNo" value=""
+								<b>訂單編號:</b> <input type="text" name="ordNo" value=""
 									placeholder="22001">
 							</div>
-							<input type="text" name="memNo" value="" hidden>
+						
 							<div class="col" style="text-align: center;">
-								<b>會員姓名:</b> <input type="text" name="memName" value=""
-									placeholder="請填入姓名">
-							</div>
-							<div class="col" style="text-align: center;">
-								<b>訂單狀態:</b>
-								<select name="orderState" id="orderState">
+								<b>訂單狀態:</b><br>
+								<select name="ordStatus" id="ordStatus">
 									<option value="0">未出貨</option>
 									<option value="1">已出貨</option>
 									<option value="2">已完成</option>
@@ -364,18 +364,20 @@
 								</select>
 							</div>
 							<div class="col">
-								<b>收件人姓名:</b> <input type="text" name="receiverName" value=""
+								<b>收件人姓名:</b> <input type="text" name="recName" value=""
 									placeholder="可填入關鍵字"> <input type="submit" value="開始搜尋"
-									class="btn btn-outline-secondary"> <input type="hidden"
+									class="btn btn-outline-primary"> <input type="hidden"
 									name="action" value="CompositeQuery">
 							</div>
 						</div>
 					</FORM>
 					
 					
-							<div class="table-responsive text-nowrap">
+							<%@ include file="page1.file"%>
+							<c:forEach var="orderListVO" items="${list}" begin="<%=pageIndex%>"
+						end="<%=pageIndex+rowsPerPage-1%>">
 								<table class="table" >
-									<thead>
+									
 										<tr>
 											<th>訂單編號</th>
 											<th>會員姓名</th>
@@ -383,17 +385,14 @@
 											<th>總價</th>
 											<th>訂單狀態</th>
 											<th>下單時間</th>
-											<th>收件人姓名</th>
-											<th>收件人電話</th>
-											<th>收件人地址</th>
+											<th>收件人</th>
+											<th>電話</th>
+											<th>地址</th>
 											<th>取貨方式</th>
-											<th>修改訂單</th>
-											<th>查看訂單明細</th>
+											<th>修改</th>
+											<th>明細</th>
 										</tr>
 										
-									</thead>
-									<tbody class="table-border-bottom-0">
-					<c:forEach var="orderListVO" items="${list}" >
 										<tr>
 											<td>${orderListVO.ordNo}</td>
 											<td>${orderListVO.memID}</td> 
@@ -403,21 +402,75 @@
 												<c:if test="${orderListVO.ordStatus == 0 }"><span class="badge bg-label-warning me-1">未出貨</span></c:if>
 												<c:if test="${orderListVO.ordStatus == 1 }"><span class="badge bg-label-info me-1">已出貨</span></c:if>
 												<c:if test="${orderListVO.ordStatus == 2 }"><span class="badge bg-label-success me-1">已完成</span></c:if>
-												<c:if test="${orderListVO.ordStatus == 3 }"><span class="badge bg-label-info me-1">取消</span></c:if>
+												<c:if test="${orderListVO.ordStatus == 3 }"><span class="badge bg-label-danger me-1">取消</span></c:if>
 											</td>
 											<td>${orderListVO.ordCreate}</td>
 											<td>${orderListVO.recName}</td>
 											<td>${orderListVO.recPhone}</td>
 											<td>${orderListVO.recAddress}</td>
 											<td>${orderListVO.ordPick}</td>
+											<td><c:if
+													test="${orderListVO.ordStatus != 2 && orderListVO.ordStatus != 3}"
+													var="condition">
+													<FORM METHOD="post"
+														ACTION="<%=request.getContextPath()%>          "
+														style="margin-bottom: 0px;">
+														<input type="submit" value="修改" type="button"
+															> <input type="hidden"
+															name="orderNo" value="${orderListVO.ordNo}"> <input
+															type="hidden" name="action" value="getOne_For_Update">
+													</FORM>
+												</c:if>
+											</td>
+											<td>
+												<button
+			                          				  class="btn rounded-pill btn-primary"
+							                          type="button"
+							                          data-bs-toggle="collapse"
+							                          data-bs-target="#collapseExample${orderListVO.ordNo}"
+							                          aria-expanded="false"
+							                          aria-controls="collapseExample${orderListVO.ordNo}">展開
+							                     </button>
+											</td>											
 										</tr>	
-					</c:forEach>
-									</tbody>	
+										
+							
 								</table>
-							</div>
+<!-- 								=================以下為訂單明細================================ -->
+											<div class="collapse" id="collapseExample${orderListVO.ordNo}">
+						                        <div class="d-grid d-sm-flex p-3 border">
+						                          
+								                      <table class="table table-bordered table-hover mb-0">
+														<thead class="text-700 bg-gray-200">
+															<tr>
+																<th class="fw-600">遊戲名稱</th>
+																<th class="fw-600">數量</th>
+																<th class="fw-600">小計</th>
+															</tr>
+														</thead>
+														<c:forEach var="orderDetailVO" 
+														items="${orderDetailSvc.showOneOrderDetail(orderListVO.getOrdNo())}">
+															<tbody>
+																<tr style="background-color: #B7EBEB;">
+<%-- 																	<td class="p-3">${orderDetailVO.getProductVO(orderDetailVO.pdID).getPdName()}</td> --%>
+																	<td class="p-3">${orderDetailVO.pdID}</td>
+																	<td class="p-3">${orderDetailVO.itemSales}</td>
+																	<td class="p-3">${orderDetailVO.price}</td>
+																</tr>
+															</tbody>
+														</c:forEach>
+													</table>
+			                        			</div>
+			                        		</div>
+<!-- 								=================以上為訂單明細================================ -->
+
+							</c:forEach>		
+								
+						</div>
+						<div id="page2">
+							<%@ include file="page2.file"%>
 						</div>
 					</div>
-
 					<!-- / Content -->
 					<!-- =============================================================================================== -->
 					<div class="content-backdrop fade"></div>

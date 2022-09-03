@@ -1,6 +1,7 @@
 package com.orderlist.model;
 
 import java.util.List;
+import java.util.Map;
 
 import com.orderdetail.model.OrderDetailVO;
 
@@ -18,6 +19,8 @@ public interface OrderListDAO_interface {
     public List<OrderListVO> findOrderByStatus(Integer ordStatus);
 //  -- 找出所有訂單
     public List<OrderListVO> getAll();
+//  -- 找出所有訂單-複合查詢(傳入參數型態Map)(回傳 List)
+    public List<OrderListVO> getAll(Map<String, String[]> map);
 //  訂單主檔與明細檔一次新增成功
     public void insertWithOrderDetails(OrderListVO orderListVO, List<OrderDetailVO> list );
 //  訂單主檔與明細檔一次新增成功(無優惠券)

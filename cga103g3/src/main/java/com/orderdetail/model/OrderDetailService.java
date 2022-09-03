@@ -7,7 +7,7 @@ public class OrderDetailService {
 	private OrderDetailDAO_interface dao;
 	
 	public OrderDetailService() {
-		dao = new OrderDetailJDBCDAO();
+		dao = new OrderDetailDAO();
 	}
 	
 //	-- 新增一筆訂單明細
