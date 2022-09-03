@@ -10,7 +10,7 @@
 <jsp:useBean id="orderDetailSvc" scope="page" class="com.orderdetail.model.OrderDetailService" />
 <%
 	
-	List<OrderListVO> list = orderListSvc.getAll();
+	List<OrderListVO> list = (List<OrderListVO>)request.getAttribute("CompositeQuery");
 	pageContext.setAttribute("list",list);
 %>
 <!DOCTYPE html>
@@ -58,7 +58,7 @@
 <!-- ================================================================================================ -->
 <style>
   
-  * {
+* {
   	box-sizing: border-box;
   }
   
@@ -73,8 +73,8 @@
    text-align: center  !important;
    color: black !important;
    }
-  th, td {
-    padding: 15px !important;
+  td {
+    padding: 11px ;
     text-align: center;
   }
 
@@ -83,6 +83,19 @@
   }
   #page2{
   	padding-left: 690px;
+  }
+  .detail{
+  	font-size: 8px;
+  	padding-top: 0px;
+  	padding-bottom: 0px;
+  	padding-left: 0px;
+  	padding-right: 0px;
+  	
+  }
+  
+  
+  #backmagOrderList{
+  	padding-left: 790px;
   }
 
 </style>
@@ -341,36 +354,41 @@
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<div class="card">
 							<h2 class="card-header">訂單管理</h2>
-					<FORM METHOD="post"
-					ACTION="<%=request.getContextPath()%>/orders/showOrdersBySearch" >
-						<div style="text-align: right;" class="row">
-							<div class="col">
-								<h6>
-									<span style="color: blue">訂單查詢:</span>
-								</h6>
-							</div>
-							<div class="col">
-								<b>訂單編號:</b> <input type="text" name="ordNo" value=""
-									placeholder="22001">
-							</div>
+<!-- 					<FORM METHOD="post" -->
+<%-- 					ACTION="<%=request.getContextPath()%>/orders/showOrdersBySearch" > --%>
+<!-- 						<div style="text-align: right;" class="row"> -->
+<!-- 							<div class="col"> -->
+<!-- 								<h6> -->
+<!-- 									<span style="color: blue">訂單查詢:</span> -->
+<!-- 								</h6> -->
+<!-- 							</div> -->
+<!-- 							<div class="col"> -->
+<!-- 								<b>訂單編號:</b> <input type="text" name="ordNo" value="" -->
+<!-- 									placeholder="22001"> -->
+<!-- 							</div> -->
 						
-							<div class="col" style="text-align: center;">
-								<b>訂單狀態:</b><br>
-								<select name="ordStatus" id="ordStatus">
-									<option value="0">未出貨</option>
-									<option value="1">已出貨</option>
-									<option value="2">已完成</option>
-									<option value="3">取消</option>
-								</select>
-							</div>
-							<div class="col">
-								<b>收件人姓名:</b> <input type="text" name="recName" value=""
-									placeholder="可填入關鍵字"> <input type="submit" value="開始搜尋"
-									class="btn btn-outline-primary"> <input type="hidden"
-									name="action" value="CompositeQuery">
-							</div>
+<!-- 							<div class="col" style="text-align: center;"> -->
+<!-- 								<b>訂單狀態:</b><br> -->
+<!-- 								<select name="ordStatus" id="ordStatus"> -->
+<!-- 									<option value="">請選擇訂單狀態</option> -->
+<!-- 									<option value="0">未出貨</option> -->
+<!-- 									<option value="1">已出貨</option> -->
+<!-- 									<option value="2">已完成</option> -->
+<!-- 									<option value="3">取消</option> -->
+<!-- 								</select> -->
+<!-- 							</div> -->
+<!-- 							<div class="col"> -->
+<!-- 								<b>收件人姓名:</b> <input type="text" name="recName" value="" -->
+<!-- 									placeholder="可填入關鍵字"> <input type="submit" value="開始搜尋" -->
+<!-- 									class="btn btn-outline-primary"> <input type="hidden" -->
+<!-- 									name="action" value="CompositeQuery2"> -->
+<!-- 							</div> -->
+<!-- 						</div> -->
+<!-- 					</FORM> -->
+	
+						<div id="backmagOrderList">
+							<button class="btn btn-outline-primary"  onclick="location.href='magOrderList.jsp'"> 返回上一頁</button>
 						</div>
-					</FORM>
 					
 					
 							<%@ include file="page1.file"%>
@@ -397,7 +415,7 @@
 											<td>${orderListVO.ordNo}</td>
 											<td>${orderListVO.memID}</td> 
 											<td>${orderListVO.coupNo}</td>
-											<td>${orderListVO.ordLastPrice}</td>
+											<td>$${orderListVO.ordLastPrice}</td>
 											<td>
 												<c:if test="${orderListVO.ordStatus == 0 }"><span class="badge bg-label-warning me-1">未出貨</span></c:if>
 												<c:if test="${orderListVO.ordStatus == 1 }"><span class="badge bg-label-info me-1">已出貨</span></c:if>
@@ -408,29 +426,32 @@
 											<td>${orderListVO.recName}</td>
 											<td>${orderListVO.recPhone}</td>
 											<td>${orderListVO.recAddress}</td>
-											<td>${orderListVO.ordPick}</td>
+											<td>
+												<c:if test="${orderListVO.ordPick == 0 }"><span class="badge bg-info">店取</span></c:if>
+												<c:if test="${orderListVO.ordPick == 1 }"><span class="badge bg-info">超取</span></c:if>
+												<c:if test="${orderListVO.ordPick == 2 }"><span class="badge bg-info">宅配</span></c:if>
+											</td>
 											<td><c:if
 													test="${orderListVO.ordStatus != 2 && orderListVO.ordStatus != 3}"
 													var="condition">
 													<FORM METHOD="post"
 														ACTION="<%=request.getContextPath()%>          "
 														style="margin-bottom: 0px;">
-														<input type="submit" value="修改" type="button"
-															> <input type="hidden"
+														<input type="submit" value="修改" type="button" class="detail btn rounded-pill btn-primary"
+															style="background-color: gray;"> <input type="hidden"
 															name="orderNo" value="${orderListVO.ordNo}"> <input
 															type="hidden" name="action" value="getOne_For_Update">
 													</FORM>
 												</c:if>
 											</td>
 											<td>
-												<button
-			                          				  class="btn rounded-pill btn-primary"
+												<button 
+			                          				  class="detail btn rounded-pill btn-primary"
 							                          type="button"
 							                          data-bs-toggle="collapse"
 							                          data-bs-target="#collapseExample${orderListVO.ordNo}"
 							                          aria-expanded="false"
-							                          aria-controls="collapseExample${orderListVO.ordNo}">展開
-							                     </button>
+							                          aria-controls="collapseExample${orderListVO.ordNo}">展 開</button>
 											</td>											
 										</tr>	
 										
@@ -455,7 +476,7 @@
 <%-- 																	<td class="p-3">${orderDetailVO.getProductVO(orderDetailVO.pdID).getPdName()}</td> --%>
 																	<td class="p-3">${orderDetailVO.pdID}</td>
 																	<td class="p-3">${orderDetailVO.itemSales}</td>
-																	<td class="p-3">${orderDetailVO.price}</td>
+																	<td class="p-3">$${orderDetailVO.price}</td>
 																</tr>
 															</tbody>
 														</c:forEach>

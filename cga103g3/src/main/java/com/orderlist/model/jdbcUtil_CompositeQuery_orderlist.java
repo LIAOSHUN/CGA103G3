@@ -8,9 +8,9 @@ public class jdbcUtil_CompositeQuery_orderlist {
 
 		String aCondition = null;
 
-		if ("OrdNo".equals(columnName) || "OrdStatus".equals(columnName)) // 用於其他
+		if ("ordNo".equals(columnName) || "ordStatus".equals(columnName)) // 用於其他
 			aCondition = columnName + "=" + value;
-		else if ("RecName".equals(columnName) ) // 用於varchar
+		else if ("recName".equals(columnName) ) // 用於varchar
 			aCondition = columnName + " like '%" + value + "%'";
 
 		

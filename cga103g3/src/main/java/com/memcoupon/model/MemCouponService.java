@@ -11,7 +11,7 @@ public class MemCouponService {
 	
 	public MemCouponService() {
 		
-		dao = new MemCouponJDBCDAO();
+		dao = new MemCouponDAO();
 	}
 //	-- 新增一筆會員優惠券資料
 	public MemCouponVO addMemCoupon(Integer memID, Integer coupTypeNo, Integer coupStatus, Timestamp coupExpDate,

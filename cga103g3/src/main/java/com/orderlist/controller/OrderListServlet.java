@@ -39,6 +39,15 @@ public class OrderListServlet extends HttpServlet {
 		req.setAttribute("errorMsgs", errorMsgs);
 
 			
+		/***************************錯誤驗證**********************************/ 
+		
+		
+		
+		
+		
+		
+		
+		
 			/***************************1.將輸入資料轉為Map**********************************/ 
 			//採用Map<String,String[]> getParameterMap()的方法 
 			//注意:an immutable java.util.Map 
@@ -49,9 +58,38 @@ public class OrderListServlet extends HttpServlet {
 			List<OrderListVO> list  = orderListSvc.getAll(map);
 			
 			/***************************3.查詢完成,準備轉交(Send the Success view)************/
-			req.setAttribute("listOrderLists_ByCompositeQuery", list); // 資料庫取出的list物件,存入request
-			RequestDispatcher successView = req.getRequestDispatcher("/emp/listEmps_ByCompositeQuery.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
+			req.setAttribute("CompositeQuery", list); // 資料庫取出的list物件,存入request
+			RequestDispatcher successView = req.getRequestDispatcher("/backend/orderlistback/CqOrderList.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
 			successView.forward(req, res);
+	}
+	
+	if("CompositeQuery2".equals(action)) {
+		List<String> errorMsgs = new LinkedList<String>();
+		req.setAttribute("errorMsgs", errorMsgs);
+		
+		
+		/***************************錯誤驗證**********************************/ 
+		
+		
+		
+		
+		
+		
+		
+		
+		/***************************1.將輸入資料轉為Map**********************************/ 
+		//採用Map<String,String[]> getParameterMap()的方法 
+		//注意:an immutable java.util.Map 
+		Map<String, String[]> map = req.getParameterMap();
+		
+		/***************************2.開始複合查詢***************************************/
+		OrderListService orderListSvc = new OrderListService();
+		List<OrderListVO> list  = orderListSvc.getAll(map);
+		
+		/***************************3.查詢完成,準備轉交(Send the Success view)************/
+		req.setAttribute("CompositeQuery", list); // 資料庫取出的list物件,存入request
+		RequestDispatcher successView = req.getRequestDispatcher("/backend/orderlistback/CqOrderList.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
+		successView.forward(req, res);
 	}
 	
 	
