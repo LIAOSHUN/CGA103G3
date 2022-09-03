@@ -1,6 +1,7 @@
 package com.act.model;
 
 import java.sql.*;
+import java.time.LocalDateTime;
 import java.util.*;
 
 import com.actimg.model.ActImgJDBCDAO;
@@ -38,9 +39,9 @@ public class ActJDBCDAO implements ActDAO_interface{
 			pstmt.setInt(1, actVO.getStoreID());
 			pstmt.setString(2, actVO.getActTitle());
 			pstmt.setString(3, actVO.getActDescription());
-			pstmt.setTimestamp(4, actVO.getActTimeStart());
-			pstmt.setTimestamp(5, actVO.getActTimeEnd());
-			pstmt.setTimestamp(6, actVO.getActDate());
+			pstmt.setObject(4, actVO.getActTimeStart());
+			pstmt.setObject(5, actVO.getActTimeEnd());
+			pstmt.setObject(6, actVO.getActDate());
 			pstmt.setInt(7, actVO.getRegisMax());
 			pstmt.setInt(8, actVO.getActFee());
 			pstmt.setInt(9, actVO.getActRegistration());
@@ -68,9 +69,9 @@ public class ActJDBCDAO implements ActDAO_interface{
 			pstmt.setInt(1, actVO.getStoreID());
 			pstmt.setString(2, actVO.getActTitle());
 			pstmt.setString(3, actVO.getActDescription());
-			pstmt.setTimestamp(4, actVO.getActTimeStart());
-			pstmt.setTimestamp(5, actVO.getActTimeEnd());
-			pstmt.setTimestamp(6, actVO.getActDate());
+			pstmt.setObject(4, actVO.getActTimeStart());
+			pstmt.setObject(5, actVO.getActTimeEnd());
+			pstmt.setObject(6, actVO.getActDate());
 			pstmt.setInt(7, actVO.getRegisMax());
 			pstmt.setInt(8, actVO.getActFee());
 			pstmt.setInt(9, actVO.getActRegistration());
@@ -110,9 +111,9 @@ public class ActJDBCDAO implements ActDAO_interface{
 				actVO.setStoreID(rs.getInt("storeID"));
 				actVO.setActTitle(rs.getString("actTitle"));
 				actVO.setActDescription(rs.getString("actDescription"));
-				actVO.setActTimeStart(rs.getTimestamp("actTimeStart"));
-				actVO.setActTimeEnd(rs.getTimestamp("actTimeEnd"));
-				actVO.setActDate(rs.getTimestamp("actDate"));
+				actVO.setActTimeStart(rs.getObject("actTimeStart", LocalDateTime.class));
+				actVO.setActTimeEnd(rs.getObject("actTimeEnd", LocalDateTime.class));
+				actVO.setActDate(rs.getObject("actDate", LocalDateTime.class));
 				actVO.setRegisMax(rs.getInt("regisMax"));				
 				actVO.setActFee(rs.getInt("actFee"));
 				actVO.setActRegistration(rs.getInt("actRegistration"));
@@ -150,9 +151,9 @@ public class ActJDBCDAO implements ActDAO_interface{
 				actVO.setStoreID(rs.getInt("storeID"));
 				actVO.setActTitle(rs.getString("actTitle"));
 				actVO.setActDescription(rs.getString("actDescription"));
-				actVO.setActTimeStart(rs.getTimestamp("actTimeStart"));
-				actVO.setActTimeEnd(rs.getTimestamp("actTimeEnd"));
-				actVO.setActDate(rs.getTimestamp("actDate"));
+				actVO.setActTimeStart(rs.getObject("actTimeStart", LocalDateTime.class));
+				actVO.setActTimeEnd(rs.getObject("actTimeEnd", LocalDateTime.class));
+				actVO.setActDate(rs.getObject("actDate", LocalDateTime.class));
 				actVO.setRegisMax(rs.getInt("regisMax"));
 				actVO.setActFee(rs.getInt("actFee"));
 				actVO.setActRegistration(rs.getInt("actRegistration"));
@@ -217,9 +218,9 @@ public class ActJDBCDAO implements ActDAO_interface{
 			pstmt.setInt(1, actVO.getStoreID());
 			pstmt.setString(2, actVO.getActTitle());
 			pstmt.setString(3, actVO.getActDescription());
-			pstmt.setTimestamp(4, actVO.getActTimeStart());
-			pstmt.setTimestamp(5, actVO.getActTimeEnd());
-			pstmt.setTimestamp(6, actVO.getActDate());
+			pstmt.setObject(4, actVO.getActTimeStart());
+			pstmt.setObject(5, actVO.getActTimeEnd());
+			pstmt.setObject(6, actVO.getActDate());
 			pstmt.setInt(7, actVO.getRegisMax());
 			pstmt.setInt(8, actVO.getActFee());
 			pstmt.setInt(9, actVO.getActRegistration());
@@ -295,9 +296,9 @@ public class ActJDBCDAO implements ActDAO_interface{
 		actVO1.setStoreID(51001);
 		actVO1.setActTitle("結伴玩桌遊testtt");
 		actVO1.setActDescription("引入新桌遊「I.A.裝置譯述家」，邀請各位一起體驗");
-		actVO1.setActTimeStart(Timestamp.valueOf("2022-10-08 10:00:00"));
-		actVO1.setActTimeEnd(Timestamp.valueOf("2022-10-20 21:00:00"));
-		actVO1.setActDate(Timestamp.valueOf("2022-10-22 14:00:00"));
+		actVO1.setActTimeStart(LocalDateTime.parse("2022-10-08 10:00:00"));
+		actVO1.setActTimeEnd(LocalDateTime.parse("2022-10-20 21:00:00"));
+		actVO1.setActDate(LocalDateTime.parse("2022-10-22 14:00:00"));
 		actVO1.setRegisMax(6);
 		actVO1.setActFee(100);
 		actVO1.setActRegistration(0);
@@ -309,9 +310,9 @@ public class ActJDBCDAO implements ActDAO_interface{
 		actVO2.setStoreID(51001);
 		actVO2.setActTitle("結伴玩桌遊");
 		actVO2.setActDescription("引入新桌遊「I.A.裝置譯述家」~~邀請各位一起體驗");
-		actVO2.setActTimeStart(Timestamp.valueOf("2022-10-08 10:00:00"));
-		actVO2.setActTimeEnd(Timestamp.valueOf("2022-10-20 21:00:00"));
-		actVO2.setActDate(Timestamp.valueOf("2022-10-22 14:00:00"));
+		actVO2.setActTimeStart(LocalDateTime.parse("2022-10-08 10:00:00"));
+		actVO2.setActTimeEnd(LocalDateTime.parse("2022-10-20 21:00:00"));
+		actVO2.setActDate(LocalDateTime.parse("2022-10-22 14:00:00"));
 		actVO2.setRegisMax(6);
 		actVO2.setActFee(100);
 		actVO2.setActRegistration(0);

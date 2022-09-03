@@ -2,6 +2,7 @@ package com.act.controller;
 
 import java.io.IOException;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -127,21 +128,21 @@ public class ActServlet extends HttpServlet {
 					errorMsgs.add("內文請勿空白");
 				}
 				
-				Timestamp actTimeStart = null;
+				LocalDateTime actTimeStart = null;
 				try {
-					actTimeStart = Timestamp.valueOf(req.getParameter("actTimeStart").trim()+":00");
+					actTimeStart = LocalDateTime.parse(req.getParameter("actTimeStart").trim()+":00");
 				} catch (IllegalArgumentException e) {
 					errorMsgs.add("請輸入日期!");
 				}
-				Timestamp actTimeEnd = null;
+				LocalDateTime actTimeEnd = null;
 				try {
-					actTimeEnd = Timestamp.valueOf(req.getParameter("actTimeEnd").trim()+":00");
+					actTimeEnd = LocalDateTime.parse(req.getParameter("actTimeEnd").trim()+":00");
 				} catch (IllegalArgumentException e) {
 					errorMsgs.add("請輸入日期!");
 				}
-				Timestamp actDate = null;
+				LocalDateTime actDate = null;
 				try {
-					actDate = Timestamp.valueOf(req.getParameter("actDate").trim()+":00");
+					actDate = LocalDateTime.parse(req.getParameter("actDate").trim()+":00");
 				} catch (IllegalArgumentException e) {
 					errorMsgs.add("請輸入日期!");
 				}
@@ -214,22 +215,22 @@ public class ActServlet extends HttpServlet {
 					errorMsgs.add("內文請勿空白");
 				}
 				
-				Timestamp actTimeStart = null;
+				LocalDateTime actTimeStart = null;
 				try {
-					actTimeStart = Timestamp.valueOf(req.getParameter("actTimeStart").trim()+":00");
+					actTimeStart = LocalDateTime.parse(req.getParameter("actTimeStart").trim()+":00");
 				} catch (IllegalArgumentException e) {
-					actTimeStart=new Timestamp(System.currentTimeMillis());
+					actTimeStart = LocalDateTime.now();
 					errorMsgs.add("請輸入日期!");
 				}
-				Timestamp actTimeEnd = null;
+				LocalDateTime actTimeEnd = null;
 				try {
-					actTimeEnd = Timestamp.valueOf(req.getParameter("actTimeEnd").trim()+":00");
+					actTimeEnd = LocalDateTime.parse(req.getParameter("actTimeEnd").trim()+":00");
 				} catch (IllegalArgumentException e) {
 					errorMsgs.add("請輸入日期!");
 				}
-				Timestamp actDate = null;
+				LocalDateTime actDate = null;
 				try {
-					actDate = Timestamp.valueOf(req.getParameter("actDate").trim()+":00");
+					actDate = LocalDateTime.parse(req.getParameter("actDate").trim()+":00");
 				} catch (IllegalArgumentException e) {
 					errorMsgs.add("請輸入日期!");
 				}

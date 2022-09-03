@@ -1,6 +1,6 @@
 package com.act.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import com.store.model.StoreService;
 import com.store.model.StoreVO;
@@ -10,9 +10,9 @@ public class ActVO implements java.io.Serializable {
 	private Integer storeID;
 	private String actTitle;
 	private String actDescription;
-	private Timestamp actTimeStart;
-	private Timestamp actTimeEnd;
-	private Timestamp actDate;
+	private LocalDateTime actTimeStart;
+	private LocalDateTime actTimeEnd;
+	private LocalDateTime actDate;
 	private Integer regisMax;
 	private Integer actFee;
 	private Integer actRegistration;
@@ -42,10 +42,22 @@ public class ActVO implements java.io.Serializable {
 	public void setActDescription(String actDescription) {
 		this.actDescription = actDescription;
 	}
-	public Timestamp getActDate() {
+	public LocalDateTime getActTimeStart() {
+		return actTimeStart;
+	}
+	public void setActTimeStart(LocalDateTime actTimeStart) {
+		this.actTimeStart = actTimeStart;
+	}
+	public LocalDateTime getActTimeEnd() {
+		return actTimeEnd;
+	}
+	public void setActTimeEnd(LocalDateTime actTimeEnd) {
+		this.actTimeEnd = actTimeEnd;
+	}
+	public LocalDateTime getActDate() {
 		return actDate;
 	}
-	public void setActDate(Timestamp actDate) {
+	public void setActDate(LocalDateTime actDate) {
 		this.actDate = actDate;
 	}
 	public Integer getActStatus() {
@@ -66,24 +78,14 @@ public class ActVO implements java.io.Serializable {
 	public void setActRegistration(Integer actRegistration) {
 		this.actRegistration = actRegistration;
 	}
-	public Timestamp getActTimeStart() {
-		return actTimeStart;
-	}
-	public void setActTimeStart(Timestamp actTimeStart) {
-		this.actTimeStart = actTimeStart;
-	}
-	public Timestamp getActTimeEnd() {
-		return actTimeEnd;
-	}
-	public void setActTimeEnd(Timestamp actTimeEnd) {
-		this.actTimeEnd = actTimeEnd;
-	}
 	public Integer getRegisMax() {
 		return regisMax;
 	}
 	public void setRegisMax(Integer regisMax) {
 		this.regisMax = regisMax;
 	}
+	
+	
 //	public Timestamp getDateNum(Integer actDate) {
 //		Timestamp dateNum = actDate.
 //		return 

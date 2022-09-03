@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,7 +112,7 @@ public class ActFavJDBCDAO implements ActFavDAO_interface{
 				actFavVO = new ActFavVO();
 				actFavVO.setMemID(rs.getInt("memID"));
 				actFavVO.setActID(rs.getInt("actID"));
-				actFavVO.setActFavDate(rs.getTimestamp("actFavDate"));
+				actFavVO.setActFavDate(rs.getObject("actFavDate", LocalDateTime.class));
 				listFav.add(actFavVO);
 			}
 
@@ -143,7 +144,7 @@ public class ActFavJDBCDAO implements ActFavDAO_interface{
 				actFavVO = new ActFavVO();
 				actFavVO.setMemID(rs.getInt("memID"));
 				actFavVO.setActID(rs.getInt("actID"));
-				actFavVO.setActFavDate(rs.getTimestamp("actFavDate"));
+				actFavVO.setActFavDate(rs.getObject("actFavDate", LocalDateTime.class));
 				list.add(actFavVO); // Store the row in the list
 			}
 

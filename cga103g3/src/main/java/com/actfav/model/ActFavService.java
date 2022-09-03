@@ -1,6 +1,6 @@
 package com.actfav.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ActFavService {
@@ -10,7 +10,7 @@ public class ActFavService {
 		dao = new ActFavJDBCDAO();
 	}
 
-	public ActFavVO addActFav(Integer memID, Integer actID, Timestamp actFavDate) {
+	public ActFavVO addActFav(Integer memID, Integer actID, LocalDateTime actFavDate) {
 
 		ActFavVO actFavVO = new ActFavVO();
 
@@ -22,7 +22,7 @@ public class ActFavService {
 		return actFavVO;
 	}
 
-	public ActFavVO updateActFav(Integer memID, Integer actID, Timestamp actFavDate) {
+	public ActFavVO updateActFav(Integer memID, Integer actID, LocalDateTime actFavDate) {
 
 		ActFavVO actFavVO = new ActFavVO();
 
