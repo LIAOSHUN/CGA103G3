@@ -27,10 +27,9 @@ public class CheckoutServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String sessionId = null;
 	
-		Enumeration<String> en = req.getParameterNames();
-		while (en.hasMoreElements()) {
-			String name = (String) en.nextElement();
-			String values[] = req.getParameterValues(name);
+		
+		
+			String values[] = req.getParameterValues("pdID");
 			
 			Integer pdID = 0;
 			if(values != null) {
@@ -44,17 +43,15 @@ public class CheckoutServlet extends HttpServlet {
 					
 				}
 			}
-		
-		}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+			
+			String receiverName = req.getParameter("receiverName");
+			String receiverPhone = req.getParameter("receiverPhone");
+			String address = req.getParameter("address");
+			
+			System.out.println(receiverName);
+			System.out.println(receiverPhone);
+			System.out.println(address);
+			
 	}
 
 }

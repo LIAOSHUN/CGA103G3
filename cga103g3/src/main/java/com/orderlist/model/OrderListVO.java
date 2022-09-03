@@ -3,7 +3,10 @@ package com.orderlist.model;
 import java.io.Serializable;
 import java.sql.Timestamp;
 
-public class OrderListVO implements Serializable{
+import com.member.model.MemberVO;
+import com.member.model.MemberService;
+
+public class OrderListVO {
 	private Integer ordNo;
 	private Integer memID;
 	private Integer coupNo;
@@ -111,5 +114,10 @@ public class OrderListVO implements Serializable{
 		this.ordPick = ordPick;
 	}
 	
-	
+	// for join memName  from memID
+	public MemberVO getMemberVo(){
+		MemberService memberSvc = new MemberService();
+		MemberVO memberVo = memberSvc.getOneMember(memID);
+		return memberVo;
+	}
 }
