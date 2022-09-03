@@ -86,10 +86,10 @@ public class ActVO implements java.io.Serializable {
 	}
 	
 	
-//	public Timestamp getDateNum(Integer actDate) {
-//		Timestamp dateNum = actDate.
-//		return 
-//	}
+	public Integer getDateNum() {
+		Integer dateNum = actDate.getHour();
+		return dateNum;
+	}
 	
 	// for join storeName from storeID
 	public StoreVO getStoreVO() {

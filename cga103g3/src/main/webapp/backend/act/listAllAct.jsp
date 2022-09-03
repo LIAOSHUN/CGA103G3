@@ -1,9 +1,9 @@
-<%@page import="java.sql.Timestamp"%>
-<%@page import="java.text.SimpleDateFormat"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <%@ page import="java.util.*"%>
+<%@ page import="java.time.LocalDateTime"%>
 <%@ page import="com.act.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
@@ -37,13 +37,16 @@
 
 <style>
   table {
-	width: 100%;
+	width: 800px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
 	line-height: 25px;		/*表格行高固定*/
 	table-layout:fixed;		/*表格寬度固定*/
 	word-break:break-all;	/*td內容過長不會被撐開*/
+	position:absolute;
+	top: 70px;
+	left: 23%;
   }
   table, th, td {
     border: 1px solid #CCCCFF;
@@ -62,6 +65,8 @@
 <body bgcolor='white'>
 
 <h4>此頁練習採用 EL 的寫法取值:</h4>
+
+
 <table id="table-1">
 	<tr><td>
 		 <h3>所有活動資訊 - listAllAct.jsp</h3>
@@ -71,18 +76,18 @@
 
 <table>
 	<tr>
-		<th width="60px">活動編號</th>
+		<th width="65px">活動編號</th>
 		<th width="70px">店面</th>
 		<th width="120px">活動標題</th>
 <!-- 		<th width="15%">活動敘述</th> -->
-		<th width="100px">報名開始日期</th>
-		<th width="120px">報名截止日期</th>
-		<th width="90px">活動日期</th>
-		<th width="70px">活動場次</th>
-		<th width="60px">人數上限</th>
+<!-- 		<th width="90px">報名開始日期</th> -->
+<!-- 		<th width="90px">報名截止日期</th> -->
+		<th width="80px">活動日期</th>
+		<th width="95px">活動場次</th>
+		<th width="65px">人數上限</th>
 <!-- 		<th width="35px">費用</th> -->
-		<th width="90px">目前報名人數</th>
-		<th width="85px">活動狀態</th>
+		<th width="65px">報名人數</th>
+		<th width="80px">活動狀態</th>
 		<th width="50px">修改</th>
 	</tr>
 	<%@ include file="page1.file" %> 
@@ -93,10 +98,12 @@
 			<td>${actVO.storeVO.storeName}</td>
 			<td>${actVO.actTitle}</td>
 <%-- 			<td>${actVO.actDescription}</td> --%>
-			<td><fmt:formatDate value="${actVO.actTimeStart}" pattern="yyyy-MM-dd HH:mm"/></td>
-			<td><fmt:formatDate value="${actVO.actTimeEnd}" pattern="yyyy-MM-dd HH:mm"/></td>
-			<td><fmt:formatDate value="${actVO.actDate}" pattern="yyyy-MM-dd"/></td>
-			<td><fmt:formatDate value="${actVO.actDate}" pattern="HH:mm"/></td>
+<%-- 			<td><javatime:format value="${actVO.actTimeStart}" pattern="yyyy-MM-dd HH:mm" /></td> --%>
+<%-- 			<td><javatime:format value="${actVO.actTimeEnd}" pattern="yyyy-MM-dd HH:mm" /></td> --%>
+			<td><javatime:format value="${actVO.actDate}" pattern="yyyy-MM-dd" /></td>
+			<td><c:if test="${actVO.dateNum == '14' }">下午場<br>(14:00~17:00)</c:if>
+				<c:if test="${actVO.dateNum == '18' }">晚場<br>(18:00~21:00)</c:if>
+			</td>
 			<td>${actVO.regisMax}</td>
 <%-- 			<td>${actVO.actFee}</td>  --%>
 			<td>${actVO.actRegistration}</td>
@@ -114,5 +121,6 @@
 	</c:forEach>
 </table>
 <%@ include file="page2.file" %>
+<%-- <%@ include file="../backend_template/html/Top&Fot.html" %> --%>
 </body>
 </html>

@@ -65,7 +65,7 @@ th, td {
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
+		<font style="color: red; font-weight: bold">請修正以下錯誤：</font>
 		<ul>
 			<c:forEach var="message" items="${errorMsgs}">
 				<li style="color: red">${message}</li>
