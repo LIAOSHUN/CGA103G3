@@ -89,7 +89,7 @@
 		</td>
 		<td width="100"><%=cartItem.getPdPrice()%>  元</td>
 		<td width="100"><%=cartItem.getCount()%>	</td>
-		<td width="100"><%=cartItem.getPdPrice() * cartItem.getCount()%>   元 </td>
+		<td width="100" ><span class=smallPrice><%=cartItem.getPdPrice() * cartItem.getCount()%></span>   元 </td>
 	</tr>
 		
 	<%}%>
@@ -143,34 +143,26 @@
                                     
 	                              <table>
 									<tr>
-										<td width="100">
+										<td width="150">
 											<div>
 												<label >取貨方式</label>
-												<select required name="PickupMethod">
+												<select id="ordPick" required name="ordPick">
+													<option value="-1" selected disabled>--請選擇取貨方式--</option>
 		                                        	<option value="0">店面取貨</option>
 		                                        	<option value="1">超商取貨</option>
-		                                        	<option value="2">宅配</option>
+		                                        	<option value="2">宅配取貨</option>
 		                                    	</select>
 	                                    	</div>
 										</td>
-										<td width="100">
-											<div>
-		                                    	 <label >運費</label>
-	                                    		 <select disabled name="shippingFee" >
-				                                     <option value="0">免運費</option>
-				                                     <option value="1">超商取貨運費:60元</option>
-				                                     <option value="2">宅配運費:100元</option>
-	                                   			 </select>
-		                                	</div>
-										</td>
 										
-										<td width="100">
+										
+										<td width="150">
 											<div>
 			                                    <label >付款方式</label>
 			                                    <select required name="payMethod">
-			                                        <option value="0">信用卡</option>
-			                                        <option value="1">超商取貨付款</option>
-			                                        <option value="2">匯款</option>
+			                                    	<option value="-1" selected disabled>--請選擇--</option>
+			                                        <option value="0">信用卡付款</option>
+			                                        <option value="1">線上匯款</option>
 			                                    </select>
 			                                </div>
 		                                </td>
@@ -210,16 +202,16 @@
 									<tr class="tr table_row" >
 			
 										<td class="column-5" >
-											$<span>xxxxx</span>
+											$<span id="orgPrice_span"></span>
 										</td>
 										<td class="column-5">
 											$<span >xxxxx</span>
 										</td>
 										<td class="column-5">
-											$<span >xxxxx</span>
+											$<span id="ordPick_span">0</span>
 										</td>
 								        <td class="column-5">
-											$<span >xxxxx</span>
+											$<span >0</span>
 										</td>
 									</tr>
 	                            </table>
@@ -269,31 +261,94 @@
 </body>
 <script>
 
-	let pdIDs = document.querySelectorAll('.pdID');
-	let deleteItemChecked = document.getElementById('deleteItemChecked');
 
-
-	for(let index = 0; index < <%=checkedlist.size()%>;index++){
+	let ordPick = document.querySelector('#ordPick'); 
+	let ordPick_span = document.querySelector('#ordPick_span');
+	let smallPrices = document.querySelectorAll('.smallPrice');
+	let orgPrice_span = document.querySelector('#orgPrice_span');
+	
+	
+	
+	//選擇取貨方式，連動運費
+	ordPick.addEventListener('change',  e => {
 		
-		let pdID = pdIDs[index].value;
-		console.log(pdID);
-		//+1
-		deleteItemChecked.addEventListener('click', function () {
+		let fee = e.target.value;
+		
+		if(fee == 0){
+			ordPick_span.innerText = 0;
+		};
+		
+		if(fee == 1){
+			ordPick_span.innerText = 60;
+		};
+		
+		if(fee == 2){
+			ordPick_span.innerText = 100;
+		};
+		
+	});
+
+	
+	//計算訂單原價
+		let orgPrice = 0;
+		for(let index = 0; index < <%=checkedlist.size()%>;index++){
+			
+			orgPrice =  orgPrice + parseInt(smallPrices[index].innerText);
+			
+		}
+			console.log(orgPrice)
+			orgPrice_span.innerText = orgPrice;
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// 	let pdIDs = document.querySelectorAll('.pdID');
+// 	let deleteItemChecked = document.getElementById('deleteItemChecked');
+
+
+<%-- 	for(let index = 0; index < <%=checkedlist.size()%>;index++){ --%>
+		
+// 		let pdID = pdIDs[index].value;
+// 		console.log(pdID);
+// 		//+1
+// 		deleteItemChecked.addEventListener('click', function () {
 			
 			
-			$.ajax({
-				url: "cart.do",
-				type: "POST",
-				data: {
-						action: "deleteItemChecked",
-						pdID:pdID,
-					},
-					success: function(){
-						alert('成功');
+// 			$.ajax({
+// 				url: "cart.do",
+// 				type: "POST",
+// 				data: {
+// 						action: "deleteItemChecked",
+// 						pdID:pdID,
+// 					},
+// 					success: function(){
+// 						alert('成功');
 						
-					}
-			})	
-		});
+// 					}
+// 			})	
+// 		});
 
 
 

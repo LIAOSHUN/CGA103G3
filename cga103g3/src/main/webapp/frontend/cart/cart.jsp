@@ -153,7 +153,7 @@
 			<tr class="tr table_row" >
 				<td class="column-1"><%=cartItem.getPdName()%> 
 					<div id="pdIDbutton">
-						<input class="pdID" type="checkbox" name="pdID"  value="<%=cartItem.getPdID().toString()%>">
+						<input class="pdID" type="checkbox" name="pdID"  value="<%=cartItem.getPdID().toString()%>" onchange="f1()">
 					</div>  
 				</td>
 				<td class="column-3" >
@@ -181,7 +181,9 @@
         	<c:if
 				test="${orderListVO.ordStatus != 2 && orderListVO.ordStatus != 3}" >
         		<div id='checkoutbutton'>
-        			<button form="Form" type="submit" id='checkout' value="結帳就對了!" class="flex-c-m stext-101 cl0 size-101 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+        			<button form="Form" type="submit" id='checkout' value="結帳就對了!" 
+        			class="flex-c-m stext-101 cl0 size-101 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer"
+        			style="display:none;">
     					結帳就對了!
     				</button>
         		</div>
@@ -255,10 +257,49 @@
 	let pdIDs = document.querySelectorAll('.pdID');
 	let trs = document.getElementsByClassName('tr');
 	let deletes = document.getElementsByClassName('delete');
+	let checkout = document.querySelector('#checkout');
 	
+		
 	
+
 			
-			
+			//消費者按按鈕時觸發
+				function f1(){
+					for(let index = 0; index < <%=cartItems.size()%>;index++){
+						// 如果此次點擊是被勾選，結帳按鈕顯示
+						if(pdIDs[index].checked){
+							checkout.setAttribute('style', 'display: block');
+							return;//結束迴圈，不然又會遇到false又會進到下面的情況，就會亂掉
+							
+						// 如果此次點擊是取消勾選	
+						}else{    
+							for(let index2 = 0; index2 < <%=cartItems.size()%>;index2++){
+								//檢查如果其他商品有勾，結帳按鈕顯示
+								if(pdIDs[index2].checked){
+									checkout.setAttribute('style', 'display: block');
+								//檢查如果其他商品沒有勾，結帳按鈕隱藏	
+								}else{
+									checkout.setAttribute('style', 'display: none');
+								}	
+							}
+						}
+					}
+				}
+	
+								
+// 								if(pdIDs[index].checked){
+// 									checkout.setAttribute('style', 'display: block');
+// 								}else{
+// 									checkout.setAttribute('style', 'display: none');
+// 								}
+// 							}
+	
+				//如果有商品被勾選，但全部被刪除(display: none)，結帳按鈕隱藏
+// 				if(pdIDs[index].style.display === "none"){
+// 					checkout.setAttribute('style', 'display: none');
+// 				}
+				
+				
 				
 				
 			//全選/不選
@@ -270,6 +311,7 @@
 	            		
 	                    var checkElement = checkElements[index];
 	                    checkElement.checked = "checked";
+	                    f1();
 	            	}
 	            }
 	            else {
@@ -277,6 +319,7 @@
 	            		
 	                    var checkElement = checkElements[index];
 	                    checkElement.checked = null;
+	                    f1();
 	            	}
 	                
 	            }
