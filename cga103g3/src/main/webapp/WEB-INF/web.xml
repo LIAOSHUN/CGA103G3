@@ -44,6 +44,15 @@
 	</servlet-mapping>
 	
 	<servlet>
+		<servlet-name>GetCartServlet</servlet-name>
+		<servlet-class>com.cart.controller.GetCartServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>GetCartServlet</servlet-name>
+		<url-pattern>/frontend/cart/getCart.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
 		<servlet-name>DcartServlet</servlet-name>
 		<servlet-class>com.cart.controller.DcartServlet</servlet-class>
 	</servlet>

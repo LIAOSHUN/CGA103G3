@@ -136,24 +136,7 @@
 			});
 		})
 	</script>
-<script>
 
-
-	let shoppingcart222 = document.getElementById('shoppingcart222');
-	
-	shoppingcart222.addEventListener('click', function () {
-		
-		
-		$.ajax({
-			url: "cart.do",
-			type: "POST",
-			data: {
-					action: "getCart",
-				},
-		})	
-	});
-
-</script>
 	<!--===============================================================================================-->
 	<script src="<%=request.getContextPath()%>/frontend/frontend_template/vendor/daterangepicker/moment.min.js"></script>
 	<script src="<%=request.getContextPath()%>/frontend/frontend_template/vendor/daterangepicker/daterangepicker.js"></script>

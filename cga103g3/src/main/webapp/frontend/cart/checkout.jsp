@@ -296,7 +296,6 @@
 			orgPrice =  orgPrice + parseInt(smallPrices[index].innerText);
 			
 		}
-			console.log(orgPrice)
 			orgPrice_span.innerText = orgPrice;
 	
 	

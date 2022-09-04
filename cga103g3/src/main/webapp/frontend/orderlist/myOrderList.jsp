@@ -54,7 +54,7 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>我的訂單</h3>
-		 <h4><a href="myCoupon_home.jsp">回會員中心</a></h4>
+		 <h4><a href="<%=request.getContextPath()%>/frontend/memcoupon/myCoupon_home.jsp">回會員中心</a></h4>
 	</td></tr>
 </table>
 

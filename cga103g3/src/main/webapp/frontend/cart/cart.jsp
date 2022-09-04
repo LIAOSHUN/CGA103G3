@@ -258,6 +258,7 @@
 	let trs = document.getElementsByClassName('tr');
 	let deletes = document.getElementsByClassName('delete');
 	let checkout = document.querySelector('#checkout');
+	let checkItems = document.querySelector('#checkItems');
 	
 		
 	
@@ -285,21 +286,27 @@
 						}
 					}
 				}
-	
-								
-// 								if(pdIDs[index].checked){
-// 									checkout.setAttribute('style', 'display: block');
-// 								}else{
-// 									checkout.setAttribute('style', 'display: none');
-// 								}
-// 							}
-	
-				//如果有商品被勾選，但全部被刪除(display: none)，結帳按鈕隱藏
-// 				if(pdIDs[index].style.display === "none"){
-// 					checkout.setAttribute('style', 'display: none');
+				
+				
+// 				檢查假如全部商品都隱藏的話，重刷頁面			
+// 				function f2(){
+// 					console.log('成功');
+<%-- 					for(let index = 0; index < <%=cartItems.size()%>;index++){ --%>
+// 						console.log('進來');
+// 						console.log(pdIDs[index].style.display !== "none");
+						
+						
+// 						if(pdIDs[index].style.display !== "none"){
+// 							return;
+// 						}
+						
+// 					}
+					
+<%-- 					if(<%=cartItems.size()%> === 0){ --%>
+						
+// 						location.reload();
+// 					}
 // 				}
-				
-				
 				
 				
 			//全選/不選
@@ -342,10 +349,13 @@
 							pdID:pdID,
 						},
 						success: function(){
-							//alert('隱形');
+							//隱形
 							trs[index].setAttribute('style', 'display: none');
+							//取消勾選
 							var checkElement = checkElements[index];
 		                    checkElement.checked = null;
+		                    //檢驗沒商品時，重刷頁面
+// 		                    f2();
 						}
 				})
 			});
@@ -432,7 +442,9 @@
  											pdID:pdID,
  										},
  									success: function(){
+ 										//隱形
  										trs[index].setAttribute('style', 'display: none');
+ 										//取消勾選
  										var checkElement = checkElements[index];
  					                    checkElement.checked = null;
  									}

@@ -22,6 +22,9 @@
         <input type="hidden" name="memID" value="11001">
         <input type="submit" value="我的訂單11001">
 </FORM>
+
+<a href="%=request.getContextPath()%>/frontend/orderlist/myOrderList.jsp" >
+</a>
 </div>
 
 </body>
