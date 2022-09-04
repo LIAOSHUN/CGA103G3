@@ -128,6 +128,10 @@ public class OrderListService {
 	public OrderListVO showOneOrder(Integer ordNo) {
 		return dao.findOneOrder(ordNo);
 	}
+//  -- 找出某位會員的所有訂單
+    public List<OrderListVO> showOrderByMemID(Integer memID){
+    	return dao.findOrderByMemID(memID);
+    }
 //  -- 秀出某種出貨狀態的訂單
 	public List<OrderListVO> showOrderByStatus(Integer ordStatus){
 		return dao.findOrderByStatus(ordStatus);
@@ -140,5 +144,5 @@ public class OrderListService {
 	public List<OrderListVO> getAll(Map<String, String[]> map){
 		return dao.getAll(map);
 	}
-	
+
 }

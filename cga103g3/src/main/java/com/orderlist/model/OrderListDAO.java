@@ -52,6 +52,12 @@ public class OrderListDAO implements OrderListDAO_interface {
 		"select OrdNo, MemID, CoupNo, OrdOriPrice, OrdLastPrice, OrdFee, OrdStatus, OrdCreate, RecName, RecAddress, RecPhone, OrdPick "
 		+ "from orderlist "
 		+ "where OrdNo=?";
+//  -- 找出某位會員的所有訂單
+	private static final String  FindOrderByMemID= 
+			"select OrdNo, MemID, CoupNo, OrdOriPrice, OrdLastPrice, OrdFee, OrdStatus, OrdCreate, RecName, RecAddress, RecPhone, OrdPick "
+					+ "from orderlist "
+					+ "where MemID=? "
+					+ "order by OrdNo";
 //	-- 找出某種出貨狀態的訂單
 	private static final String  FindOrderByStatus= 
 		"select OrdNo, MemID, CoupNo, OrdOriPrice, OrdLastPrice, OrdFee, OrdStatus, OrdCreate, RecName, RecAddress, RecPhone, OrdPick "
@@ -384,6 +390,41 @@ public class OrderListDAO implements OrderListDAO_interface {
 		}
 		return list;
 	}
+	
+	@Override
+	public List<OrderListVO> findOrderByMemID(Integer memID) {
+		OrderListVO orderListVO = null;
+		List<OrderListVO> list = new ArrayList<OrderListVO>();
+		
+		try (Connection con = ds.getConnection();
+				PreparedStatement ps = con.prepareStatement(FindOrderByMemID)){
+			ps.setInt(1, memID);
+			
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				orderListVO = new OrderListVO();
+				orderListVO.setOrdNo(rs.getInt("OrdNo"));
+				orderListVO.setMemID(rs.getInt("MemID"));
+				orderListVO.setCoupNo(rs.getInt("CoupNo"));
+				orderListVO.setOrdOriPrice(rs.getDouble("OrdOriPrice"));
+				orderListVO.setOrdLastPrice(rs.getDouble("OrdLastPrice"));
+				orderListVO.setOrdFee(rs.getInt("OrdFee"));
+				orderListVO.setOrdCreate(rs.getTimestamp("OrdCreate"));
+				orderListVO.setOrdStatus(rs.getInt("OrdStatus"));
+				orderListVO.setRecName(rs.getString("RecName"));
+				orderListVO.setRecAddress(rs.getString("RecAddress"));
+				orderListVO.setRecPhone(rs.getString("RecPhone"));
+				orderListVO.setOrdPick(rs.getInt("OrdPick"));
+				list.add(orderListVO);
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return list;
+	}
+	
+	
+	
 
 	@Override
 	public List<OrderListVO> getAll() {
@@ -484,6 +525,9 @@ public class OrderListDAO implements OrderListDAO_interface {
 		}
 		return list;
 	}
+
+
+
 
 
 

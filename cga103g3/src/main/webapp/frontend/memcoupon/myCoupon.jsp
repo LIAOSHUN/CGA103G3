@@ -15,7 +15,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>myCoupon</title>
+<title>我的優惠券</title>
 <style>
   
     table {
@@ -70,9 +70,13 @@
 		<tr>
 			<td>${memCouponVO.coupNo}</td>
 			<td>${memCouponVO.couponTypeVO.coupName}</td>
-			<td>${memCouponVO.couponTypeVO.coupDiscount}</td>
+			<td>$${memCouponVO.couponTypeVO.coupDiscount}</td>
 			<td>${memCouponVO.coupExpDate}</td>
-			<td>${memCouponVO.coupStatus}</td>
+			<td>
+				<c:if test="${memCouponVO.coupStatus == 0 }"><button style="background-color: #e3e66c;">未使用</button></c:if>
+				<c:if test="${memCouponVO.coupStatus == 1 }"><button style="background-color: #9BABBA;">已使用</button></c:if>
+				<c:if test="${memCouponVO.coupStatus == 2 }"><button style="background-color: #9BABBA;">已過期</button></c:if>
+			</td>
 		</tr>
 	</c:forEach>
 </table>

@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.coupontype.model.*"%>
@@ -22,7 +22,7 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-<title>�q��޲z</title>
+<title>訂單管理</title>
 <meta name="description" content="" />
 <!-- Favicon -->
 <link rel="icon" type="image/x-icon"
@@ -107,7 +107,7 @@
 						class="app-brand-logo demo"> <img
 							src="../backend_template/html/board-game (1).png" alt="LogoTest"
 							width="35px">
-					</span> <span class="app-brand-text demo menu-text fw-bolder ms-2">�̮�</span>
+					</span> <span class="app-brand-text demo menu-text fw-bolder ms-2">絆桌</span>
 					</a> <a href="javascript:void(0);"
 						class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
 						<i class="bx bx-chevron-left bx-sm align-middle"></i>
@@ -121,7 +121,7 @@
 					<li class="menu-item "><a href="Top&Fot.html"
 						class="menu-link"> <i
 							class="menu-icon tf-icons bx bx-home-circle"></i>
-							<div data-i18n="Analytics">����</div>
+							<div data-i18n="Analytics">首頁</div>
 					</a></li>
 					<!-- ======================================================================================================= -->
 					<li class="menu-header small text-uppercase"><span
@@ -130,156 +130,156 @@
 					<li class="menu-item"><a href="javascript:void(0);"
 						class="menu-link menu-toggle"> <i
 							class="menu-icon tf-icons bx bx-dock-top"></i>
-							<div data-i18n="Account Settings">�ϥΪ̺޲z</div>
+							<div data-i18n="Account Settings">使用者管理</div>
 					</a>
 						<ul class="menu-sub">
 							<li class="menu-item"><a
 								href="pages-account-settings-account.html" class="menu-link">
-									<div data-i18n="Account">�޲z����ƺ޲z</div>
+									<div data-i18n="Account">管理員資料管理</div>
 							</a></li>
 							<li class="menu-item"><a
 								href="pages-account-settings-notifications.html"
 								class="menu-link">
-									<div data-i18n="Notifications">�޲z���v���޲z</div>
+									<div data-i18n="Notifications">管理員權限管理</div>
 							</a></li>
 						</ul> <!-- ======================================================================================================= -->
 					<li class="menu-item"><a href="javascript:void(0);"
 						class="menu-link menu-toggle"> <i
 							class="menu-icon tf-icons bx bx-file "></i>
-							<div data-i18n="Account Settings">�e�x�����޲z</div>
+							<div data-i18n="Account Settings">前台網站管理</div>
 					</a>
 						<ul class="menu-sub">
 							<li class="menu-item"><a
 								href="pages-account-settings-account.html" class="menu-link">
-									<div data-i18n="Account">�|����ƺ޲z</div>
+									<div data-i18n="Account">會員資料管理</div>
 							</a></li>
 						</ul></li>
 					<!-- ======================================================================================================= -->
 					<li class="menu-item active"><a href="javascript:void(0);"
 						class="menu-link menu-toggle"> <i
 							class="menu-icon tf-icons bx bx-box"></i>
-							<div data-i18n="Account Settings">�ӫ~�޲z</div>
+							<div data-i18n="Account Settings">商品管理</div>
 					</a>
 						<ul class="menu-sub">
 							<li class="menu-item"><a
 								href="pages-account-settings-account.html" class="menu-link">
-									<div data-i18n="Account">�s�W�ӫ~</div>
+									<div data-i18n="Account">新增商品</div>
 							</a></li>
 							<li class="menu-item"><a
 								href="pages-account-settings-notifications.html"
 								class="menu-link">
-									<div data-i18n="Notifications">�ק�ӫ~</div>
+									<div data-i18n="Notifications">修改商品</div>
 							</a></li>
 							<li class="menu-item"><a
 								href="pages-account-settings-connections.html" class="menu-link">
-									<div data-i18n="Connections">�q��޲z</div>
+									<div data-i18n="Connections">訂單管理</div>
 							</a></li>
 						</ul></li>
 					<!-- ======================================================================================================= -->
 					<li class="menu-item"><a href="javascript:void(0);"
 						class="menu-link menu-toggle"> <i
 							class="menu-icon tf-icons bx bx-detail"></i>
-							<div data-i18n="Account Settings">�C�������޲z</div>
+							<div data-i18n="Account Settings">遊戲分類管理</div>
 					</a>
 						<ul class="menu-sub">
 							<li class="menu-item"><a
 								href="pages-account-settings-account.html" class="menu-link">
-									<div data-i18n="Account">�C�������޲z</div>
+									<div data-i18n="Account">遊戲種類管理</div>
 							</a></li>
 						</ul></li>
 					<!-- ======================================================================================================= -->
 					<li class="menu-item"><a href="javascript:void(0);"
 						class="menu-link menu-toggle"> <i
 							class="menu-icon tf-icons bx bx-collection "></i>
-							<div data-i18n="Account Settings">�Q�װϺ޲z</div>
+							<div data-i18n="Account Settings">討論區管理</div>
 					</a>
 						<ul class="menu-sub">
 							<li class="menu-item"><a
 								href="pages-account-settings-account.html" class="menu-link">
-									<div data-i18n="Account">�峹�޲z</div>
+									<div data-i18n="Account">文章管理</div>
 							</a></li>
 						</ul></li>
 					<!-- ======================================================================================================= -->
 					<li class="menu-item"><a href="javascript:void(0);"
 						class="menu-link menu-toggle"> <i
 							class="menu-icon tf-icons bx bx-credit-card "></i>
-							<div data-i18n="Account Settings">�q��޲z</div>
+							<div data-i18n="Account Settings">訂位管理</div>
 					</a>
 						<ul class="menu-sub">
 							<li class="menu-item"><a
 								href="pages-account-settings-account.html" class="menu-link">
-									<div data-i18n="Account">�q���T�޲z</div>
+									<div data-i18n="Account">訂位資訊管理</div>
 							</a></li>
 						</ul></li>
 					<!-- ======================================================================================================= -->
 					<li class="menu-item"><a href="javascript:void(0);"
 						class="menu-link menu-toggle"> <i
 							class="menu-icon tf-icons bx bx-mobile-alt "></i>
-							<div data-i18n="Account Settings">���ʺ޲z</div>
+							<div data-i18n="Account Settings">活動管理</div>
 					</a>
 						<ul class="menu-sub">
 							<li class="menu-item"><a
 								href="pages-account-settings-account.html" class="menu-link">
-									<div data-i18n="Account">���W�޲z</div>
+									<div data-i18n="Account">報名管理</div>
 							</a></li>
 						</ul></li>
 					<!-- ======================================================================================================= -->
 					<li class="menu-item"><a href="javascript:void(0);"
 						class="menu-link menu-toggle"> <i
 							class="menu-icon tf-icons bx bx-lock-open-alt "></i>
-							<div data-i18n="Account Settings">���|�޲z</div>
+							<div data-i18n="Account Settings">檢舉管理</div>
 					</a>
 						<ul class="menu-sub">
 							<li class="menu-item"><a
 								href="pages-account-settings-account.html" class="menu-link">
-									<div data-i18n="Account">�峹���|</div>
+									<div data-i18n="Account">文章檢舉</div>
 							</a></li>
 							<li class="menu-item"><a
 								href="pages-account-settings-notifications.html"
 								class="menu-link">
-									<div data-i18n="Notifications">�|�����|</div>
+									<div data-i18n="Notifications">會員檢舉</div>
 							</a></li>
 							<li class="menu-item"><a
 								href="pages-account-settings-notifications.html"
 								class="menu-link">
-									<div data-i18n="Notifications">�d�����|</div>
+									<div data-i18n="Notifications">留言檢舉</div>
 							</a></li>
 						</ul></li>
 					<!-- ======================================================================================================= -->
 					<li class="menu-item"><a href="javascript:void(0);"
 						class="menu-link menu-toggle"> <i
 							class="menu-icon tf-icons bx bx-user "></i>
-							<div data-i18n="Account Settings">��P�޲z</div>
+							<div data-i18n="Account Settings">行銷管理</div>
 					</a>
 						<ul class="menu-sub">
 							<li class="menu-item"><a
 								href="pages-account-settings-account.html" class="menu-link">
-									<div data-i18n="Account">�s�W�u�f��</div>
+									<div data-i18n="Account">新增優惠券</div>
 							</a></li>
 							<li class="menu-item"><a
 								href="pages-account-settings-account.html" class="menu-link">
-									<div data-i18n="Account">�u�f��o��</div>
+									<div data-i18n="Account">優惠券發放</div>
 							</a></li>
 							<li class="menu-item"><a
 								href="pages-account-settings-account.html" class="menu-link">
-									<div data-i18n="Account">�u�f��޲z</div>
+									<div data-i18n="Account">優惠券管理</div>
 							</a></li>
 						</ul></li>
 					<!-- ======================================================================================================= -->
 					<li class="menu-item"><a href="javascript:void(0);"
 						class="menu-link menu-toggle"> <i
 							class="menu-icon tf-icons bx bx-search "></i>
-							<div data-i18n="Account Settings">FQ�޲z</div>
+							<div data-i18n="Account Settings">FQ管理</div>
 					</a>
 						<ul class="menu-sub">
 							<li class="menu-item"><a
 								href="pages-account-settings-account.html" class="menu-link">
-									<div data-i18n="Account">�u�W��r�ȪA</div>
+									<div data-i18n="Account">線上文字客服</div>
 							</a></li>
 							<li class="menu-item"><a
 								href="pages-account-settings-notifications.html"
 								class="menu-link">
-									<div data-i18n="Notifications">��Ѿ����H�]�w</div>
+									<div data-i18n="Notifications">聊天機器人設定</div>
 							</a></li>
 						</ul></li>
 				</ul>
@@ -325,7 +325,7 @@
 										<div class="dropdown-divider"></div>
 									</li>
 									<li><a class="dropdown-item" href="#"> <i
-											class="bx bx-cog me-2"></i> <span class="align-middle">�]�w</span>
+											class="bx bx-cog me-2"></i> <span class="align-middle">設定</span>
 									</a></li>
 									<li></li>
 									<li>
@@ -333,7 +333,7 @@
 									</li>
 									<li><a class="dropdown-item" href="auth-login-basic.html">
 											<i class="bx bx-power-off me-2"></i> <span
-											class="align-middle">�n�X</span>
+											class="align-middle">登出</span>
 									</a></li>
 								</ul>
 							</li>
@@ -345,37 +345,37 @@
 				<!-- Content wrapper -->
 				<div class="content-wrapper">
 					<!-- =============================================================================================== -->
-					<!-- Content���e-->
+					<!-- Content內容-->
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<div class="card">
-							<h2 class="card-header">�q��޲z</h2>
+							<h2 class="card-header">訂單管理</h2>
 					<FORM METHOD="post"
 					ACTION="<%=request.getContextPath()%>/backend/orderlistback/orderListServlet.do" >
 						<div style="text-align: right;" class="row">
 							<div class="col">
 								<h6>
-									<span style="color: blue">�q��d��:</span>
+									<span style="color: blue">訂單查詢:</span>
 								</h6>
 							</div>
 							<div class="col">
-								<b>�q��s��:</b> <input type="text" name="ordNo" value=""
+								<b>訂單編號:</b> <input type="text" name="ordNo" value=""
 									placeholder="22001">
 							</div>
 						
 							<div class="col" style="text-align: center;">
-								<b>�q�檬�A:</b><br>
+								<b>訂單狀態:</b><br>
 								<select name="ordStatus" id="ordStatus">
-									<option value="">�п�ܭq�檬�A</option>
-									<option value="0">���X�f</option>
-									<option value="1">�w�X�f</option>
-									<option value="2">�w����</option>
-									<option value="3">����</option>
+									<option value="">請選擇訂單狀態</option>
+									<option value="0">未出貨</option>
+									<option value="1">已出貨</option>
+									<option value="2">已完成</option>
+									<option value="3">取消</option>
 								</select>
 							</div>
 							<div class="col">
-								<b>����H�m�W:</b> 
-									<input type="text" name="recName" value="" placeholder="�i��J����r"> 
-									<input type="submit" value="�}�l�j�M" class="btn btn-outline-primary"> 
+								<b>收件人姓名:</b> 
+									<input type="text" name="recName" value="" placeholder="可填入關鍵字"> 
+									<input type="submit" value="開始搜尋" class="btn btn-outline-primary"> 
 									<input type="hidden" name="action" value="CompositeQuery">
 							</div>
 						</div>
@@ -389,18 +389,18 @@
 								<table class="table" style="line-height:14px;">
 									
 										<tr>
-											<th>�q��s��</th>
-											<th>�|���m�W</th>
-											<th>�u�f��s��</th>
-											<th>�`��</th>
-											<th>�q�檬�A</th>
-											<th>�U��ɶ�</th>
-											<th>����H</th>
-											<th>�q��</th>
-											<th>�a�}</th>
-											<th>���f�覡</th>
-											<th>�ק�</th>
-											<th>����</th>
+											<th>訂單編號</th>
+											<th>會員姓名</th>
+											<th>優惠券編號</th>
+											<th>總價</th>
+											<th>訂單狀態</th>
+											<th>下單時間</th>
+											<th>收件人</th>
+											<th>電話</th>
+											<th>地址</th>
+											<th>取貨方式</th>
+											<th>修改</th>
+											<th>明細</th>
 										</tr>
 										
 										<tr>
@@ -409,19 +409,19 @@
 											<td>${orderListVO.coupNo}</td>
 											<td>$${orderListVO.ordLastPrice}</td>
 											<td>
-												<c:if test="${orderListVO.ordStatus == 0 }"><span class="badge bg-label-warning me-1">���X�f</span></c:if>
-												<c:if test="${orderListVO.ordStatus == 1 }"><span class="badge bg-label-info me-1">�w�X�f</span></c:if>
-												<c:if test="${orderListVO.ordStatus == 2 }"><span class="badge bg-label-success me-1">�w����</span></c:if>
-												<c:if test="${orderListVO.ordStatus == 3 }"><span class="badge bg-label-danger me-1">����</span></c:if>
+												<c:if test="${orderListVO.ordStatus == 0 }"><span class="badge bg-label-warning me-1">未出貨</span></c:if>
+												<c:if test="${orderListVO.ordStatus == 1 }"><span class="badge bg-label-info me-1">已出貨</span></c:if>
+												<c:if test="${orderListVO.ordStatus == 2 }"><span class="badge bg-label-success me-1">已完成</span></c:if>
+												<c:if test="${orderListVO.ordStatus == 3 }"><span class="badge bg-label-danger me-1">已取消</span></c:if>
 											</td>
 											<td>${orderListVO.ordCreate}</td>
 											<td>${orderListVO.recName}</td>
 											<td>${orderListVO.recPhone}</td>
 											<td>${orderListVO.recAddress}</td>
 											<td>
-												<c:if test="${orderListVO.ordPick == 0 }"><span class="badge bg-info">����</span></c:if>
-												<c:if test="${orderListVO.ordPick == 1 }"><span class="badge bg-info">�W��</span></c:if>
-												<c:if test="${orderListVO.ordPick == 2 }"><span class="badge bg-info">�v�t</span></c:if>
+												<c:if test="${orderListVO.ordPick == 0 }"><span class="badge bg-info">店取</span></c:if>
+												<c:if test="${orderListVO.ordPick == 1 }"><span class="badge bg-info">超取</span></c:if>
+												<c:if test="${orderListVO.ordPick == 2 }"><span class="badge bg-info">宅配</span></c:if>
 											</td>
 											<td><c:if
 													test="${orderListVO.ordStatus != 2 && orderListVO.ordStatus != 3}"
@@ -429,7 +429,7 @@
 													<FORM METHOD="post"
 														ACTION="<%=request.getContextPath()%>          "
 														style="margin-bottom: 0px;">
-														<input type="submit" value="�ק�" type="button" class="detail btn rounded-pill btn-primary"
+														<input type="submit" value="修改" type="button" class="detail btn rounded-pill btn-primary"
 															style="background-color: gray;"> <input type="hidden"
 															name="orderNo" value="${orderListVO.ordNo}"> <input
 															type="hidden" name="action" value="getOne_For_Update">
@@ -443,23 +443,23 @@
 							                          data-bs-toggle="collapse"
 							                          data-bs-target="#collapseExample${orderListVO.ordNo}"
 							                          aria-expanded="false"
-							                          aria-controls="collapseExample${orderListVO.ordNo}">�i �}</button>
+							                          aria-controls="collapseExample${orderListVO.ordNo}">展 開</button>
 											</td>											
 										</tr>	
 										
 							
 								</table>
 								
-<!-- 								=================�H�U���q�����================================ -->
+<!-- 								=================以下為訂單明細================================ -->
 											<div class="collapse" id="collapseExample${orderListVO.ordNo}">
 						                        <div class="d-grid d-sm-flex p-3 border">
 						                          
 								                      <table class="table table-bordered table-hover mb-0">
 														<thead class="text-700 bg-gray-200">
 															<tr>
-																<th class="fw-600">�C���W��</th>
-																<th class="fw-600">�ƶq</th>
-																<th class="fw-600">�p�p</th>
+																<th class="fw-600">遊戲名稱</th>
+																<th class="fw-600">數量</th>
+																<th class="fw-600">小計</th>
 															</tr>
 														</thead>
 														<c:forEach var="orderDetailVO" 
@@ -476,7 +476,7 @@
 													</table>
 			                        			</div>
 			                        		</div>
-<!-- 								=================�H�W���q�����================================ -->
+<!-- 								=================以上為訂單明細================================ -->
 
 							</c:forEach>		
 								

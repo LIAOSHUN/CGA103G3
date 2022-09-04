@@ -15,6 +15,8 @@ public interface OrderListDAO_interface {
     public void update(OrderListVO orderListVO);
 //  -- 找出某一筆訂單的所有資料
     public OrderListVO findOneOrder(Integer ordNo);
+//  -- 找出某位會員的所有訂單
+    public List<OrderListVO> findOrderByMemID(Integer memID);
 //  -- 找出某種出貨狀態的訂單
     public List<OrderListVO> findOrderByStatus(Integer ordStatus);
 //  -- 找出所有訂單
