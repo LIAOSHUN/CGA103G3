@@ -14,19 +14,17 @@ public class OrderListService {
 	}
 	
 //	-- 新增訂單資料-使用優惠券
-	public OrderListVO addOrderList2(Integer ordNo, Integer memID, Integer coupNo, Double ordOriPrice, Double ordLastPrice,
-			Integer ordFee, Integer ordStatus, Timestamp ordCreate, String recName, String recAddress, String recPhone,
+	public OrderListVO addOrderList2(Integer memID, Integer coupNo, Double ordOriPrice, Double ordLastPrice,
+			Integer ordFee, Integer ordStatus, String recName, String recAddress, String recPhone,
 			Integer ordPick, List<OrderDetailVO> list) {
 		OrderListVO orderListVO = new OrderListVO();
 		
-		orderListVO.setOrdNo(ordNo);
 		orderListVO.setMemID(memID);
 		orderListVO.setCoupNo(coupNo);
 		orderListVO.setOrdOriPrice(ordOriPrice);
 		orderListVO.setOrdLastPrice(ordLastPrice);
 		orderListVO.setOrdFee(ordFee);
 		orderListVO.setOrdStatus(ordStatus);
-		orderListVO.setOrdCreate(ordCreate);
 		orderListVO.setRecName(recName);
 		orderListVO.setRecAddress(recAddress);
 		orderListVO.setRecPhone(recPhone);
@@ -39,7 +37,7 @@ public class OrderListService {
 	
 //	-- 新增訂單資料-沒使用優惠券
 	public OrderListVO addOrderListNc2(Integer ordNo, Integer memID, Double ordOriPrice, Double ordLastPrice,
-			Integer ordFee, Integer ordStatus, Timestamp ordCreate, String recName, String recAddress, String recPhone,
+			Integer ordFee, Integer ordStatus, String recName, String recAddress, String recPhone,
 			Integer ordPick, List<OrderDetailVO> list) {
 		OrderListVO orderListVO = new OrderListVO();
 		
@@ -49,7 +47,6 @@ public class OrderListService {
 		orderListVO.setOrdLastPrice(ordLastPrice);
 		orderListVO.setOrdFee(ordFee);
 		orderListVO.setOrdStatus(ordStatus);
-		orderListVO.setOrdCreate(ordCreate);
 		orderListVO.setRecName(recName);
 		orderListVO.setRecAddress(recAddress);
 		orderListVO.setRecPhone(recPhone);

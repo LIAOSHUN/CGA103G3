@@ -84,6 +84,8 @@
 		
 		<td width="200"><%=cartItem.getPdName()%>   
 		<input class="pdID" type="hidden" name="pdID"  value="<%=cartItem.getPdID().toString()%>">
+		<input class="itemSales" type="hidden" name="itemSales"  value="<%=cartItem.getCount()%>">
+		<input class="price" type="hidden" name="price"  value="<%=cartItem.getPdPrice() * cartItem.getCount()%>">
 		</td>
 		<td width="100"><%=cartItem.getPdPrice()%>  元</td>
 		<td width="100"><%=cartItem.getCount()%>	</td>
@@ -95,8 +97,8 @@
 
 
 
-
-
+<!-- 會員ID先寫死 -->
+<input type="hidden" name="memID" value="11001">
 			
                     
 <!-- =================================訂購資訊============================================== -->
