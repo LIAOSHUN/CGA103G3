@@ -38,18 +38,7 @@ public class DcartServlet extends HttpServlet {
 			List<CartItemVO> checkedlist = new ArrayList<CartItemVO>();
 			List<String> errorMsgs = new LinkedList<String>();
 			Integer pdID = 0;
-			if (values == null) {
-				
-				errorMsgs.add("您未勾選商品");
-				req.setAttribute("errorMsgs", errorMsgs);
-				
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/frontend/cart/cart.jsp");
-				failureView.forward(req, res);
-				return;
-				
-				
-			}else {
+			if (values != null)  {
 				for (int i = 0; i < values.length; i++) {
 					sessionId = (String) req.getSession().getAttribute("sessionId");
 					CartService cartSvc = new CartService();
@@ -65,6 +54,10 @@ public class DcartServlet extends HttpServlet {
 				RequestDispatcher rd = req.getRequestDispatcher(url);
 				rd.forward(req, res);
 				
+			}else{
+				String url = "/frontend/cart/cart.jsp";
+				RequestDispatcher rd = req.getRequestDispatcher(url);
+				rd.forward(req, res);
 			};
 			
 		}
