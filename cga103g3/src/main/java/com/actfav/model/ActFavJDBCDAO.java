@@ -7,8 +7,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class ActFavJDBCDAO implements ActFavDAO_interface{
 
@@ -18,9 +21,16 @@ public class ActFavJDBCDAO implements ActFavDAO_interface{
 	private static final String GET_ALL_STMT = 
 		"select MemID, ActID, ActFavDate "
 		+ "from actfavorites order by MemID";
-	private static final String GET_ONE_STMT = 
+	private static final String GET_BYMEM = 
 		"select MemID, ActID, ActFavDate "
 		+ "from actfavorites where MemID = ?";
+	private static final String GET_BYJOIN =
+			"select f.MemID, f.ActID, a.StoreID, a.ActTitle, a.ActTimeEnd, a.ActDate, f.ActFavDate "
+			+ "from activity a JOIN actfavorites f ON a.ActID = f.ActID "
+			+ "where f.MemID = ?";
+	private static final String GET_ONEFAV_BYMEM = 
+		"select MemID, ActID, ActFavDate "
+		+ "from actfavorites where MemID = ? and ActID = ?";
 	private static final String DELETE = 
 		"delete from actfavorites where MemID = ? and ActID = ?";
 	private static final String UPDATE = 
@@ -91,6 +101,35 @@ public class ActFavJDBCDAO implements ActFavDAO_interface{
 						+ se.getMessage());
 			}	
 	}
+	
+	@Override
+	public ActFavVO findOneFavByOneMem(Integer memID, Integer actID) {
+		ActFavVO actFavVO = new ActFavVO();
+		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+			PreparedStatement pstmt = con.prepareStatement(GET_ONEFAV_BYMEM);) {
+			Class.forName(driver);
+			
+			pstmt.setInt(1, memID);
+			pstmt.setInt(2, actID);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				actFavVO = new ActFavVO();
+				actFavVO.setMemID(rs.getInt("memID"));
+				actFavVO.setActID(rs.getInt("actID"));
+				actFavVO.setActFavDate(rs.getObject("actFavDate", LocalDateTime.class));				
+			}			
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}	
+		return actFavVO;
+	}
 
 	@Override
 	public List<ActFavVO> findByPrimaryKey(Integer memID) {
@@ -98,20 +137,19 @@ public class ActFavJDBCDAO implements ActFavDAO_interface{
 		ActFavVO actFavVO = null;
 
 		try (Connection con = DriverManager.getConnection(url, userid, passwd);
-				PreparedStatement pstmt = con.prepareStatement(GET_ONE_STMT);
+				PreparedStatement pstmt = con.prepareStatement(GET_BYMEM);
 				) {
 				Class.forName(driver);
 
 			pstmt.setInt(1, memID);
 			ResultSet rs = pstmt.executeQuery();
 			
-
 			while (rs.next()) {
 				// actFacVo 也稱為 Domain objects
 				actFavVO = new ActFavVO();
 				actFavVO.setMemID(rs.getInt("memID"));
 				actFavVO.setActID(rs.getInt("actID"));
-				actFavVO.setActFavDate(rs.getTimestamp("actFavDate"));
+				actFavVO.setActFavDate(rs.getObject("actFavDate", LocalDateTime.class));
 				listFav.add(actFavVO);
 			}
 
@@ -126,6 +164,28 @@ public class ActFavJDBCDAO implements ActFavDAO_interface{
 		}
 		return listFav;
 	}
+	
+
+	@Override
+	public List<Object> findByActJoinList(Integer memID) {
+		List<Object> list = new ArrayList<Object>();
+		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+			PreparedStatement pstmt = con.prepareStatement(GET_BYJOIN)) {
+			Class.forName(driver);
+			pstmt.setInt(1, memID);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		return null;
+	}
 
 	@Override
 	public List<ActFavVO> getAll() {
@@ -133,8 +193,7 @@ public class ActFavJDBCDAO implements ActFavDAO_interface{
 		ActFavVO actFavVO = null;
 
 		try (Connection con = DriverManager.getConnection(url, userid, passwd);
-				PreparedStatement pstmt = con.prepareStatement(GET_ALL_STMT);
-				) {
+				PreparedStatement pstmt = con.prepareStatement(GET_ALL_STMT);) {
 				Class.forName(driver);
 				ResultSet rs = pstmt.executeQuery();
 			
@@ -143,7 +202,7 @@ public class ActFavJDBCDAO implements ActFavDAO_interface{
 				actFavVO = new ActFavVO();
 				actFavVO.setMemID(rs.getInt("memID"));
 				actFavVO.setActID(rs.getInt("actID"));
-				actFavVO.setActFavDate(rs.getTimestamp("actFavDate"));
+				actFavVO.setActFavDate(rs.getObject("actFavDate", LocalDateTime.class));
 				list.add(actFavVO); // Store the row in the list
 			}
 

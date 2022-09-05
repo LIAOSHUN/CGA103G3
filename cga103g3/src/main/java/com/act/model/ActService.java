@@ -1,6 +1,6 @@
 package com.act.model;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -10,11 +10,12 @@ public class ActService {
 	private ActDAO_interface dao;
 
 	public ActService() {
-		dao = new ActJDBCDAO();
+		dao = new ActDAO();
+//		dao = new ActJDBCDAO();
 	}
 
 	public ActVO addAct(Integer storeID, String actTitle, String actDescription,
-			Timestamp actTimeStart, Timestamp actTimeEnd, Timestamp actDate, Integer regisMax, 
+			LocalDateTime actTimeStart, LocalDateTime actTimeEnd, LocalDateTime actDate, Integer regisMax, 
 			Integer actFee, Integer actRegistration, Integer actStatus) {
 
 		ActVO actVO = new ActVO();
@@ -35,7 +36,7 @@ public class ActService {
 	}
 
 	public ActVO updateAct(Integer actID, Integer storeID, String actTitle, String actDescription,
-			Timestamp actTimeStart, Timestamp actTimeEnd, Timestamp actDate, Integer regisMax, 
+			LocalDateTime actTimeStart, LocalDateTime actTimeEnd, LocalDateTime actDate, Integer regisMax, 
 			Integer actFee, Integer actRegistration, Integer actStatus) {
 
 		ActVO actVO = new ActVO();

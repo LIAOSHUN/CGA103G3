@@ -1,7 +1,9 @@
 package com.act.controller;
 
 import java.io.IOException;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -86,11 +88,6 @@ public class ActServlet extends HttpServlet {
 		
 		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllAct.jsp的請求
-
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to
-			// send the ErrorPage view.
-			req.setAttribute("errorMsgs", errorMsgs);
 			
 				/***************************1.接收請求參數****************************************/
 			Integer actID = Integer.valueOf(req.getParameter("actID"));
@@ -127,22 +124,22 @@ public class ActServlet extends HttpServlet {
 					errorMsgs.add("內文請勿空白");
 				}
 				
-				Timestamp actTimeStart = null;
+				LocalDateTime actTimeStart = null;
 				try {
-					actTimeStart = Timestamp.valueOf(req.getParameter("actTimeStart").trim()+":00");
-				} catch (IllegalArgumentException e) {
+					actTimeStart = LocalDateTime.parse(req.getParameter("actTimeStart").trim()+":00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+				} catch (DateTimeParseException e) {
 					errorMsgs.add("請輸入日期!");
 				}
-				Timestamp actTimeEnd = null;
+				LocalDateTime actTimeEnd = null;
 				try {
-					actTimeEnd = Timestamp.valueOf(req.getParameter("actTimeEnd").trim()+":00");
-				} catch (IllegalArgumentException e) {
+					actTimeEnd = LocalDateTime.parse(req.getParameter("actTimeEnd").trim()+":00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+				} catch (DateTimeParseException e) {
 					errorMsgs.add("請輸入日期!");
 				}
-				Timestamp actDate = null;
+				LocalDateTime actDate = null;
 				try {
-					actDate = Timestamp.valueOf(req.getParameter("actDate").trim()+":00");
-				} catch (IllegalArgumentException e) {
+					actDate = LocalDateTime.parse(req.getParameter("actDate").trim()+":00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+				} catch (DateTimeParseException e) {
 					errorMsgs.add("請輸入日期!");
 				}
 				
@@ -214,23 +211,22 @@ public class ActServlet extends HttpServlet {
 					errorMsgs.add("內文請勿空白");
 				}
 				
-				Timestamp actTimeStart = null;
+				LocalDateTime actTimeStart = null;
 				try {
-					actTimeStart = Timestamp.valueOf(req.getParameter("actTimeStart").trim()+":00");
-				} catch (IllegalArgumentException e) {
-					actTimeStart=new Timestamp(System.currentTimeMillis());
+					actTimeStart = LocalDateTime.parse(req.getParameter("actTimeStart").trim()+":00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+				} catch (DateTimeParseException e) {
 					errorMsgs.add("請輸入日期!");
 				}
-				Timestamp actTimeEnd = null;
+				LocalDateTime actTimeEnd = null;
 				try {
-					actTimeEnd = Timestamp.valueOf(req.getParameter("actTimeEnd").trim()+":00");
-				} catch (IllegalArgumentException e) {
+					actTimeEnd = LocalDateTime.parse(req.getParameter("actTimeEnd").trim()+":00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+				} catch (DateTimeParseException e) {
 					errorMsgs.add("請輸入日期!");
 				}
-				Timestamp actDate = null;
+				LocalDateTime actDate = null;
 				try {
-					actDate = Timestamp.valueOf(req.getParameter("actDate").trim()+":00");
-				} catch (IllegalArgumentException e) {
+					actDate = LocalDateTime.parse(req.getParameter("actDate").trim()+":00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+				} catch (DateTimeParseException e) {
 					errorMsgs.add("請輸入日期!");
 				}
 
@@ -342,6 +338,10 @@ public class ActServlet extends HttpServlet {
 //				failureView.forward(req, res);
 			}
 		}
+        
+//        if ("insertWithImgs".equals(action)) {
+//        	List<String> 
+//        }
         
 //        if ("insertWithOrder_details".equals(action)) {
 //			 List<String> errorMsgs = new LinkedList<String>();

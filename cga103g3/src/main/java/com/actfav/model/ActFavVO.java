@@ -1,12 +1,12 @@
 package com.actfav.model;
 
 import java.io.Serializable;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 public class ActFavVO implements Serializable{
 	private Integer memID;
 	private Integer actID;
-	private Timestamp actFavDate;
+	private LocalDateTime actFavDate;
 	
 	
 	public Integer getMemID() {
@@ -21,10 +21,10 @@ public class ActFavVO implements Serializable{
 	public void setActID(Integer actID) {
 		this.actID = actID;
 	}
-	public Timestamp getActFavDate() {
+	public LocalDateTime getActFavDate() {
 		return actFavDate;
 	}
-	public void setActFavDate(Timestamp actFavDate) {
+	public void setActFavDate(LocalDateTime actFavDate) {
 		this.actFavDate = actFavDate;
 	}
 }

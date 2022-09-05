@@ -1,3 +1,4 @@
+<%@page import="java.time.LocalDateTime"%>
 <%@page import="java.sql.Timestamp"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -68,7 +69,7 @@ th, td {
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
+		<font style="color: red; font-weight: bold" >請修正以下錯誤：</font>
 		<ul>
 			<c:forEach var="message" items="${errorMsgs}">
 				<li style="color: red">${message}</li>
@@ -149,15 +150,6 @@ th, td {
 
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
-
-<%
-Timestamp actTimeStart = null;
-try {
-	actTimeStart = actVO.getActTimeStart();
-} catch (Exception e) {
-	actTimeStart = null;
-}
-%>
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
@@ -169,9 +161,12 @@ try {
 	width: 300px; /* width:  300px; */
 }
 
-.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+.xdsoft_datetimepicker .xdsoft_timepicker {
 	height: 151px; /* height:  151px; */
 }
+ .xdsoft_time_box{
+ 	height: 127px !important;
+ }
 </style>
 
 <script>
@@ -184,9 +179,8 @@ $(function(){
 	    maxDate:$('#act_date2').val()?$('#act_date2').val():false
 	   })
 	  },
-	  timepicker:false,
+	  timepicker:true,
 	  step: 60,
-	  value: '<%=actTimeStart%>'
 	 });
 	 
 	 $('#act_date2').datetimepicker({
@@ -197,7 +191,7 @@ $(function(){
 	    maxDate:$('#act_date3').val()?$('#act_date3').val():false
 	   })
 	  },
-	  timepicker:false,
+	  timepicker:true,
 	  step: 60,
 	 });
 	 
@@ -205,23 +199,12 @@ $(function(){
 		  format:'Y-m-d H:i',
 		  onShow:function(){
 		   this.setOptions({
-// 		    maxDate:$('#D_date4').val()?$('#D_date4').val():false,
 		    minDate:$('#act_date2').val()?$('#act_date2').val():false
 		   })
 		  },
-		  timepicker:false,
-		  step: 60,
+		  timepicker:true,
+		  allowTimes:['14:00', '18:00']
 		});
-
-		// 	 $('#D_date4').datetimepicker({
-		// 		  format:'Y-m-d',
-		// 		  onShow:function(){
-		// 		   this.setOptions({
-		// 		    minDate:$('#C_date3').val()?$('#C_date3').val():false
-		// 		   })
-		// 		  },
-		// 		  timepicker:false
-		// 	 });
 	});
 </script>
 </html>
