@@ -5,7 +5,7 @@ import java.util.List;
 
 public class StoreService {
 
-	private StoreVO_interface dao;
+	private Store_interface dao;
 
 	public StoreService() {
 		dao = new StoreDAO();
@@ -65,4 +65,7 @@ public class StoreService {
 		return dao.getAll();
 	}
 
+	public List<StoreVO> getStoreInfo() {
+		return dao.getStoreInfo();
+	}
 }

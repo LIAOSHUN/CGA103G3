@@ -1,4 +1,4 @@
-package com.store.controller;
+package com.box.controller;
 
 import java.io.BufferedInputStream;
 import java.io.IOException;
@@ -20,11 +20,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.sql.DataSource;
 
-@WebServlet("/StoreImg")
+@WebServlet("/BoxImg")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
-public class StoreImg extends HttpServlet {
+public class BoxImgServlet extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
-       
+	
+
+	
 	Connection con;
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -33,11 +36,11 @@ public class StoreImg extends HttpServlet {
 
 		try {
 			Statement ps = con.createStatement();
-			String storeID = req.getParameter("StoreID").trim();
-			ResultSet rs = ps.executeQuery("SELECT StoreImg FROM store WHERE StoreID = " + storeID);
+			String boxID = req.getParameter("BoxID").trim();
+			ResultSet rs = ps.executeQuery("SELECT BoxImg FROM box WHERE BoxID = " + boxID);
 
 			if (rs.next()) {
-				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("StoreImg"));
+				BufferedInputStream in = new BufferedInputStream(rs.getBinaryStream("BoxImg"));
 
 				// java 9寫法
 				byte[] buf = in.readAllBytes();
@@ -84,6 +87,5 @@ public class StoreImg extends HttpServlet {
 			System.out.println(e);
 		}
 	}
-
 
 }

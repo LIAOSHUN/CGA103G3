@@ -11,7 +11,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class StoreDAO implements StoreVO_interface{
+public class StoreDAO implements Store_interface{
 	
 	private static DataSource ds = null;
 	static {
@@ -38,7 +38,7 @@ public class StoreDAO implements StoreVO_interface{
 	//管理員可以查詢所有店面資訊
 	private static final String GET_ALL_STMT = 
 			"SELECT StoreID, StoreName, StoreAdd, StorePhone1, StorePhone2, "
-			+ "StoreEmail, StoreImg, StoreOpen, StoreClose, StoreOff, EmpID, StoreStatus "
+			+ "StoreEmail, StoreOpen, StoreClose, StoreOff, EmpID, StoreStatus "
 			+ "FROM store";
 
 	//管理員可以查詢單一家店面資訊
@@ -46,6 +46,9 @@ public class StoreDAO implements StoreVO_interface{
 			"SELECT StoreID, StoreName, StoreAdd, StorePhone1, StorePhone2, StoreEmail, StoreImg, StoreOpen, StoreClose, StoreOff, EmpID, StoreStatus "
 			+ "FROM store "
 			+ "where storeID = ?";
+	
+	private static final String GET_INFO = 
+			"SELECT StoreID, StoreName FROM store";
 
 	@Override
 	public void insert(StoreVO storeVO) {
@@ -122,8 +125,39 @@ public class StoreDAO implements StoreVO_interface{
 				siv.setStoreEmail(rs.getString("StoreEmail"));
 				siv.setStoreImg(rs.getBytes("StoreImg"));
 				siv.setStoreOpen(rs.getString("storeOpen"));
-				siv.setStoreClose(rs.getString("storeClose"));
-				siv.setStoreOff(rs.getString("StoreOff"));
+				siv.setStoreClose(rs.getString("StoreClose"));
+				String storeOff = rs.getString("StoreOff");
+				switch (storeOff) {
+				case "0": {
+					siv.setStoreOff("日");
+					break; 
+					}
+				case "1": {
+					siv.setStoreOff("一");
+					break; 
+					}
+				case "2": {
+					siv.setStoreOff("二");
+					break; 
+				}
+				case "3": {
+					siv.setStoreOff("三");
+					break; 
+				}
+				case "4": {
+					siv.setStoreOff("四");
+					break; 
+				}
+				case "5": {
+					siv.setStoreOff("五");
+					break; 
+				}
+				case "6": {
+					siv.setStoreOff("六");
+					break; 
+					}
+				}
+//				siv.setStoreOff(rs.getString("StoreOff"));
 				siv.setEmpID(rs.getInt("EmpID"));
 //				siv.setStoreBokSet(rs.getString("StoreBokSet"));
 				siv.setStoreStatus(rs.getInt("StoreStatus"));
@@ -141,23 +175,91 @@ public class StoreDAO implements StoreVO_interface{
 		try (
 				Connection connection = ds.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(GET_ALL_STMT);
+				ResultSet rs = pstmt.executeQuery();
+			) {
+			List<StoreVO> list = new ArrayList<>();
+			while (rs.next()) {
+				StoreVO siv = new StoreVO();
+				siv.setStoreID(rs.getInt("StoreID"));
+				siv.setStoreName(rs.getString("StoreName"));
+				siv.setStoreAdd(rs.getString("StoreAdd"));
+				siv.setStorePhone1(rs.getString("StorePhone1"));
+				siv.setStorePhone2(rs.getString("StorePhone2"));
+				siv.setStoreEmail(rs.getString("StoreEmail"));
+				
+				int start = Integer.valueOf(rs.getString("StoreOpen").trim());
+				for(int i = 0;i <= start; i++) {
+					if(i == start) {
+						start = i;
+					}
+				}
+				String StoreOpen = ((start < 10)? ("0"+ start) : start) + ":00";
+				siv.setStoreOpen(StoreOpen);
+				
+				int end = Integer.valueOf(rs.getString("StoreClose").trim());
+				for(int i = 0;i <= end; i++) {
+					if(i == end) {
+						end = i;
+					}
+				}
+				String StoreClose = ((end < 10)? ("0"+ end) : end) + ":00";
+				siv.setStoreClose(StoreClose);
+				
+				String storeOff = rs.getString("StoreOff");
+				switch (storeOff) {
+				case "0": {
+					siv.setStoreOff("日");
+					break; 
+					}
+				case "1": {
+					siv.setStoreOff("一");
+					break; 
+					}
+				case "2": {
+					siv.setStoreOff("二");
+					break; 
+				}
+				case "3": {
+					siv.setStoreOff("三");
+					break; 
+				}
+				case "4": {
+					siv.setStoreOff("四");
+					break; 
+				}
+				case "5": {
+					siv.setStoreOff("五");
+					break; 
+				}
+				case "6": {
+					siv.setStoreOff("六");
+					break; 
+					}
+				}
+				siv.setEmpID(rs.getInt("EmpID"));
+//				siv.setStoreBokSet(rs.getString("StoreBokSet"));
+				siv.setStoreStatus(rs.getInt("StoreStatus"));
+				list.add(siv);
+
+			}
+			return list;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	@Override
+	public List<StoreVO> getStoreInfo(){
+		try (
+				Connection connection = ds.getConnection();
+				PreparedStatement pstmt = connection.prepareStatement(GET_INFO);
 				ResultSet rs = pstmt.executeQuery();) {
 			List<StoreVO> list = new ArrayList<>();
 			while (rs.next()) {
 				StoreVO siv = new StoreVO();
-				siv.setStoreID(rs.getInt(1));
-				siv.setStoreName(rs.getString(2));
-				siv.setStoreAdd(rs.getString(3));
-				siv.setStorePhone1(rs.getString(4));
-				siv.setStorePhone2(rs.getString(5));
-				siv.setStoreEmail(rs.getString(6));
-				siv.setStoreImg(rs.getBytes(7));
-				siv.setStoreOpen(rs.getString(8));
-				siv.setStoreClose(rs.getString(9));
-				siv.setStoreOff(rs.getString(10));
-				siv.setEmpID(rs.getInt(11));
-//				siv.setStoreBokSet(rs.getString(12));
-				siv.setStoreStatus(rs.getInt(12));
+				siv.setStoreID(rs.getInt("StoreID"));
+				siv.setStoreName(rs.getString("StoreName"));
 				list.add(siv);
 
 			}
