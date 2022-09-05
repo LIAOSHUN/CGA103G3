@@ -177,14 +177,25 @@ public class ActFavJDBCDAO implements ActFavDAO_interface{
 			
 			while (rs.next()) {
 				Map<String, Object> map = new HashMap<String, Object>();
-				
+				map.put("memID", rs.getInt("memID"));
+				map.put("actID", rs.getInt("actID"));
+				map.put("storeID", rs.getInt("storeID"));
+				map.put("actTitle", rs.getString("actTitle"));
+				map.put("actTimeEnd", rs.getObject("actTimeEnd"));
+				map.put("actDate", rs.getObject("actDate"));
+				map.put("actFavDate", rs.getObject("actFavDate"));
+				list.add(map);
 			}
-			
-		} catch (Exception e) {
-			// TODO: handle exception
-		}
-		
-		return null;
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+		}		
+		return list;
 	}
 
 	@Override

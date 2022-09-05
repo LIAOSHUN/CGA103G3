@@ -20,7 +20,7 @@
 
 	<style>
 	table {
-		width: 800px;
+		width: 965px;
 		background-color: white;
 		margin-top: 5px;
 		margin-bottom: 5px;
@@ -28,15 +28,15 @@
 /* 		table-layout:fixed;		/*表格寬度固定*/ */
 		word-break:break-all;	/*td內容過長不會被撐開*/
 		position:absolute;
-		top: 70px;
-		left: 23%;
+		margin-top: 100px;
+		margin-left: 287px;
 	}
 	table, th, td {
 		border: 1px solid #CCCCFF;
 	}
 	th, td {
 		padding: 5px;
-		text-align: center;
+		text-align: center !important;
 
 		white-space: nowrap;		 /*限定不可斷行*/
 		overflow: hidden;    		 /*元素超出部分隱藏*/
@@ -84,7 +84,7 @@
 		</table>
 	</div>
 <%-- <%@ include file="page2.file" %> --%>
-<%-- <%@ include file="../backend_template/html/Top&Fot.html" %> --%>
+<%@ include file="/backend/backendhead.jsp" %>
 
 
 </body>
