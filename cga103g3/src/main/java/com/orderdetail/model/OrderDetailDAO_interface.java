@@ -1,5 +1,6 @@
 package com.orderdetail.model;
 
+import java.sql.SQLException;
 import java.util.List;
 
 
@@ -18,6 +19,6 @@ public interface OrderDetailDAO_interface {
 //	-- 找出所有訂單明細
 	public List<OrderDetailVO> getAll();
 	//同時新增訂單與訂單明細
-	public void insert2 (OrderDetailVO orderDetailVO , java.sql.Connection con);
+	public void insert2 (OrderDetailVO orderDetailVO , java.sql.Connection con) throws SQLException;
 	
 }

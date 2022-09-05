@@ -14,25 +14,25 @@ public class OrderListService {
 	}
 	
 //	-- 新增訂單資料-使用優惠券
-	public OrderListVO addOrderList2(Integer memID, Integer coupNo, Double ordOriPrice, Double ordLastPrice,
-			Integer ordFee, Integer ordStatus, String recName, String recAddress, String recPhone,
-			Integer ordPick, List<OrderDetailVO> list) {
-		OrderListVO orderListVO = new OrderListVO();
-		
-		orderListVO.setMemID(memID);
-		orderListVO.setCoupNo(coupNo);
-		orderListVO.setOrdOriPrice(ordOriPrice);
-		orderListVO.setOrdLastPrice(ordLastPrice);
-		orderListVO.setOrdFee(ordFee);
-		orderListVO.setOrdStatus(ordStatus);
-		orderListVO.setRecName(recName);
-		orderListVO.setRecAddress(recAddress);
-		orderListVO.setRecPhone(recPhone);
-		orderListVO.setOrdPick(ordPick);
-		dao.insertWithOrderDetails(orderListVO, list);
-		return orderListVO;
-		
-	}
+//	public OrderListVO addOrderList2(Integer memID, Integer coupNo, Double ordOriPrice, Double ordLastPrice,
+//			Integer ordFee, Integer ordStatus, String recName, String recAddress, String recPhone,
+//			Integer ordPick, List<OrderDetailVO> list) {
+//		OrderListVO orderListVO = new OrderListVO();
+//		
+//		orderListVO.setMemID(memID);
+//		orderListVO.setCoupNo(coupNo);
+//		orderListVO.setOrdOriPrice(ordOriPrice);
+//		orderListVO.setOrdLastPrice(ordLastPrice);
+//		orderListVO.setOrdFee(ordFee);
+//		orderListVO.setOrdStatus(ordStatus);
+//		orderListVO.setRecName(recName);
+//		orderListVO.setRecAddress(recAddress);
+//		orderListVO.setRecPhone(recPhone);
+//		orderListVO.setOrdPick(ordPick);
+//		dao.insertWithOrderDetails(orderListVO, list);
+//		return orderListVO;
+//		
+//	}
 	
 	
 //	-- 新增訂單資料-沒使用優惠券

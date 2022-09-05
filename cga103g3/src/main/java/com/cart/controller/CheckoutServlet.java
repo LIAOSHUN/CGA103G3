@@ -13,14 +13,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.cart.model.CartService;
+import com.cart.model.CheckoutService;
 import com.coupontype.model.CouponTypeService;
 import com.orderdetail.model.OrderDetailVO;
 import com.orderlist.model.OrderListService;
 import com.orderlist.model.OrderListVO;
 
-/**
- * Servlet implementation class CheckoutServlet
- */
 @WebServlet("/CheckoutServlet")
 public class CheckoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -36,7 +34,7 @@ public class CheckoutServlet extends HttpServlet {
 	
 
 			
-			/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
+			/***********************一.接收請求參數 - 輸入格式的錯誤處理*************************/
 			
 			
 			Integer memID = Integer.valueOf(req.getParameter("memID"));
@@ -53,7 +51,7 @@ public class CheckoutServlet extends HttpServlet {
 			
 			
 			
-			/***********************2.更新mysql庫存量及redis購物車，順便利用迭代時，建立訂單名細的list，用來insert到資料庫*************************/
+			/***********************二.利用迭代時，建立訂單名細的list，用來insert到資料庫*************************/
 			
 			String values[] = req.getParameterValues("pdID");
 			String valuesi[] = req.getParameterValues("itemSales");
@@ -63,7 +61,7 @@ public class CheckoutServlet extends HttpServlet {
 			Integer pdID = 0;
 			Integer itemSales = 0;
 			Integer price = 0;
-			if(values != null) {
+			 
 				
 				for (int i = 0; i < values.length; i++) {
 					//順便利用迭代時，建立訂單名細的list，用來insert到資料庫
@@ -77,26 +75,23 @@ public class CheckoutServlet extends HttpServlet {
 					orderDetailVO.setItemSales(itemSales);
 					orderDetailVO.setPrice(price);
 					list.add(orderDetailVO);
-					
-					//更新mysql庫存量及去除redis購物車被選擇的商品
-					sessionId = (String) req.getSession().getAttribute("sessionId");
-					CartService cartSvc = new CartService();
-					
-					cartSvc.updatePdAmount(sessionId, pdID);
-					cartSvc.deleteItemChecked(sessionId, pdID);
 				}
+			
+			
+			/***************************三.1.新增訂單，及訂單明細，2.更新mysql庫存量3.更新優惠券庫存量及4.redis購物車調整數量***************************************/
+			CheckoutService checkoutService = new CheckoutService();
+			sessionId = (String) req.getSession().getAttribute("sessionId");
+			checkoutService.allJobs(memID, 27001, 100.0, 100.0, 100, 0, receiverName, address, receiverPhone, 0, list, sessionId);
+			
+			
+//			以上交易都確定成功，才會去對購物進行處理，避免上面步驟出現rollback的話，會造成購物車內容已被刪除，無法找回的情形
+//			去除redis購物車被選擇的商品
+			for (int i = 0; i < values.length; i++) {
+				
+				pdID = Integer.valueOf(values[i]);
+				CartService cartSvc = new CartService();
+				cartSvc.deleteItemChecked(sessionId, pdID);
 			}
-			
-			
-			
-			
-			
-			/***************************3.開始新增訂單，及訂單明細***************************************/
-			OrderListService orderListService = new OrderListService();
-			
-			orderListVO = orderListService.addOrderList2(memID, 27001, 100.0, 100.0, 100, 0, receiverName, address, receiverPhone, 0, list);
-			
-		
 			/***************************4.新增完成,準備轉交到我的訂單***********/
 			String url = "/frontend/orderlist/myOrderList.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); 

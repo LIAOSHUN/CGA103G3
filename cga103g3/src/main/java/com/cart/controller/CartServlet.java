@@ -35,14 +35,13 @@ public class CartServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		HttpSession session = req.getSession();
 		
-//		頁面先設一個假button作為進入網站得住發事件，須改為filter註冊到網站每個頁面
 		
 		if ("init".equals(action)) {
 
 			Cookie[] cookies = req.getCookies();
 		
 			//cookie的cookiekey:shoppingCart cookieValue:sessionid
-			//Redis：(cookieValue(sessionid), {"itemId": "xxx","count": "x"})
+			//Redis：(cookieValue(sessionid), {"pdID": "xxx","count": "x"})
 			
 			// 檢視user是否已經有存放cookie
 			for (int i = 0; i < cookies.length; i++) {
@@ -76,7 +75,7 @@ public class CartServlet extends HttpServlet {
 		
 //		==================================================
 
-		// 點擊購物車時
+		// 點擊購物車時(現由GetCartServlet處理)
 		if ("getCart".equals(action)) {
 			String sessionId = (String) req.getSession().getAttribute("sessionId");//取得session的ID
 			CartService cartSvc = new CartService();
@@ -89,7 +88,7 @@ public class CartServlet extends HttpServlet {
 			rd.forward(req, res);
 		}
 
-		// 點擊加入購物車時
+		// 點擊"加入購物車"時
 		if ("addItem".equals(action)) {
 			Integer pdID = new Integer(req.getParameter("pdID"));
 			Integer count = new Integer(req.getParameter("count"));
@@ -120,20 +119,6 @@ public class CartServlet extends HttpServlet {
 		}
 		
 
-		
-		//按下前往結帳 (先把改變的數量存入redis ，再把購物車get出來)(現暫不用，由DcartServlet處理)
-//		if ("checkout".equals(action)) {
-//			
-//			String sessionId = (String) req.getSession().getAttribute("sessionId");//取得session的ID
-//			CartService cartSvc = new CartService();
-//			List<CartItemVO> cartItems = null;
-//			cartItems = cartSvc.getCart(sessionId);
-//
-//			req.setAttribute("cartItems", cartItems);
-//			String url = "/frontend/cart/checkout.jsp";
-//			RequestDispatcher rd = req.getRequestDispatcher(url);
-//			rd.forward(req, res);
-//		}
 		//結帳時刪除被選取的商品(有部分商品留在購物車裡面)
 		if ("deleteItemChecked".equals(action)) {
 			
@@ -156,20 +141,17 @@ public class CartServlet extends HttpServlet {
 				}
 			
 			}
-//			String url = "/frontend/cart/cart.jsp";
-//			RequestDispatcher rd = req.getRequestDispatcher(url);
-//			rd.forward(req, res);
 		}
 		
 		
 
-		// 送出訂單欲清空購物車時
+		// 送出訂單欲清空購物車時(暫不用)
 		if ("deleteCart".equals(action)) {
 			String sessionId = (String) req.getSession().getAttribute("sessionId");
 			CartService cartSvc = new CartService();
 			cartSvc.deleteCart(sessionId);
 
-//因為結完帳後會刪除redis的key，因此cookie也要殺掉，這樣他重訪其他頁面才會再拿到新的cookie值，否則原本cookie內的值在redis找不到資料
+//因為結完帳後會刪除redis的key，因此cookie也要殺掉，這樣他重訪其他頁面才會再拿到新的cookie值，否則原本cookie內的值在redis找不到資料??(暫不理會)
 
 			Cookie[] cookies = req.getCookies();
 

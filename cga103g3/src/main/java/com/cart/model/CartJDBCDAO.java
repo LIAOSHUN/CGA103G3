@@ -57,9 +57,8 @@ public class CartJDBCDAO implements CartDAO_interface{
 	}
 
 	@Override
-	public void update(Integer count, Integer pdID) {
-		try (Connection con = DriverManager.getConnection(url, userid, passwd);
-				PreparedStatement ps = con.prepareStatement(Update)){
+	public void update(Integer count, Integer pdID, Connection con) {
+		try (PreparedStatement ps = con.prepareStatement(Update)){
 			ps.setInt(1, count);
 			ps.setInt(2, pdID);
 			
@@ -92,7 +91,7 @@ public class CartJDBCDAO implements CartDAO_interface{
 		
 //		-- 更改某樣商品資訊
 		
-		dao.update(221, 21005);
+//		dao.update(221, 21005);
 
 	}
 
