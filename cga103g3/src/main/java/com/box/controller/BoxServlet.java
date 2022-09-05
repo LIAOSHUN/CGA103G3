@@ -53,9 +53,10 @@ public class BoxServlet extends HttpServlet {
 			BoxService boxSvc = new BoxService();
 			List<BoxVO> list = boxSvc.getBoxOfStore(storeID);
 			
+			
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("list", list);
-			String url = "/backend/box/listOneStoreBox.jsp";
+			String url = "/backend/box/model_ListOneStoreBox.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交listOneStoreBox.jsp
 			successView.forward(req, res);
 		}
@@ -73,7 +74,7 @@ public class BoxServlet extends HttpServlet {
 			session.setAttribute("list", list);    // 資料庫取出的list物件,存入session
 			
 			// Send the Success view
-			String url = "/backend/box/AllBox.jsp";
+			String url = "/backend/box/model_AllBox.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交AllBox.jsp
 			successView.forward(req, res);
 		}	
@@ -91,7 +92,7 @@ public class BoxServlet extends HttpServlet {
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("boxVO", boxVO);         // 資料庫取出的boxVO物件,存入req
-				String url = "/backend/box/update_box_input.jsp";
+				String url = "/backend/box/model_UpdateBox.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交update_box_input.jsp
 				successView.forward(req, res);
 				return;
@@ -113,6 +114,9 @@ public class BoxServlet extends HttpServlet {
 				Integer boxPrice = null;
 				try {
 					boxPrice = Integer.valueOf(req.getParameter("boxPrice").trim());
+					if(boxPrice < 0){
+						errorMsgs.add("包廂價格: 不可小於0");
+					}
 				} catch (NumberFormatException e) {
 					boxPrice = 0;
 					errorMsgs.add("包廂價格: 請填正確整數");
@@ -120,12 +124,14 @@ public class BoxServlet extends HttpServlet {
 				
 				String boxDescription = req.getParameter("boxDescription");
 				
+				//圖片存至資料庫
 				Part part = req.getPart("boxImg");
 				InputStream in = part.getInputStream();
 				byte[] boxImg = new byte[in.available()];
 				in.read(boxImg);
 				in.close();
 				
+				//如未更新圖片，返回取資料庫圖片送回保存
 				BoxService boxSvcOld = new BoxService();
 				BoxVO boxVOOld = boxSvcOld.getOneBox(boxID);
 
@@ -153,7 +159,7 @@ public class BoxServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 req.setAttribute("boxVO", boxVO); // 含有輸入格式錯誤的boxVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backend/box/update_box_input.jsp");
+							.getRequestDispatcher("/backend/box/model_UpdateBox.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -164,7 +170,7 @@ req.setAttribute("boxVO", boxVO); // 含有輸入格式錯誤的boxVO物件,也�
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("boxVO", boxVO); // 資料庫update成功後,正確的的boxVO物件,存入req
-				String url = "/backend/box/AllBox.jsp";
+				String url = "/backend/box/model_AllBox.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 				return;
@@ -187,9 +193,12 @@ req.setAttribute("boxVO", boxVO); // 含有輸入格式錯誤的boxVO物件,也�
 				Integer boxPrice = null;
 				try {
 					boxPrice = Integer.valueOf(req.getParameter("boxPrice").trim());
+					if(boxPrice < 0){
+						errorMsgs.add("包廂價格: 不可小於0");
+					}
 				} catch (NumberFormatException e) {
 					boxPrice = 0;
-					errorMsgs.add("請填正確整數");
+					errorMsgs.add("包廂價格: 請填正確整數");
 				}
 				
 			String boxDescription = req.getParameter("boxDescription").trim();
@@ -222,9 +231,9 @@ req.setAttribute("boxVO", boxVO); // 含有輸入格式錯誤的boxVO物件,也�
 				// Send the use back to the form, if there were errors
 				//下列if為管理員驗證失敗保正確值返回
 				if (!errorMsgs.isEmpty()) {
-req.setAttribute("boxVO", boxVO); // 含有輸入格式錯誤的empVO物件,也存入req
+req.setAttribute("boxVO", boxVO); // 含有輸入格式錯誤的boxVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backend/box/addBox.jsp");
+							.getRequestDispatcher("/backend/box/model_AddBox.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -234,8 +243,8 @@ req.setAttribute("boxVO", boxVO); // 含有輸入格式錯誤的empVO物件,也�
 				boxVO = boxSvc.addBox(storeID, boxTypeID, boxCapcity, boxPrice, boxDescription, boxBkStart, boxBkEnd, boxImgB);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/backend/box/AllBox.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
+				String url = "/backend/box/model_AllBox.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交model_AllBox.jsp
 				successView.forward(req, res);
 				return;
 				}
@@ -248,7 +257,7 @@ req.setAttribute("boxVO", boxVO); // 含有輸入格式錯誤的empVO物件,也�
     				BoxService boxSvc = new BoxService();
     				boxSvc.deleteBox(boxID);
     				
-    				String url = "/backend/box/AllBox.jsp";
+    				String url = "/backend/box/model_AllBox.jsp";
     				RequestDispatcher successView = req.getRequestDispatcher(url); // 刪除成功後轉交listAllEmp.jsp
     				successView.forward(req, res);		
         		}

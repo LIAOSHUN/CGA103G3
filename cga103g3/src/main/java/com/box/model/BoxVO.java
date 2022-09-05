@@ -1,5 +1,8 @@
 package com.box.model;
 
+import com.boxtype.model.BoxTypeService;
+import com.store.model.StoreService;
+
 public class BoxVO implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -69,6 +72,18 @@ public class BoxVO implements java.io.Serializable{
 	}
 	public void setBoxBkEnd(String boxBkEnd) {
 		this.boxBkEnd = boxBkEnd;
+	}
+	
+	public com.store.model.StoreVO getStoreVO(){
+		com.store.model.StoreService storeSvc = new StoreService();
+		com.store.model.StoreVO storeVO = storeSvc.getOneStore(storeID);
+		return storeVO;
+	}
+	
+	public com.boxtype.model.BoxTypeVO getBoxTypeVO(){
+		com.boxtype.model.BoxTypeService boxTypeSvc = new BoxTypeService();
+		com.boxtype.model.BoxTypeVO boxTypeVO = boxTypeSvc.findOneBoxType(boxTypeID);
+		return boxTypeVO;
 	}
 
 

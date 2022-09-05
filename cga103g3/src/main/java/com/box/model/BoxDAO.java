@@ -45,11 +45,11 @@ public class BoxDAO implements Box_interface {
 	
 	//管理員可以指定門市包廂
 	private static final String GET_STORE_BOXES = 
-			"select BoxID, StoreID, BoxTypeID, BoxCapcity, BoxPrice, BoxDescription, BoxImg, BoxBkStart, BoxBkEnd from box "
+			"select BoxID, StoreID, BoxTypeID, BoxCapcity, BoxPrice, BoxDescription, BoxBkStart, BoxBkEnd, BoxImg from box "
 			+ "where StoreID = ?";
 	
 	private static final String GET_ONE_BOX = 
-			"select BoxID, StoreID, BoxTypeID, BoxCapcity, BoxPrice, BoxDescription, BoxImg from box "
+			"select BoxID, StoreID, BoxTypeID, BoxCapcity, BoxPrice, BoxDescription, BoxBkStart, BoxBkEnd, BoxImg from box "
 			+ "where boxID = ?";
 	
 	//管理員可以查詢所有包廂
@@ -225,7 +225,6 @@ public class BoxDAO implements Box_interface {
 				bvo.setBoxCapcity(rs.getInt("BoxCapcity"));
 				bvo.setBoxPrice(rs.getInt("BoxPrice"));
 				bvo.setBoxDescription(rs.getString("BoxDescription"));
-				bvo.setBoxImg(rs.getBytes("BoxImg"));
 				
 //				bvo.setBoxBkStart(rs.getString("BoxBkStart"));
 				int start = Integer.valueOf(rs.getString("BoxBkStart").trim());
@@ -246,6 +245,7 @@ public class BoxDAO implements Box_interface {
 				}
 				String boxBkEnd = ((end < 10)? ("0"+ end) : end) + ":00";
 				bvo.setBoxBkEnd(boxBkEnd);
+				bvo.setBoxImg(rs.getBytes("BoxImg"));
 				list.add(bvo);
 			}
 			
@@ -382,6 +382,8 @@ public class BoxDAO implements Box_interface {
 				boxVO.setBoxCapcity(rs.getInt("BoxCapcity"));
 				boxVO.setBoxPrice(rs.getInt("BoxPrice"));
 				boxVO.setBoxDescription(rs.getString("BoxDescription"));
+				boxVO.setBoxBkStart(rs.getString("BoxBkStart"));
+				boxVO.setBoxBkEnd(rs.getString("BoxBkEnd"));
 				boxVO.setBoxImg(rs.getBytes("BoxImg"));
 			}
 			

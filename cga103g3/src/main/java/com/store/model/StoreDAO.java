@@ -123,10 +123,41 @@ public class StoreDAO implements Store_interface{
 				siv.setStorePhone1(rs.getString("storePhone1"));
 				siv.setStorePhone2(rs.getString("storePhone2"));
 				siv.setStoreEmail(rs.getString("StoreEmail"));
-//				siv.setStoreImg(rs.getBytes("StoreImg"));
+				siv.setStoreImg(rs.getBytes("StoreImg"));
 				siv.setStoreOpen(rs.getString("storeOpen"));
-				siv.setStoreClose(rs.getString("storeClose"));
-				siv.setStoreOff(rs.getString("StoreOff"));
+				siv.setStoreClose(rs.getString("StoreClose"));
+				String storeOff = rs.getString("StoreOff");
+				switch (storeOff) {
+				case "0": {
+					siv.setStoreOff("日");
+					break; 
+					}
+				case "1": {
+					siv.setStoreOff("一");
+					break; 
+					}
+				case "2": {
+					siv.setStoreOff("二");
+					break; 
+				}
+				case "3": {
+					siv.setStoreOff("三");
+					break; 
+				}
+				case "4": {
+					siv.setStoreOff("四");
+					break; 
+				}
+				case "5": {
+					siv.setStoreOff("五");
+					break; 
+				}
+				case "6": {
+					siv.setStoreOff("六");
+					break; 
+					}
+				}
+//				siv.setStoreOff(rs.getString("StoreOff"));
 				siv.setEmpID(rs.getInt("EmpID"));
 //				siv.setStoreBokSet(rs.getString("StoreBokSet"));
 				siv.setStoreStatus(rs.getInt("StoreStatus"));
@@ -144,7 +175,8 @@ public class StoreDAO implements Store_interface{
 		try (
 				Connection connection = ds.getConnection();
 				PreparedStatement pstmt = connection.prepareStatement(GET_ALL_STMT);
-				ResultSet rs = pstmt.executeQuery();) {
+				ResultSet rs = pstmt.executeQuery();
+			) {
 			List<StoreVO> list = new ArrayList<>();
 			while (rs.next()) {
 				StoreVO siv = new StoreVO();
@@ -154,10 +186,56 @@ public class StoreDAO implements Store_interface{
 				siv.setStorePhone1(rs.getString("StorePhone1"));
 				siv.setStorePhone2(rs.getString("StorePhone2"));
 				siv.setStoreEmail(rs.getString("StoreEmail"));
-//				siv.setStoreImg(rs.getBytes(7));
-				siv.setStoreOpen(rs.getString("StoreOpen"));
-				siv.setStoreClose(rs.getString("StoreClose"));
-				siv.setStoreOff(rs.getString("StoreOff"));
+				
+				int start = Integer.valueOf(rs.getString("StoreOpen").trim());
+				for(int i = 0;i <= start; i++) {
+					if(i == start) {
+						start = i;
+					}
+				}
+				String StoreOpen = ((start < 10)? ("0"+ start) : start) + ":00";
+				siv.setStoreOpen(StoreOpen);
+				
+				int end = Integer.valueOf(rs.getString("StoreClose").trim());
+				for(int i = 0;i <= end; i++) {
+					if(i == end) {
+						end = i;
+					}
+				}
+				String StoreClose = ((end < 10)? ("0"+ end) : end) + ":00";
+				siv.setStoreClose(StoreClose);
+				
+				String storeOff = rs.getString("StoreOff");
+				switch (storeOff) {
+				case "0": {
+					siv.setStoreOff("日");
+					break; 
+					}
+				case "1": {
+					siv.setStoreOff("一");
+					break; 
+					}
+				case "2": {
+					siv.setStoreOff("二");
+					break; 
+				}
+				case "3": {
+					siv.setStoreOff("三");
+					break; 
+				}
+				case "4": {
+					siv.setStoreOff("四");
+					break; 
+				}
+				case "5": {
+					siv.setStoreOff("五");
+					break; 
+				}
+				case "6": {
+					siv.setStoreOff("六");
+					break; 
+					}
+				}
 				siv.setEmpID(rs.getInt("EmpID"));
 //				siv.setStoreBokSet(rs.getString("StoreBokSet"));
 				siv.setStoreStatus(rs.getInt("StoreStatus"));

@@ -25,7 +25,6 @@ import javax.sql.DataSource;
 public class StoreImg extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-	DataSource ds;
 	Connection con;
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
@@ -33,7 +32,6 @@ public class StoreImg extends HttpServlet {
 		ServletOutputStream out = res.getOutputStream();
 
 		try {
-			con = ds.getConnection();
 			Statement ps = con.createStatement();
 			String storeID = req.getParameter("StoreID").trim();
 			ResultSet rs = ps.executeQuery("SELECT StoreImg FROM store WHERE StoreID = " + storeID);
@@ -70,8 +68,9 @@ public class StoreImg extends HttpServlet {
 	public void init() throws ServletException {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Mysql");
-		} catch (NamingException e) {
+			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Mysql");
+			con = ds.getConnection();
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.out.println("連線池錯誤");
 		}

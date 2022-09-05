@@ -15,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.store.model.StoreService;
 import com.store.model.StoreVO;
 
@@ -24,6 +26,13 @@ public class StoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		res.setCharacterEncoding("UTF-8");
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		StoreService storeSvc = new StoreService();
+		List<StoreVO> storeList = storeSvc.getStoreInfo();
+		res.getWriter().append(gson.toJson(storeList));
+				
+		
 		doPost(req, res);
 	}
 
@@ -43,6 +52,7 @@ public class StoreServlet extends HttpServlet {
 			/***************************2.開始查詢資料*************************************/
 			StoreService storeScv = new StoreService();
 			StoreVO stVO = storeScv.getOneStore(storeID);
+
 			
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
@@ -53,7 +63,7 @@ public class StoreServlet extends HttpServlet {
 			
 			/***************************3.查詢完成,準備轉交(Send the Success view)***********/
 			req.setAttribute("stVO", stVO);  // 資料庫取出的stVO物件,存入req
-			String url = "/backend/store/ListOneStore.jsp";
+			String url = "/backend/store/model_UpdateStore.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 ListOneStore.jsp
 			successView.forward(req, res);
 		}
@@ -95,7 +105,7 @@ public class StoreServlet extends HttpServlet {
 			
 			/***************************3.查詢完成,準備轉交(Send the Success view)***********/
 			req.setAttribute("stVO", stVO);  // 資料庫取出的stVO物件,存入req
-			String url = "/backend/store/UpdateStore.jsp";
+			String url = "/backend/store/model_UpdateStore.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 ListOneStore.jsp
 			successView.forward(req, res);
 			return;
@@ -143,9 +153,40 @@ public class StoreServlet extends HttpServlet {
 			in.read(storeImg);
 			in.close();
 			
-			String storeOpen = req.getParameter("storeOpen");
-			String storeClose = req.getParameter("storeClose");
-			String storeOff = req.getParameter("storeOff");
+			String storeOpen = req.getParameter("storeOpen").trim();
+			String storeClose = req.getParameter("storeClose").trim();
+			String storeOff = req.getParameter("storeOff").trim();
+			switch (storeOff) {
+			case "日": {
+				storeOff = "0";
+				break; 
+				}
+			case "一": {
+				storeOff = "1";
+				break; 
+				}
+			case "二": {
+				storeOff = "2";
+				break; 
+			}
+			case "三": {
+				storeOff = "3";
+				break; 
+			}
+			case "四": {
+				storeOff = "4";
+				break; 
+			}
+			case "五": {
+				storeOff = "5";
+				break; 
+			}
+			case "六": {
+				storeOff = "6";
+				break; 
+				}
+			}
+			
 			Integer empID = Integer.valueOf(req.getParameter("empID").trim());
 			try {
 				
@@ -157,16 +198,25 @@ public class StoreServlet extends HttpServlet {
 			Integer storeStatus = Integer.valueOf(req.getParameter("storeStatus").trim());
 			Integer storeID = Integer.valueOf(req.getParameter("storeID").trim());
 			
+			StoreService storeSvcOld = new StoreService();
+			StoreVO storeVOOld = storeSvcOld.getOneStore(storeID);
+			
 			StoreVO stVO = new StoreVO();
 			stVO.setStoreName(storeName);
 			stVO.setStoreAdd(storeAdd);
 			stVO.setStorePhone1(storePhone1);
 			stVO.setStorePhone2(storePhone2);
 			stVO.setStoreEmail(storeEmail);
-			stVO.setStoreImg(storeImg);
+			if (storeImg.length == 0 || storeImg == null) {
+				storeImg = storeVOOld.getStoreImg();
+				stVO.setStoreImg(storeImg);
+			} else {
+				stVO.setStoreImg(storeImg);
+			}
 			stVO.setStoreOpen(storeOpen);
 			stVO.setStoreClose(storeClose);
 			stVO.setStoreOff(storeOff);
+			
 			stVO.setEmpID(empID);
 			stVO.setStoreStatus(storeStatus);
 			stVO.setStoreID(storeID);
@@ -174,7 +224,7 @@ public class StoreServlet extends HttpServlet {
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("stVO", stVO); // 含有輸入格式錯誤的stVO物件,也存入req
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/store/UpdateStore.jsp");
+						.getRequestDispatcher("/backend/store/model_UpdateStore.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -182,7 +232,7 @@ public class StoreServlet extends HttpServlet {
 			StoreService stSvc = new StoreService();
 			stVO = stSvc.updateStoreInfo(storeName, storeAdd, storePhone1, storePhone2, storeEmail, storeImg, storeOpen, storeClose, storeOff, empID, storeStatus, storeID);
 			
-			String url = "/backend/store/AllStore.jsp";
+			String url = "/backend/store/model_AllStore.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交AllStore.jsp
 			successView.forward(req, res);
 		}
@@ -251,7 +301,7 @@ public class StoreServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("stVO", stVO); // 含有輸入格式錯誤的stVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backend/store/addStore.jsp");
+							.getRequestDispatcher("/backend/store/model_AddStore.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -259,7 +309,7 @@ public class StoreServlet extends HttpServlet {
 				StoreService stSvc = new StoreService();
 				stVO = stSvc.addStroe(storeName, storeAdd, storePhone1, storePhone2, storeEmail, storeImg, storeOpen, storeClose, storeOff, empID);
 				
-				String url = "/backend/store/AllStore.jsp";
+				String url = "/backend/store/model_AllStore.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交AllStore.jsp
 				successView.forward(req, res);	
 			}
