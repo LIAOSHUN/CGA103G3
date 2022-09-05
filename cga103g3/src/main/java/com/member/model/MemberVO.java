@@ -1,9 +1,10 @@
 package com.member.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 
-public class MemberVO {
+public class MemberVO implements Serializable {
 	private Integer memID;
 	private Integer gradeID;
 	private String memName;
@@ -16,7 +17,6 @@ public class MemberVO {
 	private Date memBirthday;
 	private byte[] memCard;
 	private Integer memVio;
-	private String memCredit;
 	private Integer memStatus;
 	public Integer getMemID() {
 		return memID;
@@ -90,13 +90,7 @@ public class MemberVO {
 	public void setMemVio(Integer memVio) {
 		this.memVio = memVio;
 	}
-	public String getMemCredit() {
-		return memCredit;
-	}
-	public void setMemCredit(String memCredit) {
-		this.memCredit = memCredit;
-	}
-	public int getMemStatus() {
+		public int getMemStatus() {
 		return memStatus;
 	}
 	public void setMemStatus(Integer memStatus) {
