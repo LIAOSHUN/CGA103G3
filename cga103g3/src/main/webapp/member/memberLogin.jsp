@@ -1,7 +1,13 @@
 
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.member.model.*"%>
 
-<!DOCTYPE html>
+<%
+MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+%>
+
 
 <html>
 
@@ -9,57 +15,32 @@
 <meta charset="UTF-8">
 <title>登入</title>
 <!-- 登入 style end-->
-<%if ("wrong".equals(request.getAttribute("errorMessage"))) {%>
-<script type="text/javascript">
-	alert("用戶名或者密碼錯誤！");
-</script>
-<%} else {%>
-<%}%>
 </head>
 
 <body style="text-align: center">
-	<form name="myform" action="EmpLoginServlet.do" method="POST">
-		<div id="wrapper">
-			<div id="wrappertop"></div>
-
-			<div id="wrappermiddle">
+<FORM METHOD="post" ACTION="member.do" name="form1">
+ 			<center>
+ 			<table border=1>
+ 
 				<h2>登入系統</h2>
 
-				<div id="username_input">
-
-					<div id="username_inputleft"></div>
-
-					<div id="username_inputmiddle">
-						<input type="text" name="empAccount" id="url" value="員工帳號">
-					</div>
-
-					<div id="username_inputright"></div>
-
-				</div>
-
-				<div id="password_input">
-
-					<div id="password_inputleft"></div>
- 
-					<div id="password_inputmiddle">
-						<input type="password" name="empPassword" id="url"
-							value="Password">
-					</div>
-
-					<div id="password_inputright"></div>
-
-				</div>
-				<div id="submit">
-					<input type="image"
-						id="submit1" value="Sign In" onclick="return checkForm()">
+	<tr>
+		<td>帳號:</td>
+		<td><input type="TEXT" name="memAccount" size="45"
+			 value="" /></td>
+	</tr>
+	<tr>
+		<td>密碼:</td>
+		<td><input type="TEXT" name="memPassWord" size="45"
+			 value="" /></td>
+	</tr>
 				
-				</div>
-			</div> 
-
-			<div id="wrapperbottom"></div>
-		</div>
-	</form>
-	<script type="text/javascript" src="./back-assets/js/back.login.js"></script>
+			</table>
+			</center>
+				<br> <input type="hidden" name="action" value="memberLogin">
+				<input type="submit" value="登入">
+			
+				</FORM>
+							
 </body>
 </html>
-

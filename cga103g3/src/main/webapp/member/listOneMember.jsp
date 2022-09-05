@@ -42,9 +42,9 @@ table, th, td {
 }
 
 th, td {
-	padding: 5px;
+	padding: 15px;
 	text-align: center;
-width:80px;
+	width:1000px;
 }
 </style>
 

@@ -77,7 +77,7 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 	<tr>
 		<td>±b¸¹:</td>
 		<td><input type="TEXT" name="memAccount" size="45"
-			 value="<%= (memberVO==null)? "MANAGER" : memberVO.getMemAccount()%>" /></td>
+			 value="<%= (memberVO==null)? "User" : memberVO.getMemAccount()%>" /></td>
 	</tr>
 
 	<tr>
