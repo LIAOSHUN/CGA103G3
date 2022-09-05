@@ -88,7 +88,7 @@ public class ActServlet extends HttpServlet {
 		
 		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllAct.jsp的請求
-			
+			try {
 				/***************************1.接收請求參數****************************************/
 			Integer actID = Integer.valueOf(req.getParameter("actID"));
 				
@@ -101,6 +101,12 @@ public class ActServlet extends HttpServlet {
 				String url = "/backend/act/update_act_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_act_input.jsp
 				successView.forward(req, res);
+			} catch (Exception e) {
+				e.printStackTrace();
+  				RequestDispatcher failureView = req
+  						.getRequestDispatcher("/backend/act/listAllAct.jsp");
+  				failureView.forward(req, res);
+			}
 		}
 		
 		

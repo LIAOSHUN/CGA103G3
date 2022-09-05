@@ -20,9 +20,8 @@
 
 	<style>
 	table {
-		width: 965px;
+		width: 950px;
 		background-color: white;
-		margin-top: 5px;
 		margin-bottom: 5px;
 		line-height: 25px;		/*表格行高固定*/
 /* 		table-layout:fixed;		/*表格寬度固定*/ */
@@ -75,16 +74,28 @@
 						<c:if test="${actVO.actStatus == '2' }">2：額滿截止</c:if>
 					</td>
 					<td>
-						<a href="<%=request.getContextPath()%>/backend/act/update_act_input.jsp">
-							<button class="btn-update">修改</button>
-						</a>
+						<a href="">
+							<button class="update btn" data-actID="${actVO.actID}">修改</button>
+ 						</a>
 					</td>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
+		<%@ include file="/backend/backendhead.jsp" %>
+		<script>
+	$(document).ready(function(){
+	    $(".update").mouseup(function (e) {
+	        e.preventDefault();
+	        let actID = $(this).attr("data-actID");
+	        let url = "<%=request.getContextPath()%>/ActServlet?action=getOne_For_Update&actID=" + actID;
+	        $("a").attr("href", url);
+		});			
+	})
+	
+	</script>
 <%-- <%@ include file="page2.file" %> --%>
-<%@ include file="/backend/backendhead.jsp" %>
+
 
 
 </body>
