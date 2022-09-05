@@ -7,7 +7,8 @@ public class ActImgService {
 	private ActImgDAO_interface dao;
 
 	public ActImgService() {
-		dao = new ActImgJDBCDAO();
+		dao = new ActImgDAO();
+//		dao = new ActImgJDBCDAO();
 	}
 
 	public ActImgVO addActImg(Integer actID, byte[] actImgFile) {

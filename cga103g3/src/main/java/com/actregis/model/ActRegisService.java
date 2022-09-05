@@ -8,7 +8,8 @@ public class ActRegisService {
 	private ActRegisDAO_interface dao;
 
 	public ActRegisService() {
-		dao = new ActRegisJDBCDAO();
+		dao = new ActRegisDAO();
+//		dao = new ActRegisJDBCDAO();
 	}
 
 	public ActRegisVO addActRegis(Integer memID, Integer actID, Timestamp regisTime, 

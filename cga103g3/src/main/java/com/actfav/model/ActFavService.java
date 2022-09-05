@@ -7,7 +7,8 @@ public class ActFavService {
 	private ActFavDAO_interface dao;
 
 	public ActFavService() {
-		dao = new ActFavJDBCDAO();
+		dao = new ActFavDAO();
+//		dao = new ActFavJDBCDAO();
 	}
 
 	public ActFavVO addActFav(Integer memID, Integer actID, LocalDateTime actFavDate) {

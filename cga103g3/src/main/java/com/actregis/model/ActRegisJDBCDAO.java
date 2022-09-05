@@ -62,7 +62,6 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
-				// Clean up JDBC resources
 			} 		
 	}
 
@@ -91,9 +90,7 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
-				// Clean up JDBC resources
-			}
-		
+			}	
 	}
 
 	@Override
@@ -109,7 +106,6 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 			pstmt.setInt(1, actID);
 			ResultSet rs = pstmt.executeQuery();
 			
-
 			while (rs.next()) {
 				// actRegisVO 也稱為 Domain objects
 				actRegisVO = new ActRegisVO();
@@ -134,7 +130,6 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
-			// Clean up JDBC resources
 		}
 		return listRegistered;
 	}
@@ -151,8 +146,7 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 			
 			pstmt.setInt(1, memID);
 			ResultSet rs = pstmt.executeQuery();
-			
-			
+					
 			while (rs.next()) {
 				// actRegisVO 也稱為 Domain objects
 				actRegisVO = new ActRegisVO();
@@ -177,7 +171,6 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
-			// Clean up JDBC resources
 		}
 		return listMemRegis;
 	}
@@ -218,7 +211,6 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
-			// Clean up JDBC resources
 		}
 		return actRegisVO;
 	}
@@ -235,7 +227,7 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 				ResultSet rs = pstmt.executeQuery();
 			
 			while (rs.next()) {
-				// empVO 也稱為 Domain objects
+				// actRegisVO 也稱為 Domain objects
 				actRegisVO = new ActRegisVO();
 				actRegisVO.setMemID(rs.getInt("memID"));
 				actRegisVO.setActID(rs.getInt("actID"));
@@ -258,7 +250,6 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
-			// Clean up JDBC resources
 		}
 		return list;
 	}

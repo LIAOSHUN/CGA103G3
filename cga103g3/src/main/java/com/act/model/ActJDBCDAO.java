@@ -145,7 +145,7 @@ public class ActJDBCDAO implements ActDAO_interface{
 			
 
 			while (rs.next()) {
-				// empVO 也稱為 Domain objects
+				// actVO 也稱為 Domain objects
 				actVO = new ActVO();
 				actVO.setActID(rs.getInt("actID"));
 				actVO.setStoreID(rs.getInt("storeID"));

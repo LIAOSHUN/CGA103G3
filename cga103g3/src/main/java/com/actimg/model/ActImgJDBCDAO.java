@@ -68,7 +68,6 @@ public class ActImgJDBCDAO implements ActImgDAO_interface{
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
-				// Clean up JDBC resources
 			}				
 	}
 
@@ -90,7 +89,6 @@ public class ActImgJDBCDAO implements ActImgDAO_interface{
 			} catch (SQLException se) {
 				throw new RuntimeException("A database error occured. "
 						+ se.getMessage());
-				// Clean up JDBC resources
 			}		
 	}
 
@@ -122,7 +120,6 @@ public class ActImgJDBCDAO implements ActImgDAO_interface{
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
-			// Clean up JDBC resources
 		}
 		return actImgVO;
 	}

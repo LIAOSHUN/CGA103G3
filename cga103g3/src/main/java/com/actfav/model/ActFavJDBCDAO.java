@@ -106,7 +106,6 @@ public class ActFavJDBCDAO implements ActFavDAO_interface{
 			pstmt.setInt(1, memID);
 			ResultSet rs = pstmt.executeQuery();
 			
-
 			while (rs.next()) {
 				// actFacVo 也稱為 Domain objects
 				actFavVO = new ActFavVO();
@@ -134,8 +133,7 @@ public class ActFavJDBCDAO implements ActFavDAO_interface{
 		ActFavVO actFavVO = null;
 
 		try (Connection con = DriverManager.getConnection(url, userid, passwd);
-				PreparedStatement pstmt = con.prepareStatement(GET_ALL_STMT);
-				) {
+				PreparedStatement pstmt = con.prepareStatement(GET_ALL_STMT);) {
 				Class.forName(driver);
 				ResultSet rs = pstmt.executeQuery();
 			

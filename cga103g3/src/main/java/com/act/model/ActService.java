@@ -10,7 +10,8 @@ public class ActService {
 	private ActDAO_interface dao;
 
 	public ActService() {
-		dao = new ActJDBCDAO();
+		dao = new ActDAO();
+//		dao = new ActJDBCDAO();
 	}
 
 	public ActVO addAct(Integer storeID, String actTitle, String actDescription,
