@@ -38,9 +38,17 @@ public class ActFavService {
 	public void deleteActFav(Integer memID, Integer actID) {
 		dao.delete(memID, actID);
 	}
+	
+	public ActFavVO getOneFavByOneMem(Integer memID, Integer actID) {
+		return dao.findOneFavByOneMem(memID, actID);
+	}
 
-	public List<ActFavVO> getOneActFav(Integer memID) {
+	public List<ActFavVO> getByMem(Integer memID) {
 		return dao.findByPrimaryKey(memID);
+	}
+	
+	public List<Object> getByActJoinList(Integer memID) {
+		return dao.findByActJoinList(memID);
 	}
 
 	public List<ActFavVO> getAll() {
