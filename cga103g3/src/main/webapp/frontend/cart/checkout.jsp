@@ -132,7 +132,7 @@
                            </div>
                                 
                                 
- </form>                                
+                               
                                 
                                 
  <!-- =================================取貨方式============================================== -->              
@@ -170,18 +170,13 @@
 								</table>   
                           </div>       
                           
-                                
+                            
                                 
                                 
 <!-- =================================選擇優惠券============================================== -->                              
-                                
-                                <div>
-			                        <label style="font-size: 1.5em;">我的優惠券清單</label>
-	                               <select id="MemCouponNo" required >
-				                        <option value="0">不使用優惠券</option>
-				                        <option ></option>
-				                    </select> 
-                                </div>
+
+
+                               
                                 
  <!-- ================================金額計算============================================== -->
                                 
@@ -205,7 +200,15 @@
 											$<span id="orgPrice_span"></span>
 										</td>
 										<td class="column-5">
-											$<span >xxxxx</span>
+										<jsp:useBean id="memCouponSvc" scope="page" class="com.memcoupon.model.MemCouponService" />
+											 <select name="coupNo"  >
+						                        		<option  value="0">不使用優惠券</option>
+						                        <c:forEach var="memCouponVO" items="${memCouponSvc.showMemCouponByMemID(11001)}" > 
+						                        	<c:if test="${memCouponVO.coupStatus == 0}">
+		         									 	<option  value="${memCouponVO.coupNo}" >${memCouponVO.couponTypeVO.coupName}-$${memCouponVO.couponTypeVO.coupDiscount}
+		        									</c:if>
+		        								</c:forEach>   
+				                    		</select> 
 										</td>
 										<td class="column-5">
 											$<span id="ordPick_span">0</span>
@@ -218,7 +221,7 @@
                           </div>       
                                 
 
-
+   </form>   
 
 <!-- ================================確認送出========================================== -->
 

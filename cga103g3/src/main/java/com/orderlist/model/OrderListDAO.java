@@ -179,93 +179,53 @@ public class OrderListDAO implements OrderListDAO_interface {
 	}
 	
 	@Override
-	public void insertWithOrderDetailsNoCoupon(OrderListVO orderListVO, List<OrderDetailVO> list) {
-		Connection con = null;
+	public void insertWithOrderDetailsNoCoupon(Connection con, OrderListVO orderListVO, List<OrderDetailVO> list) throws SQLException {
 		PreparedStatement pstmt = null;
 
-		try {
 
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con = ds.getConnection();
-			
-			// 1●設定於 pstm.executeUpdate()之前
-    		con.setAutoCommit(false);
-			
-    		// 先新增訂單
-			String cols[] = {"OrdNo"};
-			pstmt = con.prepareStatement(InsertNoCoupon , cols);			
-			pstmt.setInt(1, orderListVO.getMemID());
-			pstmt.setDouble(2, orderListVO.getOrdOriPrice());
-			pstmt.setDouble(3, orderListVO.getOrdLastPrice());
-			pstmt.setInt(4, orderListVO.getOrdFee());
-			pstmt.setInt(5, orderListVO.getOrdStatus());
-			pstmt.setString(6, orderListVO.getRecName());
-			pstmt.setString(7, orderListVO.getRecAddress());
-			pstmt.setString(8, orderListVO.getRecPhone());
-			pstmt.setInt(9, orderListVO.getOrdPick());
+		
+		// 1●設定於 pstm.executeUpdate()之前
+//		con.setAutoCommit(false);
+		
+		// 先新增訂單
+		String cols[] = {"OrdNo"};
+		pstmt = con.prepareStatement(InsertNoCoupon , cols);			
+		pstmt.setInt(1, orderListVO.getMemID());
+		pstmt.setDouble(2, orderListVO.getOrdOriPrice());
+		pstmt.setDouble(3, orderListVO.getOrdLastPrice());
+		pstmt.setInt(4, orderListVO.getOrdFee());
+		pstmt.setInt(5, orderListVO.getOrdStatus());
+		pstmt.setString(6, orderListVO.getRecName());
+		pstmt.setString(7, orderListVO.getRecAddress());
+		pstmt.setString(8, orderListVO.getRecPhone());
+		pstmt.setInt(9, orderListVO.getOrdPick());
 
-			pstmt.executeUpdate();
-			//掘取對應的自增主鍵值
-			Integer nextOrdNo = null;
-			ResultSet rs = pstmt.getGeneratedKeys();
-			if (rs.next()) {
-				nextOrdNo = rs.getInt(1);
-				System.out.println("自增主鍵值= " + nextOrdNo +"(剛新增成功的訂單編號)");
-			} else {
-				System.out.println("未取得自增主鍵值");
-			}
-			rs.close();
-			// 再同時新增訂單明細
-			OrderDetailJDBCDAO dao = new OrderDetailJDBCDAO();
-			System.out.println("list.size()-A="+list.size());
-			for (OrderDetailVO od : list) {
-				od.setOrdNo(new Integer(nextOrdNo)) ;
-				dao.insert2(od,con);
-			}
-
-			// 2●設定於 pstm.executeUpdate()之後
-			con.commit();
-			con.setAutoCommit(true);
-			System.out.println("list.size()-B="+list.size());
-			System.out.println("新增訂單編號" + nextOrdNo + "時,共有" + list.size()
-					+ "個訂單明細同時被新增");
-			
-			// Handle any driver errors
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException("Couldn't load database driver. "
-					+ e.getMessage());
-			// Handle any SQL errors
-		} catch (SQLException se) {
-			if (con != null) {
-				try {
-					// 3●設定於當有exception發生時之catch區塊內
-					System.err.print("Transaction is being ");
-					System.err.println("rolled back-由-orderlist");
-					con.rollback();
-				} catch (SQLException excep) {
-					throw new RuntimeException("rollback error occured. "
-							+ excep.getMessage());
-				}
-			}
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+		pstmt.executeUpdate();
+		//掘取對應的自增主鍵值
+		Integer nextOrdNo = null;
+		ResultSet rs = pstmt.getGeneratedKeys();
+		if (rs.next()) {
+			nextOrdNo = rs.getInt(1);
+			System.out.println("自增主鍵值= " + nextOrdNo +"(剛新增成功的訂單編號)");
+		} else {
+			System.out.println("未取得自增主鍵值");
 		}
+		rs.close();
+		// 再同時新增訂單明細
+		OrderDetailJDBCDAO dao = new OrderDetailJDBCDAO();
+		System.out.println("list.size()-A="+list.size());
+		for (OrderDetailVO od : list) {
+			od.setOrdNo(new Integer(nextOrdNo)) ;
+			dao.insert2(od,con);
+		}
+
+		
+		// 2●設定於 pstm.executeUpdate()之後
+//		con.commit();
+//		con.setAutoCommit(true);
+		System.out.println("list.size()-B="+list.size());
+		System.out.println("新增訂單編號" + nextOrdNo + "時,共有" + list.size()
+				+ "個訂單明細同時被新增");
 	}
 
 	@Override

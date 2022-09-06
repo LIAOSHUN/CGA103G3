@@ -28,5 +28,5 @@ public interface OrderListDAO_interface {
 //  訂單主檔與明細檔一次新增成功
     public void insertWithOrderDetails(Connection con, OrderListVO orderListVO, List<OrderDetailVO> list ) throws SQLException;
 //  訂單主檔與明細檔一次新增成功(無優惠券)
-    public void insertWithOrderDetailsNoCoupon(OrderListVO orderListVO, List<OrderDetailVO> list );
+    public void insertWithOrderDetailsNoCoupon(Connection con, OrderListVO orderListVO, List<OrderDetailVO> list ) throws SQLException;
 }

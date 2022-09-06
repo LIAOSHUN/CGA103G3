@@ -41,7 +41,11 @@ public class CheckoutServlet extends HttpServlet {
 			String receiverName = req.getParameter("receiverName");
 			String receiverPhone = req.getParameter("receiverPhone");
 			String address = req.getParameter("address");
-			
+			System.out.println(req.getParameter("coupNo"));
+			Integer coupNo = Integer.valueOf(req.getParameter("coupNo"));
+//			for(int i = 0; i < valuesc.length; i++) {
+//				 coupNo = Integer.valueOf(valuesc[i]);
+//			}
 			
 
 			//供給錯誤處理用
@@ -81,16 +85,19 @@ public class CheckoutServlet extends HttpServlet {
 			/***************************三.1.新增訂單，及訂單明細，2.更新mysql庫存量3.更新優惠券庫存量及4.redis購物車調整數量***************************************/
 			CheckoutService checkoutService = new CheckoutService();
 			sessionId = (String) req.getSession().getAttribute("sessionId");
-			checkoutService.allJobs(memID, 27001, 100.0, 100.0, 100, 0, receiverName, address, receiverPhone, 0, list, sessionId);
+			Boolean transa = checkoutService.allJobs(memID, coupNo, 100.0, 100.0, 100, 0, receiverName, address, receiverPhone, 0, list, sessionId);
 			
 			
 //			以上交易都確定成功，才會去對購物進行處理，避免上面步驟出現rollback的話，會造成購物車內容已被刪除，無法找回的情形
 //			去除redis購物車被選擇的商品
-			for (int i = 0; i < values.length; i++) {
+			if(transa) {
 				
-				pdID = Integer.valueOf(values[i]);
-				CartService cartSvc = new CartService();
-				cartSvc.deleteItemChecked(sessionId, pdID);
+				for (int i = 0; i < values.length; i++) {
+					
+					pdID = Integer.valueOf(values[i]);
+					CartService cartSvc = new CartService();
+					cartSvc.deleteItemChecked(sessionId, pdID);
+				}
 			}
 			/***************************4.新增完成,準備轉交到我的訂單***********/
 			String url = "/frontend/orderlist/myOrderList.jsp";

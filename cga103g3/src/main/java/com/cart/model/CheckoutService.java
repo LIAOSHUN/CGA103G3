@@ -33,33 +33,57 @@ public class CheckoutService {
 	//所有動作，必須用同一連線
 	//呼叫不同dao，各自完成任務
 	//底層的處理，必須把例外全拋出，給service層來進行處理，因為此層在做交易控制，不然會無法rollback
-	public void allJobs(Integer memID, Integer coupNo, Double ordOriPrice, Double ordLastPrice,
+	public boolean allJobs(Integer memID, Integer coupNo, Double ordOriPrice, Double ordLastPrice,
 			Integer ordFee, Integer ordStatus, String recName, String recAddress, String recPhone,
 			Integer ordPick, List<OrderDetailVO> list, String sessionId) {
 		
 		Connection con = null;
+		Boolean transa = false;
+		
+
 		
 		try{
 			con = DriverManager.getConnection(url, userid, passwd);
 			//交易開始，若一個動作失敗，則全部回復
 			con.setAutoCommit(false);
 			
-			//新增訂單同時新增訂單明細
-			OrderListVO orderListVO = new OrderListVO();
 			
-			orderListVO.setMemID(memID);
-			orderListVO.setCoupNo(coupNo);
-			orderListVO.setOrdOriPrice(ordOriPrice);
-			orderListVO.setOrdLastPrice(ordLastPrice);
-			orderListVO.setOrdFee(ordFee);
-			orderListVO.setOrdStatus(ordStatus);
-			orderListVO.setRecName(recName);
-			orderListVO.setRecAddress(recAddress);
-			orderListVO.setRecPhone(recPhone);
-			orderListVO.setOrdPick(ordPick);
-			daoL.insertWithOrderDetails(con, orderListVO, list);
+			//1.新增訂單同時新增訂單明細
 			
-			//更改某樣商品庫存
+			//傳入的參數若為0則代表未使用優惠券
+			if(coupNo.equals(0)) {
+				System.out.println("未使用優惠券");
+				OrderListVO orderListVO = new OrderListVO();
+				
+				orderListVO.setMemID(memID);
+				orderListVO.setOrdOriPrice(ordOriPrice);
+				orderListVO.setOrdLastPrice(ordLastPrice);
+				orderListVO.setOrdFee(ordFee);
+				orderListVO.setOrdStatus(ordStatus);
+				orderListVO.setRecName(recName);
+				orderListVO.setRecAddress(recAddress);
+				orderListVO.setRecPhone(recPhone);
+				orderListVO.setOrdPick(ordPick);
+				daoL.insertWithOrderDetailsNoCoupon(con, orderListVO, list);
+			}else {
+				//有使用優惠券
+				OrderListVO orderListVO = new OrderListVO();
+				
+				orderListVO.setMemID(memID);
+				orderListVO.setCoupNo(coupNo);
+				orderListVO.setOrdOriPrice(ordOriPrice);
+				orderListVO.setOrdLastPrice(ordLastPrice);
+				orderListVO.setOrdFee(ordFee);
+				orderListVO.setOrdStatus(ordStatus);
+				orderListVO.setRecName(recName);
+				orderListVO.setRecAddress(recAddress);
+				orderListVO.setRecPhone(recPhone);
+				orderListVO.setOrdPick(ordPick);
+				daoL.insertWithOrderDetails(con, orderListVO, list);
+			}
+			
+			
+			//2.更改某樣商品庫存
 			List<OrderDetailVO> listForUpdate = list;
 			
 			for (int index = 0; index < listForUpdate.size(); index++) {
@@ -85,15 +109,20 @@ public class CheckoutService {
 			};
 			
 			
-			//更改會員優惠券庫存
+			//3.更改會員優惠券狀態
+			
+			
+			
 			
 			
 			//以上動作成功的話，才送出交易
 			con.commit();
 			con.setAutoCommit(true);
+			transa = true;
 		}catch (Exception e) {
 			try {
 				con.rollback();
+				System.err.println("交易失敗");
 			} catch (SQLException e1) {
 				e1.printStackTrace();
 				System.err.println("交易失敗");
@@ -107,6 +136,7 @@ public class CheckoutService {
 				}
 			}
 		}
+		return transa;
 		
 	}
 	
