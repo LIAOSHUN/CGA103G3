@@ -21,6 +21,7 @@ public class MemberServlet extends HttpServlet {
 		res.setContentType("text/html; charset=utf-8");
 		String action = req.getParameter("action");
 	    PrintWriter out = res.getWriter();
+		HttpSession session = req.getSession();
 
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
@@ -337,41 +338,54 @@ public class MemberServlet extends HttpServlet {
 		if ("memberLogin".equals(action)) {
 			
 			
-			List<String> errorMsgs = new LinkedList<String>();
+			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			
 			
-		    String account = req.getParameter("account");
-		    String password = req.getParameter("password");
+		    String memAccount = req.getParameter("memAccount");
+		    String memPassWord = req.getParameter("memPassWord");
 
 		    // 【檢查該帳號 , 密碼是否有效】
-		    if (!MemberLogin(account, password)) {          //【帳號 , 密碼無效時】
-		      out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
-		      out.println("<BODY>你的帳號 , 密碼無效!<BR>");
-		      out.println("請按此重新登入 <A HREF="+req.getContextPath()+"/login.html>重新登入</A>");
-		      out.println("</BODY></HTML>");
-		    }else {                                       //【帳號 , 密碼有效時, 才做以下工作】
-		      HttpSession session = req.getSession();
-		      session.setAttribute("account", account);   //*工作1: 才在session內做已經登入過的標識
-		      
-		       try {                                                        
-		         String location = (String) session.getAttribute("location");
-		         if (location != null) {
-		           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
-		           res.sendRedirect(location);            
-		           return;
-		         }
-		       }catch (Exception ignored) { }
+			if (memAccount == null || (memAccount.trim()).length() == 0) {
+				errorMsgs.put("memAccount","請輸入會員帳號");
+			}
+			if (memPassWord == null || (memPassWord.trim()).length() == 0) {
+				errorMsgs.put("memPassWord","請輸入會員密碼");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("memberLogin.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+			
+			
+			/***************************2.開始查詢資料*****************************************/
+			MemberService memberSvc = new MemberService();
+//			Mem_VO memVO = memSvc.getOneMem(mem_no);
+			MemberVO user = memberSvc.MemberLogin(memAccount, memPassWord);
 
-		      res.sendRedirect(req.getContextPath()+"/login_success.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
-		    }
+			if (user == null ) {
+				errorMsgs.put("帳號或密碼","輸入錯誤");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("memberLogin.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
 			
-			
-			
-			
+			/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+			session.setAttribute("user",user );
+			String url = "login_success.jsp"; 
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+			successView.forward(req, res);
+
 			
 			
 			
