@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<head th:replace="~{/frontend/AllLink}"></head>
+<meta charset="UTF-8">
+<title>活動收藏</title>
+
+</head>
+<body>
+    <header class="headerpage header-v2"></header>
+    <aside class="asidepage wrap-sidebar js-sidebar"></aside>
+    
+    <footer class="footerpage bg3 p-t-75 p-b-32"></footer>
+    <script>
+        $(function(){
+        /*公共部分
+         * 導航欄
+         * footer CopyRight
+         */
+        $(".headerpage").load("../frontendhead.html");
+        $(".asidepage").load("../frontendaside.html");
+        $(".footerpage").load("../frontendfoot.html");
+    });
+    </script>
+</body>
+</html>
