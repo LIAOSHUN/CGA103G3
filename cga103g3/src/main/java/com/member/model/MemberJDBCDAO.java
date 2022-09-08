@@ -1,9 +1,6 @@
 package com.member.model;
 
-import static basic.util.JdbcConstants.URL;
-import static basic.util.JdbcConstants.USERNAME;
-import static basic.util.JdbcConstants.PASSWORD;
-import static basic.util.JdbcConstants.driver;
+import static com.common_27.Common_27.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
