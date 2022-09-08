@@ -48,7 +48,7 @@ public class StoreDAO implements Store_interface{
 			+ "where storeID = ?";
 	
 	private static final String GET_INFO = 
-			"SELECT StoreID, StoreName FROM store";
+			"SELECT StoreID, StoreName, StoreOff FROM store";
 
 	@Override
 	public void insert(StoreVO storeVO) {
@@ -260,6 +260,7 @@ public class StoreDAO implements Store_interface{
 				StoreVO siv = new StoreVO();
 				siv.setStoreID(rs.getInt("StoreID"));
 				siv.setStoreName(rs.getString("StoreName"));
+				siv.setStoreOff(rs.getString("StoreOff"));
 				list.add(siv);
 
 			}

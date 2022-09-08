@@ -47,7 +47,7 @@ public class BoxServlet extends HttpServlet {
 
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			Integer storeID = Integer.valueOf(req.getParameter("storeID"));
+			Integer storeID = Integer.valueOf(req.getParameter("StoreID"));
 
 			/*************************** 2.開始查詢資料 *****************************************/
 			BoxService boxSvc = new BoxService();
