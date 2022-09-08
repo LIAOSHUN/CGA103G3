@@ -1,16 +1,15 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.coupontype.model.*"%>
+<%@ page import="com.memcoupon.model.*"%>
+<%@ page import="com.member.model.*"%>
+    
+    
 
-
-<jsp:useBean id="couponTypeSvc" scope="page" class="com.coupontype.model.CouponTypeService" />
-<%
-	List<CouponTypeVO> list = couponTypeSvc.getAll();
-	pageContext.setAttribute("list",list);
-%>
-
-
+    
+    
+    
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
 	data-theme="theme-default"
@@ -20,7 +19,7 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-<title>優惠券管理</title>
+<title>優惠券發放</title>
 <meta name="description" content="" />
 <!-- Favicon -->
 <link rel="icon" type="image/x-icon"
@@ -89,6 +88,9 @@
   	padding-left: 0px;
   	padding-right: 0px;
   	
+  }
+  #send, #back{
+  	padding-left: 850px;
   }
 
 </style>
@@ -344,87 +346,57 @@
 				<div class="content-wrapper">
 					<!-- =============================================================================================== -->
 					<!-- Content內容-->
-<div>
-	<ul>
-	
-	  <li>
-	     <FORM METHOD="post" ACTION="coupontype.do" >
-	       <b>選擇優惠券類型編號:</b>
-	       <select size="1" name="coupTypeNo">
-	         <c:forEach var="couponTypeVO" items="${couponTypeSvc.all}" > 
-	          <option value="${couponTypeVO.coupTypeNo}">${couponTypeVO.coupTypeNo}
-	         </c:forEach>   
-	       </select>
-	       <input type="hidden" name="action" value="getOne_For_Display">
-	       <input type="submit" value="送出">
-	    </FORM>
-	  </li>
-	  
-	  <li>
-	     <FORM METHOD="post" ACTION="coupontype.do" >
-	       <b>選擇優惠券類型名稱:</b>
-	       <select size="1" name="coupTypeNo">
-	         <c:forEach var="couponTypeVO" items="${couponTypeSvc.all}" > 
-	          <option value="${couponTypeVO.coupTypeNo}">${couponTypeVO.coupName}
-	         </c:forEach>   
-	       </select>
-	       <input type="hidden" name="action" value="getOne_For_Display">
-	       <input type="submit" value="送出">
-	    </FORM>
-	  </li>
-	</ul>
-</div>
+
 
 		
 
 				<div class="container-xxl flex-grow-1 container-p-y">
 						<div class="card">
-							<h2 class="card-header">優惠券管理</h2>
-			 				<div id="backmagOrderList">
+							<h2 class="card-header">優惠券發放</h2>
+			 				<div id="back">
 								<button class="btn btn-outline-primary"  onclick="location.href='couponType_select_page.jsp'"> 回首頁</button>
 							</div>
+							<%-- 錯誤表列 --%>
+							<c:if test="${not empty errorMsgs}">
+								<font style="color:red">請修正以下錯誤:</font>
+								<ul>
+								    <c:forEach var="message" items="${errorMsgs}">
+										<li style="color:red">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
 
-							<%@ include file="page1.file" %> 
-								<c:forEach var="couponTypeVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+							 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/coupontype/mycoupon.do" style="margin-bottom: 0px;">
 							
+									<jsp:useBean id="couponTypeSvc" scope="page" class="com.coupontype.model.CouponTypeService" />
+									<jsp:useBean id="couponTypeVO" scope="page" class="com.coupontype.model.CouponTypeVO" />
 							<table class="table" style="line-height:13px;">
 									<tr>
-										<th>類型編號</th>
-										<th>名稱</th>
-										<th>折價價格</th>
+										<th>輸入會員帳號</th>
 										<th>數量</th>
-										<th>描述</th>
-										<th>開始日</th>
-										<th>到期日</th>
-										<th>狀態</th>
-										<th>修改</th>
+										<th>選擇優惠券</th>
 									</tr>
 									<tr>
-										<td>${couponTypeVO.coupTypeNo}</td>
-										<td>${couponTypeVO.coupName}</td>
-										<td>${couponTypeVO.coupDiscount}</td>
-										<td>${couponTypeVO.coupQuantity}</td>
-										<td>${couponTypeVO.coupDesc}</td>
-										<td>${couponTypeVO.coupStart}</td>
-										<td>${couponTypeVO.coupEnd}</td>
 										<td>
-											<c:if test="${couponTypeVO.coupUpd == 0 }"><span class="badge bg-label-success me-1">上架中</span></c:if>
-											<c:if test="${couponTypeVO.coupUpd == 1 }"><span class="badge bg-label-danger me-1">已下架</span></c:if>
+											<input type="number" name="memID" placeholder="11001" required>
 										</td>
+										<td>1張</td>
 										<td>
-										  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/coupontype/coupontype.do" style="margin-bottom: 0px;">
-										     <input type="submit" value="修改" type="button" class="detail btn rounded-pill btn-primary" 
-										     style="background-color: gray;">
-										     <input type="hidden" name="coupTypeNo"  value="${couponTypeVO.coupTypeNo}">
-										     <input type="hidden" name="action"	value="getOne_For_Update">
-										  </FORM>
+										<select size="1" name="coupTypeNo">
+								         	<c:forEach var="couponTypeVO" items="${couponTypeSvc.all}" > 
+									         	<c:if test="${couponTypeVO.coupUpd == 0}">
+									          		<option value="${couponTypeVO.coupTypeNo}">${couponTypeVO.coupName}
+									          	</c:if>
+								         	</c:forEach>   
+								       	</select>
 										</td>
 									</tr>
 							</table>
-							</c:forEach>
-							<div id="page2">
-								<%@ include file="page2.file"%>
-							</div>
+								<div id="send">
+									<input type="submit" value="發放" type="button" class="btn btn-outline-primary">
+									<input type="hidden" name="action"	value="send">
+								</div>
+							</FORM>
 					</div>
 				
 <!-- / Content -->

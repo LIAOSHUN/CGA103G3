@@ -60,18 +60,26 @@ public class OrderDetailJDBCDAO implements OrderDetailDAO_interface{
 	}
 	
 	@Override								//接收從訂單那裡來的連線con
-	public void insert2(OrderDetailVO orderDetailVO, Connection con) throws SQLException {
+	public void insert2(OrderDetailVO orderDetailVO, Connection con) {
 		PreparedStatement pstmt = null;
 
-     		pstmt = con.prepareStatement(Insert);
-
-     		pstmt.setInt(1, orderDetailVO.getOrdNo());
-     		pstmt.setInt(2, orderDetailVO.getPdID());
-     		pstmt.setInt(3, orderDetailVO.getItemSales());
-     		pstmt.setInt(4, orderDetailVO.getPrice());
-
-			pstmt.executeUpdate();
+	     try {
+			
 		
+			pstmt = con.prepareStatement(Insert);
+	
+	     		pstmt.setInt(1, orderDetailVO.getOrdNo());
+	     		pstmt.setInt(2, orderDetailVO.getPdID());
+	     		pstmt.setInt(3, orderDetailVO.getItemSales());
+	     		pstmt.setInt(4, orderDetailVO.getPrice());
+	
+				pstmt.executeUpdate();
+			
+		}catch (SQLException se) {
+			System.err.println("rolled back-由-orderdetail");
+			throw new RuntimeException("rollback error occured. "
+			+ se.getMessage());
+		}
 	}
 
 	@Override

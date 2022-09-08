@@ -116,14 +116,9 @@ public class CheckoutService {
 			//3.更改會員優惠券狀態
 			if(!coupNo.equals(0)) {
 				
-				daoMC.updateStatus(coupNo, 1);
+				daoMC.updateStatus1(con, coupNo, 1);
 				System.out.println("更改優惠券狀態0變成1");
 			}
-			
-			
-			
-			
-			
 			
 			//以上動作成功的話，才送出交易
 			con.commit();

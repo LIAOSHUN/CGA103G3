@@ -58,8 +58,8 @@
 
 <table>
 	<tr>
-		<th>會員優惠券編號</th>
-		<th>名稱</th>
+		<th>優惠券編號</th>
+		<th>類型名稱</th>
 		<th>折價價格</th>
 		<th>到期日</th>
 		<th>使用狀態</th>
@@ -76,7 +76,7 @@
 			<td>
 				<c:if test="${memCouponVO.coupStatus == 0 }"><button style="background-color: #e3e66c;">未使用</button></c:if>
 				<c:if test="${memCouponVO.coupStatus == 1 }"><button style="background-color: #9BABBA;">已使用</button></c:if>
-				<c:if test="${memCouponVO.coupStatus == 2 }"><button style="background-color: #9BABBA;">已過期</button></c:if>
+				<c:if test="${memCouponVO.coupStatus == 2 }"><button style="background-color: #FF6D5B;">已過期</button></c:if>
 			</td>
 		</tr>
 	</c:forEach>

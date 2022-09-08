@@ -12,6 +12,19 @@
 		<welcome-file>default.htm</welcome-file>
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
+
+	<servlet>
+		<servlet-name>ScheduleServlet1</servlet-name>
+		<servlet-class>com.coupontype.controller.ScheduleServlet</servlet-class>
+		<load-on-startup>10</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ScheduleServlet1</servlet-name>
+		<url-pattern>/ScheduleServlet1</url-pattern>
+	</servlet-mapping>
+
+
+
 	<servlet>
 		<servlet-name>CouponTypeServlet</servlet-name>
 		<servlet-class>com.coupontype.controller.CouponTypeServlet</servlet-class>
@@ -20,20 +33,25 @@
 		<servlet-name>CouponTypeServlet</servlet-name>
 		<url-pattern>/backend/coupontype/coupontype.do</url-pattern>
 	</servlet-mapping>
-	
+
+
+
 	<servlet>
 		<servlet-name>MyCouponServlet</servlet-name>
-		<servlet-class>com.coupontype.controller.MyCouponServlet</servlet-class>
+		<servlet-class>com.memcoupon.controller.MyCouponServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>CouponTypeServlet</servlet-name>
+		<servlet-name>MyCouponServlet</servlet-name>
 		<url-pattern>/frontend/memcoupon/mycoupon.do</url-pattern>
 	</servlet-mapping>
 	<servlet-mapping>
-		<servlet-name>CouponTypeServlet</servlet-name>
+		<servlet-name>MyCouponServlet</servlet-name>
 		<url-pattern>/backend/coupontype/mycoupon.do</url-pattern>
 	</servlet-mapping>
-	
+
+
+
+
 	<servlet>
 		<servlet-name>CartServlet</servlet-name>
 		<servlet-class>com.cart.controller.CartServlet</servlet-class>
@@ -42,7 +60,10 @@
 		<servlet-name>CartServlet</servlet-name>
 		<url-pattern>/frontend/cart/cart.do</url-pattern>
 	</servlet-mapping>
-	
+
+
+
+
 	<servlet>
 		<servlet-name>GetCartServlet</servlet-name>
 		<servlet-class>com.cart.controller.GetCartServlet</servlet-class>
@@ -51,7 +72,9 @@
 		<servlet-name>GetCartServlet</servlet-name>
 		<url-pattern>/frontend/cart/getCart.do</url-pattern>
 	</servlet-mapping>
-	
+
+
+
 	<servlet>
 		<servlet-name>DcartServlet</servlet-name>
 		<servlet-class>com.cart.controller.DcartServlet</servlet-class>
@@ -60,7 +83,9 @@
 		<servlet-name>DcartServlet</servlet-name>
 		<url-pattern>/frontend/cart/dcart.do</url-pattern>
 	</servlet-mapping>
-	
+
+
+
 	<servlet>
 		<servlet-name>CheckoutServlet</servlet-name>
 		<servlet-class>com.cart.controller.CheckoutServlet</servlet-class>
@@ -69,7 +94,9 @@
 		<servlet-name>CheckoutServlet</servlet-name>
 		<url-pattern>/frontend/cart/checkout.do</url-pattern>
 	</servlet-mapping>
-	
+
+
+
 	<servlet>
 		<servlet-name>OrderListServlet</servlet-name>
 		<servlet-class>com.orderlist.controller.OrderListServlet</servlet-class>
@@ -78,6 +105,8 @@
 		<servlet-name>OrderListServlet</servlet-name>
 		<url-pattern>/backend/orderlistback/orderListServlet.do</url-pattern>
 	</servlet-mapping>
+
+
 
 	<servlet>
 		<servlet-name>ActServlet</servlet-name>
@@ -96,7 +125,7 @@
 		<servlet-name>ActRegisServlet</servlet-name>
 		<url-pattern>/backend/actregis/actregis.do</url-pattern>
 	</servlet-mapping>
-	
+
 
 	<servlet-mapping>
 		<servlet-name>ActRegisServlet</servlet-name>
@@ -117,7 +146,7 @@
 		<servlet-name>ActImgServlet</servlet-name>
 		<url-pattern>/frontend/actimg/actimg.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>ProductServlet</servlet-name>
 		<servlet-class>com.product.controller.ProductServlet</servlet-class>
@@ -126,10 +155,10 @@
 		<servlet-name>ProductServlet</servlet-name>
 		<url-pattern>/backend/product/product.do</url-pattern>
 	</servlet-mapping>
-	
-	
-	
-	
+
+
+
+
 	<servlet>
 		<servlet-name>ProductImgServlet</servlet-name>
 		<servlet-class>com.product.controller.ProductImgServlet</servlet-class>
@@ -138,10 +167,10 @@
 		<servlet-name>ProductServlet</servlet-name>
 		<url-pattern>/backend/productimg/productimg.do</url-pattern>
 	</servlet-mapping>
-	
-	
-	
-	
+
+
+
+
 	<servlet>
 		<servlet-name>ShowproductimgServlet</servlet-name>
 		<servlet-class>com.productimg.controller.showproductimg</servlet-class>
@@ -150,7 +179,24 @@
 		<servlet-name>ShowproductimgServlet</servlet-name>
 		<url-pattern>/backend/productimg/showproductimg.do</url-pattern>
 	</servlet-mapping>
-	
-	
-	
+
+
+
+	<servlet>
+		<servlet-name>EmployeeServlet</servlet-name>
+		<servlet-class>com.employee.controller.EmployeeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>EmployeeServlet</servlet-name>
+		<url-pattern>/employee/employee.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>MemberServlet</servlet-name>
+		<servlet-class>com.member.controller.MemberServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>MemberServlet</servlet-name>
+		<url-pattern>/member/member.do</url-pattern>
+	</servlet-mapping>
+
 </web-app>

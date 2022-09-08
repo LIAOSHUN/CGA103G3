@@ -14,16 +14,12 @@ public class MemCouponService {
 		dao = new MemCouponDAO();
 	}
 //	-- 新增一筆會員優惠券資料
-	public MemCouponVO addMemCoupon(Integer memID, Integer coupTypeNo, Integer coupStatus, Timestamp coupExpDate,
-			Timestamp coupGetDate) {
+	public MemCouponVO addMemCoupon(Integer memID, Integer coupTypeNo) {
 		
 		MemCouponVO memCouponVO = new MemCouponVO();
 		
 		memCouponVO.setMemID(memID);
 		memCouponVO.setCoupTypeNo(coupTypeNo);
-		memCouponVO.setCoupStatus(coupStatus);
-		memCouponVO.setCoupExpDate(coupExpDate);
-		memCouponVO.setCoupGetDate(coupGetDate);
 		dao.insert(memCouponVO);
 		
 		return memCouponVO;
@@ -45,9 +41,9 @@ public class MemCouponService {
 		
 		return memCouponVO;
 	}
-//	-- 更改 會員擁有的優惠券 的 使用狀態
-	public void updateStatus(Integer coupNo, Integer coupStatus) {
-		dao.updateStatus(coupNo, coupStatus);
+//	-- 更改 會員擁有的優惠券 的 使用狀態(給排程器偵測用)
+	public void updateStatusRoutine(Integer coupNo, Integer coupStatus) {
+		dao.updateStatusRoutine(coupNo, coupStatus);
 	}
 	
 //	-- 找出 某張優惠券的資訊	

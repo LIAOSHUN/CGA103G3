@@ -45,6 +45,10 @@ public class CouponTypeService {
 		
 		
 	}
+//	-- 更改優惠券為下架
+	public void updateDown(Integer coupTypeNo) {
+		dao.updateDown(coupTypeNo);
+	}
 	
 //	-- 秀出某種類型的優惠券
 	public CouponTypeVO showCouponTypeByType(Integer coupTypeNo) {

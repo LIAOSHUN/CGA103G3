@@ -30,7 +30,7 @@ public class MemCouponDAO implements MemCouponDAO_interface{
 	private static final String Insert=
 		"INSERT INTO memcoupon(MemID, CoupTypeNo, CoupStatus, CoupExpDate, CoupGetDate) "
 		+ "VALUES "
-		+ "(?, ?, ?, ?, now())";
+		+ "(?, ?, 0, now(), now())";
 			
 //	-- 更改 會員擁有的優惠券 資料內容
 	private static final String Update=
@@ -85,8 +85,6 @@ public class MemCouponDAO implements MemCouponDAO_interface{
 			
 			ps.setInt(1, memCouponVO.getMemID());
 			ps.setInt(2, memCouponVO.getCoupTypeNo());
-			ps.setInt(3, memCouponVO.getCoupStatus());
-			ps.setTimestamp(4, memCouponVO.getCoupExpDate());
 	
 			int rowcount = ps.executeUpdate();
 			System.out.println(rowcount);
@@ -117,17 +115,38 @@ public class MemCouponDAO implements MemCouponDAO_interface{
 		
 	}
 	
-	
+//	-- 更改 會員擁有的優惠券 的 使用狀態(給結帳用，未使用改成已使用)
 	@Override
-	public void updateStatus(Integer coupNo, Integer coupStatus) {
-		try(Connection con = ds.getConnection();
+	public void updateStatus1(Connection con, Integer coupNo, Integer coupStatus) {
+		try(
 				PreparedStatement ps = con.prepareStatement(UpdateStatus)){
 			
 			ps.setInt(1, coupStatus);
 			ps.setInt(2, coupNo);
 			
-			System.out.println("coupStatus=" + coupStatus);
-			System.out.println("狀態成功改變");
+			int rowcount = ps.executeUpdate();
+			System.out.println("更改優惠券狀成功" + rowcount);
+			
+		} catch (SQLException e) {
+			
+			System.err.println("rolled back-由-update");
+			throw new RuntimeException("rollback error occured. "
+				+ e.getMessage());
+			
+		}
+		
+	}
+//	-- 更改 會員擁有的優惠券 的 使用狀態 (給排程器偵測用)
+	@Override
+	public void updateStatusRoutine(Integer coupNo, Integer coupStatus) {
+		try(Connection con = ds.getConnection();
+				PreparedStatement ps = con.prepareStatement(UpdateStatus)){
+			
+			ps.setInt(1, coupStatus);
+			ps.setInt(2, coupNo);
+	
+			int rowcount = ps.executeUpdate();
+			System.out.println(rowcount);
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -272,87 +291,9 @@ public class MemCouponDAO implements MemCouponDAO_interface{
 		
 		return list;
 	}
+
+
 	
-	public static void main(String[] args) {
-		MemCouponDAO dao = new MemCouponDAO();
-		
-//		-- 新增一筆會員優惠券資料
-//		MemCouponVO memCouponVO1 = new MemCouponVO();
-//		memCouponVO1.setMemID(11001);
-//		memCouponVO1.setCoupTypeNo(8);
-//		memCouponVO1.setCoupStatus(2);
-//		memCouponVO1.setCoupExpDate(java.sql.Timestamp.valueOf("2022-08-01 00:00:00"));
-//		dao.insert(memCouponVO1);
-				
-//		-- 更改 會員擁有的優惠券 資料內容
-//		MemCouponVO memCouponVO2 = new MemCouponVO();
-//		memCouponVO2.setMemID(11001);
-//		memCouponVO2.setCoupTypeNo(9);
-//		memCouponVO2.setCoupStatus(3);
-//		memCouponVO2.setCoupExpDate(java.sql.Timestamp.valueOf("2022-08-01 00:00:00"));
-//		memCouponVO2.setCoupGetDate(java.sql.Timestamp.valueOf("2022-07-01 00:00:00"));
-//		memCouponVO2.setCoupNo(27010);
-//		dao.update(memCouponVO2);
-		
-//		-- 找出 某個會員 擁有的所有優惠券
-//		List<MemCouponVO> list = dao.findMemCouponByMemID(11001);
-//		for(MemCouponVO m : list) {
-//			System.out.println(m.getCoupNo() + ",");
-//			System.out.println(m.getMemID() + ",");
-//			System.out.println(m.getCoupTypeNo() + ",");
-//			System.out.println(m.getCoupStatus() + ",");
-//			System.out.println(m.getCoupExpDate() + ",");
-//			System.out.println(m.getCoupGetDate() );
-//			System.out.println();
-//			
-//		}
-		
-				
-//		-- 找出 某個會員 已使用(未使用、過期的)的所有優惠券
-//		List<MemCouponVO> list2 = dao.findMemCouponByStatus(11001, 0);
-//		for(MemCouponVO m : list2) {
-//			System.out.println(m.getCoupNo() + ",");
-//			System.out.println(m.getMemID() + ",");
-//			System.out.println(m.getCoupTypeNo() + ",");
-//			System.out.println(m.getCoupStatus() + ",");
-//			System.out.println(m.getCoupExpDate() + ",");
-//			System.out.println(m.getCoupGetDate() );
-//			System.out.println();
-//			
-//		}
-		
-		
-//		-- 找出 某個會員 擁有的某種優惠券
-//		List<MemCouponVO> list3 = dao.findMemCouponByCoupTypeNo(11001, 1);
-//		for(MemCouponVO m : list3) {
-//			System.out.println(m.getCoupNo() + ",");
-//			System.out.println(m.getMemID() + ",");
-//			System.out.println(m.getCoupTypeNo() + ",");
-//			System.out.println(m.getCoupStatus() + ",");
-//			System.out.println(m.getCoupExpDate() + ",");
-//			System.out.println(m.getCoupGetDate() );
-//			System.out.println();
-//			
-//		}
-//		-- 找出 某個會員 剩3天要到期的優惠券
-		
-//		-- 找出 所有會員 擁有的優惠券
-//		List<MemCouponVO> list5 = dao.getAll();
-//		for(MemCouponVO m : list5) {
-//			System.out.println(m.getCoupNo() + ",");
-//			System.out.println(m.getMemID() + ",");
-//			System.out.println(m.getCoupTypeNo() + ",");
-//			System.out.println(m.getCoupStatus() + ",");
-//			System.out.println(m.getCoupExpDate() + ",");
-//			System.out.println(m.getCoupGetDate() );
-//			System.out.println();
-			
-//		}
-	}
-
-
-
-
 
 
 }
