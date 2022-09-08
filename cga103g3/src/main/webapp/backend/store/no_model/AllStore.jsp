@@ -81,7 +81,7 @@ th, td {
 			<th>門市管理員</th>
 			<th>門市狀態</th>
 		</tr>
-		<%@ include file="../page1.file"%>
+		<%@ include file="../file/page1.file"%>
 		<c:forEach var="storeVO" items="${list}" begin="<%=pageIndex%>"
 			end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
@@ -109,6 +109,6 @@ th, td {
 			</tr>
 		</c:forEach>
 	</table>
-	<%@ include file="../page2.file"%>
+	<%@ include file="../file/page2.file"%>
 </body>
 </html>
