@@ -89,11 +89,11 @@
 
 	
 	<tr>
-		<td>使用期間:</td>
+		<td>優惠券狀態:</td>
 		<td>
-			<select size="1" name="coupDuration">
-				<option value= 15 ${(couponTypeVO.coupDuration==15)? 'selected':'' }>15天
-				<option value= 30 ${(couponTypeVO.coupDuration==30)? 'selected':'' }>30天
+			<select size="1" name="coupUpd">
+				<option value= 0 ${(couponTypeVO.coupUpd==0)? 'selected':'' }>上架中
+				<option value= 1 ${(couponTypeVO.coupUpd==1)? 'selected':'' }>已下架
 			</select>
 		</td>
 	</tr>

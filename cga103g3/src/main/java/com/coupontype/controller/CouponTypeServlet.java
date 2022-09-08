@@ -141,7 +141,7 @@ public class CouponTypeServlet extends HttpServlet {
 			}
 			
 			
-			Integer coupDuration = Integer.valueOf(req.getParameter("coupDuration").trim());
+			Integer coupUpd = Integer.valueOf(req.getParameter("coupUpd").trim());
 			
 			
 			
@@ -173,7 +173,7 @@ public class CouponTypeServlet extends HttpServlet {
 			couponTypeVO.setCoupName(coupName);
 			couponTypeVO.setCoupDiscount(coupDiscount);
 			couponTypeVO.setCoupQuantity(coupQuantity);
-			couponTypeVO.setCoupDuration(coupDuration);
+			couponTypeVO.setCoupUpd(coupUpd);
 			couponTypeVO.setCoupStart(coupStart);
 			couponTypeVO.setCoupEnd(coupEnd);
 			couponTypeVO.setCoupDesc(coupDesc);
@@ -188,7 +188,7 @@ public class CouponTypeServlet extends HttpServlet {
 				
 				/***************************2.開始修改資料*****************************************/
 			CouponTypeService couponTypeSvc = new CouponTypeService();
-			couponTypeVO = couponTypeSvc.updateCouponType(coupTypeNo, coupName, coupDiscount, coupQuantity, coupDesc, coupDuration, coupStart, coupEnd);
+			couponTypeVO = couponTypeSvc.updateCouponType(coupTypeNo, coupName, coupDiscount, coupQuantity, coupDesc, coupUpd, coupStart, coupEnd);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 			req.setAttribute("couponTypeVO", couponTypeVO);// 資料庫update成功後,正確的的couponTypeVO物件,存入req
@@ -233,7 +233,6 @@ public class CouponTypeServlet extends HttpServlet {
 				
 				
 				
-				Integer coupDuration = Integer.valueOf(req.getParameter("coupDuration").trim());
 			
 				
 				
@@ -264,7 +263,6 @@ public class CouponTypeServlet extends HttpServlet {
 				couponTypeVO.setCoupName(coupName);
 				couponTypeVO.setCoupDiscount(coupDiscount);
 				couponTypeVO.setCoupQuantity(coupQuantity);
-				couponTypeVO.setCoupDuration(coupDuration);
 				couponTypeVO.setCoupStart(coupStart);
 				couponTypeVO.setCoupEnd(coupEnd);
 				couponTypeVO.setCoupDesc(coupDesc);
@@ -281,7 +279,7 @@ public class CouponTypeServlet extends HttpServlet {
 				/***************************2.開始新增資料***************************************/
 				
 				CouponTypeService couponTypeSvc = new CouponTypeService();
-				couponTypeVO = couponTypeSvc.addCouponType(coupName, coupDiscount, coupQuantity, coupDesc, coupDuration, coupStart, coupEnd);
+				couponTypeVO = couponTypeSvc.addCouponType(coupName, coupDiscount, coupQuantity, coupDesc, coupStart, coupEnd);
 				
 				
 			

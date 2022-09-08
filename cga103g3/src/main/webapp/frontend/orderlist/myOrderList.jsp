@@ -45,18 +45,20 @@
   tr:nth-child(odd){
   	background-color: #eee
   }
+    #all{
+ 	padding-left: 150px;
+ }
 </style>
 
 </head>
 <body>
 <%@ include file="../frontendhead.jsp" %>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>我的訂單</h3>
-		 <h4><a href="<%=request.getContextPath()%>/frontend/memcoupon/myCoupon_home.jsp">回會員中心</a></h4>
-	</td></tr>
-</table>
+
+<div id="all">
+<h3>我的訂單</h3>
+	
+
 
 
 <table>
@@ -75,9 +77,9 @@
 			<td>${orderListVO.ordNo}</td>
 			<td>${orderListVO.ordCreate}</td>
 			<td>
-				<c:if test="${orderListVO.ordPick == 0 }"><button style="background-color: #72c2bd;border-radius: 8px;">店面取貨</button></c:if>
-				<c:if test="${orderListVO.ordPick == 1 }"><button style="background-color: #72c2bd;border-radius: 8px;">超商取貨</button></c:if>
-				<c:if test="${orderListVO.ordPick == 2 }"><button style="background-color: #72c2bd;border-radius: 8px;">宅配取貨</button></c:if>
+				<c:if test="${orderListVO.ordPick == 0 }"><button style="background-color: #53C4FF;border-radius: 8px;">店面取貨</button></c:if>
+				<c:if test="${orderListVO.ordPick == 1 }"><button style="background-color: #59DE5C;border-radius: 8px;">超商取貨</button></c:if>
+				<c:if test="${orderListVO.ordPick == 2 }"><button style="background-color: #FF8800;border-radius: 8px;">宅配取貨</button></c:if>
 			</td>
 			<td>$${orderListVO.ordLastPrice}</td>
 			<td>
@@ -93,13 +95,13 @@
 					type="button">查看</button>
 <!-- 					===========訂單名細，按下button顯示、收合==================== -->
 					<div style="display: none">
-						<div style="background-color: #72c2bd;color:black;">
-							<span >遊戲名稱 </span> <span> 數量</span> <span> 小計</span>
-						</div >
+<!-- 						<div style="background-color: #72c2bd;color:black;"> -->
+<!-- 							<span >遊戲名稱 </span> <span> 數量</span> <span> 小計</span> -->
+<!-- 						</div > -->
 						<c:forEach var="orderDetailVO" 
 							items="${orderDetailSvc.showOneOrderDetail(orderListVO.getOrdNo())}">
 						<div style="background-color: #B4D6C4;color:black;">
-		  						<span>${orderDetailVO.pdID}</span>
+		  						<span>${orderDetailVO.getProductVO(orderDetailVO.getPdID()).getPdName()}</span>
 		  						<span>${orderDetailVO.itemSales}個</span>
 							  	<span> , 共${orderDetailVO.price}元</span>
 						</div>
@@ -111,6 +113,8 @@
 		</tr>
 	</c:forEach>
 </table>
+<h4><a href="<%=request.getContextPath()%>/frontend/memcoupon/myCoupon_home.jsp">回會員中心</a></h4>
+</div>	
 <%@ include file="../frontendfoot.jsp" %>
 
 

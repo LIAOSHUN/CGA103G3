@@ -70,7 +70,7 @@
 		<td><%=couponTypeVO.getCoupDiscount()%></td>
 		<td><%=couponTypeVO.getCoupQuantity()%></td>
 		<td><%=couponTypeVO.getCoupDesc()%></td>
-		<td><%=couponTypeVO.getCoupDuration()%></td>
+		<td><%=couponTypeVO.getCoupUpd()%></td>
 		<td><%=couponTypeVO.getCoupStart()%></td>
 		<td><%=couponTypeVO.getCoupEnd()%></td>
 	</tr>

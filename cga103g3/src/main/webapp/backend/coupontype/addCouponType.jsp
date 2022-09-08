@@ -92,23 +92,23 @@
 			 value="<%= (couponTypeVO==null)? "" : couponTypeVO.getCoupQuantity()%>" /></td>
 	</tr>
 	
-	<tr>
-		<td>使用期間:</td>
-		<td>
-			<select size="1" name="coupDuration">
-				<option value= 15 ${(couponTypeVO.coupDuration==15)? 'selected':'' }>15天
-				<option value= 30 ${(couponTypeVO.coupDuration==30)? 'selected':'' }>30天
-			</select>
-		</td>
-	</tr>
+<!-- 	<tr> -->
+<!-- 		<td>使用期間:</td> -->
+<!-- 		<td> -->
+<!-- 			<select size="1" name="coupDuration"> -->
+<%-- 				<option value= 15 ${(couponTypeVO.coupDuration==15)? 'selected':'' }>15天 --%>
+<%-- 				<option value= 30 ${(couponTypeVO.coupDuration==30)? 'selected':'' }>30天 --%>
+<!-- 			</select> -->
+<!-- 		</td> -->
+<!-- 	</tr> -->
 	
 
 	<tr>
-		<td>開始發放時間:</td>
-		<td><input name="coupStart" id="start_date" type="text"></td>
+		<td>開始日:</td>
+		<td><input name="coupStart" id="start_date" type="text" disabled></td>
 	</tr>
 	<tr>
-		<td>結束發放時間:</td>
+		<td>結束日:</td>
 		<td><input name="coupEnd" id="end_date" type="text"></td>
 	</tr>	
 	

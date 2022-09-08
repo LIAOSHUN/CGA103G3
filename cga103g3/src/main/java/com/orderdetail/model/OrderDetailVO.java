@@ -2,6 +2,7 @@ package com.orderdetail.model;
 
 import java.io.Serializable;
 
+import com.cart.model.CartJDBCDAO;
 import com.product.model.ProductService;
 import com.product.model.ProductVO;
 
@@ -49,8 +50,11 @@ public class OrderDetailVO  {
 	}
 	// for join pdName  from pdID
 	public ProductVO getProductVO(Integer pdID){
-		ProductService productService = new ProductService();
-		ProductVO productVO = productService.getOneProduct(pdID);
+//		ProductService productService = new ProductService();
+//		ProductVO productVO = productService.getOneProduct(pdID);
+		CartJDBCDAO cartJDBCDAO = new CartJDBCDAO();
+		ProductVO productVO =  cartJDBCDAO.getOne(pdID);
+		
 		return productVO;
 	}
  	

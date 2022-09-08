@@ -18,6 +18,13 @@
 </FORM>
 </div>
 <div>
+<FORM METHOD="post" ACTION="myCoupon.jsp" >
+        <input type="hidden" name="memID" value="11002">
+        <input type="hidden" name="action" value="getMyCoup">
+        <input type="submit" value="我的優惠券11002">
+</FORM>
+</div>
+<div>
 <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/orderlist/myOrderList.jsp">
         <input type="hidden" name="memID" value="11001">
         <input type="submit" value="我的訂單11001">

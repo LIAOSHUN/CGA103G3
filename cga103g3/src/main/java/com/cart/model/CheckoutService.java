@@ -7,6 +7,8 @@ import java.util.List;
 
 
 import com.google.gson.Gson;
+import com.memcoupon.model.MemCouponDAO;
+import com.memcoupon.model.MemCouponDAO_interface;
 import com.orderdetail.model.OrderDetailVO;
 import com.orderlist.model.OrderListDAO;
 import com.orderlist.model.OrderListVO;
@@ -17,11 +19,13 @@ public class CheckoutService {
 	private CartDAO_interface dao; 
 	private CartRedisDAO daoR; 
 	private OrderListDAO daoL; 
+	private MemCouponDAO_interface daoMC; 
 
 	public CheckoutService() {
 		dao = new CartJDBCDAO();
 		daoR = new CartRedisDAO();
 		daoL = new OrderListDAO();
+		daoMC = new MemCouponDAO();
 	}
 	
 	String driver = "com.mysql.cj.jdbc.Driver";
@@ -110,6 +114,12 @@ public class CheckoutService {
 			
 			
 			//3.更改會員優惠券狀態
+			if(!coupNo.equals(0)) {
+				
+				daoMC.updateStatus(coupNo, 1);
+				System.out.println("更改優惠券狀態0變成1");
+			}
+			
 			
 			
 			

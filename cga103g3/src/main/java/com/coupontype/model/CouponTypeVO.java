@@ -9,7 +9,7 @@ public class CouponTypeVO {
 	private Integer coupDiscount;
 	private Integer coupQuantity;
 	private String coupDesc;
-	private Integer coupDuration;
+	private Integer coupUpd;
 	private Date coupStart;
 	private Date coupEnd;
 	
@@ -18,14 +18,14 @@ public class CouponTypeVO {
 	}
 	
 	public CouponTypeVO(Integer coupTypeNo, String coupName, Integer coupDiscount, Integer coupQuantity,
-			String coupDesc, Integer coupDuration, Date coupStart, Date coupEnd) {
+			String coupDesc, Integer coupUpd, Date coupStart, Date coupEnd) {
 		super();
 		this.coupTypeNo = coupTypeNo;
 		this.coupName = coupName;
 		this.coupDiscount = coupDiscount;
 		this.coupQuantity = coupQuantity;
 		this.coupDesc = coupDesc;
-		this.coupDuration = coupDuration;
+		this.coupUpd = coupUpd;
 		this.coupStart = coupStart;
 		this.coupEnd = coupEnd;
 	}
@@ -59,11 +59,11 @@ public class CouponTypeVO {
 	public void setCoupDesc(String coupDesc) {
 		this.coupDesc = coupDesc;
 	}
-	public Integer getCoupDuration() {
-		return coupDuration;
+	public Integer getCoupUpd() {
+		return coupUpd;
 	}
-	public void setCoupDuration(Integer coupDuration) {
-		this.coupDuration = coupDuration;
+	public void setCoupUpd(Integer coupUpd) {
+		this.coupUpd = coupUpd;
 	}
 	public Date getCoupStart() {
 		return coupStart;

@@ -1,7 +1,18 @@
+<%@page import="com.memcoupon.model.MemCouponService"%>
+<%@page import="com.memcoupon.model.MemCouponVO"%>
+<%@page import="com.memcoupon.model.MemCouponDAO"%>
+<%@page import="com.member.model.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.cart.model.*"%>
+
+  <%
+	MemberVO memberVO = new MemberVO();
+	MemberJDBCDAO_cart dao = new MemberJDBCDAO_cart();
+	memberVO = dao.findByPrimaryKey(11002);
+	String name = memberVO.getMemName();
+  %>
 
 <!DOCTYPE html>
 <html>
@@ -48,7 +59,9 @@
   		right: 0;
  		width: 200px;
 	}
-  
+   #all{
+ 	padding-left: 250px;
+ }
 </style>
 
 </head>
@@ -59,8 +72,22 @@
    List<CartItemVO> checkedlist = (List<CartItemVO>) request.getAttribute("checkedlist");
    %>
 <%if (checkedlist != null && (checkedlist.size() > 0)) {%>
-
+<div id="all">
 <font style="font-size: 1.5em;">結帳</font>
+
+<div> 
+
+	<%=name%><span>您好，您目前等級為</span>
+		<%if(memberVO.getGradeID() == 0){%>
+			<span style="background-color: #4981E9;color: black;">教育會員</span>
+		<% }if(memberVO.getGradeID() == 1){%>
+			<span style="background-color: #72c2bd;color: black;">一般會員</span>
+		<% }if(memberVO.getGradeID() == 2){%>
+			<span style="background-color: #e3e66c;color: black;">黃金會員</span>
+		<% }if(memberVO.getGradeID() == 3){%>
+			<span style="background-color: #DA6DE0;color: black;">白金會員</span>
+		<% }%>											
+</div>
 
 <table id="table-1">
     <tr> 
@@ -98,10 +125,20 @@
 
 
 <!-- 會員ID先寫死 -->
-<input type="hidden" name="memID" value="11001">
+<input type="hidden" name="memID" value="11002">
 			
                     
+<%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>
 <!-- =================================訂購資訊============================================== -->
+
                         <div>
                         <label style="font-size: 1.5em;">請填寫訂購資料</label>
                         
@@ -162,7 +199,7 @@
 			                                    <select required name="payMethod">
 			                                    	<option value="-1" selected disabled>--請選擇--</option>
 			                                        <option value="0">信用卡付款</option>
-			                                        <option value="1">線上匯款</option>
+			                                        <option value="1">貨到付款</option>
 			                                    </select>
 			                                </div>
 		                                </td>
@@ -175,8 +212,10 @@
                                 
 <!-- =================================選擇優惠券============================================== -->                              
 
-
-                               
+<!--  						<div> -->
+<!--                                 <label style="font-size: 1.5em;">選擇優惠券</label> -->
+										
+<!--                          </div>      -->
                                 
  <!-- ================================金額計算============================================== -->
                                 
@@ -189,6 +228,7 @@
 									      <th class="column-5">原價</th>
 									      <th class="column-5">優惠券折抵金額</th>
 									      <th class="column-5">運費</th>
+									      <th class="column-5">會員等級折扣</th>
 									      <th class="column-5">總價</th>
 									    </tr>
 									
@@ -200,18 +240,32 @@
 											$<span id="orgPrice_span"></span>
 										</td>
 										<td class="column-5">
-										<jsp:useBean id="memCouponSvc" scope="page" class="com.memcoupon.model.MemCouponService" />
-											 <select name="coupNo"  >
+											<jsp:useBean id="memCouponSvc" scope="page" class="com.memcoupon.model.MemCouponService" />
+											 <select name="coupNo" id="coupon" >
 						                        		<option  value="0">不使用優惠券</option>
 						                        <c:forEach var="memCouponVO" items="${memCouponSvc.showMemCouponByMemID(11001)}" > 
 						                        	<c:if test="${memCouponVO.coupStatus == 0}">
-		         									 	<option  value="${memCouponVO.coupNo}" >${memCouponVO.couponTypeVO.coupName}-$${memCouponVO.couponTypeVO.coupDiscount}
+		         									 	<option  value="${memCouponVO.coupNo}" >${memCouponVO.couponTypeVO.coupName}--<span>折$${memCouponVO.couponTypeVO.coupDiscount}</span></option>
+		         									 	
 		        									</c:if>
 		        								</c:forEach>   
 				                    		</select> 
+				                    		$<span id="coup_span">0</span>
 										</td>
 										<td class="column-5">
 											$<span id="ordPick_span">0</span>
+										</td>
+								        <td class="column-5">
+									      
+									        	<%if(memberVO.getGradeID() == 0){%>
+									        		<span >8.5折</span>
+									        	<% }if(memberVO.getGradeID() == 1){%>
+									        		<span >無折扣</span>
+									        	<% }if(memberVO.getGradeID() == 2){%>
+									        		<span >9折</span>
+									        	<% }if(memberVO.getGradeID() == 3){%>
+									        		<span >8折</span>
+									        	<% }%>
 										</td>
 								        <td class="column-5">
 											$<span >0</span>
@@ -240,6 +294,7 @@
               <input type="submit" value="更改購物車品項" class="flex-c-m stext-101 cl0 size-102 bg2  bor14 hov-btn3 p-lr-15 trans-04 pointer">
           </form>
 	</div>
+</div>	
 <%}else{%>
 		<font size="+1">購物車明細</font>
 
@@ -266,9 +321,11 @@
 
 
 	let ordPick = document.querySelector('#ordPick'); 
-	let ordPick_span = document.querySelector('#ordPick_span');
+	let coupon = document.querySelector('#coupon'); 
 	let smallPrices = document.querySelectorAll('.smallPrice');
+	let ordPick_span = document.querySelector('#ordPick_span');
 	let orgPrice_span = document.querySelector('#orgPrice_span');
+	let coup_span = document.querySelector('#coup_span');
 	
 	
 	
@@ -301,10 +358,49 @@
 		}
 			orgPrice_span.innerText = orgPrice;
 	
+			
+			
+			
+			
+<%-- 			  <% --%>
+// 				MemberVO memberVO = new MemberVO();
+// 				MemberJDBCDAO_cart dao = new MemberJDBCDAO_cart();
+// 				memberVO = dao.findByPrimaryKey(11002);
+// 				String name = memberVO.getMemName();
+<%--  			  %>  --%>
+	<%! Integer coupNo=0;%> 
+	<%! Integer discount=0;%> 
+	
 	
 
+	
+				
+	
+	
+  	 
 
 
+	//選擇優惠券，連動折扣金額
+// 	coupon.addEventListener('change',  e => {
+		
+// 		let coupNo2 = e.target.value;
+		
+// 		console.log(coupNo)
+// 		console.log(e.target)
+
+// 		找出27001 這張優惠券折的價錢
+		
+<%-- 		<%=coupNo%> = coupNo2; --%>
+<%-- 		<%  --%>
+// 		MemCouponService memCouponSvc = new MemCouponService();
+// 		MemCouponVO memCouponVO = memCouponSvc.getOne(27001);
+		
+// 		Integer discount2 =  memCouponVO.getCouponTypeVO().getCoupDiscount();
+// 		discount = discount2;
+<%-- <%-- 		%> --%> 
+<%-- 		coup_span.innerText = <%=discount%>; --%>
+		
+// 	});
 
 
 

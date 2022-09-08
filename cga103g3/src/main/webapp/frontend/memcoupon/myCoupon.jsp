@@ -40,19 +40,20 @@
   tr:nth-child(odd){
   	background-color: #eee
   }
+  #all{
+ 	padding-left: 150px;
+ }
 </style>
 
 </head>
 <body>
 <%@ include file="../frontendhead.jsp" %>
 
+<div id="all">
 
-<table id="table-1">
-	<tr><td>
 		 <h3>我的優惠券</h3>
-		 <h4><a href="myCoupon_home.jsp">回會員中心</a></h4>
-	</td></tr>
-</table>
+		 
+
 
 
 <table>
@@ -64,14 +65,14 @@
 		<th>使用狀態</th>
 		
 	</tr>
-	<%@ include file="page1.file" %> 
-	<c:forEach var="memCouponVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+	
+	<c:forEach var="memCouponVO" items="${list}" >
 		
 		<tr>
 			<td>${memCouponVO.coupNo}</td>
 			<td>${memCouponVO.couponTypeVO.coupName}</td>
 			<td>$${memCouponVO.couponTypeVO.coupDiscount}</td>
-			<td>${memCouponVO.coupExpDate}</td>
+			<td>${memCouponVO.couponTypeVO.coupEnd}</td>
 			<td>
 				<c:if test="${memCouponVO.coupStatus == 0 }"><button style="background-color: #e3e66c;">未使用</button></c:if>
 				<c:if test="${memCouponVO.coupStatus == 1 }"><button style="background-color: #9BABBA;">已使用</button></c:if>
@@ -80,7 +81,9 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.file" %>
+
+<h4><a href="myCoupon_home.jsp">回會員中心</a></h4>
+</div>
 <%@ include file="../frontendfoot.jsp" %>
 </body>
 </html>

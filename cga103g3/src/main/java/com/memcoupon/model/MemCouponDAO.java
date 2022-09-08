@@ -13,6 +13,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.coupontype.model.CouponTypeVO;
+
 public class MemCouponDAO implements MemCouponDAO_interface{
 
 	private static DataSource ds = null;
@@ -35,6 +37,16 @@ public class MemCouponDAO implements MemCouponDAO_interface{
 		"update memcoupon "
 		+ "set MemID=?, CoupTypeNo=?, CoupStatus=?, CoupExpDate=?, CoupGetDate=? "
 		+ "where CoupNo=?";
+//	-- 更改 會員擁有的優惠券 的 使用狀態
+	private static final String UpdateStatus=
+		"update memcoupon "
+		+ "set CoupStatus=? "
+		+ "where CoupNo=?";
+//	-- 找出 某張優惠券的資訊	
+	private static final String GetOne=
+			"select CoupNo, MemID, CoupTypeNo, CoupStatus, CoupExpDate, CoupGetDate "
+			+ "from memcoupon "
+			+ "where CoupNo=?";
 	
 //	-- 找出 某個會員 擁有的所有優惠券
 	private static final String FindMemCouponByMemID=
@@ -104,6 +116,52 @@ public class MemCouponDAO implements MemCouponDAO_interface{
 		}
 		
 	}
+	
+	
+	@Override
+	public void updateStatus(Integer coupNo, Integer coupStatus) {
+		try(Connection con = ds.getConnection();
+				PreparedStatement ps = con.prepareStatement(UpdateStatus)){
+			
+			ps.setInt(1, coupStatus);
+			ps.setInt(2, coupNo);
+			
+			System.out.println("coupStatus=" + coupStatus);
+			System.out.println("狀態成功改變");
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	@Override
+	public MemCouponVO getOne(Integer coupNo) {
+		MemCouponVO memCouponVO = null;
+		try (Connection con = ds.getConnection();
+				PreparedStatement ps = con.prepareStatement(GetOne)){
+			ps.setInt(1, coupNo);
+		
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				memCouponVO = new MemCouponVO();
+				memCouponVO.setCoupNo(rs.getInt("CoupNo"));
+				memCouponVO.setMemID(rs.getInt("MemID"));
+				memCouponVO.setCoupTypeNo(rs.getInt("CoupTypeNo"));
+				memCouponVO.setCoupStatus(rs.getInt("CoupStatus"));
+				memCouponVO.setCoupExpDate(rs.getTimestamp("CoupExpDate"));
+				memCouponVO.setCoupGetDate(rs.getTimestamp("CoupGetDate"));
+				
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return memCouponVO;
+	}
+
+	
 	
 	@Override
 	public List<MemCouponVO> findMemCouponByMemID(Integer memID) {
@@ -219,12 +277,12 @@ public class MemCouponDAO implements MemCouponDAO_interface{
 		MemCouponDAO dao = new MemCouponDAO();
 		
 //		-- 新增一筆會員優惠券資料
-		MemCouponVO memCouponVO1 = new MemCouponVO();
-		memCouponVO1.setMemID(11001);
-		memCouponVO1.setCoupTypeNo(8);
-		memCouponVO1.setCoupStatus(2);
-		memCouponVO1.setCoupExpDate(java.sql.Timestamp.valueOf("2022-08-01 00:00:00"));
-		dao.insert(memCouponVO1);
+//		MemCouponVO memCouponVO1 = new MemCouponVO();
+//		memCouponVO1.setMemID(11001);
+//		memCouponVO1.setCoupTypeNo(8);
+//		memCouponVO1.setCoupStatus(2);
+//		memCouponVO1.setCoupExpDate(java.sql.Timestamp.valueOf("2022-08-01 00:00:00"));
+//		dao.insert(memCouponVO1);
 				
 //		-- 更改 會員擁有的優惠券 資料內容
 //		MemCouponVO memCouponVO2 = new MemCouponVO();
@@ -291,6 +349,9 @@ public class MemCouponDAO implements MemCouponDAO_interface{
 			
 //		}
 	}
+
+
+
 
 
 

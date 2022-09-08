@@ -466,8 +466,7 @@
 														items="${orderDetailSvc.showOneOrderDetail(orderListVO.getOrdNo())}">
 															<tbody>
 																<tr style="background-color: #B7EBEB;">
-<%-- 																	<td class="p-3">${orderDetailVO.getProductVO(orderDetailVO.pdID).getPdName()}</td> --%>
-																	<td class="p-3">${orderDetailVO.pdID}</td>
+																	<td class="p-3">${orderDetailVO.getProductVO(orderDetailVO.getPdID()).getPdName()}</td>
 																	<td class="p-3">${orderDetailVO.itemSales}</td>
 																	<td class="p-3">$${orderDetailVO.price}</td>
 																</tr>

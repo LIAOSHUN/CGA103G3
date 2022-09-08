@@ -45,7 +45,15 @@ public class MemCouponService {
 		
 		return memCouponVO;
 	}
+//	-- 更改 會員擁有的優惠券 的 使用狀態
+	public void updateStatus(Integer coupNo, Integer coupStatus) {
+		dao.updateStatus(coupNo, coupStatus);
+	}
 	
+//	-- 找出 某張優惠券的資訊	
+	public MemCouponVO getOne(Integer coupNo) {
+		return dao.getOne(coupNo);
+	}
 	
 //	-- 秀出 某個會員 擁有的所有優惠券
 	public List<MemCouponVO> showMemCouponByMemID(Integer memID){

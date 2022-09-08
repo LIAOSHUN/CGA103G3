@@ -8,6 +8,10 @@ public interface MemCouponDAO_interface {
 	public void insert(MemCouponVO memCouponVO);
 //	-- 更改 會員擁有的優惠券 資料內容	(暫不用)
 	public void update(MemCouponVO memCouponVO);
+//	-- 更改 會員擁有的優惠券 的 使用狀態
+	public void updateStatus(Integer coupNo, Integer coupStatus);
+//	-- 找出 某張優惠券的資訊	
+	public MemCouponVO getOne(Integer coupNo);
 //	-- 找出 某個會員 擁有的所有優惠券	(myCoupon)
 	public List<MemCouponVO> findMemCouponByMemID(Integer memID);
 //	-- 找出 某個會員 已使用(未使用、過期的)的所有優惠券		(搭配ajax 動態找出不同狀態的優惠券)

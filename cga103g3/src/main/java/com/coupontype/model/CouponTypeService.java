@@ -12,14 +12,13 @@ public class CouponTypeService {
 	
 //	-- 新增資料
 	public CouponTypeVO addCouponType(String coupName, Integer coupDiscount, Integer coupQuantity,
-			String coupDesc, Integer coupDuration, Date coupStart, Date coupEnd) {
+			String coupDesc, Date coupStart, Date coupEnd) {
 		CouponTypeVO couponTypeVO = new CouponTypeVO();
 		
 		couponTypeVO.setCoupName(coupName);
 		couponTypeVO.setCoupDiscount(coupDiscount);
 		couponTypeVO.setCoupQuantity(coupQuantity);
 		couponTypeVO.setCoupDesc(coupDesc);
-		couponTypeVO.setCoupDuration(coupDuration);
 		couponTypeVO.setCoupStart(coupStart);
 		couponTypeVO.setCoupEnd(coupEnd);
 		dao.insert(couponTypeVO);
@@ -30,7 +29,7 @@ public class CouponTypeService {
 	
 //	-- 更改優惠券內容
 	public CouponTypeVO updateCouponType(Integer coupTypeNo, String coupName, Integer coupDiscount, Integer coupQuantity,
-			String coupDesc, Integer coupDuration, Date coupStart, Date coupEnd) {
+			String coupDesc, Integer coupUpd, Date coupStart, Date coupEnd) {
 		CouponTypeVO couponTypeVO = new CouponTypeVO();
 		
 		couponTypeVO.setCoupTypeNo(coupTypeNo);
@@ -38,7 +37,7 @@ public class CouponTypeService {
 		couponTypeVO.setCoupDiscount(coupDiscount);
 		couponTypeVO.setCoupQuantity(coupQuantity);
 		couponTypeVO.setCoupDesc(coupDesc);
-		couponTypeVO.setCoupDuration(coupDuration);
+		couponTypeVO.setCoupUpd(coupUpd);
 		couponTypeVO.setCoupStart(coupStart);
 		couponTypeVO.setCoupEnd(coupEnd);
 		dao.update(couponTypeVO);

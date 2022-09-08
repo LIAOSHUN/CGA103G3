@@ -26,22 +26,22 @@ public class CouponTypeDAO2 implements CouponTypeDAO_interface{
 	
 //	-- 新增資料
 	private static final String Insert=
-		"insert into coupontype(CoupName, CoupDiscount, CoupQuantity, CoupDesc, CoupDuration, CoupStart, CoupEnd) "
+		"insert into coupontype(CoupName, CoupDiscount, CoupQuantity, CoupDesc, CoupUpd, CoupStart, CoupEnd) "
 		+ "values "
-		+ "(?, ?, ?, ?, ?, ?, ?)";
+		+ "(?, ?, ?, ?, 0, ?, ?)";
 //	-- 更改優惠券內容
 	private static final String Update=
 		"update coupontype "
-		+ "set CoupName=?, CoupDiscount=?, CoupQuantity=?, CoupDesc=?, CoupDuration=?, CoupStart=?, CoupEnd=? "
+		+ "set CoupName=?, CoupDiscount=?, CoupQuantity=?, CoupDesc=?, CoupUpd=?, CoupStart=?, CoupEnd=? "
 		+ "where CoupTypeNo=?";
 //	-- 找出某種類型的優惠券
 	private static final String FindCouponTypeByType=
-		"select CoupTypeNo, CoupName, CoupDiscount, CoupQuantity, CoupDesc, CoupDuration, CoupStart, CoupEnd "
+		"select CoupTypeNo, CoupName, CoupDiscount, CoupQuantity, CoupDesc, CoupUpd, CoupStart, CoupEnd "
 		+ "from coupontype "
 		+ "where CoupTypeNo=?";
 //	-- 找出所有優惠券
 	private static final String GetAll=
-		"select CoupTypeNo, CoupName, CoupDiscount, CoupQuantity, CoupDesc, CoupDuration, CoupStart, CoupEnd "
+		"select CoupTypeNo, CoupName, CoupDiscount, CoupQuantity, CoupDesc, CoupUpd, CoupStart, CoupEnd "
 		+ "from coupontype "
 		+ "order by CoupTypeNo";
 //	-- 刪除某張優惠券
@@ -56,9 +56,8 @@ public class CouponTypeDAO2 implements CouponTypeDAO_interface{
 			ps.setInt(2, couponTypeVO.getCoupDiscount());
 			ps.setInt(3, couponTypeVO.getCoupQuantity());
 			ps.setString(4, couponTypeVO.getCoupDesc());
-			ps.setInt(5, couponTypeVO.getCoupDuration());
-			ps.setDate(6, couponTypeVO.getCoupStart());
-			ps.setDate(7, couponTypeVO.getCoupEnd());
+			ps.setDate(5, couponTypeVO.getCoupStart());
+			ps.setDate(6, couponTypeVO.getCoupEnd());
 			
 			int rowcount = ps.executeUpdate();
 			System.out.println(rowcount);
@@ -74,7 +73,7 @@ public class CouponTypeDAO2 implements CouponTypeDAO_interface{
 			ps.setInt(2, couponTypeVO.getCoupDiscount());
 			ps.setInt(3, couponTypeVO.getCoupQuantity());
 			ps.setString(4, couponTypeVO.getCoupDesc());
-			ps.setInt(5, couponTypeVO.getCoupDuration());
+			ps.setInt(5, couponTypeVO.getCoupUpd());
 			ps.setDate(6, couponTypeVO.getCoupStart());
 			ps.setDate(7, couponTypeVO.getCoupEnd());
 			ps.setInt(8, couponTypeVO.getCoupTypeNo());
@@ -101,7 +100,7 @@ public class CouponTypeDAO2 implements CouponTypeDAO_interface{
 				couponTypeVO.setCoupDiscount(rs.getInt("CoupDiscount"));
 				couponTypeVO.setCoupQuantity(rs.getInt("CoupQuantity"));
 				couponTypeVO.setCoupDesc(rs.getString("CoupDesc"));
-				couponTypeVO.setCoupDuration(rs.getInt("CoupDuration"));
+				couponTypeVO.setCoupUpd(rs.getInt("CoupUpd"));
 				couponTypeVO.setCoupStart(rs.getDate("CoupStart"));
 				couponTypeVO.setCoupEnd(rs.getDate("CoupEnd"));
 			}
@@ -126,7 +125,7 @@ public class CouponTypeDAO2 implements CouponTypeDAO_interface{
 				couponTypeVO.setCoupDiscount(rs.getInt("CoupDiscount"));
 				couponTypeVO.setCoupQuantity(rs.getInt("CoupQuantity"));
 				couponTypeVO.setCoupDesc(rs.getString("CoupDesc"));
-				couponTypeVO.setCoupDuration(rs.getInt("CoupDuration"));
+				couponTypeVO.setCoupUpd(rs.getInt("CoupUpd"));
 				couponTypeVO.setCoupStart(rs.getDate("CoupStart"));
 				couponTypeVO.setCoupEnd(rs.getDate("CoupEnd"));
 				list.add(couponTypeVO);
