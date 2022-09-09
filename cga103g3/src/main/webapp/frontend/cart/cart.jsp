@@ -156,6 +156,7 @@
 						<input class="pdID" type="checkbox" name="pdID"  value="<%=cartItem.getPdID().toString()%>" onchange="f1()">
 					</div>  
 				</td>
+				
 				<td class="column-3" >
 					$<span class='price'><%=cartItem.getPdPrice()%></span>
 				</td>

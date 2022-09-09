@@ -105,7 +105,7 @@
 
 	<tr>
 		<td>開始日:</td>
-		<td><input name="coupStart" id="start_date" type="text" disabled></td>
+		<td><input name="coupStart" id="start_date" type="text" ></td>
 	</tr>
 	<tr>
 		<td>結束日:</td>

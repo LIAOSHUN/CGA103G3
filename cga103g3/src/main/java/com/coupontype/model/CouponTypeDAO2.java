@@ -32,7 +32,7 @@ public class CouponTypeDAO2 implements CouponTypeDAO_interface{
 //	-- 更改優惠券內容
 	private static final String Update=
 		"update coupontype "
-		+ "set CoupName=?, CoupDiscount=?, CoupQuantity=?, CoupDesc=?, CoupUpd=?, CoupStart=?, CoupEnd=? "
+		+ "set CoupName=?, CoupDiscount=?, CoupQuantity=?, CoupDesc=?, CoupUpd=? "
 		+ "where CoupTypeNo=?";
 //	-- 更改優惠券為下架
 	private static final String UpdateDown=
@@ -79,9 +79,7 @@ public class CouponTypeDAO2 implements CouponTypeDAO_interface{
 			ps.setInt(3, couponTypeVO.getCoupQuantity());
 			ps.setString(4, couponTypeVO.getCoupDesc());
 			ps.setInt(5, couponTypeVO.getCoupUpd());
-			ps.setDate(6, couponTypeVO.getCoupStart());
-			ps.setDate(7, couponTypeVO.getCoupEnd());
-			ps.setInt(8, couponTypeVO.getCoupTypeNo());
+			ps.setInt(6, couponTypeVO.getCoupTypeNo());
 			
 			int rowcount = ps.executeUpdate();
 			System.out.println(rowcount);

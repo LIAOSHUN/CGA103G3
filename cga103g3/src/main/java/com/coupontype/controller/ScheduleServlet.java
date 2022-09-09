@@ -63,7 +63,7 @@ public class ScheduleServlet extends HttpServlet {
 					//如果date1晚於date2 將過期優惠券下架
 					 if (date1.after(date2)) {
 						 System.out.println("優惠券類型下架");
-						 couponTypeService.updateDown(couponTypeVO.getCoupTypeNo());//改成已下架
+						 couponTypeService.updateDown(couponTypeVO.getCoupTypeNo());//改成已下架 
 			         }
 				}
 				
@@ -85,7 +85,7 @@ public class ScheduleServlet extends HttpServlet {
 			}
 		};
 		
-		Calendar cal = new GregorianCalendar(2022, Calendar.SEPTEMBER, 9, 0, 0, 0);//9/9號 凌晨1200開始
+		Calendar cal = new GregorianCalendar(2022, Calendar.SEPTEMBER, 9, 23, 59, 59);//9/9號 凌晨1200開始
 		timer.scheduleAtFixedRate(task, cal.getTime(),24*60*60*1000);//從上面指定時間開始，並在每天執行一次
 	}
 

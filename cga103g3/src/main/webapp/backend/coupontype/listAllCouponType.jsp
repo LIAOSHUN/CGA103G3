@@ -61,6 +61,7 @@
   }
   
     table {
+    font-size: 17px;
 	width: 950px !important;
 	
 	margin-top: 5px !important;
@@ -70,6 +71,12 @@
    th{
    text-align: center  !important;
    color: black !important;
+   
+   }
+   
+   table tr th{
+   font-size: 16px !important;
+   background-color:#696cff !important;
    }
   td {
     padding: 11px ;
@@ -83,7 +90,7 @@
   	padding-left: 690px;
   }
   .detail{
-  	font-size: 8px;
+  	font-size: 13px;
   	padding-top: 0px;
   	padding-bottom: 0px;
   	padding-left: 0px;
@@ -380,14 +387,13 @@
 				<div class="container-xxl flex-grow-1 container-p-y">
 						<div class="card">
 							<h2 class="card-header">優惠券管理</h2>
-			 				<div id="backmagOrderList">
-								<button class="btn btn-outline-primary"  onclick="location.href='couponType_select_page.jsp'"> 回首頁</button>
-							</div>
+<!-- 			 				<div id="backmagOrderList"> -->
+<!-- 								<button class="btn btn-outline-primary"  onclick="location.href='couponType_select_page.jsp'"> 回首頁</button> -->
+<!-- 							</div> -->
 
 							<%@ include file="page1.file" %> 
-								<c:forEach var="couponTypeVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 							
-							<table class="table" style="line-height:13px;">
+							<table class="table" style="line-height:16px;">
 									<tr>
 										<th>類型編號</th>
 										<th>名稱</th>
@@ -399,6 +405,7 @@
 										<th>狀態</th>
 										<th>修改</th>
 									</tr>
+								<c:forEach var="couponTypeVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 									<tr>
 										<td>${couponTypeVO.coupTypeNo}</td>
 										<td>${couponTypeVO.coupName}</td>
@@ -407,21 +414,16 @@
 										<td>${couponTypeVO.coupDesc}</td>
 										<td>${couponTypeVO.coupStart}</td>
 										<td>${couponTypeVO.coupEnd}</td>
-										<td>
-											<c:if test="${couponTypeVO.coupUpd == 0 }"><span class="badge bg-label-success me-1">上架中</span></c:if>
-											<c:if test="${couponTypeVO.coupUpd == 1 }"><span class="badge bg-label-danger me-1">已下架</span></c:if>
-										</td>
-										<td>
-										  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/coupontype/coupontype.do" style="margin-bottom: 0px;">
-										     <input type="submit" value="修改" type="button" class="detail btn rounded-pill btn-primary" 
-										     style="background-color: gray;">
+										<td><c:if test="${couponTypeVO.coupUpd == 0 }"><span class="badge bg-label-success me-1">上架中</span></c:if><c:if test="${couponTypeVO.coupUpd == 1 }"><span class="badge bg-label-danger me-1">已下架</span></c:if></td>
+										
+										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/coupontype/coupontype.do" style="margin-bottom: 0px;">
+										<td><input type="submit" value="修改" type="button" class="detail btn rounded-pill btn-primary" 
+										     style="background-color: gray;"></td>
 										     <input type="hidden" name="coupTypeNo"  value="${couponTypeVO.coupTypeNo}">
-										     <input type="hidden" name="action"	value="getOne_For_Update">
-										  </FORM>
-										</td>
+										     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 									</tr>
-							</table>
 							</c:forEach>
+							</table>
 							<div id="page2">
 								<%@ include file="page2.file"%>
 							</div>
@@ -462,7 +464,6 @@
 
 	<!-- Place this tag in your head or just before your close body tag. -->
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
-	<input type="hidden" name="action" value="insert">
 
 
 </body>

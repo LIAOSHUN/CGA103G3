@@ -146,21 +146,21 @@ public class CouponTypeServlet extends HttpServlet {
 			
 			
 			
-			java.sql.Date coupStart = null;
-			try {
-				coupStart = java.sql.Date.valueOf(req.getParameter("coupStart").trim());
-			} catch (IllegalArgumentException e) {//參數不合法例外
-				coupStart=new java.sql.Date(System.currentTimeMillis());//現在的毫秒轉成 date
-				errorMsgs.add("請輸入日期!");
-			}
-			
-			java.sql.Date coupEnd = null;
-			try {
-				coupEnd = java.sql.Date.valueOf(req.getParameter("coupEnd").trim());
-			} catch (IllegalArgumentException e) {//參數不合法例外
-				coupEnd=new java.sql.Date(System.currentTimeMillis());//現在的毫秒轉成 date
-				errorMsgs.add("請輸入日期!");
-			}
+//			java.sql.Date coupStart = null;
+//			try {
+//				coupStart = java.sql.Date.valueOf(req.getParameter("coupStart"));
+//			} catch (IllegalArgumentException e) {//參數不合法例外
+//				coupStart=new java.sql.Date(System.currentTimeMillis());//現在的毫秒轉成 date
+//				errorMsgs.add("請輸入日期!");
+//			}
+//			
+//			java.sql.Date coupEnd = null;
+//			try {
+//				coupEnd = java.sql.Date.valueOf(req.getParameter("coupEnd"));
+//			} catch (IllegalArgumentException e) {//參數不合法例外
+//				coupEnd=new java.sql.Date(System.currentTimeMillis());//現在的毫秒轉成 date
+//				errorMsgs.add("請輸入日期!");
+//			}
 			
 			
 			String coupDesc = req.getParameter("coupDesc").trim();
@@ -174,8 +174,6 @@ public class CouponTypeServlet extends HttpServlet {
 			couponTypeVO.setCoupDiscount(coupDiscount);
 			couponTypeVO.setCoupQuantity(coupQuantity);
 			couponTypeVO.setCoupUpd(coupUpd);
-			couponTypeVO.setCoupStart(coupStart);
-			couponTypeVO.setCoupEnd(coupEnd);
 			couponTypeVO.setCoupDesc(coupDesc);
 
 			if (!errorMsgs.isEmpty()) {
@@ -188,13 +186,13 @@ public class CouponTypeServlet extends HttpServlet {
 				
 				/***************************2.開始修改資料*****************************************/
 			CouponTypeService couponTypeSvc = new CouponTypeService();
-			couponTypeVO = couponTypeSvc.updateCouponType(coupTypeNo, coupName, coupDiscount, coupQuantity, coupDesc, coupUpd, coupStart, coupEnd);
+			couponTypeVO = couponTypeSvc.updateCouponType(coupTypeNo, coupName, coupDiscount, coupQuantity, coupDesc, coupUpd);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-			req.setAttribute("couponTypeVO", couponTypeVO);// 資料庫update成功後,正確的的couponTypeVO物件,存入req
-			String url = "/backend/coupontype/listOneCouponType.jsp";
+//			req.setAttribute("couponTypeVO", couponTypeVO);// 資料庫update成功後,正確的的couponTypeVO物件,存入req
+			String url = "/backend/coupontype/listAllCouponType.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneCouponType.jsp
-			successView.forward(req, res);	
+			successView.forward(req, res);
 		}
 		
 		

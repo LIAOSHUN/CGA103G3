@@ -29,7 +29,7 @@ public class CouponTypeService {
 	
 //	-- 更改優惠券內容
 	public CouponTypeVO updateCouponType(Integer coupTypeNo, String coupName, Integer coupDiscount, Integer coupQuantity,
-			String coupDesc, Integer coupUpd, Date coupStart, Date coupEnd) {
+			String coupDesc, Integer coupUpd) {
 		CouponTypeVO couponTypeVO = new CouponTypeVO();
 		
 		couponTypeVO.setCoupTypeNo(coupTypeNo);
@@ -38,8 +38,6 @@ public class CouponTypeService {
 		couponTypeVO.setCoupQuantity(coupQuantity);
 		couponTypeVO.setCoupDesc(coupDesc);
 		couponTypeVO.setCoupUpd(coupUpd);
-		couponTypeVO.setCoupStart(coupStart);
-		couponTypeVO.setCoupEnd(coupEnd);
 		dao.update(couponTypeVO);
 		return couponTypeVO;
 		
