@@ -65,6 +65,11 @@
 	margin-top: 5px !important;
 	margin-bottom: 5px !important;
   }
+  
+     table tr th{
+   font-size: 13px !important;
+   background-color:#696cff !important;
+   }
 
    th{
    text-align: center  !important;
@@ -89,8 +94,11 @@
   	padding-right: 0px;
   	
   }
-  #send, #back{
+  #send{
   	padding-left: 850px;
+  }
+  #back{
+  	padding-left: 800px;
   }
 
 </style>
@@ -171,7 +179,7 @@
 									<div data-i18n="Notifications">修改商品</div>
 							</a></li>
 							<li class="menu-item"><a
-								href="pages-account-settings-connections.html" class="menu-link">
+								href="<%=request.getContextPath()%>/backend/orderlistback/magOrderList.jsp" class="menu-link">
 									<div data-i18n="Connections">訂單管理</div>
 							</a></li>
 						</ul></li>
@@ -253,15 +261,15 @@
 					</a>
 						<ul class="menu-sub">
 							<li class="menu-item"><a
-								href="pages-account-settings-account.html" class="menu-link">
+								href="<%=request.getContextPath()%>/backend/coupontype/addCouponType.jsp" class="menu-link">
 									<div data-i18n="Account">新增優惠券</div>
 							</a></li>
 							<li class="menu-item"><a
-								href="pages-account-settings-account.html" class="menu-link">
+								href="<%=request.getContextPath()%>/backend/coupontype/sendCoupon.jsp" class="menu-link">
 									<div data-i18n="Account">優惠券發放</div>
 							</a></li>
 							<li class="menu-item"><a
-								href="pages-account-settings-account.html" class="menu-link">
+								href="<%=request.getContextPath()%>/backend/coupontype/listAllCouponType.jsp" class="menu-link">
 									<div data-i18n="Account">優惠券管理</div>
 							</a></li>
 						</ul></li>
@@ -354,7 +362,7 @@
 						<div class="card">
 							<h2 class="card-header">優惠券發放</h2>
 			 				<div id="back">
-								<button class="btn btn-outline-primary"  onclick="location.href='couponType_select_page.jsp'"> 回首頁</button>
+								<button class="btn btn-outline-primary"  onclick="location.href='listAllCouponType.jsp'">回優惠券管理</button>
 							</div>
 							<%-- 錯誤表列 --%>
 							<c:if test="${not empty errorMsgs}">

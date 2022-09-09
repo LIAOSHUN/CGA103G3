@@ -176,7 +176,7 @@
 									<div data-i18n="Notifications">修改商品</div>
 							</a></li>
 							<li class="menu-item"><a
-								href="pages-account-settings-connections.html" class="menu-link">
+								href="<%=request.getContextPath()%>/backend/orderlistback/magOrderList.jsp" class="menu-link">
 									<div data-i18n="Connections">訂單管理</div>
 							</a></li>
 						</ul></li>
@@ -258,15 +258,15 @@
 					</a>
 						<ul class="menu-sub">
 							<li class="menu-item"><a
-								href="pages-account-settings-account.html" class="menu-link">
+								href="<%=request.getContextPath()%>/backend/coupontype/addCouponType.jsp" class="menu-link">
 									<div data-i18n="Account">新增優惠券</div>
 							</a></li>
 							<li class="menu-item"><a
-								href="pages-account-settings-account.html" class="menu-link">
+								href="<%=request.getContextPath()%>/backend/coupontype/sendCoupon.jsp" class="menu-link">
 									<div data-i18n="Account">優惠券發放</div>
 							</a></li>
 							<li class="menu-item"><a
-								href="pages-account-settings-account.html" class="menu-link">
+								href="<%=request.getContextPath()%>/backend/coupontype/listAllCouponType.jsp" class="menu-link">
 									<div data-i18n="Account">優惠券管理</div>
 							</a></li>
 						</ul></li>
@@ -351,36 +351,36 @@
 				<div class="content-wrapper">
 					<!-- =============================================================================================== -->
 					<!-- Content內容-->
-<div>
-	<ul>
+<!-- <div> -->
+<!-- 	<ul> -->
 	
-	  <li>
-	     <FORM METHOD="post" ACTION="coupontype.do" >
-	       <b>選擇優惠券類型編號:</b>
-	       <select size="1" name="coupTypeNo">
-	         <c:forEach var="couponTypeVO" items="${couponTypeSvc.all}" > 
-	          <option value="${couponTypeVO.coupTypeNo}">${couponTypeVO.coupTypeNo}
-	         </c:forEach>   
-	       </select>
-	       <input type="hidden" name="action" value="getOne_For_Display">
-	       <input type="submit" value="送出">
-	    </FORM>
-	  </li>
+<!-- 	  <li> -->
+<!-- 	     <FORM METHOD="post" ACTION="coupontype.do" > -->
+<!-- 	       <b>選擇優惠券類型編號:</b> -->
+<!-- 	       <select size="1" name="coupTypeNo"> -->
+<%-- 	         <c:forEach var="couponTypeVO" items="${couponTypeSvc.all}" >  --%>
+<%-- 	          <option value="${couponTypeVO.coupTypeNo}">${couponTypeVO.coupTypeNo} --%>
+<%-- 	         </c:forEach>    --%>
+<!-- 	       </select> -->
+<!-- 	       <input type="hidden" name="action" value="getOne_For_Display"> -->
+<!-- 	       <input type="submit" value="送出"> -->
+<!-- 	    </FORM> -->
+<!-- 	  </li> -->
 	  
-	  <li>
-	     <FORM METHOD="post" ACTION="coupontype.do" >
-	       <b>選擇優惠券類型名稱:</b>
-	       <select size="1" name="coupTypeNo">
-	         <c:forEach var="couponTypeVO" items="${couponTypeSvc.all}" > 
-	          <option value="${couponTypeVO.coupTypeNo}">${couponTypeVO.coupName}
-	         </c:forEach>   
-	       </select>
-	       <input type="hidden" name="action" value="getOne_For_Display">
-	       <input type="submit" value="送出">
-	    </FORM>
-	  </li>
-	</ul>
-</div>
+<!-- 	  <li> -->
+<!-- 	     <FORM METHOD="post" ACTION="coupontype.do" > -->
+<!-- 	       <b>選擇優惠券類型名稱:</b> -->
+<!-- 	       <select size="1" name="coupTypeNo"> -->
+<%-- 	         <c:forEach var="couponTypeVO" items="${couponTypeSvc.all}" >  --%>
+<%-- 	          <option value="${couponTypeVO.coupTypeNo}">${couponTypeVO.coupName} --%>
+<%-- 	         </c:forEach>    --%>
+<!-- 	       </select> -->
+<!-- 	       <input type="hidden" name="action" value="getOne_For_Display"> -->
+<!-- 	       <input type="submit" value="送出"> -->
+<!-- 	    </FORM> -->
+<!-- 	  </li> -->
+<!-- 	</ul> -->
+<!-- </div> -->
 
 		
 
