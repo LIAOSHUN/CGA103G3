@@ -1,6 +1,7 @@
 window.addEventListener("load", function () {
     let bookingTitle = document.getElementById('bookingTitle');
     let text_muted = document.getElementById('text-muted');
+    let show = this.document.getElementById('show');
     let memID = document.getElementById('memID');
     let store = document.getElementById('store');
     let bookingDate = document.getElementById('bookingDate');
@@ -15,13 +16,13 @@ window.addEventListener("load", function () {
         + '最早支援Servlet標準的是JavaSoft的Java Web Server。此後，一些其它的基於Java的Web伺服器開始支援標準的Servlet。';
     const mySQL = '<b>MySQL</b>（官方發音為/maɪ ˌɛskjuːˈɛl/「My S-Q-L」[5]，但也經常被讀作/maɪ ˈsiːkwəl/「My Sequel」）原本是一個開放原始碼的關聯式資料庫管理系統，原開發者為瑞典的MySQL AB公司，該公司於2008年被昇陽微系統（Sun Microsystems）收購。2009年，甲骨文公司（Oracle）收購昇陽微系統公司，MySQL成為Oracle旗下產品。'
         + '<br>MySQL在過去由於效能高、成本低、可靠性好，已經成為最流行的開源資料庫，因此被廣泛地應用在Internet上的中小型網站中。隨著MySQL的不斷成熟，它也逐漸用於更多大規模網站和應用，比如維基百科、Google和Facebook等網站。非常流行的開源軟體組合LAMP中的「M」指的就是MySQL。'
-    const peter = '<b style="color: red">全球銷售超過百萬冊！抗癌醫師吳永志自救救人飲食生活大公開～<br>'
-        + '<br>【生活養生不一樣】'
-        + '<br> ● 每天保持3次排便；每天曬太陽及運動30分鐘。'
-        + '<br> ● 每天洗冷熱浴提升免疫力，改善血液循環。'
-        + '<br> ● 喝對水，小口喝，讓細胞有充足時間吸收。'
-        + '<br> ● 每天喝含植物生化素的蔬果汁清血毒、補充營養。'
-        + '<br><p class="card-text"><small class="text-muted">資訊來源: 金融廣場</small></p>';
+    const peter = '<b style="color: red">全球銷售超過百萬冊！吳永志(PeterWu)自救滿身菜味新手大公開～<br>'
+        + '<br>【生活養成不一樣】'
+        + '<br> ● 每天見見老朋友；如果忘記小心你的手。'
+        + '<br> ● Java口訣三要素，Java簡單跟著我。'
+        + '<br> ● 宣告、取值、拿來用，複製、貼上、超好用。'
+        + '<br> ● 吳神課本很有料，出門在外的必備良藥。'
+        + '<br><p class="card-text"><small class="text-muted">資訊來源: xxx</small></p>';
 
 
     // store設定 -----------------------------------------------------------------------------------		
@@ -49,12 +50,16 @@ window.addEventListener("load", function () {
 
                 if (store.value == 51001) {
                     bookingTitle.innerHTML = java;
+                    show.innerHTML = '<img class="card-img card-img-right"  src="/CGA103G3_07/StoreImg?StoreID=51001" alt="Card image" width="200" height="250"></img>'
                 } else if (store.value == 51002) {
                     bookingTitle.innerHTML = servlet;
+                    show.innerHTML = '<img class="card-img card-img-right"  src="/CGA103G3_07/StoreImg?StoreID=51002" alt="Card image" width="200" height="250"></img>'
                 } else if (store.value == 51003) {
                     bookingTitle.innerHTML = mySQL;
+                    show.innerHTML = '<img class="card-img card-img-right"  src="/CGA103G3_07/StoreImg?StoreID=51003" alt="Card image" width="200" height="250"></img>'
                 } else if (store.value == 51004) {
                     bookingTitle.innerHTML = peter;
+                    show.innerHTML = '<img class="card-img card-img-right"  src="/CGA103G3_07/StoreImg?StoreID=51004" alt="Card image" width="200" height="250"></img>'
                 }
 
             });
@@ -150,6 +155,7 @@ window.addEventListener("load", function () {
     });
 });
 
+
 //submit 送出訂單
 function bookingBtn() {
     if (memID.value == '') {
@@ -157,7 +163,32 @@ function bookingBtn() {
         return;
     }
 
-    console.log(memID.value, store.value, boxSize.value, bookingDate.value, bookingStart.value, bookingEnd.value, bookingNote.value);
+    if (store.value == '選擇門市' || store.value == '') {
+        alert('未選擇門市');
+        return;
+    }
+
+    if (bookingDate.value == 0 || bookingDate.value == '') {
+        alert('未選擇訂位日期');
+        return;
+    }
+
+    if (boxSize.value == '選擇包廂' || boxSize.value.length == 0) {
+        alert('未選擇選擇包廂');
+        return;
+    }
+
+    if (bookingStart.value == '選擇時間' || bookingStart.value == 0) {
+        alert('未選擇訂位時間');
+        return;
+    }
+
+    if (bookingEnd.value == '選擇時間' || bookingEnd.value == 0) {
+        alert('未選擇結束時間');
+        return;
+    }
+
+    console.log(memID.value, store.value, bookingDate.value, boxSize.value, bookingStart.value, bookingEnd.value, bookingNote.value);
     document.getElementById('form').submit();
 
     fetch("http://localhost:8081/CGA103G3_07/bookingorderfetch/bookingorder.do", {
@@ -185,7 +216,7 @@ function bookingBtn() {
         .then(obj => console.log(obj))
         .catch(({ message }) => div.textContent = message);
 
-    alert('訂位送出，再請至信箱查收是否成功!!');
+    alert('訂位送出，再請至信箱查收是否成功訂位!!');
 
 
 }

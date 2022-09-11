@@ -31,21 +31,23 @@ public class GetStoreBookingOrdServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			
-			
-			Integer storeID = Integer.valueOf(req.getParameter("StoreID").trim());
-			
-			BookingSetVO bokSetVO = new BookingSetVO();
-			bokSetVO.setStoreID(storeID);
-			
+			String str = req.getParameter("StoreID");
+			if(str == null || str.equals("0")) {
+				errorMsgs.add("未選擇門市");
+			}
 			
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("bokSetVO", bokSetVO);
+//				req.setAttribute("bokSetVO", bokSetVO);
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/backend/bookingorder/model_AllBookingOrder.jsp");
 				failureView.forward(req, res);
 				return;//程式中斷
 			}
+			
+			Integer storeID = Integer.valueOf(str);
+			
+			BookingSetVO bokSetVO = new BookingSetVO();
+			bokSetVO.setStoreID(storeID);
 			
 			BookingSetService bookingSetSvc = new BookingSetService();
 			List<BookingSetVO> list = bookingSetSvc.getStroeBookingOrd(storeID);

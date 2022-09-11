@@ -78,7 +78,7 @@ public class BookingOrdDAO implements BookingOrder_interface{
 		int bookingEnd = Integer.valueOf(bookingOrderVO.getBookingEnd());
 		
 		MailService mailService = new MailService();
-		String reback = "訂位失敗,請重新訂位。";
+		String reback = "訂位失敗,此時段已被預訂，請重新訂位，謝謝。";
 		String to = "ufo3068@gmail.com";
 		String subject = "訂位通知";
 		
@@ -101,20 +101,23 @@ public class BookingOrdDAO implements BookingOrder_interface{
 					System.out.println("日期、包廂相同");
 					if(bookingEnd > checkStart && bookingEnd <= checkEnd) {
 						System.out.println("執行到第一個");
+						mailService.sendMail(to, subject, reback);
 						con.rollback();
 						return;
 					} else if(bookingStart <= checkStart && bookingEnd >= checkEnd) {
 						System.out.println("執行到第二個");
+						mailService.sendMail(to, subject, reback);
 						con.rollback();
 						return;
 					} else if(bookingStart >= checkStart && bookingStart <= checkEnd){
 						System.out.println("執行到第三個");
+						mailService.sendMail(to, subject, reback);
 						con.rollback();
 						return;
 					} else if (bookingStart >= checkStart && bookingEnd <= checkEnd) {
 						System.out.println("執行到第四個");
 						con.rollback();
-//						mailService.sendMail(to, subject, reback);
+						mailService.sendMail(to, subject, reback);
 						return;
 					}
 				}
@@ -133,8 +136,8 @@ public class BookingOrdDAO implements BookingOrder_interface{
 			con.commit();
 			con.setAutoCommit(true);
 
-			reback = "訂位成功，請準時到場，謝謝。";
-//			mailService.sendMail(to, subject, reback);
+			reback = "訂位成功，請準時報到，謝謝。";
+			mailService.sendMail(to, subject, reback);
 			
 			
 		} catch (Exception e) {

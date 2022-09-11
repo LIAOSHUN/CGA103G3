@@ -22,14 +22,7 @@
 	<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 	<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
 
-    <script src="https://www.itxst.com/package/jquery-3.5.1/jquery.min.js"></script>
-    <script src="https://www.itxst.com/package/bootstrap-4.5.0/js/bootstrap.min.js"></script>
-    <link href="https://www.itxst.com/package/bootstrap-4.5.0/css/bootstrap.css" rel="stylesheet">
-    <script src="https://www.itxst.com/package/bootstrap-datepicker-1.9.0/js/bootstrap-datepicker.min.js"></script>
-    <script src="https://www.itxst.com/package/bootstrap-datepicker-1.9.0/locales/bootstrap-datepicker.zh-CN.min.js"></script>
-    <link href="https://www.itxst.com/package/bootstrap-datepicker-1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
-	
-	
+
  <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="<%=request.getContextPath()%>/backend/backend_template/html/board-game (1).png" />
     <!-- Fonts -->
@@ -67,8 +60,8 @@
                           <p class="card-text"><small class="text-muted"></small></p>
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <img class="card-img card-img-right" class="show" src="<%=request.getContextPath()%>/backend/images/tomcat.png" alt="Card image" width="200" height="250">
+                      <div class="col-md-4" id="show">
+                        <img class="card-img card-img-right"  src="<%=request.getContextPath()%>/frontend/booking/img/tomcat.png" alt="Card image" width="200" height="250">
                       </div>
                     </div>
 <!-- 	==================================================== 圖片 ================================================================ -->                  
@@ -81,7 +74,7 @@
                     
                       <div class="mb-3">
                         <label for="memID" class="form-label">會員</label>
-                        <input id="memID" type="text" class="form-control" placeholder="Enter Name">
+                        <input id="memID" type="text" class="form-control" placeholder="Enter Name" autocomplete="off">
                       </div>
                       
                       <div class="mb-3">
@@ -119,7 +112,7 @@
                       
                       <div>
                         <label for="bookingNote" class="form-label">備註</label>
-                        <textarea id="bookingNote" class="form-control" rows="3"></textarea>
+                        <textarea id="bookingNote" class="form-control" rows="3" autocomplete="off"></textarea>
                       </div>
 
 					  <div class="mt-2">
@@ -134,17 +127,18 @@
 	
 
 
-<script src="<%=request.getContextPath()%>/frontend/booking/js/bookingTest.js"></script>
+
 
 <script>
-$("#bookingDate").datepicker({
+	$("#bookingDate").datepicker({
     minDate: 1,
-    maxDate: "15D",
-    dateFormat: "yy-mm-dd",
-    beforeShowDay: function (date) { return [date.getDay() != 2, '']; }
-});
+		maxDate: "15D",
+		dateFormat: "yy-mm-dd",
+		beforeShowDay: function (date1) { return [date1.getDay() != 2, '']; }
+	});
 </script>
 
+<script src="<%=request.getContextPath()%>/frontend/booking/js/bookingTest.js"></script>
 </body>
 
 

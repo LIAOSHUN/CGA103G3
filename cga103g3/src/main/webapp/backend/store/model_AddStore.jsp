@@ -453,6 +453,7 @@
                               id="storeName"
                               name="storeName"
                               value="<%= (stVO==null)? "" : stVO.getStoreName() %>"
+                              autocomplete="off"
                             />
                           </div>
 
@@ -464,6 +465,7 @@
                               id="storeAdd"
                               name="storeAdd"
                               value="<%= (stVO==null)? "" : stVO.getStoreAdd() %>"
+                              autocomplete="off"
                             />
                           </div>
                           
@@ -475,6 +477,7 @@
                               id="storePhone1"
                               name="storePhone1"
                               value="<%= (stVO==null)? "" : stVO.getStorePhone1() %>"
+                              autocomplete="off"
                             />
                           </div>
                           
@@ -486,6 +489,7 @@
                               id="storePhone2"
                               name="storePhone2"
                               value="<%= (stVO==null)? "" : stVO.getStorePhone2() %>"
+                              autocomplete="off"
                             />
                           </div>
                           
@@ -497,6 +501,7 @@
                               id="storeEmail"
                               name="storeEmail"
                               value="<%= (stVO==null)? "" : stVO.getStoreEmail() %>"
+                              autocomplete="off"
                             />
                           </div>
 

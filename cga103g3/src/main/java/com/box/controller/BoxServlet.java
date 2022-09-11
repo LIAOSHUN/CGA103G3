@@ -44,10 +44,24 @@ public class BoxServlet extends HttpServlet {
 
 /*************************************************** 查詢"指定"門市包廂 ******************************************************/		
 		if ("getOne_StoreBox".equals(action)) { // 來自select_page.jsp的請求
-
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-			Integer storeID = Integer.valueOf(req.getParameter("StoreID"));
+			String str = req.getParameter("StoreID");
+			System.out.println(str);
+			if(str == null || str.equals("0")) {
+				errorMsgs.add("未選擇門市");
+			}
+			
+			if (!errorMsgs.isEmpty()) {
+//req.setAttribute("boxVO", boxVO); // 含有輸入格式錯誤的boxVO物件,也存入req
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/box/model_AllBox.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			Integer storeID = Integer.valueOf(str);
 
 			/*************************** 2.開始查詢資料 *****************************************/
 			BoxService boxSvc = new BoxService();

@@ -73,20 +73,31 @@ public class BookingOrderServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			/***************************1.接收請求參數****************************************/
-			Integer bookingID = Integer.valueOf(req.getParameter("BookingID").trim());
+			String str = req.getParameter("BookingID").trim();
+			String bookingIDReg = "^[\\d]{5}$";
+			if(!str.matches(bookingIDReg)){
+				errorMsgs.add("請輸入正確格式，訂單編號為5位數字");
+			}
+
+			
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/bookingorder/model_AllBookingOrder.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+			
+			Integer bookingID = Integer.valueOf(str);
 			
 			BookingOrdService bokOrdSvc = new BookingOrdService();
 			BookingOrderVO bokOrdVO = bokOrdSvc.getOneBookingID(bookingID);
-			
-			try {
-				
-			} catch (NumberFormatException e) {
-				errorMsgs.add("getOne_For_Update錯誤");
+			if (bokOrdVO.getBoxID() == null) {
+				errorMsgs.add("查無資料");
 			}
 			
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/selectAll_page.jsp");
+						.getRequestDispatcher("/backend/bookingorder/model_AllBookingOrder.jsp");
 				failureView.forward(req, res);
 				return;//程式中斷
 			}
@@ -229,9 +240,22 @@ public class BookingOrderServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			String memID = req.getParameter("memID").trim();
-			if (memID == null || (memID.trim().length()) == 0) {
+			String memIDReg = "^[\\d]{5}$";
+
+			if (memID == null || memID.trim().length() == 0) {
 				errorMsgs.add("請輸入會員編號");
+			} else if (!memID.matches(memIDReg)){
+				errorMsgs.add("請輸入正確格式，會員編號為5位數字");
 			}
+			
+			// 因會員編號為Integer,如未輸入將提前轉跳
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/bookingorder/model_AddBookingOrder.jsp");
+				failureView.forward(req, res);
+				return;
+			}
+			
 			
 			Integer boxID = Integer.valueOf(req.getParameter("boxID"));
 			
@@ -246,6 +270,13 @@ public class BookingOrderServlet extends HttpServlet {
 			String bookingStart = req.getParameter("bookingStart").trim();
 			
 			String bookingEnd = req.getParameter("bookingEnd").trim();
+			
+			//驗證起始與結束時間
+			Integer checkStartTime = Integer.valueOf(bookingStart);
+			Integer checkEndTime = Integer.valueOf(bookingEnd);
+			if(checkEndTime < checkStartTime) {
+				errorMsgs.add("訂位時間有誤，結束時間早於起始時間");
+			}
 			
 			String bookingNote = req.getParameter("bookingNote").trim();
 			if (bookingNote == null || (bookingNote.trim().length()) == 0) {
