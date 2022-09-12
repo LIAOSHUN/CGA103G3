@@ -349,6 +349,17 @@
 					<div class="container-xxl flex-grow-1 container-p-y">
 						<div class="card">
 							<h2 class="card-header">訂單管理</h2>
+								<div>
+								<%-- 錯誤表列 --%>
+								<c:if test="${not empty errorMsgs}">
+									<font style="color:red">請修正以下錯誤:</font>
+									<ul>
+										<c:forEach var="message" items="${errorMsgs}">
+											<li style="color:red">${message}</li>
+										</c:forEach>
+									</ul>
+								</c:if>
+							</div>
 					<FORM METHOD="post"
 					ACTION="<%=request.getContextPath()%>/backend/orderlistback/orderListServlet.do" >
 						<div style="text-align: right;" class="row">
@@ -358,7 +369,7 @@
 								</h6>
 							</div>
 							<div class="col">
-								<b>訂單編號:</b> <input type="text" name="ordNo" value=""
+								<b>訂單編號:</b> <input type="number" name="ordNo" value=""
 									placeholder="22001">
 							</div>
 						
@@ -405,24 +416,25 @@
 										
 										<tr>
 											<td>${orderListVO.ordNo}</td>
-											<td>${orderListVO.memID}</td> 
-											<td>${orderListVO.coupNo}</td>
+											<td>${orderListVO.memberVO.memName}</td> 
+											<td><c:if test="${orderListVO.coupNo == 0 }"><span>未用</span></c:if>
+												<c:if test="${orderListVO.coupNo != 0 }"><span>${orderListVO.coupNo}</span></c:if></td>
 											<td>$${orderListVO.ordLastPrice}</td>
 											<td><c:if test="${orderListVO.ordStatus == 0 }"><span class="badge bg-label-warning me-1">未出貨</span></c:if><c:if test="${orderListVO.ordStatus == 1 }"><span class="badge bg-label-info me-1">已出貨</span></c:if><c:if test="${orderListVO.ordStatus == 2 }"><span class="badge bg-label-success me-1">已完成</span></c:if><c:if test="${orderListVO.ordStatus == 3 }"><span class="badge bg-label-danger me-1">已取消</span></c:if></td>
 											<td>${orderListVO.ordCreate}</td>
 											<td>${orderListVO.recName}</td>
 											<td>${orderListVO.recPhone}</td>
 											<td>${orderListVO.recAddress}</td>
-											<td><c:if test="${orderListVO.ordPick == 0 }"><span class="badge bg-info">店取</span></c:if><c:if test="${orderListVO.ordPick == 1 }"><span class="badge bg-info">超取</span></c:if><c:if test="${orderListVO.ordPick == 2 }"><span class="badge bg-info">宅配</span></c:if></td>
+											<td><c:if test="${orderListVO.ordPick == 0 }"><span class="badge bg-info">店取</span></c:if><c:if test="${orderListVO.ordPick == 1 }"><span class="badge bg-success">超取</span></c:if><c:if test="${orderListVO.ordPick == 2 }"><span class="badge bg-warning">宅配</span></c:if></td>
 											<td><c:if
 													test="${orderListVO.ordStatus != 2 && orderListVO.ordStatus != 3}"
 													var="condition">
 													<FORM METHOD="post"
-														ACTION="<%=request.getContextPath()%>          "
+														ACTION="<%=request.getContextPath()%>/backend/orderlistback/orderListServlet.do"
 														style="margin-bottom: 0px;">
 														<input type="submit" value="修改" type="button" class="detail btn rounded-pill btn-primary"
 															style="background-color: gray;"> <input type="hidden"
-															name="orderNo" value="${orderListVO.ordNo}"> <input
+															name="ordNo" value="${orderListVO.ordNo}"> <input
 															type="hidden" name="action" value="getOne_For_Update">
 													</FORM>
 												</c:if></td>

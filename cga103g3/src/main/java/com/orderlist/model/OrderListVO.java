@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 import com.member.model.MemberVO;
+import com.cart.model.MemberJDBCDAO_cart;
+import com.cart.model.MemberVO_cart;
 import com.member.model.MemberService;
 
 public class OrderListVO {
@@ -115,9 +117,15 @@ public class OrderListVO {
 	}
 	
 	// for join memName  from memID
-	public MemberVO getMemberVo(){
-		MemberService memberSvc = new MemberService();
-		MemberVO memberVo = memberSvc.getOneMember(memID);
-		return memberVo;
+//	public MemberVO getMemberVO(){
+//		MemberService memberSvc = new MemberService();
+//		MemberVO memberVo = memberSvc.getOneMember(memID);
+//		return memberVo;
+//	}
+	// for join memName  from memID
+	public MemberVO_cart getMemberVO(){
+		MemberJDBCDAO_cart dao = new MemberJDBCDAO_cart();
+		MemberVO_cart memberVO = dao.findByPrimaryKey(memID);
+		return memberVO;
 	}
 }

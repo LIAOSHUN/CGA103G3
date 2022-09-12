@@ -175,9 +175,9 @@ public class MemberJDBCDAO_cart  {
 
 	}
 
-	public MemberVO findByPrimaryKey(Integer memID) {
+	public MemberVO_cart findByPrimaryKey(Integer memID) {
 		// TODO Auto-generated method stub
-		MemberVO memberVO = null;
+		MemberVO_cart memberVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -194,7 +194,7 @@ public class MemberJDBCDAO_cart  {
 
 			while (rs.next()) {
 
-				memberVO = new MemberVO();
+				memberVO = new MemberVO_cart();
 				memberVO.setMemID(rs.getInt("MemID"));
 				memberVO.setGradeID(rs.getInt("GradeID"));
 				memberVO.setMemName(rs.getString("MemName"));

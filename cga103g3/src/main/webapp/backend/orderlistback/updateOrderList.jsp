@@ -2,17 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.coupontype.model.*"%>
-<%@ page import="com.memcoupon.model.*"%>
 <%@ page import="com.orderlist.model.*"%>
-<%@ page import="com.orderdetail.model.*"%>
+<%@ page import="com.cart.model.*"%>
 
-<jsp:useBean id="orderListSvc" scope="page" class="com.orderlist.model.OrderListService" />
-<jsp:useBean id="orderDetailSvc" scope="page" class="com.orderdetail.model.OrderDetailService" />
+
 <%
-	
-	List<OrderListVO> list = (List<OrderListVO>)request.getAttribute("CompositeQuery");
-	pageContext.setAttribute("list",list);
+	OrderListVO orderListVO = (OrderListVO)request.getAttribute("orderListVO"); 
 %>
+
+
 <!DOCTYPE html>
 <html lang="en" class="light-style layout-menu-fixed" dir="ltr"
 	data-theme="theme-default"
@@ -22,7 +20,7 @@
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-<title>訂單管理</title>
+<title>訂單修改</title>
 <meta name="description" content="" />
 <!-- Favicon -->
 <link rel="icon" type="image/x-icon"
@@ -58,7 +56,7 @@
 <!-- ================================================================================================ -->
 <style>
   
-* {
+  * {
   	box-sizing: border-box;
   }
   
@@ -84,19 +82,18 @@
   #page2{
   	padding-left: 690px;
   }
+  #updatebutton, #backmagOrderList{
+  	padding-left: 790px;
+  }
   .detail{
   	font-size: 8px;
   	padding-top: 0px;
   	padding-bottom: 0px;
   	padding-left: 0px;
   	padding-right: 0px;
-  	
   }
+
   
-  
-  #backmagOrderList{
-  	padding-left: 790px;
-  }
 
 </style>
 </head>
@@ -351,135 +348,93 @@
 				<div class="content-wrapper">
 					<!-- =============================================================================================== -->
 					<!-- Content內容-->
-					<div class="container-xxl flex-grow-1 container-p-y">
-						<div class="card">
-							<h2 class="card-header">訂單管理</h2>
-<!-- 					<FORM METHOD="post" -->
-<%-- 					ACTION="<%=request.getContextPath()%>/orders/showOrdersBySearch" > --%>
-<!-- 						<div style="text-align: right;" class="row"> -->
-<!-- 							<div class="col"> -->
-<!-- 								<h6> -->
-<!-- 									<span style="color: blue">訂單查詢:</span> -->
-<!-- 								</h6> -->
-<!-- 							</div> -->
-<!-- 							<div class="col"> -->
-<!-- 								<b>訂單編號:</b> <input type="text" name="ordNo" value="" -->
-<!-- 									placeholder="22001"> -->
-<!-- 							</div> -->
-						
-<!-- 							<div class="col" style="text-align: center;"> -->
-<!-- 								<b>訂單狀態:</b><br> -->
-<!-- 								<select name="ordStatus" id="ordStatus"> -->
-<!-- 									<option value="">請選擇訂單狀態</option> -->
-<!-- 									<option value="0">未出貨</option> -->
-<!-- 									<option value="1">已出貨</option> -->
-<!-- 									<option value="2">已完成</option> -->
-<!-- 									<option value="3">取消</option> -->
-<!-- 								</select> -->
-<!-- 							</div> -->
-<!-- 							<div class="col"> -->
-<!-- 								<b>收件人姓名:</b> <input type="text" name="recName" value="" -->
-<!-- 									placeholder="可填入關鍵字"> <input type="submit" value="開始搜尋" -->
-<!-- 									class="btn btn-outline-primary"> <input type="hidden" -->
-<!-- 									name="action" value="CompositeQuery2"> -->
-<!-- 							</div> -->
-<!-- 						</div> -->
-<!-- 					</FORM> -->
-	
-						<div id="backmagOrderList">
-							<button class="btn btn-outline-primary"  onclick="location.href='magOrderList.jsp'"> 返回上一頁</button>
-						</div>
-					
-					
-							<c:forEach var="orderListVO" items="${list}" >
-								<table class="table" >
-									
-										<tr>
-											<th>訂單編號</th>
-											<th>會員姓名</th>
-											<th>優惠券編號</th>
-											<th>總價</th>
-											<th>訂單狀態</th>
-											<th>下單時間</th>
-											<th>收件人</th>
-											<th>電話</th>
-											<th>地址</th>
-											<th>取貨方式</th>
-											<th>修改</th>
-											<th>明細</th>
-										</tr>
-										
-										<tr>
-											<td>${orderListVO.ordNo}</td>
-											<td>${orderListVO.memID}</td> 
-											<td><c:if test="${orderListVO.coupNo == 0 }"><span>未用</span></c:if>
-											<c:if test="${orderListVO.coupNo != 0 }"><span>${orderListVO.coupNo}</span></c:if>
-											</td>
-											<td>$${orderListVO.ordLastPrice}</td>
-											<td><c:if test="${orderListVO.ordStatus == 0 }"><span class="badge bg-label-warning me-1">未出貨</span></c:if><c:if test="${orderListVO.ordStatus == 1 }"><span class="badge bg-label-info me-1">已出貨</span></c:if><c:if test="${orderListVO.ordStatus == 2 }"><span class="badge bg-label-success me-1">已完成</span></c:if><c:if test="${orderListVO.ordStatus == 3 }"><span class="badge bg-label-danger me-1">取消</span></c:if></td>
-											<td>${orderListVO.ordCreate}</td>
-											<td>${orderListVO.recName}</td>
-											<td>${orderListVO.recPhone}</td>
-											<td>${orderListVO.recAddress}</td>
-											<td><c:if test="${orderListVO.ordPick == 0 }"><span class="badge bg-info">店取</span></c:if><c:if test="${orderListVO.ordPick == 1 }"><span class="badge bg-info">超取</span></c:if><c:if test="${orderListVO.ordPick == 2 }"><span class="badge bg-info">宅配</span></c:if></td>
-											<td><c:if
-													test="${orderListVO.ordStatus != 2 && orderListVO.ordStatus != 3}"
-													var="condition">
-													<FORM METHOD="post"
-														ACTION="<%=request.getContextPath()%>/backend/orderlistback/orderListServlet.do"
-														style="margin-bottom: 0px;">
-														<input type="submit" value="修改" type="button" class="detail btn rounded-pill btn-primary"
-															style="background-color: gray;"> <input type="hidden"
-															name="ordNo" value="${orderListVO.ordNo}"> <input
-															type="hidden" name="action" value="getOne_For_Update">
-													</FORM>
-												</c:if></td>
-											<td><button 
-			                          				  class="detail btn rounded-pill btn-primary"
-							                          type="button"
-							                          data-bs-toggle="collapse"
-							                          data-bs-target="#collapseExample${orderListVO.ordNo}"
-							                          aria-expanded="false"
-							                          aria-controls="collapseExample${orderListVO.ordNo}">展 開</button></td>											
-										</tr>	
-										
-							
-								</table>
-<!-- 								=================以下為訂單明細================================ -->
-											<div class="collapse" id="collapseExample${orderListVO.ordNo}">
-						                        <div class="d-grid d-sm-flex p-3 border">
-						                          
-								                      <table class="table table-bordered table-hover mb-0">
-														<thead class="text-700 bg-gray-200">
-															<tr>
-																<th class="fw-600">遊戲名稱</th>
-																<th class="fw-600">數量</th>
-																<th class="fw-600">小計</th>
-															</tr>
-														</thead>
-														<c:forEach var="orderDetailVO" 
-														items="${orderDetailSvc.showOneOrderDetail(orderListVO.getOrdNo())}">
-															<tbody>
-																<tr style="background-color: #B7EBEB;">
-<%-- 																	<td class="p-3">${orderDetailVO.getProductVO(orderDetailVO.pdID).getPdName()}</td> --%>
-																	<td class="p-3">${orderDetailVO.pdID}</td>
-																	<td class="p-3">${orderDetailVO.itemSales}</td>
-																	<td class="p-3">$${orderDetailVO.price}</td>
-																</tr>
-															</tbody>
-														</c:forEach>
-													</table>
-			                        			</div>
-			                        		</div>
-<!-- 								=================以上為訂單明細================================ -->
 
-							</c:forEach>		
-								
+
+			<div class="container-xxl flex-grow-1 container-p-y">
+						<div class="card">
+							<h2 class="card-header">訂單修改</h2>
+			 				<div id="backmagOrderList">
+								<button class="btn btn-outline-primary"  onclick="location.href='magOrderList.jsp'"> 回訂單管理</button>
+							</div>
+
+							<div>
+								<%-- 錯誤表列 --%>
+								<c:if test="${not empty errorMsgs}">
+									<font style="color:red">請修正以下錯誤:</font>
+									<ul>
+										<c:forEach var="message" items="${errorMsgs}">
+											<li style="color:red">${message}</li>
+										</c:forEach>
+									</ul>
+								</c:if>
+							</div>
+
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/orderlistback/orderListServlet.do" name="form1">
+							<table>
+								<tr>
+									<td>訂單編號:</td>
+									<td><%=orderListVO.getOrdNo()%></td>
+								</tr>
+								<tr>
+									<td>會員姓名:</td>
+									<td><%=orderListVO.getMemberVO().getMemName()%></td>
+								</tr>
+								<tr>
+									<td>優惠券編號:</td>
+									<td><c:if test="${orderListVO.coupNo == 0 }"><span>未用</span></c:if><c:if test="${orderListVO.coupNo != 0 }"><span>${orderListVO.coupNo}</span></c:if></td>
+								</tr>
+								<tr>
+									<td>總價:</td>
+									<td>$<%=orderListVO.getOrdLastPrice()%></td>
+								</tr>
+								<tr>
+									<td>訂單狀態:</td>
+									<td><select size="1" name="ordStatus">
+											<option value= 0 ${(orderListVO.ordStatus==0)? 'selected':'' }>未出貨
+											<option value= 1 ${(orderListVO.ordStatus==1)? 'selected':'' }>已出貨
+											<option value= 2 ${(orderListVO.ordStatus==2)? 'selected':'' }>已完成
+											<option value= 3 ${(orderListVO.ordStatus==3)? 'selected':'' }>已取消
+										</select></td>
+								</tr>
+								<tr>
+									<td>收件人:</td>
+									<td><input type="TEXT" name="recName" size="45" value="<%=orderListVO.getRecName()%>" /></td>
+								</tr>
+								<tr>
+									<td>電話:</td>
+									<td><input type="TEXT" name="recPhone" size="45" value="<%=orderListVO.getRecPhone()%>" /></td>
+								</tr>
+								<tr>
+									<td>地址:</td>
+									<td><input type="TEXT" name="recAddress" size="45" value="<%=orderListVO.getRecAddress()%>" /></td>
+								</tr>
+								<tr>
+									<td>取貨方式:</td>
+									<td><select size="1" name="ordPick">
+											<option value= 0 ${(orderListVO.ordPick==0)? 'selected':'' }>店面取貨
+											<option value= 1 ${(orderListVO.ordPick==1)? 'selected':'' }>超商取貨
+											<option value= 2 ${(orderListVO.ordPick==2)? 'selected':'' }>宅配取貨
+										</select></td>
+								</tr>
+
+
+
+							
+							</table>
+							<br>
+							<input type="hidden" name="action" value="update">
+							<input type="hidden" name="ordNo" value="<%=orderListVO.getOrdNo()%>">
+							<input type="hidden" name="memID" value="<%=orderListVO.getMemID()%>">
+							<input type="hidden" name="coupNo" value="<%=orderListVO.getCoupNo()%>">
+							<input type="hidden" name="ordLastPrice" value="<%=orderListVO.getOrdLastPrice()%>">
+							<div id="updatebutton">
+								<input type="submit" value="送出修改" class="btn btn-outline-primary">
+							</div>
+							</FORM>
 						</div>
-						<div id="page2">
-						</div>
-					</div>
-					<!-- / Content -->
+
+
+<!-- / Content -->
 					<!-- =============================================================================================== -->
 					<div class="content-backdrop fade"></div>
 				</div>
@@ -514,7 +469,6 @@
 
 	<!-- Place this tag in your head or just before your close body tag. -->
 	<script async defer src="https://buttons.github.io/buttons.js"></script>
-	<input type="hidden" name="action" value="insert">
 
 
 </body>

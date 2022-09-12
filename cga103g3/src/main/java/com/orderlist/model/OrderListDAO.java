@@ -46,7 +46,7 @@ public class OrderListDAO implements OrderListDAO_interface {
 //  -- 更改訂單內容		
 	private static final String  Update= 
 		"update orderlist "
-		+ "set CoupNo=?, OrdOriPrice=?, OrdLastPrice=?, OrdFee=?, OrdStatus=?, OrdCreate=now(), RecName=?, RecAddress=?, RecPhone=?, OrdPick=? "
+		+ "set OrdStatus=?, RecName=?, RecAddress=?, RecPhone=?, OrdPick=? "
 		+ "where OrdNo=?";
 //	-- 找出某一筆訂單的所有資料
 	private static final String  FindOneOrder= 
@@ -231,16 +231,12 @@ public class OrderListDAO implements OrderListDAO_interface {
 		try(Connection con = ds.getConnection();
 				PreparedStatement ps = con.prepareStatement(Update)) {
 			
-			ps.setInt(1, orderListVO.getCoupNo());
-			ps.setDouble(2, orderListVO.getOrdOriPrice());
-			ps.setDouble(3, orderListVO.getOrdLastPrice());
-			ps.setInt(4, orderListVO.getOrdFee());
-			ps.setInt(5, orderListVO.getOrdStatus());
-			ps.setString(6, orderListVO.getRecName());
-			ps.setString(7, orderListVO.getRecAddress());
-			ps.setString(8, orderListVO.getRecPhone());
-			ps.setInt(9, orderListVO.getOrdPick());
-			ps.setInt(10, orderListVO.getOrdNo());
+			ps.setInt(1, orderListVO.getOrdStatus());
+			ps.setString(2, orderListVO.getRecName());
+			ps.setString(3, orderListVO.getRecAddress());
+			ps.setString(4, orderListVO.getRecPhone());
+			ps.setInt(5, orderListVO.getOrdPick());
+			ps.setInt(6, orderListVO.getOrdNo());
 			
 			int rowcount = ps.executeUpdate();
 			System.out.println(rowcount);

@@ -43,7 +43,13 @@ public class MemCouponService {
 	}
 //	-- 更改 會員擁有的優惠券 的 使用狀態(給排程器偵測用)
 	public void updateStatusRoutine(Integer coupNo, Integer coupStatus) {
-		dao.updateStatusRoutine(coupNo, coupStatus);
+		MemCouponVO memCouponVO = dao.getOne(coupNo);
+		//狀態為未使用才去改為，已過期(上一層servlet呼叫時，coupStatus已給2(已過期))
+		Integer status = memCouponVO.getCoupStatus();
+		if(status == 0) {
+			dao.updateStatusRoutine(coupNo, coupStatus);
+		}
+		
 	}
 	
 //	-- 找出 某張優惠券的資訊	

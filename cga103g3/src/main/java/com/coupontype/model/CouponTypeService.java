@@ -43,9 +43,22 @@ public class CouponTypeService {
 		
 		
 	}
+//	-- 更改優惠券庫存
+	public void updateQuantity(Integer coupTypeNo) {
+		CouponTypeVO couponTypeVO = dao.findCouponTypeByType(coupTypeNo);
+		Integer CoupQuantity = couponTypeVO.getCoupQuantity() - 1;//一次發一張
+		
+		dao.updateQuantity(coupTypeNo, CoupQuantity);
+		
+	}
 //	-- 更改優惠券為下架
 	public void updateDown(Integer coupTypeNo) {
-		dao.updateDown(coupTypeNo);
+		CouponTypeVO couponTypeVO = dao.findCouponTypeByType(coupTypeNo);
+		Integer coupUpd = couponTypeVO.getCoupUpd();
+		//如果商品仍上架中，才去改為已下架
+		if(coupUpd == 0) {
+			dao.updateDown(coupTypeNo);
+		}
 	}
 	
 //	-- 秀出某種類型的優惠券

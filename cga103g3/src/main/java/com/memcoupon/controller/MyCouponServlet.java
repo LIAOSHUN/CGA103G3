@@ -59,7 +59,9 @@ public class MyCouponServlet extends HttpServlet {
 		MemCouponService memCouponService = new MemCouponService();
 		memCouponService.addMemCoupon(memID, coupTypeNo);
 		
-		
+		//更新優惠券類型的庫存
+		CouponTypeService couponTypeService = new CouponTypeService();
+		couponTypeService.updateQuantity(coupTypeNo);
 	
 		/***************************3.新增完成,準備轉交(Send the Success view)***********/
 		String url = "/frontend/memcoupon/myCoupon.jsp";

@@ -34,6 +34,11 @@ public class CouponTypeDAO2 implements CouponTypeDAO_interface{
 		"update coupontype "
 		+ "set CoupName=?, CoupDiscount=?, CoupQuantity=?, CoupDesc=?, CoupUpd=? "
 		+ "where CoupTypeNo=?";
+//	-- 更改優惠券庫存
+	private static final String UpdateQuantity=
+			"update coupontype "
+					+ "set CoupQuantity=? "
+					+ "where CoupTypeNo=?";
 //	-- 更改優惠券為下架
 	private static final String UpdateDown=
 		"update coupontype "
@@ -80,6 +85,22 @@ public class CouponTypeDAO2 implements CouponTypeDAO_interface{
 			ps.setString(4, couponTypeVO.getCoupDesc());
 			ps.setInt(5, couponTypeVO.getCoupUpd());
 			ps.setInt(6, couponTypeVO.getCoupTypeNo());
+			
+			int rowcount = ps.executeUpdate();
+			System.out.println(rowcount);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	@Override
+	public void updateQuantity(Integer coupTypeNo, Integer coupQuantity) {
+		try (Connection con = ds.getConnection();
+				PreparedStatement ps = con.prepareStatement(UpdateQuantity)){
+			ps.setInt(1, coupQuantity);
+			ps.setInt(2, coupTypeNo);
+			
 			
 			int rowcount = ps.executeUpdate();
 			System.out.println(rowcount);
@@ -169,6 +190,7 @@ public class CouponTypeDAO2 implements CouponTypeDAO_interface{
 		}
 		
 	}
+
 
 	
 

@@ -29,6 +29,10 @@
         <input type="hidden" name="memID" value="11001">
         <input type="submit" value="我的訂單11001">
 </FORM>
+<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/orderlist/myOrderList.jsp">
+        <input type="hidden" name="memID" value="11002">
+        <input type="submit" value="我的訂單11002">
+</FORM>
 
 <a href="%=request.getContextPath()%>/frontend/orderlist/myOrderList.jsp" >
 </a>

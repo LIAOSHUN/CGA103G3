@@ -100,19 +100,12 @@ public class OrderListService {
 		
 	}
 //	-- 更改訂單內容
-	public OrderListVO updateOrderList(Integer ordNo, Integer memID, Integer coupNo, Double ordOriPrice, Double ordLastPrice,
-			Integer ordFee, Integer ordStatus, Timestamp ordCreate, String recName, String recAddress, String recPhone,
+	public OrderListVO updateOrderList(Integer ordNo, Integer ordStatus, String recName, String recAddress, String recPhone,
 			Integer ordPick) {
 		OrderListVO orderListVO = new OrderListVO();
 		
 		orderListVO.setOrdNo(ordNo);
-		orderListVO.setMemID(memID);
-		orderListVO.setCoupNo(coupNo);
-		orderListVO.setOrdOriPrice(ordOriPrice);
-		orderListVO.setOrdLastPrice(ordLastPrice);
-		orderListVO.setOrdFee(ordFee);
 		orderListVO.setOrdStatus(ordStatus);
-		orderListVO.setOrdCreate(ordCreate);
 		orderListVO.setRecName(recName);
 		orderListVO.setRecAddress(recAddress);
 		orderListVO.setRecPhone(recPhone);
