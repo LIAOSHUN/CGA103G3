@@ -15,6 +15,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.actimg.model.ActImgDAO;
 import com.actimg.model.ActImgJDBCDAO;
 import com.actimg.model.ActImgVO;
 
@@ -41,6 +42,7 @@ public class ActDAO implements ActDAO_interface {
 			+ "from activity where ActID = ?";
 	private static final String UPDATE = "update activity set StoreID=?, ActTitle=?, ActDescription=?, ActTimeStart=?, ActTimeEnd=?, "
 			+ "ActDate=?, RegisMax=?, ActFee=?, ActRegistration=?, ActStatus=? where ActID = ?";
+	private static final String UPDATE_STATE = "update activity set ActStatus=2 where ActID = ?";
 	private static final String GET_IMGS_BYACTID_STMT = "SELECT ActImgID, ActID, ActImgFile "
 			+ "FROM actimg where ActID = ? order by ActImgID ";
 
@@ -91,6 +93,17 @@ public class ActDAO implements ActDAO_interface {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 		}
 
+	}
+	
+	public void changeState(ActVO actVO) {
+		try (Connection con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(UPDATE_STATE)) {
+			pstmt.setInt(1, actVO.getActID());
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		}
 	}
 
 	@Override
@@ -212,7 +225,7 @@ public class ActDAO implements ActDAO_interface {
 			rs.close();
 
 			// 再新增照片
-			ActImgJDBCDAO dao = new ActImgJDBCDAO();
+			ActImgDAO dao = new ActImgDAO();
 			for (ActImgVO aActImg : imglist) {
 				aActImg.setActID(new Integer(nextActID));
 				dao.insertfromAct(aActImg, con);

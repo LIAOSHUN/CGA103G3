@@ -8,6 +8,7 @@ import com.actimg.model.ActImgVO;
 public interface ActDAO_interface {
 	public void insert(ActVO actVO);
     public void update(ActVO actVO);
+    public void changeState(ActVO actVO);
     public ActVO findByPrimaryKey(Integer actID);
     public List<ActVO> getAll();
   //查詢某活動的照片(一對多)(回傳 Set)

@@ -26,6 +26,7 @@ public class ActJDBCDAO implements ActDAO_interface{
 	private static final String UPDATE = 
 		"update activity set StoreID=?, ActTitle=?, ActDescription=?, ActTimeStart=?, ActTimeEnd=?, "
 		+ "ActDate=?, RegisMax=?, ActFee=?, ActRegistration=?, ActStatus=? where ActID = ?";
+	private static final String UPDATE_STATE = "update activity set ActStatus=2 where ActID = ?";
 	private static final String GET_IMGS_BYACTID_STMT = "SELECT ActImgID, ActID, ActImgFile "
 			+ "FROM actimg where ActID = ? order by ActImgID ";
 	
@@ -89,6 +90,25 @@ public class ActJDBCDAO implements ActDAO_interface{
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
 		}		
+	}
+
+	@Override
+	public void changeState(ActVO actVO) {
+		try (Connection con = DriverManager.getConnection(url, userid, passwd);
+			PreparedStatement pstmt = con.prepareStatement(UPDATE_STATE)) {
+			Class.forName(driver);
+			pstmt.setInt(1, actVO.getActID());
+			pstmt.executeUpdate();
+			
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+		}	
 	}
 
 	@Override
