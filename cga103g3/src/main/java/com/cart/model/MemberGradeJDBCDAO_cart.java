@@ -18,7 +18,7 @@ public class MemberGradeJDBCDAO_cart   {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/boardgame?serverTimezone=Asia/Taipei";
 	String userid = "root";
-	String passwd = "asd12377";
+	String passwd = "CGA103g3";
 	
 	private static final String INSERT_STMT = "INSERT INTO membergrade (gradeID,gradeName,gradeDiscount) VALUES (?, ?, ?)";
 	private static final String GET_ALL_STMT = "SELECT gradeID,gradeName,gradeDiscount FROM membergrade order by gradeID";

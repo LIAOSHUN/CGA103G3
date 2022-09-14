@@ -9,7 +9,8 @@
   <%
 	MemberVO_cart memberVO = new MemberVO_cart();
 	MemberJDBCDAO_cart dao = new MemberJDBCDAO_cart();
-	memberVO = dao.findByPrimaryKey(11002);
+// 	Integer memID = (Integer)request.getSession().getAttribute("memID");
+	memberVO = dao.findByPrimaryKey(11001);
 	String name = memberVO.getMemName();
   %>
 

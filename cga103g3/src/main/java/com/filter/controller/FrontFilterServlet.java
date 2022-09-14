@@ -14,14 +14,14 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+@WebFilter(	filterName = "FrontFilterServlet",
+servletNames = {"/FrontFilterServlet"},
+urlPatterns = {"/frontend/cart/checkout.jsp"}
+		)
 public class FrontFilterServlet extends HttpFilter implements Filter{
 /****************************************
 * 限制 "/back-end/*" 底下的頁面
 ****************************************/
-//@WebFilter(	filterName = "BackFilterServlet",
-//				servletNames = {"/BackFilterServlet"},
-//				urlPatterns = {"/back-end/*"}
-//)
 public FrontFilterServlet() {
 	super();
 }
@@ -46,7 +46,7 @@ public FrontFilterServlet() {
 		if( !(uri.endsWith("Login.jsp") || uri.endsWith("memberServlet.do")) && (memAccount == null || (memAccount.trim()).length() == 0)){
 //			req.getRequestDispatcher("../../BackLogin.jsp").forward(request, response);
 			//跳轉頁面至登入頁面
-			res.sendRedirect("memberLogin.jsp");
+			res.sendRedirect("../../member/memberLogin.jsp");
 			return;
 		}else{
 			//回傳正常頁面
