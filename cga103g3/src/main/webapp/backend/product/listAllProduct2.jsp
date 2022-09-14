@@ -105,7 +105,7 @@ th, td {
 				<td>${productVO.pdStar}</td>
 				<td>${productVO.pdUpdate}</td>
 
-				<c:forEach var="productImgVO" items="${list}" varStatus="imgCount" step="7"
+				<c:forEach var="productImgVO" items="${list}" varStatus="imgCount" step="4"
 					>
 
 					<td><img

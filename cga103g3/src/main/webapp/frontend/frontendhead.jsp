@@ -187,7 +187,7 @@
 					</li>
 
 					<li class="p-b-13">
-						<a href="#" class="stext-102 cl2 hov-cl1 trans-04">
+						<a href="<%=request.getContextPath()%>/frontend/orderlist/myOrderList.jsp" class="stext-102 cl2 hov-cl1 trans-04">
 							我的訂單
 						</a>
 					</li>
