@@ -1,19 +1,17 @@
-package com.productimg.controller;
+package com.producttype.controller;
 
 import java.io.*;
-import java.sql.Timestamp;
 import java.util.*;
 
-import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.servlet.*;
-import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import com.product.model.*;
-import com.productimg.model.ProductImgService;
-import com.productimg.model.ProductImgVO;
-@MultipartConfig
-public class ProductImgServlet extends HttpServlet {
+import com.producttype.model.ProductTypeService;
+import com.producttype.model.ProductTypeVO;
+@WebServlet("/producttype/ProductTypeServlet")
+public class ProductTypeServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
@@ -35,49 +33,49 @@ public class ProductImgServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-				String str = req.getParameter("pdImgID");
+				String str = req.getParameter("pdTypeID");
 				if (str == null || (str.trim()).length() == 0) {
-					errorMsgs.add("請輸入圖片編號");
+					errorMsgs.add("請輸入遊戲種類編號");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backend/productimg/select_page.jsp");
+							.getRequestDispatcher("/producttype/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
-				Integer pdImgID = null;
+				Integer pdTypeID = null;
 				try {
-					pdImgID = Integer.valueOf(str);
+					pdTypeID = Integer.valueOf(str);
 				} catch (Exception e) {
-					errorMsgs.add("圖片編號格式不正確");
+					errorMsgs.add("遊戲種類編號格式不正確");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backend/productimg/select_page.jsp");
+							.getRequestDispatcher("/backend/producttype/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************2.開始查詢資料*****************************************/
-				ProductImgService productImgSvc = new ProductImgService();
-				ProductImgVO productImgVO = productImgSvc.getOneProductImg(pdImgID);
-				if (pdImgID == null) {
+				ProductTypeService productTypeSvc = new ProductTypeService();
+				ProductTypeVO productTypeVO = productTypeSvc.getOneProducttype(pdTypeID);
+				if (pdTypeID == null) {
 					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backend/productimg/select_page.jsp");
+							.getRequestDispatcher("/backend/producttype/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("productImgVO", productImgVO); // 資料庫取出的empVO物件,存入req
-				String url = "/backend/productimg/listOneProductimg.jsp";
+				req.setAttribute("productTypeVO", productTypeVO); // 資料庫取出的empVO物件,存入req
+				String url = "/producttype/listOneProductType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 		}
@@ -91,15 +89,15 @@ public class ProductImgServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 				/***************************1.接收請求參數****************************************/
-				Integer pdImgID = Integer.valueOf(req.getParameter("pdImgID"));
+				Integer pdTypeID = Integer.valueOf(req.getParameter("pdTypeID"));
 				
 				/***************************2.開始查詢資料****************************************/
-				ProductImgService productImgSvc = new ProductImgService();
-				ProductImgVO productImgVO = productImgSvc.getOneProductImg(pdImgID);
+				ProductTypeService productTypeSvc = new ProductTypeService();
+				ProductTypeVO productTypeVO = productTypeSvc.getOneProducttype(pdTypeID);
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
-				req.setAttribute("productImgVO", productImgVO);         // 資料庫取出的empVO物件,存入req
-				String url = "/backend/productimg/update_productimg_input.jsp";
+				req.setAttribute("productTypeVO", productTypeVO);         // 資料庫取出的empVO物件,存入req
+				String url = "/backend/producttype/update_producttype_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
 		}
@@ -113,48 +111,34 @@ public class ProductImgServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 		
 				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-//				PDIMGID
-				
-				Integer pdImgID = Integer.valueOf(req.getParameter("pdImgID").trim());
-//				PDNAME
-				String pdImgName = req.getParameter("pdImgName").trim();
-				if (pdImgName == null || pdImgName.trim().length() == 0) {
-					errorMsgs.add("圖片名稱請勿空白");
+//				PDTYPEID
+				Integer pdTypeID = Integer.valueOf(req.getParameter("pdTypeID").trim());
+//				PDTYPENAME
+				String pdTypeName = req.getParameter("pdTypeName").trim();
+				if (pdTypeName == null || pdTypeName.trim().length() == 0) {
+					errorMsgs.add("種類名稱請勿空白");
 				}	
-//				Img
-				byte[] pdImg = null;      
-				try {
-					pdImg = req.getPart("pdImg").getInputStream().readAllBytes();
-				} catch (Exception e) {
-					errorMsgs.add("請上傳正確格式的檔案");
-					System.out.println(pdImg);
-				}
 
-					
-				
-				
-
-				ProductImgVO productImgVO = new ProductImgVO();
-				productImgVO.setPdImgID(pdImgID);
-				productImgVO.setPdImg(pdImg);
-				productImgVO.setPdImgName(pdImgName);
+				ProductTypeVO productTypeVO = new ProductTypeVO();
+				productTypeVO.setPdTypeID(pdTypeID);
+				productTypeVO.setPdTypeName(pdTypeName);
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("productImgVO", productImgVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					req.setAttribute("productTypeVO", productTypeVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backend/product/update_productimg_input.jsp");
+							.getRequestDispatcher("/backend/producttype/update_producttype_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
 				
 				/***************************2.開始修改資料*****************************************/
-				ProductImgService productImgSvc = new ProductImgService();
-				productImgVO = productImgSvc.updateProductImg(pdImgID, pdImg, pdImgName);
+				ProductTypeService productTypeSvc = new ProductTypeService();
+				productTypeVO = productTypeSvc.updateProductType(pdTypeID, pdTypeName);
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
-				req.setAttribute("productImgVO", productImgVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/backend/productimg/listOneProductimg.jsp";
+				req.setAttribute("productTypeVO", productTypeVO); // 資料庫update成功後,正確的的empVO物件,存入req
+				String url = "/backend/producttype/listOneProductType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 		}
@@ -167,40 +151,34 @@ public class ProductImgServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-//			PDNAME
-			String pdImgName = req.getParameter("pdImgName").trim();
-			if (pdImgName == null || pdImgName.trim().length() == 0) {
-				errorMsgs.add("圖片名稱請勿空白");
-			}	
-//			Img
-//			byte[] pdImg = null;      
+//			PDTYPENAME
+			String pdTypeName = null;
 			try {
-				pdImg = req.getPart("pdImg").getInputStream().readAllBytes();
-			} catch (Exception e) {
-				errorMsgs.add("請上傳正確格式的檔案");
-				System.out.println(pdImg);
-			}
-			
+				pdTypeName = req.getParameter("pdTypeName").trim();
+			} catch (Exception e1) {
+				errorMsgs.add("種類名稱請勿空白");
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}	
 
-			ProductImgVO productImgVO = new ProductImgVO();
-			productImgVO.setPdImg(pdImg);
-			productImgVO.setPdImgName(pdImgName);
+			ProductTypeVO productTypeVO = new ProductTypeVO();
+			productTypeVO.setPdTypeName(pdTypeName);
 
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				req.setAttribute("productVO", productImgVO); // 含有輸入格式錯誤的empVO物件,也存入req
+				req.setAttribute("productTypeVO", productTypeVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/productimg/update_productimg_input.jsp");
+						.getRequestDispatcher("/backend/producttype/update_producttype_input.jsp");
 				failureView.forward(req, res);
 				return; //程式中斷
 			}
 				
 				/***************************2.開始新增資料***************************************/
-			ProductImgService productImgSvc = new ProductImgService();
-			productImgVO = productImgSvc.addProductImg(pdImg, pdImgName);
+			ProductTypeService productTypeSvc = new ProductTypeService();
+			productTypeVO = productTypeSvc.addProductType(pdTypeName);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/backend/productimg/listAllProductimg.jsp";
+				String url = "/backend/producttype/listAllProductType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 		}
@@ -214,13 +192,14 @@ public class ProductImgServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 	
 				/***************************1.接收請求參數***************************************/
-				Integer pdImgID = Integer.valueOf(req.getParameter("pdImgID"));
+				Integer pdTypeID = Integer.valueOf(req.getParameter("pdTypeID"));
 				
 				/***************************2.開始刪除資料***************************************/
-				ProductImgService productImgSvc = new ProductImgService();
+				ProductTypeService productTypeSvc = new ProductTypeService();
+				productTypeSvc.deleteProductType(pdTypeID);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/backend/productimg/listAllProductimg.jsp";
+				String url = "/backend/producttype/listAllProductType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 		}

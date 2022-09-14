@@ -1236,23 +1236,23 @@ Input, textarea : 14px/1.6 '', Arial, sans-serif;
 }
 
 .item-slick1 {
-  height: calc(100vh - 40px);
-  background-size: cover;
+  height: calc(50vh - 40px);
+  background-size: 100%;
   background-repeat: no-repeat;
   background-position: center center;
 }
 
 .rs1-slick1 .item-slick1 {
-  height: calc(100vh - 84px);
+  height: calc(50vh - 84px);
 }
 
 .rs2-slick1 .item-slick1 {
-  height: 100vh;
+  height: 50vh;
 }
 
 @media (max-width: 991px) {
   .item-slick1 {
-    height: calc(100vh - 70px) !important;
+    height: calc(50vh - 70px) !important;
   }
 }
 
@@ -2253,8 +2253,9 @@ input.num-product::-webkit-inner-spin-button {
 /*//////////////////////////////////////////////////////////////////
 [ S-Text 0 - 15 ]*/
 .stext-101 {
+  color: #fff;
   font-family: Poppins-Medium;
-  font-size: 15px;
+  font-size: 20px;
   line-height: 1.466667;
   text-transform: uppercase;
 }

@@ -17,14 +17,14 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/boardgame");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 
 	private static final String INSERT_STMT = 
-		"INSERT INTO productimg (PdImg,PdImgName) VALUES (?,?)";
+		"INSERT INTO productimg (PdId,PdImg,PdImgName) VALUES (?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 		"SELECT PdImgId,PdId,PdImg,PdImgName FROM productimg order by PdImgId";
 	private static final String GET_ONE_STMT = 
@@ -32,7 +32,7 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 	private static final String DELETE = 
 		"DELETE FROM productimg where PdImgId = ?";
 	private static final String UPDATE = 
-		"UPDATE productimg set PdImg=?, PdImgName=? where PdImgId = ?";
+		"UPDATE productimg set PdID=?, PdImg=?, PdImgName=? where PdImgId = ?";
 
 	@Override
 	public void insert(ProductImgVO productImgVO) {
@@ -43,10 +43,11 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 		try {
 
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
-//			"INSERT INTO productimg (PdImg,PdImgName) VALUES (?, ?)";
-			pstmt.setBytes(1, productImgVO.getPdImg());
-			pstmt.setString(2, productImgVO.getPdImgName());
+			pstmt = con.prepareStatement(INSERT_STMT);	
+//			"INSERT INTO productimg (PdId,PdImg,PdImgName) VALUES (?, ?, ?)";
+			pstmt.setInt(1, productImgVO.getPdID());
+			pstmt.setBytes(2, productImgVO.getPdImg());
+			pstmt.setString(3, productImgVO.getPdImgName());
 
 			pstmt.executeUpdate();
 
@@ -84,10 +85,11 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
-//			"UPDATE productimg set PdImg=?, PdImgName=? where PdImgId = ?";
-			pstmt.setBytes(1, productImgVO.getPdImg());
-			pstmt.setString(2, productImgVO.getPdImgName());
-			pstmt.setInt(3, productImgVO.getPdImgID());
+//			"UPDATE productimg set PdID=?, PdImg=?, PdImgName=? where PdImgId = ?";
+			pstmt.setInt(1, productImgVO.getPdID());
+			pstmt.setBytes(2, productImgVO.getPdImg());
+			pstmt.setString(3, productImgVO.getPdImgName());
+			pstmt.setInt(4, productImgVO.getPdImgID());
 
 
 			pstmt.executeUpdate();
@@ -117,7 +119,7 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer pdImgId) {
+	public void delete(Integer PdImgId) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -127,7 +129,7 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, pdImgId);
+			pstmt.setInt(1, PdImgId);
 
 			pstmt.executeUpdate();
 
@@ -156,7 +158,7 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 	}
 
 	@Override
-	public ProductImgVO findByPrimaryKey(Integer pdImgId) {
+	public ProductImgVO findByPrimaryKey(Integer PdImgId) {
 
 		ProductImgVO productImgVO = null;
 		Connection con = null;
@@ -168,9 +170,10 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, pdImgId);
+			pstmt.setInt(1, PdImgId);
 
 			rs = pstmt.executeQuery();
+//			"SELECT PdImgId,PdId,PdImg,PdImgName FROM productimg where PdImgId = ?";
 
 			while (rs.next()) {
 				// empVo �]�٬� Domain objects
@@ -266,5 +269,50 @@ public class ProductImgDAO implements ProductImgDAO_interface {
 			}
 		}
 		return list;
+	}
+	@Override
+	public void insert2 (ProductImgVO productImgVO , Connection con) {
+
+		PreparedStatement pstmt = null;
+
+		try {
+
+     		pstmt = con.prepareStatement(INSERT_STMT);
+//    		"INSERT INTO productimg (PdId,PdImg,PdImgName) VALUES (?, ?, ?)";
+			pstmt.setInt(1, productImgVO.getPdID());
+			pstmt.setBytes(2, productImgVO.getPdImg());
+			pstmt.setString(3, productImgVO.getPdImgName());
+
+			Statement stmt=	con.createStatement();
+			//stmt.executeUpdate("set auto_increment_offset=7001;"); //自增主鍵-初始值
+			stmt.executeUpdate("set auto_increment_increment=1;");   //自增主鍵-遞增
+			pstmt.executeUpdate();
+
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-emp");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+
 	}
 }

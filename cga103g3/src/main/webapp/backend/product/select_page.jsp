@@ -73,19 +73,11 @@
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">
     </FORM>
-  </li>
-  
-  <li>
-     <FORM METHOD="post" ACTION="product.do" >
-       <b>選擇遊戲名稱:</b>
-       <select size="1" name="pdID">
-         <c:forEach var="productVO" items="${productSvc.all}" > 
-          <option value="${productVO.pdID}">${productVO.pdID}
-         </c:forEach>   
-       </select>
+
+
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">
-     </FORM>
+
   </li>
 </ul>
 
