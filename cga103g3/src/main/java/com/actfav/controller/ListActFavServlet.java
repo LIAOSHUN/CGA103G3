@@ -15,7 +15,7 @@ import com.actfav.model.ActFavService;
 import com.google.gson.Gson;
 import com.member.model.MemberVO;
 
-@WebServlet("/actfav/ListActFavServlet")
+
 public class ListActFavServlet extends HttpServlet{
 	public void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
