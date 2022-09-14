@@ -50,7 +50,7 @@ public FrontFilterServlet() {
 			return;
 		}else{
 			//回傳正常頁面
-			chain.doFilter(request, response);
+			chain.doFilter(request, response); 
 			return;
 		}
 		
