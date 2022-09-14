@@ -131,6 +131,27 @@ public class ActServlet extends HttpServlet {
 			}
 		}
 		
+		if ("showActForRegis".equals(action)) { // 來自listAllAct.jsp的請求
+			try {
+				/***************************1.接收請求參數****************************************/
+				Integer actID = Integer.valueOf(req.getParameter("actID"));
+				
+				/***************************2.開始查詢資料****************************************/
+				ActService actSvc = new ActService();
+				ActVO actVO = actSvc.getOneAct(actID);
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("actVO", actVO);         // 資料庫取出的actVO物件,存入req
+				String url = "/frontend/actregis/addRegis.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_act_input.jsp
+				successView.forward(req, res);
+			} catch (Exception e) {
+				e.printStackTrace();
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/act/listAllAct.jsp");
+				failureView.forward(req, res);
+			}
+		}
 		
 		if ("update".equals(action)) { // 來自update_act_input.jsp的請求
 			

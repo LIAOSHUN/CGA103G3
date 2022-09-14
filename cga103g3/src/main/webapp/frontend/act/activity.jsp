@@ -135,13 +135,13 @@
 					<javatime:format value="${actVO.actTimeEnd}" pattern="yyyy-MM-dd　HH:mm" />
 				</div>
 				<div class="forBtn">
-					<a href="../actregis/addRegis.jsp">
+					<a href="<%=request.getContextPath()%>/ActServlet?actID=${actVO.actID}&action=showActForRegis">
 						<button class="btnn btn-info btnToRegis" style="margin-left: 50px;">
 							<b>活動報名</b>
 						</button>
 					</a>
 					<a href="../actfav/listFav.jsp">
-						<button class="btnn btn-info btnToFav"  onclick="onAddFavClick(${actVO.actID})" style="margin-left: 35px;">
+						<button class="btnn btn-info btnToFav" onclick="onAddFavClick(`${actVO.actID}`)" style="margin-left: 35px;">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
 								<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
 							</svg>
@@ -168,14 +168,26 @@
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/js/bootstrap.js"></script>
 <script>
 	function onAddFavClick(actID) {
-		let url = `${getContextPath()}/AddActFavServlet?actID=${actVO.actID}`;
+		let url = `/cga103g3/AddActFavServlet?actID=${actVO.actID}`;
 		fetch(url, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				actID: `${actVO.actID}`
+			})
 		})
-		function getContextPath() {
-			return window.location.pathname.substring(0, window.location.pathname.indexOf('/', 2));
-		}
+			.then(res => res.json())
+			.then(data => {
+				console.log(data);
+				if (data == 0) {
+					alert('需登入會員');
+					location.assign(`/cga103g3/frontend/member/login`);
+				} else if (data == 1) {
+					alert('已成功加入收藏清單');
+				} else if (data == 2) {
+					alert('收藏清單已有此活動');
+				}
+			})
 	}
 </script>
 </body>
