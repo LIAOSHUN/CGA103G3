@@ -7,7 +7,7 @@
 <jsp:useBean id="couponTypeSvc" scope="page" class="com.coupontype.model.CouponTypeService" />
 <%
 	List<CouponTypeVO> list = couponTypeSvc.getAll();
-	pageContext.setAttribute("list",list);
+	pageContext.setAttribute("list",list); 
 %>
 
 
