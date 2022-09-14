@@ -31,7 +31,7 @@ h4 {
 
 <style>
 table {
-	width: 600px;
+	width: 100%;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -44,7 +44,6 @@ table, th, td {
 th, td {
 	padding: 15px;
 	text-align: center;
-	width:1000px;
 }
 </style>
 

@@ -33,7 +33,7 @@
    <tr><td><h3> Home</h3><h4>( MVC )</h4></td></tr>
 </table>
 
-<p>This is the Home page for IBM Emp: Home</p>
+<p>This is the Home page for IBM : Home</p>
 
 <h3>¸ê®Æ¬d¸ß:</h3>
 	

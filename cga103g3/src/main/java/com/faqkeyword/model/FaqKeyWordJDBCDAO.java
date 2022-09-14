@@ -1,8 +1,8 @@
-package com.notification.model;
+package com.faqkeyword.model;
 
+import static basic.util.JdbcConstants.PASSWORD;
 import static basic.util.JdbcConstants.URL;
 import static basic.util.JdbcConstants.USERNAME;
-import static basic.util.JdbcConstants.PASSWORD;
 import static basic.util.JdbcConstants.driver;
 
 import java.sql.Connection;
@@ -13,17 +13,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+public class FaqKeyWordJDBCDAO implements FaqKeyWordDAO_interface {
 
-public class NotificationJDBCDAO implements NotificationDAO_interface {
-
-	private static final String INSERT_STMT = "INSERT INTO notification (MemID,NoticeDescription,NoticeTime,NoticeRead) VALUES (?, ?, now(), ?)";
-	private static final String GET_ALL_STMT = "SELECT NoticeID,MemID,NoticeDescription,NoticeTime,NoticeRead FROM notification order by NoticeID";
-	private static final String GET_ONE_STMT = "SELECT NoticeID,MemID,NoticeDescription,NoticeTime,NoticeRead FROM notification where NoticeID = ?";
-	private static final String DELETE = "DELETE FROM notification where NoticeID = ?";
-	private static final String UPDATE = "UPDATE notification set MemID=?,NoticeDescription=?,NoticeTime=?,NoticeRead=? where NoticeID = ?";
+	private static final String INSERT_STMT = "INSERT INTO faqkeyword (kwContent,kwReply,kwStatus) VALUES (?, ?, ?)";
+	private static final String GET_ALL_STMT = "SELECT kwID,kwContent,kwReply,kwStatus FROM faqkeyword order by kwID";
+	private static final String GET_ONE_STMT = "SELECT kwID,kwContent,kwReply,kwStatus FROM faqkeyword where kwID = ?";
+	private static final String DELETE = "DELETE FROM faqkeyword where kwID = ?";
+	private static final String UPDATE = "UPDATE kwContent=?,kwReply=?,kwStatus=? where kwID = ?";
 
 	@Override
-	public void insert(NotificationVO notificationVO) {
+	public void insert(FaqKeyWordVO faqkeywordVO) {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -34,10 +33,9 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, notificationVO.getMemID());
-			pstmt.setString(2, notificationVO.getNoticeDescription());
-			pstmt.setInt(3, notificationVO.getNoticeRead());
-
+			pstmt.setString(1, faqkeywordVO.getKwContent());
+			pstmt.setString(2, faqkeywordVO.getKwReply());
+			pstmt.setInt(3, faqkeywordVO.getKwStatus());
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -63,11 +61,10 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 				}
 			}
 		}
-
 	}
 
 	@Override
-	public void update(NotificationVO notificationVO) {
+	public void update(FaqKeyWordVO faqkeywordVO) {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -78,11 +75,9 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, notificationVO.getMemID());
-			pstmt.setString(2, notificationVO.getNoticeDescription());
-			pstmt.setTimestamp(3, notificationVO.getNoticeTime());
-			pstmt.setInt(4, notificationVO.getNoticeRead());
-			pstmt.setInt(5, notificationVO.getNoticeID());
+			pstmt.setString(1, faqkeywordVO.getKwContent());
+			pstmt.setString(2, faqkeywordVO.getKwReply());
+			pstmt.setInt(3, faqkeywordVO.getKwStatus());
 
 			pstmt.executeUpdate();
 
@@ -112,7 +107,7 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer noticeID) {
+	public void delete(Integer kwID) {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -123,7 +118,7 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, noticeID);
+			pstmt.setInt(1, kwID);
 
 			pstmt.executeUpdate();
 
@@ -153,10 +148,9 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 	}
 
 	@Override
-	public NotificationVO findByPrimaryKey(Integer noticeID) {
+	public FaqKeyWordVO findByPrimaryKey(Integer kwID) {
 		// TODO Auto-generated method stub
-
-		NotificationVO notificationVO = null;
+		FaqKeyWordVO faqkeywordVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -167,19 +161,19 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, noticeID);
+			pstmt.setInt(1, kwID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 
-				notificationVO = new NotificationVO();
-				notificationVO.setMemID(rs.getInt("MemID"));
-				notificationVO.setNoticeDescription(rs.getNString("NoticeDescription"));
-				notificationVO.setNoticeTime(rs.getTimestamp("NoticeTime"));
-				notificationVO.setNoticeRead(rs.getInt("NoticeRead"));
+				faqkeywordVO = new FaqKeyWordVO();
+				faqkeywordVO.setKwID(rs.getInt("KwID"));
+				faqkeywordVO.setKwContent(rs.getString("KwContent"));
+				faqkeywordVO.setKwReply(rs.getString("KwReply"));
+				faqkeywordVO.setKwStatus(rs.getInt("KwStatus"));
 
-	}
+			}
 			// Handle any driver errors
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
@@ -210,14 +204,14 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 				}
 			}
 		}
-		return notificationVO;
+		return faqkeywordVO;
 	}
-			
+
 	@Override
-	public List<NotificationVO> getAll() {
+	public List<FaqKeyWordVO> getAll() {
 		// TODO Auto-generated method stub
-		List<NotificationVO> list = new ArrayList<NotificationVO>();
-		NotificationVO notificationVO = null;
+		List<FaqKeyWordVO> list = new ArrayList<FaqKeyWordVO>();
+		FaqKeyWordVO faqkeywordVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -232,15 +226,13 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 
 			while (rs.next()) {
 
-				notificationVO = new NotificationVO();
-				notificationVO.setNoticeID(rs.getInt("NoticeID"));
-				notificationVO.setMemID(rs.getInt("MemID"));
-				notificationVO.setNoticeDescription(rs.getNString("NoticeDescription"));
-				notificationVO.setNoticeTime(rs.getTimestamp("NoticeTime"));
-				notificationVO.setNoticeRead(rs.getInt("NoticeRead"));
+				faqkeywordVO = new FaqKeyWordVO();
+				faqkeywordVO.setKwID(rs.getInt("KwID"));
+				faqkeywordVO.setKwContent(rs.getString("KwContent"));
+				faqkeywordVO.setKwReply(rs.getString("KwReply"));
+				faqkeywordVO.setKwStatus(rs.getInt("KwStatus"));
 
-			
-				list.add(notificationVO); // Store the row in the list
+				list.add(faqkeywordVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -274,41 +266,7 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 			}
 		}
 		return list;
+
 	}
 
-	public static void main(String[] args) {
-//
-//		NotificationJDBCDAO dao = new NotificationJDBCDAO();
-//
-//		// 新增
-//		NotificationVO notificationVO1 = new NotificationVO();
-//		notificationVO1.setMemID(11003);
-//		notificationVO1.setNoticeDescription("Tibame");
-//		notificationVO1.setNoticeRead(1);
-//	
-//		dao.insert(notificationVO1);
-//
-//
-//		// 刪除
-//		dao.delete(14006);
-//
-//		// 查詢
-//		NotificationVO notificationVO2 = dao.findByPrimaryKey(14004);
-//		System.out.print(notificationVO2.getMemID() + ",");
-//		System.out.print(notificationVO2.getNoticeDescription() + ",");
-//		System.out.print(notificationVO2.getNoticeTime() + ",");
-//		System.out.print(notificationVO2.getNoticeRead());
-//		System.out.println("---------------------");
-//		
-//		// 查詢
-//		List<NotificationVO> list = dao.getAll();
-//		for (NotificationVO notificationVO3 : list) {
-//		System.out.print(notificationVO3.getMemID() + ",");
-//		System.out.print(notificationVO3.getNoticeDescription() + ",");
-//		System.out.print(notificationVO3.getNoticeTime() + ",");
-//		System.out.print(notificationVO3.getNoticeRead());
-//			System.out.println();
-//		}
-//	
-	}
 }

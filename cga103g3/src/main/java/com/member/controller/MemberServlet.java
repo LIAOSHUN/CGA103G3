@@ -4,9 +4,11 @@ import java.io.*;
 import java.util.*;
 
 import javax.servlet.*;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
 import com.member.model.*;
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -20,7 +22,7 @@ public class MemberServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html; charset=utf-8");
 		String action = req.getParameter("action");
-	    PrintWriter out = res.getWriter();
+		HttpSession session = req.getSession();
 
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
@@ -138,6 +140,8 @@ public class MemberServlet extends HttpServlet {
 			if (memGender == null || memGender.trim().length() == 0) { // 性別
 				errorMsgs.add("性別請勿空白");
 			}
+			System.out.println(memGender);
+
 			String memPh = req.getParameter("memPh").trim(); // 電話
 			String memPhReg = "^[0-9]{10}$";
 			if (memPh == null || memPh.trim().length() == 0) {
@@ -166,8 +170,10 @@ public class MemberServlet extends HttpServlet {
 				errorMsgs.add("請輸入日期!");
 			}
 
-			byte[] memCard = null; //
-
+			byte[] memCard = req.getPart("memCard").getInputStream().readAllBytes();
+			if(memCard.length==0) {
+				memCard=null;
+			}
 			Integer memVio = Integer.valueOf(req.getParameter("memVio").trim());
 
 
@@ -204,7 +210,7 @@ public class MemberServlet extends HttpServlet {
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/member/listOneEmp.jsp";
+			String url = "/member/listOneMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -275,8 +281,10 @@ public class MemberServlet extends HttpServlet {
 				errorMsgs.add("請輸入日期!");
 			}
 
-			byte[] memCard = null;
-
+			byte[] memCard = req.getPart("memCard").getInputStream().readAllBytes();
+			if(memCard.length==0) {
+				memCard=null;
+			}
 			MemberVO memberVO = new MemberVO();
 			memberVO.setMemName(memName);
 			memberVO.setMemAccount(memAccount);
@@ -332,77 +340,92 @@ public class MemberServlet extends HttpServlet {
 		
 		
 		
-		
+		/**********************************登入***********************************************************************************/
 		
 		if ("memberLogin".equals(action)) {
 			
-			
 			List<String> errorMsgs = new LinkedList<String>();
+
+//			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			
 			
-		    String account = req.getParameter("account");
-		    String password = req.getParameter("password");
+		    String memAccount = req.getParameter("memAccount");
+		    String memPassWord = req.getParameter("memPassWord");
 
 		    // 【檢查該帳號 , 密碼是否有效】
-		    if (!MemberLogin(account, password)) {          //【帳號 , 密碼無效時】
-		      out.println("<HTML><HEAD><TITLE>Access Denied</TITLE></HEAD>");
-		      out.println("<BODY>你的帳號 , 密碼無效!<BR>");
-		      out.println("請按此重新登入 <A HREF="+req.getContextPath()+"/login.html>重新登入</A>");
-		      out.println("</BODY></HTML>");
-		    }else {                                       //【帳號 , 密碼有效時, 才做以下工作】
-		      HttpSession session = req.getSession();
-		      session.setAttribute("account", account);   //*工作1: 才在session內做已經登入過的標識
-		      
-		       try {                                                        
-		         String location = (String) session.getAttribute("location");
-		         if (location != null) {
-		           session.removeAttribute("location");   //*工作2: 看看有無來源網頁 (-->如有來源網頁:則重導至來源網頁)
-		           res.sendRedirect(location);            
-		           return;
-		         }
-		       }catch (Exception ignored) { }
+			if (memAccount == null || (memAccount.trim()).length() == 0) {
+				errorMsgs.add("請輸入會員帳號");
+			}
+			if (memPassWord == null || (memPassWord.trim()).length() == 0) {
+				errorMsgs.add("請輸入會員密碼");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("memberLogin.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+			
+			
+			/***************************2.開始查詢資料*****************************************/
+			MemberService memberSvc = new MemberService();
+//			Mem_VO memVO = memSvc.getOneMem(mem_no);
+			MemberVO user = memberSvc.MemberLogin(memAccount, memPassWord);
 
-		      res.sendRedirect(req.getContextPath()+"/login_success.jsp");  //*工作3: (-->如無來源網頁:則重導至login_success.jsp)
-		    }
+			if (user == null ) {
+				errorMsgs.add("帳號或密碼輸入錯誤");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("memberLogin.jsp");
+				failureView.forward(req, res);
+				
+				return;//程式中斷
+			}
+			/*******************************************************************************************/
+			MemberVO user1 = memberSvc.MemberFindmemID(memAccount);
+			req.setAttribute("memberVO", user1); // 資料庫取出的empVO物件,存入req
+
 			
 			
 			
+			/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+			session.setAttribute("memAccount",user.getMemAccount());
+			session.setAttribute("memID", user1.getMemID());
 			
 			
 			
+//			System.out.println(req.getSession().getAttribute("memAccount"));      //測試Session
+//			System.out.println(req.getSession().getAttribute("memID"));      //測試Session
 			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
+			String url = "login_success.jsp"; 
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+			successView.forward(req, res);
+
 		}
+		/**********************************************************************************************************************/
+
 		
+
 		
+		/**********************************登出*******************************************************************************/
 		
+		if ("memberLogout".equals(action)) {
+			session.removeAttribute("user");
+			String url = "/member/memberLogin.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+			successView.forward(req, res);
+		}
+
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+		/**********************************************************************************************************************/
+
 		
 		
 		

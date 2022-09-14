@@ -11,6 +11,7 @@ public interface MemberDAO_interface {
     public MemberVO findByPrimaryKey(Integer memID);
     public List<MemberVO> getAll();
 	public void registerInsert(MemberVO memberVO1);
-	public Object selectMemAccount(String memAccount);
+	public MemberVO MemberLogin(String memAccount,String memPassWord);
+	public MemberVO MemberFindmemID(String memAccount);
 
 }

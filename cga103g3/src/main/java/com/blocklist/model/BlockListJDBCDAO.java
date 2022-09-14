@@ -1,8 +1,8 @@
-package com.notification.model;
+package com.blocklist.model;
 
+import static basic.util.JdbcConstants.PASSWORD;
 import static basic.util.JdbcConstants.URL;
 import static basic.util.JdbcConstants.USERNAME;
-import static basic.util.JdbcConstants.PASSWORD;
 import static basic.util.JdbcConstants.driver;
 
 import java.sql.Connection;
@@ -14,16 +14,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class NotificationJDBCDAO implements NotificationDAO_interface {
+public class BlockListJDBCDAO implements BlockListDAO_interface {
 
-	private static final String INSERT_STMT = "INSERT INTO notification (MemID,NoticeDescription,NoticeTime,NoticeRead) VALUES (?, ?, now(), ?)";
-	private static final String GET_ALL_STMT = "SELECT NoticeID,MemID,NoticeDescription,NoticeTime,NoticeRead FROM notification order by NoticeID";
-	private static final String GET_ONE_STMT = "SELECT NoticeID,MemID,NoticeDescription,NoticeTime,NoticeRead FROM notification where NoticeID = ?";
-	private static final String DELETE = "DELETE FROM notification where NoticeID = ?";
-	private static final String UPDATE = "UPDATE notification set MemID=?,NoticeDescription=?,NoticeTime=?,NoticeRead=? where NoticeID = ?";
 
+	private static final String INSERT_STMT = "INSERT INTO blockList (blockerID,blockerIDBan,blockerDate) VALUES (?, ?, now())";
+	private static final String GET_ALL_STMT = "SELECT blockerID,blockerIDBan,blockerDate FROM blockList order by blockerID";
+	private static final String GET_ONE_STMT = "SELECT blockerID,blockerIDBan,blockerDate FROM blockList where blockerID = ?";
+	private static final String DELETE = "DELETE FROM blockList where blockerID = ? and blockerIDBan=?";
+	private static final String UPDATE = "UPDATE blockerID=?,blockerIDBan=? where blockerID = ?";
+
+	
+	
+	
 	@Override
-	public void insert(NotificationVO notificationVO) {
+	public void insert(BlockListVO blockerListVO) {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -34,10 +38,9 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, notificationVO.getMemID());
-			pstmt.setString(2, notificationVO.getNoticeDescription());
-			pstmt.setInt(3, notificationVO.getNoticeRead());
-
+			pstmt.setInt(1, blockerListVO.getBlockerID());
+			pstmt.setInt(2, blockerListVO.getBlockerIDBan());
+	
 			pstmt.executeUpdate();
 
 			// Handle any driver errors
@@ -63,11 +66,10 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 				}
 			}
 		}
-
 	}
 
 	@Override
-	public void update(NotificationVO notificationVO) {
+	public void update(BlockListVO blockerListVO) {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -78,11 +80,10 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, notificationVO.getMemID());
-			pstmt.setString(2, notificationVO.getNoticeDescription());
-			pstmt.setTimestamp(3, notificationVO.getNoticeTime());
-			pstmt.setInt(4, notificationVO.getNoticeRead());
-			pstmt.setInt(5, notificationVO.getNoticeID());
+			pstmt.setInt(1, blockerListVO.getBlockerID());
+			pstmt.setInt(2, blockerListVO.getBlockerIDBan());
+			pstmt.setDate(3, blockerListVO.getBlockerDate());
+	
 
 			pstmt.executeUpdate();
 
@@ -112,7 +113,7 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 	}
 
 	@Override
-	public void delete(Integer noticeID) {
+	public void delete(Integer blockerID, Integer blockerIDBan) {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -123,7 +124,8 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, noticeID);
+			pstmt.setInt(1, blockerID);
+			pstmt.setInt(2, blockerIDBan);
 
 			pstmt.executeUpdate();
 
@@ -153,10 +155,9 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 	}
 
 	@Override
-	public NotificationVO findByPrimaryKey(Integer noticeID) {
+	public BlockListVO findByPrimaryKey(Integer blockerID) {
 		// TODO Auto-generated method stub
-
-		NotificationVO notificationVO = null;
+		BlockListVO blockerListVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -167,17 +168,16 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, noticeID);
+			pstmt.setInt(1, blockerID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 
-				notificationVO = new NotificationVO();
-				notificationVO.setMemID(rs.getInt("MemID"));
-				notificationVO.setNoticeDescription(rs.getNString("NoticeDescription"));
-				notificationVO.setNoticeTime(rs.getTimestamp("NoticeTime"));
-				notificationVO.setNoticeRead(rs.getInt("NoticeRead"));
+				blockerListVO = new BlockListVO();
+				blockerListVO.setBlockerID(rs.getInt("BlockerID"));
+				blockerListVO.setBlockerIDBan(rs.getInt("BlockerIDBan"));
+				blockerListVO.setBlockerDate(rs.getDate("BlockerDate"));
 
 	}
 			// Handle any driver errors
@@ -210,14 +210,14 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 				}
 			}
 		}
-		return notificationVO;
+		return blockerListVO;
 	}
-			
+
 	@Override
-	public List<NotificationVO> getAll() {
+	public List<BlockListVO> getAll() {
 		// TODO Auto-generated method stub
-		List<NotificationVO> list = new ArrayList<NotificationVO>();
-		NotificationVO notificationVO = null;
+		List<BlockListVO> list = new ArrayList<BlockListVO>();
+		BlockListVO blockerListVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -232,15 +232,14 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 
 			while (rs.next()) {
 
-				notificationVO = new NotificationVO();
-				notificationVO.setNoticeID(rs.getInt("NoticeID"));
-				notificationVO.setMemID(rs.getInt("MemID"));
-				notificationVO.setNoticeDescription(rs.getNString("NoticeDescription"));
-				notificationVO.setNoticeTime(rs.getTimestamp("NoticeTime"));
-				notificationVO.setNoticeRead(rs.getInt("NoticeRead"));
+				blockerListVO = new BlockListVO();
+				blockerListVO.setBlockerID(rs.getInt("BlockerID"));
+				blockerListVO.setBlockerIDBan(rs.getInt("BlockerIDBan"));
+				blockerListVO.setBlockerDate(rs.getDate("BlockerDate"));
+
 
 			
-				list.add(notificationVO); // Store the row in the list
+				list.add(blockerListVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -274,41 +273,38 @@ public class NotificationJDBCDAO implements NotificationDAO_interface {
 			}
 		}
 		return list;
+	
 	}
-
 	public static void main(String[] args) {
-//
-//		NotificationJDBCDAO dao = new NotificationJDBCDAO();
+
+		BlockListJDBCDAO dao = new BlockListJDBCDAO();
 //
 //		// 新增
-//		NotificationVO notificationVO1 = new NotificationVO();
-//		notificationVO1.setMemID(11003);
-//		notificationVO1.setNoticeDescription("Tibame");
-//		notificationVO1.setNoticeRead(1);
+//		BlockListVO blockerlistVO1 = new BlockListVO();
+//		blockerlistVO1.setBlockerID(11001);
+//		blockerlistVO1.setBlockerIDBan(11002);
 //	
-//		dao.insert(notificationVO1);
+//		dao.insert(blockerlistVO1);
 //
 //
 //		// 刪除
-//		dao.delete(14006);
+//		dao.delete(11001,11002);
 //
 //		// 查詢
-//		NotificationVO notificationVO2 = dao.findByPrimaryKey(14004);
-//		System.out.print(notificationVO2.getMemID() + ",");
-//		System.out.print(notificationVO2.getNoticeDescription() + ",");
-//		System.out.print(notificationVO2.getNoticeTime() + ",");
-//		System.out.print(notificationVO2.getNoticeRead());
+//		BlockListVO blockerlistVO2 = dao.findByPrimaryKey(11001);
+//		System.out.print(blockerlistVO2.getBlockerID() + ",");
+//		System.out.println(blockerlistVO2.getBlockerIDBan());
 //		System.out.println("---------------------");
 //		
 //		// 查詢
-//		List<NotificationVO> list = dao.getAll();
-//		for (NotificationVO notificationVO3 : list) {
-//		System.out.print(notificationVO3.getMemID() + ",");
-//		System.out.print(notificationVO3.getNoticeDescription() + ",");
-//		System.out.print(notificationVO3.getNoticeTime() + ",");
-//		System.out.print(notificationVO3.getNoticeRead());
+//		List<BlockListVO> list = dao.getAll();
+//		for (BlockListVO blockerlistVO3 : list) {
+//			System.out.print(blockerlistVO3.getBlockerID() + ",");
+//			System.out.println(blockerlistVO3.getBlockerIDBan());
+//
 //			System.out.println();
 //		}
 //	
 	}
+
 }

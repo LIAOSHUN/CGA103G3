@@ -67,7 +67,7 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="member.do" name="form1">
+<FORM METHOD="post" ACTION="member.do" name="form1" enctype="multipart/form-data">
 <table>
 	<tr>
 		<td>姓名:</td>
@@ -107,7 +107,7 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 	<tr>
 		<td>地址:</td>
 		<td><input type="TEXT" name="memAddress" size="45"
-			 value="<%= (memberVO==null)? "100" : memberVO.getMemAddress()%>" /></td>
+			 value="<%= (memberVO==null)? "鄉/鎮/市/區" : memberVO.getMemAddress()%>" /></td>
 	</tr>
 	<tr>
 		<td>生日:</td>
@@ -115,7 +115,7 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 	</tr>
 		<tr>
 		<td>教育業者證明:</td>
-		<td><input type="TEXT" name="memCard" size="45"
+		<td><input type="file" name="memCard" size="45"
 			 value="<%= (memberVO==null)? "null" : memberVO.getMemCard()%>" /></td>
 	</tr>
 

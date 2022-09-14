@@ -74,7 +74,7 @@ th, td {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="member.do" name="form1">
+	<FORM METHOD="post" ACTION="member.do" name="form1" enctype="multipart/form-data">
 		<table>
 			<tr>
 				<td>會員編號:<font color=red><b>*</b></font></td>
@@ -137,7 +137,7 @@ th, td {
 			</tr>
 			<tr>
 				<td>教育業者證明:</td>
-				<td><input type="TEXT" name="memCard" size="45"
+				<td><input type="file" name="memCard" size="45"
 					value="<%=memberVO.getMemCard()%>" /></td>
 			</tr>
 			<tr>

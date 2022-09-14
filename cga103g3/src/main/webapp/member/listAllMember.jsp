@@ -83,6 +83,9 @@ th, td {
 			<th>證明</th>
 			<th>違規記點</th>
 			<th>狀態</th>
+			<th>修改</th>
+			<th>刪除</th>
+
 		</tr>
 		<%@ include file="page1.file"%>
 		<c:forEach var="memberVO" items="${list}" begin="<%=pageIndex%>"

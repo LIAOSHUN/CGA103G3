@@ -52,20 +52,20 @@ public class MemberService {
 	
 	
 	
-	public MemberVO updateMember(Integer memID, Integer gradeID, String memName, String memAccount, String memPassWord,
+	public MemberVO updateMember( Integer memID,Integer gradeID, String memName, String memAccount, String memPassWord,
 			String memGender, String memPh, String memEmail, String memAddress,java.sql.Date memBirthday,
 			byte[] memCard, Integer memVio, Integer memStatus) {
 
 		MemberVO memberVO = new MemberVO();
 		memberVO.setMemID(memID);
 		memberVO.setGradeID(gradeID);
-		memberVO.setMemName("memName");
-		memberVO.setMemAccount("memAccount");
-		memberVO.setMemPassWord("memPassWord");
-		memberVO.setMemGender("memGender");
-		memberVO.setMemPh("memPh");
-		memberVO.setMemEmail("memEmail");
-		memberVO.setMemAddress("memAddress");
+		memberVO.setMemName(memName);
+		memberVO.setMemAccount(memAccount);
+		memberVO.setMemPassWord(memPassWord);
+		memberVO.setMemGender(memGender);
+		memberVO.setMemPh(memPh);
+		memberVO.setMemEmail(memEmail);
+		memberVO.setMemAddress(memAddress);
 		memberVO.setMemBirthday(memBirthday);
 		memberVO.setMemCard(memCard);
 		memberVO.setMemVio(memVio);
@@ -76,6 +76,12 @@ public class MemberService {
 		return memberVO;
 	}
 
+	
+	
+	
+	
+	
+	
 	public void deleteMember(Integer memID) {
 		dao.delete(memID);
 	}
@@ -85,7 +91,18 @@ public class MemberService {
 	}
 
 	public List<MemberVO> getAll() {
-		return dao.getAll();
 
+		return dao.getAll();	
 	}
+	
+	public MemberVO MemberLogin(String mem_account,String mem_password) {
+		return dao.MemberLogin(mem_account, mem_password);
+	}
+
+	public MemberVO MemberFindmemID(String memAccount) {
+		return dao.MemberFindmemID(memAccount);
+	}
+	
+	
+	
 }
