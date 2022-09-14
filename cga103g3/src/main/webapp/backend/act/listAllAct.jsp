@@ -84,18 +84,6 @@
 		</table>
 	</div>
 		<%@ include file="/backend/backendhead.jsp" %>
-<!-- 		<script> -->
-// 	$(document).ready(function(){
-// 	    $(".update").mouseup(function (e) {
-// 	        e.preventDefault();
-// 	        let actID = $(this).attr("data-actID");
-<%-- 	        let url = "<%=request.getContextPath()%>/ActServlet?action=getOne_For_Update&actID=" + actID; --%>
-// 	        $(".updatepage").attr("href", url);
-// 		});			
-// 	})
-	
-<!-- 	</script> -->
-<%-- <%@ include file="page2.file" %> --%>
 
 </body>
 </html>

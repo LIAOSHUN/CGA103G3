@@ -5,12 +5,13 @@
 <%@page import="java.util.Set"%>
 <%@page import="com.actimg.model.*"%>
 <%@page import="com.act.model.*"%>
+<jsp:useBean id="actVO" scope="request" class="com.act.model.ActVO" />
+<jsp:useBean id="memVO" scope="request" class="com.member.model.MemberVO" />
+<jsp:useBean id="actSvc" scope="page" class="com.act.model.ActService" />
+<jsp:useBean id="actImgSvc" scope="page" class="com.actimg.model.ActImgService" />
+<jsp:useBean id="actFavSvc" scope="page" class="com.actfav.model.ActFavService" />
 <%
-	ActVO actVO = (ActVO) request.getAttribute("actVO");
-	ActService actSvc = new ActService();
-// 	Set<ActImgVO> actImgVo = actSvc.getImgsByAct(actVO.getActID());
-	Set<ActImgVO> actImgVO = actSvc.getImgsByAct(61004);
- 	pageContext.setAttribute("actImgVO", actImgVO);
+	actVO = (ActVO) request.getAttribute("actVO");
 %>
 <!DOCTYPE html>
 <html>
@@ -62,14 +63,6 @@
 		padding: 6px 25px !important;
 		border-radius: 12px !important;
     }
-    .btn {
-        display: inline-block !important;       
-        margin-bottom: 0 !important;
-        font-size: 30px !important;
-        font-weight: 400 !important;
-        cursor: pointer !important;    
-        touch-action: manipulation !important;	
-    }
 	div.forBtn {
 		padding-top: 60px;
 	}
@@ -89,26 +82,17 @@
 		<div class="col-md">
 			<div id="carouselExample" class="carousel slide" data-bs-ride="carousel">
 			  <ol class="carousel-indicators">
-				<li data-bs-target="#carouselExample" data-bs-slide-to="0" class="active"></li>
-				<li data-bs-target="#carouselExample" data-bs-slide-to="1"></li>
-				<li data-bs-target="#carouselExample" data-bs-slide-to="2"></li>
+			  	<c:forEach var="actImgVO" items="${actSvc.getImgsByAct(actVO.getActID())}" varStatus="status">
+			  		<li data-bs-target="#carouselExample" data-bs-slide-to="<c:out value="${status.index}" />" class="<c:if test="${status.index == 0}">active</c:if>"></li>
+			  	</c:forEach>
 			  </ol>
 			  <div class="carousel-inner">
-				<div class="carousel-item active">
-				  <img class="d-block w-100" src="<%=request.getContextPath()%>/backend/backend_template/assets/img/elements/13.jpg" alt="First slide" />
-				  <div class="carousel-caption d-none d-md-block">
-				  </div>
-				</div>
-				<div class="carousel-item">
-				  <img class="d-block w-100" src="<%=request.getContextPath()%>/backend/backend_template/assets/img/elements/2.jpg" alt="Second slide" />
-				  <div class="carousel-caption d-none d-md-block">
-				  </div>
-				</div>
-				<div class="carousel-item">
-				  <img class="d-block w-100" src="<%=request.getContextPath()%>/backend/backend_template/assets/img/elements/18.jpg" alt="Third slide" />
-				  <div class="carousel-caption d-none d-md-block">
-				  </div>
-				</div>
+			  	<c:forEach var="actImgVO" items="${actSvc.getImgsByAct(actVO.getActID())}" varStatus="picStatus">
+			  		<div class="carousel-item <c:if test="${picStatus.index == 0}">active</c:if>">
+			  			<img class="d-block w-100" src="<%=request.getContextPath()%>/ActImgServlet?actImgID=${actImgVO.actImgID}&action=getOneImg&scaleSize=500" />
+				  		<div class="carousel-caption d-none d-md-block"></div>
+			  		</div>
+			  	</c:forEach>
 			  </div>
 			  <a class="carousel-control-prev" href="#carouselExample" role="button" data-bs-slide="prev">
 				<span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -151,21 +135,19 @@
 					<javatime:format value="${actVO.actTimeEnd}" pattern="yyyy-MM-dd　HH:mm" />
 				</div>
 				<div class="forBtn">
-					<div class="btnToRegis">
-						<a href="../actregis/addRegis.jsp">
-							<button class="btnn btn-info" style="margin-left: 50px;">
-								<b>活動報名</b>
-							</button>
-						</a>
-						<a href="../actfav/listFav.jsp">
-							<button class="btnn btn-info" style="margin-left: 35px;">
-								<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-									<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
-								</svg>
-								<b>收藏</b>
-							</button>
-						</a>
-					</div>
+					<a href="../actregis/addRegis.jsp">
+						<button class="btnn btn-info btnToRegis" style="margin-left: 50px;">
+							<b>活動報名</b>
+						</button>
+					</a>
+					<a href="../actfav/listFav.jsp">
+						<button class="btnn btn-info btnToFav"  onclick="onAddFavClick(${actVO.actID})" style="margin-left: 35px;">
+							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+								<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+							</svg>
+							<b>收藏</b>
+						</button>
+					</a>
 				</div>
 			</div>
 		</div>
@@ -176,8 +158,7 @@
 			<div style="padding-left: 90px;">
 				${actVO.actDescription}
 			</div>
-		</div>
-		
+		</div>		
 	</div>
 </main>
 
@@ -185,5 +166,17 @@
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/popper/popper.js"></script>
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/js/bootstrap.js"></script>
+<script>
+	function onAddFavClick(actID) {
+		let url = `${getContextPath()}/AddActFavServlet?actID=${actVO.actID}`;
+		fetch(url, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+		})
+		function getContextPath() {
+			return window.location.pathname.substring(0, window.location.pathname.indexOf('/', 2));
+		}
+	}
+</script>
 </body>
 </html>

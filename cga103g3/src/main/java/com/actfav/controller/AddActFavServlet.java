@@ -26,15 +26,15 @@ public class AddActFavServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = req.getSession();
-		MemberVO memberVO = (MemberVO) (session.getAttribute("memberVO"));
+		MemberVO memVO = (MemberVO) (session.getAttribute("memVO"));
 		PrintWriter out = res.getWriter();
 
-		if (memberVO == null) {
+		if (memVO == null) {
 			/**** 沒有會員身分回傳0 ****/
 			out.print(0);
 //			response.sendRedirect("/CGA101G1/frontend/memLogin/login.html");
 		} else {
-			Integer memID = memberVO.getMemID();
+			Integer memID = memVO.getMemID();
 //		Integer memID = 11001;		// 注意要會員編號改成活的
 
 //			System.out.println(request.getParameter("actID"));
