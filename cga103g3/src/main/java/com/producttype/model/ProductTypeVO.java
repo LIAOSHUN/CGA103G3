@@ -1,21 +1,22 @@
-package com.product_type.model;
+package com.producttype.model;
 import java.sql.Date;
 
 public class ProductTypeVO implements java.io.Serializable{
-	private Integer PdTypeID;
-	private String PdTypeName;
+	private Integer pdTypeID;
+	private String pdTypeName;
 	
 	public Integer getPdTypeID() {
-		return PdTypeID;
+		return pdTypeID;
 	}
 	public void setPdTypeID(Integer pdTypeID) {
-		PdTypeID = pdTypeID;
+		this.pdTypeID = pdTypeID;
 	}
 	public String getPdTypeName() {
-		return PdTypeName;
+		return pdTypeName;
 	}
 	public void setPdTypeName(String pdTypeName) {
-		PdTypeName = pdTypeName;
+		this.pdTypeName = pdTypeName;
 	}
+	
 	
 }

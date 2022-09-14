@@ -1,27 +1,27 @@
-package com.product_type_details.model;
+package com.producttype.model;
 
 import java.util.*;
 import java.sql.*;
 
-public class ProductTypeDetailsJDBCDAO implements ProductTypeDetailsDAO_interface {
+public class ProductTypeJDBCDAO implements ProductTypeDAO_interface {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/boardgame?serverTimezone=Asia/Taipei";
 	String userid = "root";
-	String passwd = "871104";
+	String passwd = "CGA103g3";
 
 	private static final String INSERT_STMT = 
-			"INSERT INTO producttypedetails (PdID,PdTypeID) VALUES (?, ?)";
+			"INSERT INTO producttype (PdTypeName) VALUES (?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT PdID,PdTypeID FROM producttypedetails order by PdID";
+			"SELECT PdTypeID,PdTypeName FROM producttype order by PdTypeID";
 		private static final String GET_ONE_STMT = 
-			"SELECT PdID,PdTypeID FROM producttypedetails where PdID = ?";
+			"SELECT PdTypeID,PdTypeName FROM producttype where PdTypeID = ?";
 		private static final String DELETE = 
-			"DELETE FROM producttypedetails where PdID = ?";
+			"DELETE FROM producttype where PdTypeID = ?";
 		private static final String UPDATE = 
-			"UPDATE producttypedetails set PdTypeID=? where PdID = ?";
+			"UPDATE producttype set PdTypeName=? where PdTypeID = ?";
 
 	@Override
-	public void insert(ProductTypeDetailsVO productTypeDetailsVO) {
+	public void insert(ProductTypeVO productTypeVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -32,8 +32,7 @@ public class ProductTypeDetailsJDBCDAO implements ProductTypeDetailsDAO_interfac
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, productTypeDetailsVO.getPdID());
-			pstmt.setInt(2, productTypeDetailsVO.getPdTypeID());
+			pstmt.setString(1, productTypeVO.getPdTypeName());
 
 
 			pstmt.executeUpdate();
@@ -67,7 +66,7 @@ public class ProductTypeDetailsJDBCDAO implements ProductTypeDetailsDAO_interfac
 	}
 
 	@Override
-	public void update(ProductTypeDetailsVO productTypeDetailsVO) {
+	public void update(ProductTypeVO productTypeVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -78,9 +77,9 @@ public class ProductTypeDetailsJDBCDAO implements ProductTypeDetailsDAO_interfac
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 
-			pstmt.setInt(1, productTypeDetailsVO.getPdTypeID());
-			pstmt.setInt(2, productTypeDetailsVO.getPdID());
-		
+			pstmt.setString(1, productTypeVO.getPdTypeName());
+			pstmt.setInt(2, productTypeVO.getPdTypeID() );
+
 
 			pstmt.executeUpdate();
 
@@ -113,7 +112,7 @@ public class ProductTypeDetailsJDBCDAO implements ProductTypeDetailsDAO_interfac
 	}
 
 	@Override
-	public void delete(Integer PdID,Integer PdTypeID) {
+	public void delete(Integer PdTypeID) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -124,8 +123,7 @@ public class ProductTypeDetailsJDBCDAO implements ProductTypeDetailsDAO_interfac
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, PdID);
-			pstmt.setInt(2, PdTypeID);
+			pstmt.setInt(1, PdTypeID);
 
 			pstmt.executeUpdate();
 
@@ -158,9 +156,9 @@ public class ProductTypeDetailsJDBCDAO implements ProductTypeDetailsDAO_interfac
 	}
 
 	@Override
-	public ProductTypeDetailsVO findByPrimaryKey(Integer PdID,Integer PdTypeID) {
+	public ProductTypeVO findByPrimaryKey(Integer pdTypeID) {
 
-		ProductTypeDetailsVO productTypeDetailsVO = null;
+		ProductTypeVO productTypeVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -171,16 +169,15 @@ public class ProductTypeDetailsJDBCDAO implements ProductTypeDetailsDAO_interfac
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 
-			pstmt.setInt(1, PdID);
-			pstmt.setInt(2, PdTypeID);
+			pstmt.setInt(1, pdTypeID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// empVo �]�٬� Domain objects
-				productTypeDetailsVO = new ProductTypeDetailsVO();
-				productTypeDetailsVO.setPdID(rs.getInt("PdID"));
-				productTypeDetailsVO.setPdTypeID(rs.getInt("PdTypeID"));
+				productTypeVO = new ProductTypeVO();
+				productTypeVO.setPdTypeID(rs.getInt("pdTypeID"));
+				productTypeVO.setPdTypeName(rs.getString("pdTypeName"));
 			}
 
 			// Handle any driver errors
@@ -215,13 +212,13 @@ public class ProductTypeDetailsJDBCDAO implements ProductTypeDetailsDAO_interfac
 				}
 			}
 		}
-		return productTypeDetailsVO;
+		return productTypeVO;
 	}
 
 	@Override
-	public List<ProductTypeDetailsVO> getAll() {
-		List<ProductTypeDetailsVO> list = new ArrayList<ProductTypeDetailsVO>();
-		ProductTypeDetailsVO productTypeDetailsVO = null;
+	public List<ProductTypeVO> getAll() {
+		List<ProductTypeVO> list = new ArrayList<ProductTypeVO>();
+		ProductTypeVO productTypeVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -236,10 +233,10 @@ public class ProductTypeDetailsJDBCDAO implements ProductTypeDetailsDAO_interfac
 
 			while (rs.next()) {
 				// empVO �]�٬� Domain objects
-				productTypeDetailsVO = new ProductTypeDetailsVO();
-				productTypeDetailsVO.setPdID(rs.getInt("PdID"));
-				productTypeDetailsVO.setPdTypeID(rs.getInt("PdTypeID"));
-				list.add(productTypeDetailsVO); // Store the row in the list
+				productTypeVO = new ProductTypeVO();
+				productTypeVO.setPdTypeID(rs.getInt("pdTypeID"));
+				productTypeVO.setPdTypeName(rs.getString("pdTypeName"));
+				list.add(productTypeVO); // Store the row in the list
 			}
 
 			// Handle any driver errors
@@ -279,34 +276,32 @@ public class ProductTypeDetailsJDBCDAO implements ProductTypeDetailsDAO_interfac
 
 	public static void main(String[] args) {
 
-		ProductTypeDetailsJDBCDAO dao = new ProductTypeDetailsJDBCDAO();
+		ProductTypeJDBCDAO dao = new ProductTypeJDBCDAO();
 
-		// �s�W
-		ProductTypeDetailsVO productTypeDetailsVO1 = new ProductTypeDetailsVO();
-		productTypeDetailsVO1.setPdID(21001);
-		productTypeDetailsVO1.setPdTypeID(15);
-		dao.insert(productTypeDetailsVO1);
+//		// 新增
+//		ProductTypeVO productTypeVO1 = new ProductTypeVO();
+//		productTypeVO1.setPdTypeName("測試種類");
+//		dao.insert(productTypeVO1);
 
-		// �ק�
-		ProductTypeDetailsVO productTypeDetailsVO2 = new ProductTypeDetailsVO();
-		productTypeDetailsVO2.setPdID(7001);
-		productTypeDetailsVO2.setPdTypeID(20);
-		dao.update(productTypeDetailsVO2);
+//		// 修改
+//		ProductTypeVO productTypeVO2 = new ProductTypeVO();
+//		productTypeVO2.setPdTypeID(71011);
+//		productTypeVO2.setPdTypeName("測試修改");
+//		dao.update(productTypeVO2);
 
-		// �R��
-		dao.delete(7014,20);
+//		// 刪除
+		dao.delete(71011);
+//		// 查詢一個
+//		ProductTypeVO productTypeVO3 = dao.findByPrimaryKey(7001);
+//		System.out.print(productTypeVO3.getPdTypeID() + ",");
+//		System.out.print(productTypeVO3.getPdTypeName() + ",");
+//		System.out.println("---------------------");
 
-		// �d��
-		ProductTypeDetailsVO productTypeDetailsVO3 = dao.findByPrimaryKey(7001,20);
-		System.out.print(productTypeDetailsVO3.getPdID() + ",");
-		System.out.print(productTypeDetailsVO3.getPdTypeID() + ",");
-		System.out.println("---------------------");
-
-		// �d��
-		List<ProductTypeDetailsVO> list = dao.getAll();
-		for (ProductTypeDetailsVO aproductTypeDetailsVO : list) {
-			System.out.print(aproductTypeDetailsVO.getPdID() + ",");
-			System.out.print(aproductTypeDetailsVO.getPdTypeID() + ",");
+		// 查詢
+		List<ProductTypeVO> list = dao.getAll();
+		for (ProductTypeVO aproductTypeVO : list) {
+			System.out.print(aproductTypeVO.getPdTypeID() + ",");
+			System.out.print(aproductTypeVO.getPdTypeName() + ",");
 			System.out.println();
 		}
 	}

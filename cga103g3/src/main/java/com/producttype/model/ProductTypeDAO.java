@@ -1,4 +1,4 @@
-package com.product_type_details.model;
+package com.producttype.model;
 
 import java.util.*;
 import java.sql.*;
@@ -8,32 +8,31 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class ProductTypeDetailsJNDIDAO implements ProductTypeDetailsDAO_interface {
+public class ProductTypeDAO implements ProductTypeDAO_interface {
 
-	// �@�����ε{����,�w��@�Ӹ�Ʈw ,�@�Τ@��DataSource�Y�i
 	private static DataSource ds = null;
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/TestDB2");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/boardgame");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
 	}
 
 	private static final String INSERT_STMT = 
-			"INSERT INTO producttypedetails (PdID,PdTypeID) VALUES (?, ?)";
-		private static final String GET_ALL_STMT = 
-			"SELECT PdID,PdTypeID FROM producttypedetails order by PdID";
-		private static final String GET_ONE_STMT = 
-			"SELECT PdID,PdTypeID FROM producttypedetails where PdID = ?";
-		private static final String DELETE = 
-			"DELETE FROM producttypedetails where PdID = ?";
-		private static final String UPDATE = 
-			"UPDATE producttypedetails set PdTypeID=? where PdID = ?";
+		"INSERT INTO producttype (PdTypeName) VALUES (?)";
+	private static final String GET_ALL_STMT = 
+		"SELECT PdTypeID,PdTypeName FROM producttype order by PdTypeID";
+	private static final String GET_ONE_STMT = 
+		"SELECT PdTypeID,PdTypeName FROM producttype where PdTypeID = ?";
+	private static final String DELETE = 
+		"DELETE FROM producttype where PdTypeID = ?";
+	private static final String UPDATE = 
+		"UPDATE producttype set PdTypeName=? where PdTypeID = ?";
 
 	@Override
-	public void insert(ProductTypeDetailsVO productTypeDetailsVO) {
+	public void insert(ProductTypeVO productTypeVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -43,8 +42,7 @@ public class ProductTypeDetailsJNDIDAO implements ProductTypeDetailsDAO_interfac
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, productTypeDetailsVO.getPdID());
-			pstmt.setInt(2, productTypeDetailsVO.getPdTypeID());
+			pstmt.setString(1, productTypeVO.getPdTypeName());
 
 			pstmt.executeUpdate();
 
@@ -73,7 +71,7 @@ public class ProductTypeDetailsJNDIDAO implements ProductTypeDetailsDAO_interfac
 	}
 
 	@Override
-	public void update(ProductTypeDetailsVO productTypeDetailsVO) {
+	public void update(ProductTypeVO productTypeVO) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -82,9 +80,9 @@ public class ProductTypeDetailsJNDIDAO implements ProductTypeDetailsDAO_interfac
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE);
-
-			pstmt.setInt(1, productTypeDetailsVO.getPdTypeID());
-			pstmt.setInt(2, productTypeDetailsVO.getPdID());
+//			"UPDATE producttype set PdTypeName=? where PdTypeID = ?";
+			pstmt.setString(1, productTypeVO.getPdTypeName());
+			pstmt.setInt(2, productTypeVO.getPdTypeID());
 
 			pstmt.executeUpdate();
 
@@ -113,7 +111,7 @@ public class ProductTypeDetailsJNDIDAO implements ProductTypeDetailsDAO_interfac
 	}
 
 	@Override
-	public void delete(Integer PdID,Integer PdTypeID) {
+	public void delete(Integer pdTypeID) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -123,8 +121,7 @@ public class ProductTypeDetailsJNDIDAO implements ProductTypeDetailsDAO_interfac
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, PdID);
-			pstmt.setInt(2, PdTypeID);
+			pstmt.setInt(1, pdTypeID);
 
 			pstmt.executeUpdate();
 
@@ -153,9 +150,9 @@ public class ProductTypeDetailsJNDIDAO implements ProductTypeDetailsDAO_interfac
 	}
 
 	@Override
-	public ProductTypeDetailsVO findByPrimaryKey(Integer PdID,Integer PdTypeID) {
+	public ProductTypeVO findByPrimaryKey(Integer pdTypeID) {
 
-		ProductTypeDetailsVO productTypeDetailsVO = null;
+		ProductTypeVO productTypeVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -164,17 +161,16 @@ public class ProductTypeDetailsJNDIDAO implements ProductTypeDetailsDAO_interfac
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
-
-			pstmt.setInt(1, PdID);
-			pstmt.setInt(2, PdTypeID);
+//			"SELECT PdTypeID,PdTypeName FROM producttype where PdTypeID = ?";
+			pstmt.setInt(1, pdTypeID);
 
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
 				// empVo �]�٬� Domain objects
-				productTypeDetailsVO = new ProductTypeDetailsVO();
-				productTypeDetailsVO.setPdID(rs.getInt("PdID"));
-				productTypeDetailsVO.setPdTypeID(rs.getInt("PdTypeID"));
+				productTypeVO = new ProductTypeVO();
+				productTypeVO.setPdTypeID(rs.getInt("pdTypeID"));
+				productTypeVO.setPdTypeName(rs.getString("pdTypeName"));
 			}
 
 			// Handle any driver errors
@@ -205,13 +201,13 @@ public class ProductTypeDetailsJNDIDAO implements ProductTypeDetailsDAO_interfac
 				}
 			}
 		}
-		return productTypeDetailsVO;
+		return productTypeVO;
 	}
 
 	@Override
-	public List<ProductTypeDetailsVO> getAll() {
-		List<ProductTypeDetailsVO> list = new ArrayList<ProductTypeDetailsVO>();
-		ProductTypeDetailsVO productTypeDetailsVO = null;
+	public List<ProductTypeVO> getAll() {
+		List<ProductTypeVO> list = new ArrayList<ProductTypeVO>();
+		ProductTypeVO productTypeVO = null;
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -225,10 +221,10 @@ public class ProductTypeDetailsJNDIDAO implements ProductTypeDetailsDAO_interfac
 
 			while (rs.next()) {
 				// empVO �]�٬� Domain objects
-				productTypeDetailsVO = new ProductTypeDetailsVO();
-				productTypeDetailsVO.setPdID(rs.getInt("PdID"));
-				productTypeDetailsVO.setPdTypeID(rs.getInt("PdTypeID"));
-				list.add(productTypeDetailsVO); // Store the row in the list
+				productTypeVO = new ProductTypeVO();
+				productTypeVO.setPdTypeID(rs.getInt("pdTypeID"));
+				productTypeVO.setPdTypeName(rs.getString("pdTypeName"));
+				list.add(productTypeVO); // Store the row in the list
 			}
 
 			// Handle any driver errors

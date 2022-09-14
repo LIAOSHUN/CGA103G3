@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 public class ProductVO implements java.io.Serializable {
 	private Integer pdID;
 	private String pdName;
+	private Integer pdTypeID;
 	private Integer pdPrice;
 	private Integer pdAmount;
 	private String pdDescription;
@@ -24,6 +25,12 @@ public class ProductVO implements java.io.Serializable {
 	}
 	public void setPdName(String pdName) {
 		this.pdName = pdName;
+	}
+	public Integer getPdTypeID() {
+		return pdTypeID;
+	}
+	public void setPdTypeID(Integer pdTypeID) {
+		this.pdTypeID = pdTypeID;
 	}
 	public Integer getPdPrice() {
 		return pdPrice;
@@ -61,10 +68,11 @@ public class ProductVO implements java.io.Serializable {
 	public void setPdUpdate(Timestamp pdUpdate) {
 		this.pdUpdate = pdUpdate;
 	}
-	
-	
-	
-
+	public com.producttype.model.ProductTypeVO getProductTypeVO() {
+	    com.producttype.model.ProductTypeService productTypeSvc = new com.producttype.model.ProductTypeService();
+	    com.producttype.model.ProductTypeVO productTypeVO = productTypeSvc.getOneProducttype(pdTypeID);
+	    return productTypeVO;
+    }
 	}
 
 

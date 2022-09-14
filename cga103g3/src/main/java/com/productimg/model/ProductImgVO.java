@@ -6,9 +6,8 @@ import java.sql.Date;
 public class ProductImgVO implements java.io.Serializable{
 	private Integer pdImgID;
 	private Integer pdID;
-	private byte[] pdImg ;
+	private byte[] pdImg;
 	private String pdImgName;
-	
 	public Integer getPdImgID() {
 		return pdImgID;
 	}
@@ -33,9 +32,6 @@ public class ProductImgVO implements java.io.Serializable{
 	public void setPdImgName(String pdImgName) {
 		this.pdImgName = pdImgName;
 	}
-	
-	
-	
 	
 	
 }
