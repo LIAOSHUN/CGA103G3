@@ -37,7 +37,7 @@ public class OrderDetailDAO implements OrderDetailDAO_interface{
 		+ "set ItemSales=?, Price=? "
 		+ "where OrdNo=? and PdID=?";
 	
-//	-- 作廢某一筆訂單明細的內容(ItemSales,Price)
+//	-- 作廢某一筆訂單明細的內容(ItemSales,Price) 
 	private static final String Clear =
 		"update orderdetail "
 		+ "set ItemSales=0, Price=0 "
