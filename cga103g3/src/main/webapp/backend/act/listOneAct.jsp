@@ -90,7 +90,9 @@ th, td {
 		<tr>
 					<td>${actVO.actID}</td>
 					<td>${actVO.storeVO.storeName}</td>
-					<td>${actVO.actTitle}</td>
+					<td>
+						<a href="<%=request.getContextPath()%>/frontend/act/activity.jsp" class="actInfo" data-actID="${actVO.actID}">${actVO.actTitle}</a>
+					</td>
 					<td><javatime:format value="${actVO.actDate}" pattern="yyyy-MM-dd" /></td>
 					<td><c:if test="${actVO.dateNum == '14' }">下午場<br>(14:00~17:00)</c:if>
 						<c:if test="${actVO.dateNum == '18' }">晚場<br>(18:00~21:00)</c:if>
@@ -102,13 +104,21 @@ th, td {
 						<c:if test="${actVO.actStatus == '2' }">2：額滿截止</c:if>
 					</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/backend/act/act.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改">
-			     <input type="hidden" name="actID"  value="${actVO.actID}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			  <a href="">
+					<button class="update btn" data-actID="${actVO.actID}">修改</button>
+ 				</a>
 			</td>
 		</tr>
 	</table>
-
+	<script>
+	$(document).ready(function(){
+	    $(".update").mouseup(function (e) {
+	        e.preventDefault();
+	        let actID = $(this).attr("data-actID");
+	        let url = "<%=request.getContextPath()%>/ActServlet?action=getOne_For_Update&actID=" + actID;
+	        $("a").attr("href", url);
+		});			
+	})
+	</script>
 </body>
 </html>

@@ -88,7 +88,7 @@ public class ActServlet extends HttpServlet {
 		
 		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllAct.jsp的請求
-			
+			try {
 				/***************************1.接收請求參數****************************************/
 			Integer actID = Integer.valueOf(req.getParameter("actID"));
 				
@@ -101,8 +101,57 @@ public class ActServlet extends HttpServlet {
 				String url = "/backend/act/update_act_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_act_input.jsp
 				successView.forward(req, res);
+			} catch (Exception e) {
+				e.printStackTrace();
+  				RequestDispatcher failureView = req
+  						.getRequestDispatcher("/backend/act/listAllAct.jsp");
+  				failureView.forward(req, res);
+			}
 		}
 		
+		if ("showActInfo".equals(action)) { // 來自listAllAct.jsp的請求
+			try {
+				/***************************1.接收請求參數****************************************/
+			Integer actID = Integer.valueOf(req.getParameter("actID"));
+				
+				/***************************2.開始查詢資料****************************************/
+				ActService actSvc = new ActService();
+				ActVO actVO = actSvc.getOneAct(actID);
+								
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("actVO", actVO);         // 資料庫取出的actVO物件,存入req
+				String url = "/frontend/act/activity.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_act_input.jsp
+				successView.forward(req, res);
+			} catch (Exception e) {
+				e.printStackTrace();
+  				RequestDispatcher failureView = req
+  						.getRequestDispatcher("/backend/act/listAllAct.jsp");
+  				failureView.forward(req, res);
+			}
+		}
+		
+		if ("showActForRegis".equals(action)) { // 來自listAllAct.jsp的請求
+			try {
+				/***************************1.接收請求參數****************************************/
+				Integer actID = Integer.valueOf(req.getParameter("actID"));
+				
+				/***************************2.開始查詢資料****************************************/
+				ActService actSvc = new ActService();
+				ActVO actVO = actSvc.getOneAct(actID);
+				
+				/***************************3.查詢完成,準備轉交(Send the Success view)************/
+				req.setAttribute("actVO", actVO);         // 資料庫取出的actVO物件,存入req
+				String url = "/frontend/actregis/addRegis.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_act_input.jsp
+				successView.forward(req, res);
+			} catch (Exception e) {
+				e.printStackTrace();
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/act/listAllAct.jsp");
+				failureView.forward(req, res);
+			}
+		}
 		
 		if ("update".equals(action)) { // 來自update_act_input.jsp的請求
 			
@@ -338,114 +387,5 @@ public class ActServlet extends HttpServlet {
 //				failureView.forward(req, res);
 			}
 		}
-        
-//        if ("insertWithImgs".equals(action)) {
-//        	List<String> 
-//        }
-        
-//        if ("insertWithOrder_details".equals(action)) {
-//			 List<String> errorMsgs = new LinkedList<String>();
-//			 req.setAttribute("errorMsgs", errorMsgs);
-//	
-//			try {
-//				/***************************1.接收請求參數***************************************/
-//				@SuppressWarnings("unchecked")
-//				List<ItemVO> buylist = (List<ItemVO>) session.getAttribute("buylist");
-//				System.out.println(buylist.size());
-//				
-//				String mb_id = req.getParameter("mb_id");
-//				Double total_price = new Double(req.getParameter("total_price"));
-//				Integer points_total = new Integer(req.getParameter("points_total"));
-//				MembersVO mem = new MembersVO();
-//				
-//				System.out.println("總金額" + total_price);
-//				System.out.println("總積分" + points_total);
-//								
-//				List<Shop_order_detailVO> list = new ArrayList<Shop_order_detailVO>(); // 準備置入訂單明細
-//				
-//				for (ItemVO order : buylist) {
-//					 Shop_order_detailVO order_detail = new Shop_order_detailVO();
-//					 String item_no = order.getItem_no();
-//					 Double od_pr = order.getItem_price();
-//					 Integer od_qty = order.getQuantity();
-//					 Integer od_points = order.getPoints();
-//					 
-//					 order_detail.setItem_no(item_no);
-//					 order_detail.setQty(od_qty);
-//					 order_detail.setItem_price((double)Math.round(od_pr*od_qty));
-//					 order_detail.setPoints((int)Math.round(od_points*od_qty));
-//					 list.add(order_detail);
-//					}
-//				
-////				for(int i = 0; i < buylist.size(); i++) {
-////					Shop_order_detailVO order_detail = new Shop_order_detailVO();   // 訂單明細
-////					ItemVO order = buylist.get(i);
-////					String item_no = order.getItem_no();
-////					Double od_pr = order.getItem_price();
-////					Integer od_qty = order.getQuantity();
-////					Integer od_points = order.getPoints();
-////					System.out.println("商品名稱=" + item_no + " ,金額=" + od_pr + " ,數量=" + od_qty + " ,積分=" + od_points);
-////					order_detail.setItem_no(item_no);
-////					order_detail.setQty(od_qty);
-////					order_detail.setItem_price((double)Math.round(od_pr*od_qty));
-////					order_detail.setPoints((int)Math.round(od_points*od_qty));
-////					list.add(order_detail);
-////				}
-//				
-//				Shop_orderVO shop_orderVO = new Shop_orderVO();
-//				shop_orderVO.setMb_id(mb_id);
-//				shop_orderVO.setTotal_price(total_price);
-//				shop_orderVO.setPoints_total(points_total);
-////				shop_orderVO.setRm_no("");
-//				
-//				/***************************2.開始新增訂單***************************************/
-//				Shop_orderService shop_orderSvc = new Shop_orderService();
-//				shop_orderSvc.addShop_orderWithShop_order_detail(shop_orderVO, list);
-//				
-//				/**更改新增會員積分**/			
-//				MembersService membersSvc=new MembersService();
-//				Integer pointCos = new Integer(req.getParameter("pointCos"));
-//				System.out.println("pointCos= "+pointCos);
-//				MembersVO members = membersSvc.getOneByMbId(mb_id);				
-//				System.out.println("memPo= " + members.getMb_point());
-//				membersSvc.updateMemPoint(mb_id, points_total + members.getMb_point() - pointCos);
-//				
-//				/**寄訂單至會員e-mail**/	
-//				MembersService membersService = new MembersService();
-//				String mb_email = membersService.getOneByMbId(mb_id).getMb_email();
-//				MailService mail = new MailService();
-//				MailAuthenticate auth = new MailAuthenticate();
-//				String mailMsg = "你已下訂戴蒙商城商品，請點及下列連結查看詳細或修改。http://localhost:8081/CEA101G1/MembersServlet?action=verify&authcode="
-//						+ auth.insertCode(mb_id) + "&mb_id=" + mb_id;
-//				mail.sendMail(mb_email, "戴蒙商城訂單", mailMsg);
-//				
-//				/***************************3.新增完成,準備轉交(Send the Success view)***********/								
-//				String url = "/frontend/members/memberHistory.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
-//				successView.forward(req, res);
-//				
-//				CartService cartSVC = new CartService();
-//				buylist.stream().forEach(order -> {
-//					 String item_no = order.getItem_no();
-//					 Integer quantity = order.getQuantity();
-//					 cartSVC.deleteCart(mb_id, item_no, quantity);
-//					});
-//								
-////				for(int i = 0; i < buylist.size(); i++) {
-////					ItemVO order = buylist.get(i);
-////					String item_no = order.getItem_no();
-////					Integer quantity = order.getQuantity();
-////					cartSVC.deleteCart(mb_id, item_no, quantity);
-////				}
-//				
-//				session.removeAttribute("buylist");
-//				/***************************其他可能的錯誤處理**********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add("增加訂單資料失敗:"+e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/frontend/shop/shopCheckOut.jsp");
-//				failureView.forward(req, res);
-//			}
-//		 }
 	}
 }

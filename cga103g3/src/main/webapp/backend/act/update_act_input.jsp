@@ -10,31 +10,15 @@ ActVO actVO = (ActVO) request.getAttribute("actVO"); //ActServlet.java (Concroll
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>活動資訊修改 - update_act_input.jsp</title>
 
-<style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
 
 <style>
 table {
 	width: 450px;
 	background-color: white;
-	margin-top: 1px;
 	margin-bottom: 1px;
+/* 	position:absolute; */
+	margin-top: 100px; 	
+	margin-left: 287px;
 }
 
 table, th, td {
@@ -49,17 +33,17 @@ th, td {
 </head>
 <body bgcolor='white'>
 
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>活動資訊修改 - update_act_input.jsp</h3>
-				<h4>
-					<a href="select_page.jsp"><img src="images/back1.gif"
-						width="100" height="32" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
+<!-- 	<table id="table-1"> -->
+<!-- 		<tr> -->
+<!-- 			<td> -->
+<!-- 				<h3>活動資訊修改 - update_act_input.jsp</h3> -->
+<!-- 				<h4> -->
+<!-- 					<a href="select_page.jsp"><img src="images/back1.gif" -->
+<!-- 						width="100" height="32" border="0">回首頁</a> -->
+<!-- 				</h4> -->
+<!-- 			</td> -->
+<!-- 		</tr> -->
+<!-- 	</table> -->
 
 	<h3>資料修改:</h3>
 

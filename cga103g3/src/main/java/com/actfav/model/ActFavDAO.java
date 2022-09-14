@@ -6,7 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -19,7 +21,7 @@ public class ActFavDAO implements ActFavDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Mysql");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/boardgame");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
@@ -148,8 +150,29 @@ public class ActFavDAO implements ActFavDAO_interface {
 	
 	@Override
 	public List<Object> findByActJoinList(Integer memID) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Object> list = new ArrayList<Object>();
+		try (Connection con = ds.getConnection();
+			PreparedStatement pstmt = con.prepareStatement(GET_BYJOIN);) {
+			pstmt.setInt(1, memID);
+			ResultSet rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				Map<String, Object> map = new HashMap<String, Object>();
+				map.put("memID", rs.getInt("memID"));
+				map.put("actID", rs.getInt("actID"));
+				map.put("storeID", rs.getInt("storeID"));
+				map.put("actTitle", rs.getString("actTitle"));
+				map.put("actTimeEnd", rs.getObject("actTimeEnd"));
+				map.put("actDate", rs.getObject("actDate"));
+				map.put("actFavDate", rs.getObject("actFavDate"));
+				list.add(map);
+			}
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}
+		return list;
 	}
 
 	@Override

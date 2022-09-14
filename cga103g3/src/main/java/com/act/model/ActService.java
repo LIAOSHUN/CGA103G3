@@ -72,4 +72,8 @@ public class ActService {
 	public void insertWithActImgs(ActVO actVO , List<ActImgVO> imglist) {
 		dao.insertWithActImgs(actVO, imglist);
 	}
+	
+	public void changeState(ActVO actVO) {
+		dao.changeState(actVO);
+	}
 }

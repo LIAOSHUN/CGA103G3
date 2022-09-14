@@ -20,23 +20,22 @@
 
 	<style>
 	table {
-		width: 800px;
+		width: 950px;
 		background-color: white;
-		margin-top: 5px;
 		margin-bottom: 5px;
 		line-height: 25px;		/*表格行高固定*/
 /* 		table-layout:fixed;		/*表格寬度固定*/ */
 		word-break:break-all;	/*td內容過長不會被撐開*/
 		position:absolute;
-		top: 70px;
-		left: 23%;
+		margin-top: 100px;
+		margin-left: 287px;
 	}
 	table, th, td {
 		border: 1px solid #CCCCFF;
 	}
 	th, td {
 		padding: 5px;
-		text-align: center;
+		text-align: center !important;
 
 		white-space: nowrap;		 /*限定不可斷行*/
 		overflow: hidden;    		 /*元素超出部分隱藏*/
@@ -63,7 +62,8 @@
 				<tr>
 					<td>${actVO.actID}</td>
 					<td>${actVO.storeVO.storeName}</td>
-					<td>${actVO.actTitle}</td>
+					<td><a href="<%=request.getContextPath()%>/ActServlet?actID=${actVO.actID}&action=showActInfo" class="actInfo">
+					${actVO.actTitle}</a></td>
 					<td><javatime:format value="${actVO.actDate}" pattern="yyyy-MM-dd" /></td>
 					<td><c:if test="${actVO.dateNum == '14' }">下午場<br>(14:00~17:00)</c:if>
 						<c:if test="${actVO.dateNum == '18' }">晚場<br>(18:00~21:00)</c:if>
@@ -75,17 +75,15 @@
 						<c:if test="${actVO.actStatus == '2' }">2：額滿截止</c:if>
 					</td>
 					<td>
-						<a href="<%=request.getContextPath()%>/backend/act/update_act_input.jsp">
-							<button class="btn-update">修改</button>
-						</a>
+						<a href="<%=request.getContextPath()%>/ActServlet?action=getOne_For_Update&actID=${actVO.actID}" class="updatepage">
+							<button class="update btn" data-actID="${actVO.actID}">修改</button>
+ 						</a>
 					</td>
 				</tr>
 			</c:forEach>
 		</table>
 	</div>
-<%-- <%@ include file="page2.file" %> --%>
-<%-- <%@ include file="../backend_template/html/Top&Fot.html" %> --%>
-
+		<%@ include file="/backend/backendhead.jsp" %>
 
 </body>
 </html>
