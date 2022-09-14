@@ -1,5 +1,5 @@
 package com.member.model;
-
+import static com.common_27.Common_27.driver;
 import static com.common_27.Common_27.URL;
 import static com.common_27.Common_27.USERNAME;
 import static com.common_27.Common_27.PASSWORD;
@@ -11,7 +11,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class MemberJDBCDAO implements MemberDAO_interface {
 
