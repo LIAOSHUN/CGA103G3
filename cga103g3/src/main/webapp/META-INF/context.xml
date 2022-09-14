@@ -9,7 +9,7 @@
    maxTotal="20" 
    maxWaitMillis="-1" 
    name="jdbc/boardgame" 
-   password="asd12377" 
+   password="CGA103g3" 
    type="javax.sql.DataSource" 
    url="jdbc:mysql://localhost:3306/boardgame?serverTimezone=Asia/Taipei" 
    username="root"/>

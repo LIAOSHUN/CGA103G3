@@ -114,7 +114,27 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ActServlet</servlet-name>
+		<url-pattern>/ActServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ActServlet</servlet-name>
 		<url-pattern>/backend/act/act.do</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ActWithImgServlet</servlet-name>
+		<servlet-class>com.act.controller.ActWithImgServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ActWithImgServlet</servlet-name>
+		<url-pattern>/ActWithImgServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ActStatusChangeServlet</servlet-name>
+		<servlet-class>com.act.controller.ActStatusChangeServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ActStatusChangeServlet</servlet-name>
+		<url-pattern>/ActStatusChangeServlet</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
@@ -123,10 +143,12 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ActRegisServlet</servlet-name>
+		<url-pattern>/ActRegisServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ActRegisServlet</servlet-name>
 		<url-pattern>/backend/actregis/actregis.do</url-pattern>
 	</servlet-mapping>
-
-
 	<servlet-mapping>
 		<servlet-name>ActRegisServlet</servlet-name>
 		<url-pattern>/frontend/actregis/actregis.do</url-pattern>
@@ -138,13 +160,40 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>ActImgServlet</servlet-name>
+		<url-pattern>/ActImgServlet</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>ActImgServlet</servlet-name>
 		<url-pattern>/backend/actimg/actimg.do</url-pattern>
 	</servlet-mapping>
-
-
 	<servlet-mapping>
 		<servlet-name>ActImgServlet</servlet-name>
 		<url-pattern>/frontend/actimg/actimg.do</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>AddActFavServlet</servlet-name>
+		<servlet-class>com.actfav.controller.AddActFavServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddActFavServlet</servlet-name>
+		<url-pattern>/AddActFavServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>ListActFavServlet</servlet-name>
+		<servlet-class>com.actfav.controller.ListActFavServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ListActFavServlet</servlet-name>
+		<url-pattern>/ListActFavServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>DelActFavServlet</servlet-name>
+		<servlet-class>com.actfav.controller.DelActFavServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DelActFavServlet</servlet-name>
+		<url-pattern>/DelActFavServlet</url-pattern>
 	</servlet-mapping>
 
 	<servlet>
