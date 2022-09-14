@@ -1,13 +1,13 @@
 package com.act.model;
 
+import static common.Common.*;
+
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.*;
 
 import com.actimg.model.ActImgJDBCDAO;
 import com.actimg.model.ActImgVO;
-
-import static common_35.Common.*;
 
 public class ActJDBCDAO implements ActDAO_interface{
 

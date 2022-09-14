@@ -1,4 +1,4 @@
-package common_35;
+package common;
 
 public class Common {
 	// MySQL 8之後連線URL需加上SSL與時區設定
@@ -8,5 +8,5 @@ public class Common {
 		// public final static String url = "jdbc:mysql://localhost:3306/bookshop_jdbc";
 		
 		public final static String userid = "root";
-		public final static String passwd = "Asdf1234";
+		public final static String passwd = "CGA103g3";
 }

@@ -1,6 +1,6 @@
 package com.actimg.model;
 
-import static common_35.Common.*;
+import static common.Common.*;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

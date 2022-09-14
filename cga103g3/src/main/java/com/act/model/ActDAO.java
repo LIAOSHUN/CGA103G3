@@ -25,7 +25,7 @@ public class ActDAO implements ActDAO_interface {
 	static {
 		try {
 			Context ctx = new InitialContext();
-			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Mysql");
+			ds = (DataSource) ctx.lookup("java:comp/env/jdbc/boardgame");
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
