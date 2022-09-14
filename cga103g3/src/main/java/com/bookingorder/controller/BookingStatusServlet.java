@@ -28,10 +28,6 @@ public class BookingStatusServlet extends HttpServlet {
 		
 		
 		
-//		doPost(req, res);
-	}
-
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 	}
 
 }

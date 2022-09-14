@@ -14,7 +14,6 @@ import javax.servlet.http.HttpSession;
 
 import com.bookingorder.model.BookingOrdService;
 import com.bookingorder.model.BookingOrderVO;
-import com.google.gson.Gson;
 
 
 @WebServlet("/bookingorder/bookingorder.do")
