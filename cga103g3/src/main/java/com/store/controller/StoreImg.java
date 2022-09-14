@@ -68,7 +68,7 @@ public class StoreImg extends HttpServlet {
 	public void init() throws ServletException {
 		try {
 			Context ctx = new InitialContext();
-			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/Mysql");
+			DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/boardgame");
 			con = ds.getConnection();
 		} catch (Exception e) {
 			e.printStackTrace();

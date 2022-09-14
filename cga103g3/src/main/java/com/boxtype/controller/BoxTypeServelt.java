@@ -43,7 +43,7 @@ public class BoxTypeServelt extends HttpServlet {
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("btVO", btVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/boxtype/addBoxType.jsp");
+						.getRequestDispatcher("/backend/boxtype/model_AddBoxType.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -51,8 +51,8 @@ public class BoxTypeServelt extends HttpServlet {
 			BoxTypeService btSvc = new BoxTypeService();
 			btSvc.addBoxType(boxName);
 			
-			String url = "/backend/boxtype/AllBoxType.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url); //新增成功轉交AllBoxType.jsp
+			String url = "/backend/boxtype/model_AllBoxType.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); //新增成功轉交model_AllBoxType.jsp
 			successView.forward(req, res);
 			return;
 		}
@@ -70,7 +70,7 @@ public class BoxTypeServelt extends HttpServlet {
 			BoxTypeVO btVO = btSvc.findOneBoxType(boxTypeID);
 			
 			req.setAttribute("btVO", btVO);
-			String url = "/backend/boxtype/update_boxType.jsp";
+			String url = "/backend/boxtype/model_UpdateBoxType.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交update_boxType.jsp
 			successView.forward(req, res);
 			return;
@@ -94,7 +94,7 @@ public class BoxTypeServelt extends HttpServlet {
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("btVO", btVO); // 含有輸入格式錯誤的empVO物件,也存入req
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/boxtype/addBoxType.jsp");
+						.getRequestDispatcher("/backend/boxtype/model_UpdateBoxType.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -102,7 +102,7 @@ public class BoxTypeServelt extends HttpServlet {
 			BoxTypeService btSvc = new BoxTypeService();
 			btSvc.updateBoxType(btVO);
 			
-			String url = "/backend/boxtype/AllBoxType.jsp";
+			String url = "/backend/boxtype/model_AllBoxType.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); //新增成功轉交AllBoxType.jsp
 			successView.forward(req, res);
 			return;
@@ -119,7 +119,7 @@ public class BoxTypeServelt extends HttpServlet {
 			BoxTypeService btSvc = new BoxTypeService();
 			btSvc.deleteBoxType(boxTypeID);
 			
-			String url = "/backend/boxtype/AllBoxType.jsp";
+			String url = "/backend/boxtype/model_AllBoxType.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); //新增成功轉交AllBoxType.jsp
 			successView.forward(req, res);
 			return;

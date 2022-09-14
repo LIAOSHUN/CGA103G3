@@ -271,8 +271,13 @@ public class StoreServlet extends HttpServlet {
 				
 				Part part = req.getPart("storeImg");
 				InputStream in = part.getInputStream();
-				byte[] storeImg = new byte[in.available()];
-				in.read(storeImg);
+				byte[] storeImg;
+				if(in.available() == 0) {
+					storeImg = null;
+				} else {
+					storeImg = new byte[in.available()];
+					in.read(storeImg);
+				}
 				in.close();
 				
 				String storeOpen = req.getParameter("storeOpen");
