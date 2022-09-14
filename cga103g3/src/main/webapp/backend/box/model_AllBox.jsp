@@ -412,7 +412,15 @@ pageContext.setAttribute("list", list);
           <!-- Content wrapper -->
           
 <!-- ============================================ < Content內容 > ======================================================= -->
-            
+         <%-- 錯誤表列 --%>
+<c:if test="${not empty errorMsgs}">
+	<font style="color:red">請修正以下錯誤:</font>
+	<ul>
+		<c:forEach var="message" items="${errorMsgs}">
+			<li style="color:red">${message}</li>
+		</c:forEach>
+	</ul>
+</c:if>            
             
           <!-- Content wrapper -->
           <div class="content-wrapper">
@@ -424,7 +432,7 @@ pageContext.setAttribute("list", list);
 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/box/box.do">
 				<b>查詢門市包廂:</b> 
 				<select size="1" name="StoreID" >
-				<option selected="selected" disabled>選擇門市</option>
+				<option value="0" selected="selected" disabled>選擇門市</option>
 					<c:forEach var="stVO" items="${storeSvc.all}">
 						<option value="${stVO.storeID}">${stVO.storeName}
 					</c:forEach>

@@ -7,7 +7,7 @@
 <%@ page import="com.bookingorder.model.*"%>
 
 <%
-BookingOrderVO bookingOrdVO = (BookingOrderVO) request.getAttribute("bokOrdVO");
+BookingOrderVO bookingOrdVO = (BookingOrderVO) request.getAttribute("bookingOrdVO");
 %>
 
 <!DOCTYPE html>
@@ -437,6 +437,7 @@ BookingOrderVO bookingOrdVO = (BookingOrderVO) request.getAttribute("bokOrdVO");
                               id="memID"
                               name="memID"
                               value="<%= (bookingOrdVO==null)? "" : bookingOrdVO.getMemID()%>"
+                              autocomplete="off"
                             />
                           </div>
                         
@@ -455,7 +456,7 @@ BookingOrderVO bookingOrdVO = (BookingOrderVO) request.getAttribute("bokOrdVO");
                             <label for="boxID" class="form-label">包廂編號</label>
                             <select name="boxID" id="boxID" class="select2 form-select">
                               <c:forEach var="boxVO" items="${boxSvc.all}"> 
-								<option value="${boxVO.boxID}" >[ 門市${boxVO.storeID} ] / ${boxVO.boxID}--${boxVO.boxDescription}
+								<option value="${boxVO.boxID}" ${(boxVO.storeID)==51002? "style=\"background-color:#E5E7E9\"":""} ${(boxVO.storeID)==51004? "style=\"background-color:#E5E7E9\"":""}>[ 門市${boxVO.storeID} ] / ${boxVO.boxID}--${boxVO.boxDescription} </option>
 							  </c:forEach>
                             </select>
                           </div>
