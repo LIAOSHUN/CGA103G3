@@ -1,6 +1,8 @@
 package com.member.model;
 
-import static com.common_27.Common_27.*;
+import static com.common_27.Common_27.URL;
+import static com.common_27.Common_27.USERNAME;
+import static com.common_27.Common_27.PASSWORD;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,12 +20,15 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT MemID,GradeID,MemName,MemAccount,MemPassword,MemGender,MemPh,MemEmail,MemAddress,MemBirthday,MemCard,MemVio,MemStatus FROM member order by MemID";
 	private static final String GET_ONE_STMT = "SELECT MemID,GradeID,MemName,MemAccount,MemPassword,MemGender,MemPh,MemEmail,MemAddress,MemBirthday,MemCard,MemVio,MemStatus FROM member where MemID = ?";
 	private static final String DELETE = "DELETE FROM member where MemID = ?";
-	private static final String UPDATE = "UPDATE member set GradeID=?, MemName=?, MemAccount=?, MemPassword=?, MemGender=?, MemPh=? ,MemEmail=?,MemAddress=?,"
-			+ "MemBirthday=?,MemCard=?,MemVio=?=?,MemStatus=? where MemID = ?";
+	private static final String UPDATE = "UPDATE member set GradeID=?,MemName=?,MemAccount=?,MemPassword=?,MemGender=?"
+			+ ",MemPh=?,MemEmail=?,MemAddress=?,MemBirthday=?,MemCard=?,MemVio=?,MemStatus=? where MemID = ?";
 	private static final String INSERT_REGISTER = "INSERT INTO member(MemName,MemAccount,MemPassword,MemGender,MemPh,MemEmail,MemAddress,MemBirthday,Memcard) "
 			+ "VALUES(?,?,?,?,?,?,?,?,?)";
 	private static final String MemberLogin = "SELECT MemAccount ,MemPassWord FROM member WHERE MemAccount=? and MemPassWord=?";
-
+    private static final String MemberFindmemID = "SELECT MemID  FROM member WHERE MemAccount=?";
+	
+	
+	
 	@Override
 	public void insert(MemberVO memberVO) {
 		// TODO Auto-generated method stub
@@ -419,31 +424,82 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		return memVO;
 	}
 
+    
+    
+    
+    
+	@Override
+	public MemberVO MemberFindmemID(String memAccount) {
+		// TODO Auto-generated method stub
+		MemberVO memberVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			pstmt = con.prepareStatement(MemberFindmemID);
+
+			pstmt.setString(1, memAccount);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				memberVO = new MemberVO();
+				memberVO.setMemID(rs.getInt("MemID"));
+
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return memberVO;	}
+
+    
+    
+    
+    
+    
+    
 	public static void main(String[] args) {
 //
 		MemberJDBCDAO dao = new MemberJDBCDAO();
 //
 		// 新增
-		MemberVO memberVO1 = new MemberVO();
-		memberVO1.setGradeID(1);
-		memberVO1.setMemName("rest");
-		memberVO1.setMemAccount("sun");
-		memberVO1.setMemPassWord("12345");
-		memberVO1.setMemGender("M");
-		memberVO1.setMemPh("0987654321");
-		memberVO1.setMemEmail("gdoldoi@hgslrghj");
-		memberVO1.setMemAddress("桃園市中壢區復興路46號9樓");
-		memberVO1.setMemBirthday(java.sql.Date.valueOf("1987-11-30"));
-		memberVO1.setMemCard(null);
-		memberVO1.setMemVio(0);
-		memberVO1.setMemStatus(0);
-		dao.insert(memberVO1);
-
-////		// 修改
 //		MemberVO memberVO1 = new MemberVO();
 //		memberVO1.setGradeID(1);
-//		memberVO1.setMemName("abc");
-//		memberVO1.setMemAccount("xyz");
+//		memberVO1.setMemName("rest");
+//		memberVO1.setMemAccount("sun");
 //		memberVO1.setMemPassWord("12345");
 //		memberVO1.setMemGender("M");
 //		memberVO1.setMemPh("0987654321");
@@ -451,11 +507,26 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 //		memberVO1.setMemAddress("桃園市中壢區復興路46號9樓");
 //		memberVO1.setMemBirthday(java.sql.Date.valueOf("1987-11-30"));
 //		memberVO1.setMemCard(null);
-//		memberVO1.setMemVio(1);
-//		memberVO1.setMemCredit(null);
-//		memberVO1.setMemStatus( 0);
-//		memberVO1.setMemID(11020);
-//		dao.update(memberVO1);
+//		memberVO1.setMemVio(0);
+//		memberVO1.setMemStatus(0);
+//		dao.insert(memberVO1);
+
+////		// 修改
+		MemberVO memberVO1 = new MemberVO();
+		memberVO1.setGradeID(1);
+		memberVO1.setMemName("abc");
+		memberVO1.setMemAccount("xyz");
+		memberVO1.setMemPassWord("12345");
+		memberVO1.setMemGender("M");
+		memberVO1.setMemPh("0987654321");
+		memberVO1.setMemEmail("gdoldoi@hgslrghj");
+		memberVO1.setMemAddress("桃園市中壢區復興路46號9樓");
+		memberVO1.setMemBirthday(java.sql.Date.valueOf("1987-11-30"));
+		memberVO1.setMemCard(null);
+		memberVO1.setMemVio(1);
+		memberVO1.setMemStatus( 0);
+		memberVO1.setMemID(11008);
+		dao.update(memberVO1);
 //
 //
 //		// 刪除
@@ -498,5 +569,6 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 //		}
 
 	}
+
 
 }

@@ -59,13 +59,13 @@ public class MemberService {
 		MemberVO memberVO = new MemberVO();
 		memberVO.setMemID(memID);
 		memberVO.setGradeID(gradeID);
-		memberVO.setMemName("memName");
-		memberVO.setMemAccount("memAccount");
-		memberVO.setMemPassWord("memPassWord");
-		memberVO.setMemGender("memGender");
-		memberVO.setMemPh("memPh");
-		memberVO.setMemEmail("memEmail");
-		memberVO.setMemAddress("memAddress");
+		memberVO.setMemName(memName);
+		memberVO.setMemAccount(memAccount);
+		memberVO.setMemPassWord(memPassWord);
+		memberVO.setMemGender(memGender);
+		memberVO.setMemPh(memPh);
+		memberVO.setMemEmail(memEmail);
+		memberVO.setMemAddress(memAddress);
 		memberVO.setMemBirthday(memBirthday);
 		memberVO.setMemCard(memCard);
 		memberVO.setMemVio(memVio);
@@ -76,6 +76,12 @@ public class MemberService {
 		return memberVO;
 	}
 
+	
+	
+	
+	
+	
+	
 	public void deleteMember(Integer memID) {
 		dao.delete(memID);
 	}
@@ -93,6 +99,10 @@ public class MemberService {
 		return dao.MemberLogin(mem_account, mem_password);
 	}
 
+	public MemberVO MemberFindmemID(String memAccount) {
+		return dao.MemberFindmemID(memAccount);
+	}
+	
 	
 	
 }

@@ -12,5 +12,6 @@ public interface MemberDAO_interface {
     public List<MemberVO> getAll();
 	public void registerInsert(MemberVO memberVO1);
 	public MemberVO MemberLogin(String memAccount,String memPassWord);
+	public MemberVO MemberFindmemID(String memAccount);
 
 }

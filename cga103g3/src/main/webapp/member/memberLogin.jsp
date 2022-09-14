@@ -13,7 +13,7 @@
 		
 		<form action="member.do" method="post">
 
-			<table border="2">
+			<table border="1">
 				<tr>
 					<th>帳號</th>
 					<td><input type="text" name="memAccount" /></td>
