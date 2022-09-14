@@ -481,6 +481,7 @@ BoxVO boxVO = (BoxVO) request.getAttribute("boxVO"); //EmpServlet.java (Concroll
                               id="boxPrice"
                               name="boxPrice"
                               value="<%= (boxVO==null)? "" : boxVO.getBoxPrice()%>"
+                              autocomplete="off"
                             />
                           </div>
 
@@ -491,6 +492,7 @@ BoxVO boxVO = (BoxVO) request.getAttribute("boxVO"); //EmpServlet.java (Concroll
                               class="form-control"
                               id="boxDescription"
                               name="boxDescription"
+                              autocomplete="off"
                             ></textarea>
                           </div>
 

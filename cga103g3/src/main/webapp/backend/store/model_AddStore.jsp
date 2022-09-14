@@ -7,7 +7,7 @@
 <%@ page import="com.store.model.*"%>
 
 <%
-  StoreVO stVO = (StoreVO) request.getAttribute("list");
+  StoreVO stVO = (StoreVO) request.getAttribute("stVO");
 %>
 
 <!DOCTYPE html>

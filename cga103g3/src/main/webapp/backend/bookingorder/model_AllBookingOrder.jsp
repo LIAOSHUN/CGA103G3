@@ -434,7 +434,7 @@ pageContext.setAttribute("list", list);
 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/GetStoreBookingOrd/GetStoreBookingOrd.do">
 				<b>查詢門市訂位訂單:</b> 
 				<select size="1" name="StoreID" >
-					<option selected="selected" disabled>選擇門市</option>
+					<option value="0" selected="selected" disabled>選擇門市</option>
 					<c:forEach var="stVO" items="${storeSvc.all}">
 						<option value="${stVO.storeID}">${stVO.storeName}</option>
 					</c:forEach>
@@ -444,7 +444,7 @@ pageContext.setAttribute("list", list);
 			</FORM>
 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/bookingorder/bookingorder.do">
 				<b>查詢單筆訂位訂單:</b>
-				<input type="text" name="BookingID">
+				<input type="text" name="BookingID" value="輸入訂單編號" autocomplete="off">
 				<input type="hidden" name="action" value="getOne_BookingID">
 				<input type="submit" value="查詢">
 			</FORM>

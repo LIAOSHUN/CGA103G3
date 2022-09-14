@@ -440,7 +440,7 @@ BookingOrderVO bokOrdVO = (BookingOrderVO) request.getAttribute("bokOrdVO");
 				<input type="hidden" name="action" value="get_StoreBookingOrd">
 				<input type="submit" value="查詢">
 			</FORM>
-			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/GetStoreBookingOrd/GetStoreBookingOrd.do">
+			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/bookingorder/bookingorder.do">
 				<b>查詢單筆訂位訂單:</b>
 				<input type="text" name="BookingID">
 				<input type="hidden" name="action" value="getOne_BookingID">
