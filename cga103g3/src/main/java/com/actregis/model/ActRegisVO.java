@@ -4,6 +4,11 @@ import java.io.Serializable;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import com.act.model.ActService;
+import com.act.model.ActVO;
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
+
 public class ActRegisVO implements Serializable{
 	private Integer memID;
 	private Integer actID;
@@ -75,5 +80,19 @@ public class ActRegisVO implements Serializable{
 	}
 	public void setReviewDate(Date reviewDate) {
 		this.reviewDate = reviewDate;
+	}
+	
+	// for join actTitle from actID
+	public ActVO getActVO() {
+		ActService actSvc = new ActService();
+		ActVO actVO = actSvc.getOneAct(actID);
+		return actVO;
+	}
+	
+	// for join memAccount and memName from memID
+	public MemberVO getMemberVO() {
+		MemberService memSvc = new MemberService();
+		MemberVO memberVO = memSvc.getOneMember(memID);
+		return memberVO;
 	}
 }
