@@ -14,6 +14,7 @@ public class StoreService {
 	public StoreVO addStroe(String storeName, String storeAdd, String storePhone1, String storePhone2, String storeEmail, 
 			byte[] storeImg, String storeOpen, String storeClose, String storeOff, Integer empID) {
 		
+		
 		StoreVO svo = new StoreVO();
 		
 		svo.setStoreName(storeName);
