@@ -65,6 +65,10 @@ public class ProductService {
 		return dao.getAll();
 	}
 	
+	public List<ProductVO> getUp() {
+		return dao.getUp();
+	}
+	
 	
 	public ProductVO addProductWithProductImg(String pdName, Integer pdTypeID,Integer pdPrice,
 			Integer pdAmount,

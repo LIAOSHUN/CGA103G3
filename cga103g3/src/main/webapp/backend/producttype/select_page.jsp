@@ -63,7 +63,7 @@
   <jsp:useBean id="productTypeSvc" scope="page" class="com.producttype.model.ProductTypeService" />
    
   <li>
-     <FORM METHOD="post" ACTION="producttype.do" >
+     <FORM METHOD="post" ACTION="/cga103g3/producttype/ProductTypeServlet" >
        <b>選擇種類編號:</b>
        <select size="1" name="pdTypeID">
          <c:forEach var="productTypeVO" items="${productTypeSvc.all}" > 
@@ -76,7 +76,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="producttype.do" >
+     <FORM METHOD="post" ACTION="/cga103g3/producttype/ProductTypeServlet" >
        <b>選擇遊戲名稱:</b>
        <select size="1" name="pdTypeID">
          <c:forEach var="productTypeVO" items="${productTypeSvc.all}" > 

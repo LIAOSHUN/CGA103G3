@@ -12,7 +12,7 @@ public class ProductImgJDBCDAO implements  ProductImgDAO_interface {
 	private static final String INSERT_STMT = 
 			"INSERT INTO productimg (PdId,PdImg,PdImgName) VALUES (?, ?, ?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT PdImgId,PdId,PdImg,PdImgName FROM productimg order by PdImgId";
+			"SELECT PdImgId,PdId,PdImg,PdImgName FROM productimg order by PdID";
 		private static final String GET_ONE_STMT = 
 			"SELECT PdImgId,PdId,PdImg,PdImgName FROM productimg where PdImgId = ?";
 		private static final String DELETE = 
@@ -426,7 +426,7 @@ public class ProductImgJDBCDAO implements  ProductImgDAO_interface {
 //		dao.update(productimgVO2);
 
 		// �R��
-		dao.delete(7014);
+//		dao.delete(7014);
 
 		// �d��
 //		ProductImgVO productimgVO3 = dao.findByPrimaryKey(21001);

@@ -64,7 +64,7 @@
 							</li>
 
 							<li>
-								<a href="#">訂位</a>
+								<a href="<%=request.getContextPath()%>/frontend/booking/bookingFinal.jsp">訂位</a>
 							</li>
 							<li>
 								<a href="#">活動</a>

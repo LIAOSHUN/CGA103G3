@@ -40,7 +40,7 @@ public class ProductTypeServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/producttype/select_page.jsp");
+							.getRequestDispatcher("/backend/producttype/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -75,7 +75,7 @@ public class ProductTypeServlet extends HttpServlet {
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("productTypeVO", productTypeVO); // 資料庫取出的empVO物件,存入req
-				String url = "/producttype/listOneProductType.jsp";
+				String url = "/backend/producttype/listOneProductType.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 		}
