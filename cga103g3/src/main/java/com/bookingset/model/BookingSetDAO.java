@@ -49,7 +49,7 @@ public class BookingSetDAO implements BookingSet_interface {
 	private static final String GET_STORE_BOOKING_ORD = 
 			"select bok.BookingID, bok.MemID, bok.BookingDate, bok.BookingStart, bok.BookingEnd, b.StoreID, bok.BoxID, bok.BookingNote, bok.BookingStatus "
 			+ "from bookingorder bok join box b on bok.BoxID = b.BoxID "
-			+ "where b.StoreID = ?";
+			+ "where b.StoreID = ? and bok.BookingStatus = 1";
 	
 	private static final String GET_BOOKING_INFO = 
 			"select b.BoxID, b.BoxBkStart, b.BoxBkEnd, bok.BookingDate, bok.BookingStart, bok.BookingEnd "

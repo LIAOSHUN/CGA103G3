@@ -428,7 +428,7 @@
              
           <jsp:useBean id="storeSvc" scope="request" class="com.store.model.StoreService" />
 			<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/GetStoreBookingOrd/GetStoreBookingOrd.do">
-				<b>查詢門市訂位訂單:</b> 
+				<b>未結束訂位訂單:</b> 
 				<select size="1" name="StoreID" >
 				<option value="0" selected="selected" disabled>選擇門市</option>
 					<c:forEach var="stVO" items="${storeSvc.all}">

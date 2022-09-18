@@ -77,9 +77,10 @@ public class BookingOrdDAO implements BookingOrder_interface{
 		int bookingEnd = Integer.valueOf(bookingOrderVO.getBookingEnd());
 		
 		MailService mailService = new MailService();
+		MailAndQRCode mailAndQRCode = new MailAndQRCode();
 		String reback = "訂位失敗,此時段已被預訂，請重新訂位，謝謝。";
 		String to = "ufo3068@gmail.com";
-		String subject = "訂位通知";
+		String subject = "絆桌-訂位通知";
 		
 		try (
 				Connection con = ds.getConnection();
@@ -135,9 +136,8 @@ public class BookingOrdDAO implements BookingOrder_interface{
 			con.commit();
 			con.setAutoCommit(true);
 
-			reback = "訂位成功，請準時報到，謝謝。";
-			mailService.sendMail(to, subject, reback);
-			
+			reback = "<h3>訂位通知</h3>訂位成功，請準時報到，謝謝。";
+			mailAndQRCode.sendMailAndQRCode(to, subject, reback);
 			
 		} catch (Exception e) {
 			e.printStackTrace();

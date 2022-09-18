@@ -26,7 +26,7 @@ window.addEventListener("load", function () {
 
 
     // store設定 -----------------------------------------------------------------------------------		
-    fetch("/CGA103G3_07/store/store.do")
+    fetch("/cga103g3/store/store.do")
         .then(res => res.json("storeList"))
         .then(storeList => {
             // console.log(storeList);
@@ -50,16 +50,16 @@ window.addEventListener("load", function () {
 
                 if (store.value == 51001) {
                     bookingTitle.innerHTML = java;
-                    show.innerHTML = '<img class="card-img card-img-right"  src="/CGA103G3_07/StoreImg?StoreID=51001" alt="Card image" width="200" height="250"></img>'
+                    show.innerHTML = '<img class="card-img card-img-right"  src="/cga103g3/StoreImg?StoreID=51001" alt="Card image" width="200" height="250"></img>'
                 } else if (store.value == 51002) {
                     bookingTitle.innerHTML = servlet;
-                    show.innerHTML = '<img class="card-img card-img-right"  src="/CGA103G3_07/StoreImg?StoreID=51002" alt="Card image" width="200" height="250"></img>'
+                    show.innerHTML = '<img class="card-img card-img-right"  src="/cga103g3/StoreImg?StoreID=51002" alt="Card image" width="200" height="250"></img>'
                 } else if (store.value == 51003) {
                     bookingTitle.innerHTML = mySQL;
-                    show.innerHTML = '<img class="card-img card-img-right"  src="/CGA103G3_07/StoreImg?StoreID=51003" alt="Card image" width="200" height="250"></img>'
+                    show.innerHTML = '<img class="card-img card-img-right"  src="/cga103g3/StoreImg?StoreID=51003" alt="Card image" width="200" height="250"></img>'
                 } else if (store.value == 51004) {
                     bookingTitle.innerHTML = peter;
-                    show.innerHTML = '<img class="card-img card-img-right"  src="/CGA103G3_07/StoreImg?StoreID=51004" alt="Card image" width="200" height="250"></img>'
+                    show.innerHTML = '<img class="card-img card-img-right"  src="/cga103g3/StoreImg?StoreID=51004" alt="Card image" width="200" height="250"></img>'
                 }
 
             });
@@ -76,7 +76,7 @@ window.addEventListener("load", function () {
         //     return;
         // }
         // 顯示包廂
-        fetch("/CGA103G3_07/BoxInfo/BoxInfo.do")
+        fetch("/cga103g3/BoxInfo/BoxInfo.do")
             .then(res => res.json("allBoxAndStore"))
             .then(allBoxAndStore => {
                 let add = '';
@@ -90,7 +90,7 @@ window.addEventListener("load", function () {
                 }
                 // 選取包廂後顯示訂位時間
                 document.getElementById('boxSize').addEventListener('change', () => {
-                    fetch("/CGA103G3_07/Booking/GetDateAndShowTime.do", {
+                    fetch("/cga103g3/Booking/GetDateAndShowTime.do", {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -191,7 +191,7 @@ function bookingBtn() {
     console.log(memID.value, store.value, bookingDate.value, boxSize.value, bookingStart.value, bookingEnd.value, bookingNote.value);
     document.getElementById('form').submit();
     // http://localhost:8081/CGA103G3_07/bookingorderfetch/bookingorder.do
-    fetch("/CGA103G3_07/bookingorderfetch/bookingorder.do", {
+    fetch("/cga103g3/bookingorderfetch/bookingorder.do", {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
