@@ -116,17 +116,7 @@ public class CheckoutServlet extends HttpServlet {
 			Boolean transa = checkoutService.allJobs(memID, coupNo, ordOriPrice, ordLastPrice, ordFee, 0, receiverName, address, receiverPhone, ordPick, list, sessionId);
 			
 			
-			// 成立訂單發送 Email 通知
-			
-			String to = "u5msaaay@gmail.com"; // 要抓會員 email 
 
-			String subject = "下單成功";
-
-			String ch_name =  receiverName + " 用戶"; 
-			String messageText = "Hello! " + ch_name + "，您已成功在絆桌完成訂單，商品將盡快為您安排送出，感謝您的購買";
-
-			OrderListMailService orderListMailService = new OrderListMailService();
-			orderListMailService.sendMail(to, subject, messageText);
 
 			
 //			以上交易都確定成功，才會去對購物進行處理，避免上面步驟出現rollback的話，會造成購物車內容已被刪除，無法找回的情形
@@ -139,6 +129,18 @@ public class CheckoutServlet extends HttpServlet {
 					CartService cartSvc = new CartService();
 					cartSvc.deleteItemChecked(sessionId, pdID);
 				}
+				
+				// 成立訂單發送 Email 通知
+				
+				String to = "u5msaaay@gmail.com"; // 要抓會員 email 
+
+				String subject = "下單成功";
+
+				String ch_name =  receiverName + " 用戶"; 
+				String messageText = "Hello! " + ch_name + "，您已成功在絆桌完成訂單，商品將盡快為您安排送出，感謝您的購買";
+
+				OrderListMailService orderListMailService = new OrderListMailService();
+				orderListMailService.sendMail(to, subject, messageText);
 			}
 			/***************************4.新增完成,準備轉交到我的訂單***********/
 			String url = "/frontend/orderlist/myOrderList.jsp";

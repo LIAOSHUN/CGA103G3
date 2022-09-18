@@ -31,7 +31,7 @@ public class CheckoutService {
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/boardgame?serverTimezone=Asia/Taipei";
 	String userid = "root";
-	String passwd = "asd12377";
+	String passwd = "CGA103g3";
 	
 	//邏輯必須寫在這層才對，專門處理結帳所有需要的動作，並針對結帳進行交易控制
 	//所有動作，必須用同一連線

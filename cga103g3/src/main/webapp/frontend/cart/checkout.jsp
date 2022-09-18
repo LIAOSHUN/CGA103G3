@@ -277,7 +277,7 @@
                                 
 	                            <input type="hidden" name="ordOriPrice" id="ordOriPrice" value="">
 								<input type="hidden" name="ordLastPrice" id="ordLastPrice" value="">
-								<input type="hidden" name="ordFee" id="ordFee" value="">
+								<input type="hidden" name="ordFee" id="ordFee" value="0">
 
    </form>   
 
@@ -295,7 +295,7 @@
 	<div>
 		 <form name="backCartForm" action="<%=request.getContextPath()%>/frontend/cart/cart.do" method="POST">
               <input type="hidden" name="action"  value="getCart"> 
-              <input type="submit" value="更改購物車品項" class="flex-c-m stext-101 cl0 size-102 bg2  bor14 hov-btn3 p-lr-15 trans-04 pointer">
+              <input type="submit" value="更改購物車品項" class="flex-c-m stext-101 cl0 size-102 bg2  bor14 hov-btn3 p-lr-15 trans-04 pointer" style="color:#39ac7e;">
           </form>
 	</div>
 </div>	

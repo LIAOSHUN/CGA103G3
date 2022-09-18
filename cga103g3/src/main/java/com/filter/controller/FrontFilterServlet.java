@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 @WebFilter(	filterName = "FrontFilterServlet",
-servletNames = {"/FrontFilterServlet"},
+servletNames = {"DcartServlet"},
 urlPatterns = {"/frontend/cart/checkout.jsp"}
 		)
 public class FrontFilterServlet extends HttpFilter implements Filter{
@@ -32,19 +32,22 @@ public FrontFilterServlet() {
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
 		//讀取的網頁路徑
-		String uri = req.getRequestURI();
+//		String uri = req.getRequestURI();
 //		System.out.println(uri);
 		//判斷是否有登入,用session有無存入LoginSessionName判斷
 		String getSessionID =	((HttpServletRequest) request).getRequestedSessionId();
 		String memAccount = (String) req.getSession().getAttribute("memAccount");
 		
+		HttpSession session = req.getSession();
 //		測試登入狀態
 //		System.out.println("SessionID : " + getSessionID);
 //		System.out.println("登入狀態Session : " + LoginSessionName);
 		
 		//以下判斷,當結尾不是"Login.jsp" 或是 "EmpLoginServlet.do" 時 ,而且沒有取得Session登入狀態
-		if( !(uri.endsWith("Login.jsp") || uri.endsWith("memberServlet.do")) && (memAccount == null || (memAccount.trim()).length() == 0)){
+		if( memAccount == null || (memAccount.trim()).length() == 0){
 //			req.getRequestDispatcher("../../BackLogin.jsp").forward(request, response);
+			//存現在網頁到location
+			session.setAttribute("location", req.getRequestURI());
 			//跳轉頁面至登入頁面
 			res.sendRedirect("../../member/memberLogin.jsp");
 			return;

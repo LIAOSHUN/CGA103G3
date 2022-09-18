@@ -18,7 +18,7 @@ public class CartJDBCDAO implements CartDAO_interface{
 	String driver = "com.mysql.cj.jdbc.Driver";
 	String url = "jdbc:mysql://localhost:3306/boardgame?serverTimezone=Asia/Taipei";
 	String userid = "root";
-	String passwd = "asd12377";
+	String passwd = "CGA103g3";
 	
 //	-- 找出某樣商品資訊
 	private static final String GetOne = 

@@ -169,7 +169,7 @@
 					$<span class='smallPrice'><%=cartItem.getPdPrice() * cartItem.getCount()%></span>
 				</td>
 		        <td width="20">
-		            <input type="button" id='delete' value="x" class="delete flex-c-m stext-101 cl0 size-202 bg3 bor7 hov-btn3 p-lr-15 trans-04 pointer">
+		            <input type="button" id='delete' value="x" class="delete flex-c-m stext-101 cl0 size-202 bg3 bor7 hov-btn3 p-lr-15 trans-04 pointer" >
 		        </td>
 			</tr>
 	<%}%>
@@ -185,7 +185,7 @@
         			<button form="Form" type="submit" id='checkout' value="結帳就對了!" 
         			class="flex-c-m stext-101 cl0 size-101 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer"
         			style="display:none;">
-    					結帳就對了!
+    					結帳go!
     				</button>
         		</div>
 			</c:if>									
@@ -215,7 +215,7 @@
 	<%}%>
 	
 	<div>
-		<a href="testpro.jsp" class="flex-c-m stext-101 cl0 size-101 bg2  hov-btn3 p-lr-15 trans-04 pointer"> 前 往 商 城 繼 續 絆 桌</a>
+		<a href="testpro.jsp" class="flex-c-m stext-101 cl0 size-101 bg2  hov-btn3 p-lr-15 trans-04 pointer" style="color:#39ac7e;"> 前 往 商 城 繼 續 購 物</a>
 	</div>
 	
 	<%@ include file="../frontendfoot.jsp" %>
