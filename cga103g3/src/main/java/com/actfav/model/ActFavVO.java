@@ -3,6 +3,11 @@ package com.actfav.model;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+import com.act.model.ActService;
+import com.act.model.ActVO;
+import com.store.model.StoreService;
+import com.store.model.StoreVO;
+
 public class ActFavVO implements Serializable{
 	private Integer memID;
 	private Integer actID;
@@ -26,5 +31,12 @@ public class ActFavVO implements Serializable{
 	}
 	public void setActFavDate(LocalDateTime actFavDate) {
 		this.actFavDate = actFavDate;
+	}
+	
+	// for join actInfo from actID
+	public ActVO getActVO() {
+		ActService actSvc = new ActService();
+		ActVO actVO = actSvc.getOneAct(actID);
+		return actVO;
 	}
 }

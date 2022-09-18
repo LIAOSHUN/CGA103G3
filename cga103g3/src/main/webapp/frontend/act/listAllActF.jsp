@@ -63,6 +63,7 @@
 				<th>活動標題</th>
 				<th>活動日期</th>
 				<th>活動場次</th>
+				<th>報名期限</th>
 				<th>報名</th>
 			</tr>
 			<c:forEach var="actVO" items="${list}">				
@@ -74,6 +75,7 @@
 					<td><c:if test="${actVO.dateNum == '14' }">下午場（14:00~17:00）</c:if>
 						<c:if test="${actVO.dateNum == '18' }">晚場（18:00~21:00）</c:if>
 					</td>
+					<td><javatime:format value="${actVO.actTimeEnd}" pattern="yyyy-MM-dd HH:mm" /></td>
 					<td>
 						<a href="<%=request.getContextPath()%>/ActServlet?actID=${actVO.actID}&action=showActForRegis">
 							<button>我要報名</button>

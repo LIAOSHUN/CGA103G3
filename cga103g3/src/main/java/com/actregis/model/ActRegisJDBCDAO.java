@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -111,7 +112,7 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 				actRegisVO = new ActRegisVO();
 				actRegisVO.setMemID(rs.getInt("memID"));
 				actRegisVO.setActID(rs.getInt("actID"));
-				actRegisVO.setRegisTime(rs.getTimestamp("regisTime"));
+				actRegisVO.setRegisTime(rs.getObject("regisTime", LocalDateTime.class));
 				actRegisVO.setActNum(rs.getInt("actNum"));
 				actRegisVO.setActFee(rs.getInt("actFee"));
 				actRegisVO.setFeeStatus(rs.getInt("feeStatus"));
@@ -152,7 +153,7 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 				actRegisVO = new ActRegisVO();
 				actRegisVO.setMemID(rs.getInt("memID"));
 				actRegisVO.setActID(rs.getInt("actID"));
-				actRegisVO.setRegisTime(rs.getTimestamp("regisTime"));
+				actRegisVO.setRegisTime(rs.getObject("regisTime", LocalDateTime.class));
 				actRegisVO.setActNum(rs.getInt("actNum"));
 				actRegisVO.setActFee(rs.getInt("actFee"));
 				actRegisVO.setFeeStatus(rs.getInt("feeStatus"));
@@ -193,7 +194,7 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 				actRegisVO = new ActRegisVO();
 				actRegisVO.setMemID(rs.getInt("memID"));
 				actRegisVO.setActID(rs.getInt("actID"));
-				actRegisVO.setRegisTime(rs.getTimestamp("regisTime"));
+				actRegisVO.setRegisTime(rs.getObject("regisTime", LocalDateTime.class));
 				actRegisVO.setActNum(rs.getInt("actNum"));
 				actRegisVO.setActFee(rs.getInt("actFee"));
 				actRegisVO.setFeeStatus(rs.getInt("feeStatus"));
@@ -231,7 +232,7 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 				actRegisVO = new ActRegisVO();
 				actRegisVO.setMemID(rs.getInt("memID"));
 				actRegisVO.setActID(rs.getInt("actID"));
-				actRegisVO.setRegisTime(rs.getTimestamp("regisTime"));
+				actRegisVO.setRegisTime(rs.getObject("regisTime", LocalDateTime.class));
 				actRegisVO.setActNum(rs.getInt("actNum"));
 				actRegisVO.setActFee(rs.getInt("actFee"));
 				actRegisVO.setFeeStatus(rs.getInt("feeStatus"));

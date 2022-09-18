@@ -3,11 +3,15 @@ package com.actregis.controller;
 import java.io.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.act.model.ActService;
+import com.act.model.ActVO;
 import com.actregis.model.ActRegisService;
 import com.actregis.model.ActRegisVO;
 
@@ -250,7 +254,7 @@ public class ActRegisServlet extends HttpServlet {
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
 			Integer memID = Integer.valueOf(req.getParameter("memID").trim());
 			Integer actID = Integer.valueOf(req.getParameter("actID").trim());
-			Timestamp regisTime = Timestamp.valueOf(req.getParameter("regisTime").trim());
+			LocalDateTime regisTime = LocalDateTime.parse(req.getParameter("regisTime").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 			Integer actNum = Integer.valueOf(req.getParameter("actNum").trim());
 			
 			Integer actFee = null;
@@ -260,7 +264,16 @@ public class ActRegisServlet extends HttpServlet {
 				errorMsgs.put("actFee","請填數字");
 			}
 			Integer feeStatus = Integer.valueOf(req.getParameter("feeStatus").trim());
+			if (feeStatus == null) {
+				feeStatus = 0;
+			}
 			Integer regisStatus = Integer.valueOf(req.getParameter("regisStatus").trim());
+			if (regisStatus == null) {
+				regisStatus = 1;
+			}
+			
+			// 更改activity表格的報名人數
+			Integer actRegistration = Integer.valueOf(req.getParameter("actRegistration").trim());
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
@@ -273,9 +286,12 @@ public class ActRegisServlet extends HttpServlet {
 				/***************************2.開始新增資料***************************************/
 				ActRegisService actRegisSvc = new ActRegisService();
 				actRegisSvc.addActRegis(memID, actID, regisTime, actNum, actFee, feeStatus, regisStatus);
+				ActService actSvc = new ActService();
+				ActVO actVO = actSvc.updateActRegistration(actRegistration);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/backend/actregis/listAllActRegis.jsp";
+				req.setAttribute("actVO", actVO);
+				String url = "/frontend/act/listAllActF.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllActRegis.jsp
 				successView.forward(req, res);				
 		}

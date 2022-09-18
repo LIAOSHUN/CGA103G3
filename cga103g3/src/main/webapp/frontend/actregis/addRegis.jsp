@@ -102,7 +102,7 @@
 				</tr>
 				<tr style="line-height: 2.5;">
 					<td>
-						<a href="">
+						<a href="../act/listAllActF.jsp">
 							<button class="btnn btn-info btnBack">前往活動列表</button>
 						</a>
 					</td>					

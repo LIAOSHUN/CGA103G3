@@ -56,6 +56,13 @@ public class ActService {
 
 		return actVO;
 	}
+	public ActVO updateActRegistration(Integer actRegistration) {
+		ActVO actVO = new ActVO();
+		actVO.setActRegistration(actRegistration);
+		dao.numPlus(actVO);
+		
+		return actVO;
+	}
 
 	public ActVO getOneAct(Integer actID) {
 		return dao.findByPrimaryKey(actID);
