@@ -13,59 +13,47 @@ ActVO actVO = (ActVO) request.getAttribute("actVO");
 <title>活動新增 - addAct.jsp</title>
 
 <style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
+.container_main {
+    padding-top: 100px;
+    position: absolute;
 }
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
+h3 {
+	margin: 0px 300px;
 }
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
-
-<style>
 table {
-	width: 450px;
+	width: 950px;
 	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
+	margin-bottom: 5px;
+	line-height: 25px;
+	position:absolute;
+	margin-top: 10px;
+	margin-left: 287px;
 }
 
 table, th, td {
 	border: 0px solid #CCCCFF;
 }
+.main_table {
+	border-radius: 16px;
+}
 
 th, td {
-	padding: 1px;
+	padding: 5px;
+	text-align: center !important;
+	white-space: nowrap;
+}
+td {
+	text-align: left !important;
+}
+input.submit {
+	margin: 0px 300px;
 }
 </style>
 
 </head>
 <body bgcolor='white'>
-
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>活動新增 - addAct.jsp</h3>
-			</td>
-			<td>
-				<h4>
-					<a href="select_page.jsp"><img src="images/tomcat.png"
-						width="100" height="100" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
-
-	<h3>資料新增:</h3>
+	<div class="container_main">
+	<h3>活動新增:</h3>
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
@@ -78,7 +66,7 @@ th, td {
 	</c:if>
 
 	<FORM METHOD="post" ACTION="act.do" name="form1">
-		<table>
+		<table class="main_table">
 			<tr>
 				<td>店名:</td>
 				<td><select size="1" name="storeID">
@@ -125,11 +113,6 @@ th, td {
 					value="<%= (actVO==null)? "100" : actVO.getActFee()%>" /></td>
 			</tr>
 			<tr>
-				<td>目前報名人數:</td>
-				<td><input type="TEXT" size="45" disabled
-					value="<%= (actVO==null)? "0" : actVO.getActRegistration()%>" /></td>
-			</tr>
-			<tr>
 				<td>活動狀態:<font color=red><b>*</b></font></td>
 				<td><select size="1" name="actStatus">
 						<option value="0"
@@ -141,10 +124,14 @@ th, td {
 				</select></td>
 			</tr>
 		</table>
-		<br> <input type="hidden" name="action" value="insert"> 
-		<input type="hidden" name="actRegistration"	value="<%= (actVO==null)? "0" : actVO.getActRegistration()%>" />
-		<input type="submit" value="送出新增">
+		<div style="position: relative; padding-top: 600px;">
+			<br> <input type="hidden" name="action" value="insert"> 
+			<input type="hidden" name="actRegistration"	value="<%= (actVO==null)? "0" : actVO.getActRegistration()%>" />
+			<input class="submit" type="submit" value="送出新增">
+		</div>
 	</FORM>
+	</div>
+	<%@ include file="/backend/backendhead.jsp" %>
 </body>
 
 
@@ -206,5 +193,6 @@ $(function(){
 		  allowTimes:['14:00', '18:00']
 		});
 	});
+	
 </script>
 </html>
