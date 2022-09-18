@@ -45,9 +45,6 @@ th, td {
 td {
 	text-align: left !important;
 }
-input.submit {
-	margin: 0px 300px;
-}
 </style>
 
 </head>
@@ -124,7 +121,7 @@ input.submit {
 				</select></td>
 			</tr>
 		</table>
-		<div style="position: relative; padding-top: 600px;">
+		<div style="position: relative; padding-top: 600px; padding-left:300px">
 			<br> <input type="hidden" name="action" value="insert"> 
 			<input type="hidden" name="actRegistration"	value="<%= (actVO==null)? "0" : actVO.getActRegistration()%>" />
 			<input class="submit" type="submit" value="送出新增">
