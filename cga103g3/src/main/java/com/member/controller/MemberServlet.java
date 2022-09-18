@@ -404,9 +404,12 @@ public class MemberServlet extends HttpServlet {
 //			System.out.println(req.getSession().getAttribute("memAccount"));      //測試Session
 //			System.out.println(req.getSession().getAttribute("memID"));      //測試Session
 			
-			String url = "login_success.jsp"; 
-			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-			successView.forward(req, res);
+			String location=(String)session.getAttribute("location");
+			res.sendRedirect(location);
+			
+//			String url = "login_success.jsp"; 
+//			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+//			successView.forward(req, res);
 
 		}
 		/**********************************************************************************************************************/

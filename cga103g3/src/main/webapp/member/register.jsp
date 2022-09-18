@@ -3,7 +3,7 @@
 <%@ page import="com.member.model.*"%>
 
 <%
-MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+MemberVO memberVO = (MemberVO)request.getAttribute("memberVO");
 %>
 
 <html>
