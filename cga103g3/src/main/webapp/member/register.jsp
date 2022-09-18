@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
+<%@include file="/frontend/frontendhead.jsp"%>
 
 <%
 MemberVO memberVO = (MemberVO)request.getAttribute("memberVO");
@@ -164,3 +165,4 @@ MemberVO memberVO = (MemberVO)request.getAttribute("memberVO");
         
 </script>
 </html>
+<%@include file="/frontend/frontendfoot.jsp"%>
