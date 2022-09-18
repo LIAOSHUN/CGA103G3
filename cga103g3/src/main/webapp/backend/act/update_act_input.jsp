@@ -33,7 +33,7 @@ table, th, td {
 	border: 0px solid #CCCCFF;
 }
 .main_table {
-	border-radius: 16px;
+	border-radius: 5px;
 }
 
 th, td {
@@ -63,7 +63,8 @@ td {
 	</c:if>
 
 	<FORM METHOD="post" ACTION="act.do" name="form1">
-		<table>
+		<table class="main_table">
+		<tr><td></td></tr>
 			<tr>
 				<td>活動編號:<font color=red><b>*</b></font></td>
 				<td><%=actVO.getActID()%></td>
@@ -141,6 +142,7 @@ td {
 							: 額滿截止</option>
 				</select></td>
 			</tr>
+			<tr></tr>
 		</table>
 		<div style="position: relative; padding-top: 670px; padding-left:300px">
 			<br> <input type="hidden" name="action" value="update"> 

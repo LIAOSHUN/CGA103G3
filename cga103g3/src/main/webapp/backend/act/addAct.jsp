@@ -34,7 +34,7 @@ table, th, td {
 	border: 0px solid #CCCCFF;
 }
 .main_table {
-	border-radius: 16px;
+	border-radius: 5px;
 }
 
 th, td {
@@ -64,6 +64,7 @@ td {
 
 	<FORM METHOD="post" ACTION="act.do" name="form1">
 		<table class="main_table">
+		<tr><td></td></tr>
 			<tr>
 				<td>店名:</td>
 				<td><select size="1" name="storeID">
@@ -120,6 +121,7 @@ td {
 							<c:if test="${actVO.actStatus == '2' }">selected</c:if>>2：額滿截止</option>
 				</select></td>
 			</tr>
+			<tr></tr>
 		</table>
 		<div style="position: relative; padding-top: 600px; padding-left:300px">
 			<br> <input type="hidden" name="action" value="insert"> 
