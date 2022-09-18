@@ -14,6 +14,7 @@ import com.act.model.ActService;
 import com.act.model.ActVO;
 import com.actregis.model.ActRegisService;
 import com.actregis.model.ActRegisVO;
+import com.member.model.MemberVO;
 
 public class ActRegisServlet extends HttpServlet {
 
@@ -137,12 +138,15 @@ public class ActRegisServlet extends HttpServlet {
 		
 		
 		if ("getOne_For_Update".equals(action)) { // 來自listAllActRegis.jsp的請求
+			
+			HttpSession session = req.getSession();
+			MemberVO memVO = (MemberVO) (session.getAttribute("memVO"));
 
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 				/***************************1.接收請求參數****************************************/
-				Integer memID = Integer.valueOf(req.getParameter("memID"));
+				Integer memID = memVO.getMemID();
 				Integer actID = Integer.valueOf(req.getParameter("actID"));
 				
 				/***************************2.開始查詢資料****************************************/
@@ -208,11 +212,14 @@ public class ActRegisServlet extends HttpServlet {
 		
 		if ("update_review".equals(action)) { // 來自update_actregis_input.jsp的請求
 			
+			HttpSession session = req.getSession();
+			MemberVO memVO = (MemberVO) (session.getAttribute("memVO"));
+			
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-			Integer memID = Integer.valueOf(req.getParameter("memID").trim());
+			Integer memID = memVO.getMemID();
 			Integer actID = Integer.valueOf(req.getParameter("actID").trim());
 			
 				String actReview = req.getParameter("actReview").trim();	// 可為空字串
@@ -247,12 +254,15 @@ public class ActRegisServlet extends HttpServlet {
 
 		
         if ("insert".equals(action)) { // 來自addActRegis.jsp的請求  
+        	
+        	HttpSession session = req.getSession();
+    		MemberVO memVO = (MemberVO) (session.getAttribute("memVO"));
 			
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-			Integer memID = Integer.valueOf(req.getParameter("memID").trim());
+			Integer memID = memVO.getMemID();
 			Integer actID = Integer.valueOf(req.getParameter("actID").trim());
 			LocalDateTime regisTime = LocalDateTime.parse(req.getParameter("regisTime").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 			Integer actNum = Integer.valueOf(req.getParameter("actNum").trim());

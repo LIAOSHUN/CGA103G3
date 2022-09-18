@@ -86,7 +86,7 @@
 						</a>
 					</td>
 						<td>
-							<button onclick="onDelFav">移除</button>
+							<button onclick="onDelFav(${actVO.actID})">移除</button>
 						</td>
 					</tr>
 				</c:forEach>
@@ -98,5 +98,26 @@
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/popper/popper.js"></script>
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/js/bootstrap.js"></script>
+<script>
+	function onDelFav(actID) {
+		if (!confirm('確定刪除?')) {
+        return;
+    	}
+		let url = `/cga103g3/DelActFavServlet?actID=${actVO.actID}`;
+		fetch(url, {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({
+				actID: `${actVO.actID}`
+			})
+		})
+			.then(res => res.json())
+			.then(body => {
+				if (body.successful) {
+					location.reload();
+				}
+			});
+	}
+</script>
 </body>
 </html>

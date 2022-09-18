@@ -29,6 +29,6 @@ public class DelActFavServlet extends HttpServlet {
 		
 		ActFavService actFavSvc = new ActFavService();
 		actFavSvc.deleteActFav(memID, delActFav);
-		res.sendRedirect("/frontend/actfav/listFav.html");
+		res.sendRedirect("/frontend/actfav/listFav.jsp");
 	}
 }

@@ -95,7 +95,7 @@
 			<table style="left: 150px;">
 				<tr style="line-height: 2.7;">
 					<td>
-						<a href="">
+						<a href="<%=request.getContextPath()%>/ActRegisServlet?actID=${actVO.actID}&action=insert">
 							<button class="btnn btn-info btnToConfirm">確 認 報 名</button>
 						</a>
 					</td>					
