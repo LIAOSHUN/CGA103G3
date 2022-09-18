@@ -2,26 +2,25 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <%@ page import="java.util.*"%>
-<%@ page import="com.actregis.model.*"%>
+<%@ page import="java.time.LocalDateTime"%>
+<%@ page import="com.act.model.*"%>
 
 <%
-    ActRegisService actRegisSvc = new ActRegisService();
-//     ActRegisVO actRegisVO = (ActRegisVO) session.getAttribute("member");("會員登入後擷取會員ID"));
-//     List<ActRegisVO> list = actRegisSvc.getMemRegis(member.getMemID());("會員登入後擷取會員ID"));
-    List<ActRegisVO> list = actRegisSvc.getMemRegis(11001);
+    ActService actSvc = new ActService();
+    List<ActVO> list = actSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
 
-
+<!DOCTYPE html>
 <html>
 <head>
+<meta charset="UTF-8">
 <link rel="stylesheet" href="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/css/core.css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/css/theme-default.css" class="template-customizer-theme-css" />
 <link rel="stylesheet" href="<%=request.getContextPath()%>/backend/backend_template/assets/css/demo.css" />
-<title>我的活動資料</title>
-
+<title>活動專區</title>
 <style>
-  	main{
+	main{
 		padding: 30px 45px;
     	background-color: #fff;
 	}
@@ -46,56 +45,51 @@
 	}
 	th {
 		text-align: center !important;
-		font-size: 22px !important;
+		font-size: 22px !important;		
 	}
 	td {		
 		white-space: nowrap;		
 	}
-	
 </style>
-
 </head>
 <body>
 <%@ include file="../frontendhead.jsp" %>
-<main>
-<div class="container-main">
-<table>
-	<tr>
-		<th>活動名稱</th>
-		<th>活動日期</th>
-		<th>報名人數</th>
-		<th>報名總費用</th>
-		<th>評價/取消報名</th>
-	</tr>
-	<c:forEach var="actRegisVO" items="${list}">		
-		<tr>
-			<td>${actRegisVO.actVO.actTitle}</td>
-			<td><javatime:format value="${actRegisVO.actVO.actDate}" pattern="yyyy-MM-dd" />
-				<c:if test="${actRegisVO.actVO.dateNum == '14' }">下午場(14:00~17:00)</c:if>
-				<c:if test="${actRegisVO.actVO.dateNum == '18' }">晚場(18:00~21:00)</c:if></td>
-			<td>${actRegisVO.actNum}</td>
-			<td>${actRegisVO.actFee}</td>
-			<td>
-				<a href="">
-					<button style="padding-right: 20px;">
-						評價
-					</button>
-				</a>
-				<a href="">
-					<button>
-						取消報名
-					</button>
-				</a>
-			</td>
-		</tr>
-	</c:forEach>
-</table>
-</div>
-</main>
+
+	<main>
+		<div class="container-main">
+			<table>
+			<tr>
+				<th>店面</th>
+				<th>活動標題</th>
+				<th>活動日期</th>
+				<th>活動場次</th>
+				<th>報名期限</th>
+				<th>報名</th>
+			</tr>
+			<c:forEach var="actVO" items="${list}">				
+				<tr>
+					<td>${actVO.storeVO.storeName}</td>
+					<td><a href="<%=request.getContextPath()%>/ActServlet?actID=${actVO.actID}&action=showActInfo" class="actInfo">
+					${actVO.actTitle}</a></td>
+					<td><javatime:format value="${actVO.actDate}" pattern="yyyy-MM-dd" /></td>
+					<td><c:if test="${actVO.dateNum == '14' }">下午場（14:00~17:00）</c:if>
+						<c:if test="${actVO.dateNum == '18' }">晚場（18:00~21:00）</c:if>
+					</td>
+					<td><javatime:format value="${actVO.actTimeEnd}" pattern="yyyy-MM-dd HH:mm" /></td>
+					<td>
+						<a href="<%=request.getContextPath()%>/ActServlet?actID=${actVO.actID}&action=showActForRegis">
+							<button>我要報名</button>
+						</a>
+					</td>
+				</tr>
+			</c:forEach>
+		</table>
+		</div>
+	</main>
+	
 <%@ include file="../frontendfoot.jsp" %>
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/popper/popper.js"></script>
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/js/bootstrap.js"></script>
-
 </body>
 </html>

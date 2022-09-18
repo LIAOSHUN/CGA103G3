@@ -2,12 +2,17 @@ package com.actregis.model;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
+import com.act.model.ActService;
+import com.act.model.ActVO;
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
 
 public class ActRegisVO implements Serializable{
 	private Integer memID;
 	private Integer actID;
-	private Timestamp regisTime;
+	private LocalDateTime regisTime;
 	private Integer actNum;
 	private Integer actFee;
 	private Integer feeStatus;
@@ -28,10 +33,10 @@ public class ActRegisVO implements Serializable{
 	public void setActID(Integer actID) {
 		this.actID = actID;
 	}
-	public Timestamp getRegisTime() {
+	public LocalDateTime getRegisTime() {
 		return regisTime;
 	}
-	public void setRegisTime(Timestamp regisTime) {
+	public void setRegisTime(LocalDateTime regisTime) {
 		this.regisTime = regisTime;
 	}
 	public Integer getActNum() {
@@ -75,5 +80,19 @@ public class ActRegisVO implements Serializable{
 	}
 	public void setReviewDate(Date reviewDate) {
 		this.reviewDate = reviewDate;
+	}
+	
+	// for join actTitle from actID
+	public ActVO getActVO() {
+		ActService actSvc = new ActService();
+		ActVO actVO = actSvc.getOneAct(actID);
+		return actVO;
+	}
+	
+	// for join memAccount and memName from memID
+	public MemberVO getMemberVO() {
+		MemberService memSvc = new MemberService();
+		MemberVO memberVO = memSvc.getOneMember(memID);
+		return memberVO;
 	}
 }

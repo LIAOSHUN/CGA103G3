@@ -4,7 +4,6 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.time.LocalDateTime"%>
 <%@ page import="com.act.model.*"%>
-<%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
     ActService actSvc = new ActService();
@@ -62,7 +61,7 @@
 				<tr>
 					<td>${actVO.actID}</td>
 					<td>${actVO.storeVO.storeName}</td>
-					<td><a href="<%=request.getContextPath()%>/ActServlet?actID=${actVO.actID}&action=showActInfo" class="actInfo">
+					<td><a href="<%=request.getContextPath()%>/ActServlet?actID=${actVO.actID}&action=getOne_For_Display" class="actInfo">
 					${actVO.actTitle}</a></td>
 					<td><javatime:format value="${actVO.actDate}" pattern="yyyy-MM-dd" /></td>
 					<td><c:if test="${actVO.dateNum == '14' }">下午場<br>(14:00~17:00)</c:if>

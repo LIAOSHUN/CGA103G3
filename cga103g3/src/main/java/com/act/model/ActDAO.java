@@ -43,6 +43,7 @@ public class ActDAO implements ActDAO_interface {
 	private static final String UPDATE = "update activity set StoreID=?, ActTitle=?, ActDescription=?, ActTimeStart=?, ActTimeEnd=?, "
 			+ "ActDate=?, RegisMax=?, ActFee=?, ActRegistration=?, ActStatus=? where ActID = ?";
 	private static final String UPDATE_STATE = "update activity set ActStatus=2 where ActID = ?";
+	private static final String UPDATE_NUM = "update activity set ActRegistration=ActRegistration + 1 where ActID = ?";
 	private static final String GET_IMGS_BYACTID_STMT = "SELECT ActImgID, ActID, ActImgFile "
 			+ "FROM actimg where ActID = ? order by ActImgID ";
 
@@ -95,9 +96,22 @@ public class ActDAO implements ActDAO_interface {
 
 	}
 	
+	@Override
 	public void changeState(ActVO actVO) {
 		try (Connection con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(UPDATE_STATE)) {
+			pstmt.setInt(1, actVO.getActID());
+			pstmt.executeUpdate();
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+		}
+	}
+	
+	@Override
+	public void numPlus(ActVO actVO) {
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(UPDATE_NUM)) {
 			pstmt.setInt(1, actVO.getActID());
 			pstmt.executeUpdate();
 			

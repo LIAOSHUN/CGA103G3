@@ -1,81 +1,52 @@
+<%@page import="com.actregis.model.*"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
+<%@ page import="java.util.*"%>
 <%@ page import="com.act.model.*"%>
 <%@ page import="java.time.LocalDateTime"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
-ActVO actVO = (ActVO) request.getAttribute("actVO"); //ActServlet.java(Concroller), 存入req的actVO物件
+	ActVO actVO = (ActVO) request.getAttribute("actVO"); //ActServlet.java(Concroller), 存入req的actVO物件
+	ActRegisService actRegisSvc = new ActRegisService();
+	List<ActRegisVO> list = actRegisSvc.getActRegistered(actVO.getActID());
+	pageContext.setAttribute("list", list);
 %>
 
 <html>
 <head>
-<title>活動資訊 - listOneAct.jsp</title>
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<title>活動資訊及報名會員</title>
 
 <style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
+h3 {
+	margin: 0px 300px;
 }
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
-
-<style>
 table {
-	width: 800px;
+	width: 925px;
 	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin: 20px 300px 50px;
 	line-height: 25px;		/*表格行高固定*/
 /* 		table-layout:fixed;		/*表格寬度固定*/ */
-	word-break:break-all;	/*td內容過長不會被撐開*/
-	position:absolute;
-	top: 70px;
-	left: 23%;
+	text-align: center;
 }
 
 table, th, td {
 	border: 1px solid #CCCCFF;
+	text-align: center;
 }
 
 th, td {
 	padding: 5px;
-	text-align: center;
-	
-	white-space: nowrap;  /*限定不可斷行*/
-    overflow: hidden;     /*元素超出部分隱藏*/
-    text-overflow: ellipsis;  /*文字超出部分顯示...*/
+	text-align: center !important;	
+	white-space: nowrap;
 }
 </style>
 
 </head>
 <body>
-
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>活動資訊 - ListOneAct.jsp</h3>
-				<h4>
-					<a href="select_page.jsp"><img src="images/back1.gif"
-						width="100" height="32" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
-
-	<table>
+	<table style="margin-top: 100px">
 		<tr>
 				<th>活動編號</th>
 				<th>店面</th>
@@ -110,6 +81,52 @@ th, td {
 			</td>
 		</tr>
 	</table>
+	<h3>報名列表</h3>
+	<table style="padding-top: 30px;">
+		<tr>
+				<th>編號</th>
+				<th>會員帳號</th>
+				<th>會員姓名</th>
+				<th>會員電話</th>
+				<th>報名人數</th>
+				<th>總費用</th>
+		</tr>
+		<c:forEach var="actRegisVO" items="${list}" varStatus="status">
+			<tr>
+				<td>${status.count}</td>
+				<td>${actRegisVO.memberVO.memAccount}</td>
+				<td>${actRegisVO.memberVO.memName}</td>
+				<td>${actRegisVO.memberVO.memPh}</td>
+				<td>${actRegisVO.actNum}</td>
+				<td>${actRegisVO.actFee}</td>
+			</tr>
+		</c:forEach>
+	</table>
+	<h3>評價列表</h3>
+	<table style="padding-top: 30px;">
+		<tr>
+				<th>編號</th>
+				<th>會員帳號</th>
+				<th>會員姓名</th>
+				<th>活動評價內容</th>
+				<th>滿意度</th>
+				<th>評價日期</th>
+		</tr>
+		<c:if test="${actRegisVO.actReview > 0 }">
+		<c:forEach var="actRegisVO" items="${list}" varStatus="revStatus">
+			<tr>
+				<td>${revStatus.count}</td>
+				<td>${actRegisVO.memberVO.memAccount}</td>
+				<td>${actRegisVO.memberVO.memName}</td>
+				<td>${actRegisVO.actReview}</td>
+				<td>${actRegisVO.satisfaction}</td>
+				<td>${actRegisVO.reviewDate}</td>
+			</tr>
+		</c:forEach>
+		</c:if>
+	</table>
+	
+	<%@ include file="/backend/backendhead.jsp" %>
 	<script>
 	$(document).ready(function(){
 	    $(".update").mouseup(function (e) {

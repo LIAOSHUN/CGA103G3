@@ -12,38 +12,43 @@ ActVO actVO = (ActVO) request.getAttribute("actVO"); //ActServlet.java (Concroll
 
 
 <style>
+.container_main {
+    padding-top: 100px;
+    position: absolute;
+}
+h3 {
+	margin: 0px 300px;
+}
 table {
-	width: 450px;
+	width: 950px;
 	background-color: white;
-	margin-bottom: 1px;
-/* 	position:absolute; */
-	margin-top: 100px; 	
+	margin-bottom: 5px;
+	line-height: 25px;
+	position:absolute;
+	margin-top: 10px;
 	margin-left: 287px;
 }
 
 table, th, td {
 	border: 0px solid #CCCCFF;
 }
+.main_table {
+	border-radius: 5px;
+}
 
 th, td {
-	padding: 1px;
+	padding: 5px;
+	text-align: center !important;
+	white-space: nowrap;
+}
+td {
+	text-align: left !important;
 }
 </style>
 
 </head>
 <body bgcolor='white'>
-
-<!-- 	<table id="table-1"> -->
-<!-- 		<tr> -->
-<!-- 			<td> -->
-<!-- 				<h3>活動資訊修改 - update_act_input.jsp</h3> -->
-<!-- 				<h4> -->
-<!-- 					<a href="select_page.jsp"><img src="images/back1.gif" -->
-<!-- 						width="100" height="32" border="0">回首頁</a> -->
-<!-- 				</h4> -->
-<!-- 			</td> -->
-<!-- 		</tr> -->
-<!-- 	</table> -->
+	<div class="container_main">
 
 	<h3>資料修改:</h3>
 
@@ -58,7 +63,8 @@ th, td {
 	</c:if>
 
 	<FORM METHOD="post" ACTION="act.do" name="form1">
-		<table>
+		<table class="main_table">
+		<tr><td></td></tr>
 			<tr>
 				<td>活動編號:<font color=red><b>*</b></font></td>
 				<td><%=actVO.getActID()%></td>
@@ -136,12 +142,17 @@ th, td {
 							: 額滿截止</option>
 				</select></td>
 			</tr>
+			<tr></tr>
 		</table>
-		<br> <input type="hidden" name="action" value="update"> 
-		<input type="hidden" name="actRegistration" value="<%=actVO.getActRegistration()%>" />
-		<input type="hidden" name="actID" value="<%=actVO.getActID()%>">
-		<input type="submit" value="送出修改">
+		<div style="position: relative; padding-top: 670px; padding-left:300px">
+			<br> <input type="hidden" name="action" value="update"> 
+			<input type="hidden" name="actRegistration" value="<%=actVO.getActRegistration()%>" />
+			<input type="hidden" name="actID" value="<%=actVO.getActID()%>">
+			<input type="submit" value="送出修改">
+		</div>
 	</FORM>
+	</div>
+	<%@ include file="/backend/backendhead.jsp" %>
 </body>
 
 

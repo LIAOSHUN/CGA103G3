@@ -1,7 +1,7 @@
 package com.actregis.model;
 
 import java.sql.Date;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class ActRegisService {
@@ -12,7 +12,7 @@ public class ActRegisService {
 //		dao = new ActRegisJDBCDAO();
 	}
 
-	public ActRegisVO addActRegis(Integer memID, Integer actID, Timestamp regisTime, 
+	public ActRegisVO addActRegis(Integer memID, Integer actID, LocalDateTime regisTime, 
 			Integer actNum, Integer actFee, Integer feeStatus, Integer regisStatus) {
 
 		ActRegisVO actRegisVO = new ActRegisVO();
