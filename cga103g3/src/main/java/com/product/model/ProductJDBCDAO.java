@@ -27,6 +27,8 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			"DELETE FROM product where PdID = ?";
 		private static final String UPDATE = 
 			"UPDATE product set PdName=?,pdTypeID=?, PdPrice=?, PdAmount=?, PdDescription=?, PdStatus=?, PdStar=? where PdID = ?";
+		private static final String GET_ALL_UP = 
+				"SELECT PdID,PdName,pdTypeID,PdPrice,PdAmount,PdDescription,PdStatus,PdStar,PdUpdate FROM product where PdStatus=1 order by PdUpdate desc";
 
 	@Override
 	public void insert(ProductVO productVO) {
@@ -405,6 +407,78 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		}
 
 	}
+	@Override
+	public List<ProductVO> getUp() {
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO productVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_UP);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVO �]�٬� Domain objects
+				productVO = new ProductVO();
+				productVO.setPdID(rs.getInt("pdID"));
+				productVO.setPdName(rs.getString("pdName"));
+				productVO.setPdTypeID(rs.getInt("pdTypeID"));
+				productVO.setPdPrice(rs.getInt("pdPrice"));
+				productVO.setPdAmount(rs.getInt("pdAmount"));
+				productVO.setPdDescription(rs.getString("pdDescription"));
+				productVO.setPdStatus(rs.getInt("pdStatus"));
+				productVO.setPdStar(rs.getInt("pdStar"));
+				productVO.setPdUpdate(rs.getTimestamp("pdUpdate"));
+				list.add(productVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
@@ -415,34 +489,34 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 
 		ProductJDBCDAO dao = new ProductJDBCDAO();
 
-		ProductVO productVO = new ProductVO();
-		productVO.setPdName("測試圖片");
-		productVO.setPdTypeID(41010);
-		productVO.setPdPrice(100);
-		productVO.setPdAmount(99);
-		productVO.setPdDescription("測試同時新增圖片");
-		productVO.setPdStatus(0);
-		productVO.setPdStar(3);
-		// 準備置入員工數人
-		List<ProductImgVO> testList = new ArrayList<ProductImgVO>(); 
-		ProductImgVO productImgXX = new ProductImgVO();   // 員工POJO1
-		
-		byte[] pic1 = getPictureByteArray("C:\\Users\\871104\\Desktop\\Tibame\\專題\\ProductImg\\Product (1).jpg");
-
-		productImgXX.setPdImg(pic1);
-		productImgXX.setPdImgName("測試圖片一");
-		
-		ProductImgVO productImgYY = new ProductImgVO();   // 員工POJO2
-		
-		byte[] pic2 = getPictureByteArray("C:\\Users\\871104\\Desktop\\Tibame\\專題\\ProductImg\\Product (1).webp");
-
-		productImgYY.setPdImg(pic2);
-		productImgYY.setPdImgName("測試圖片二");
-
-		testList.add(productImgXX);
-		testList.add(productImgYY);
-		
-		dao.insertWithProductImg(productVO , testList);
+//		ProductVO productVO = new ProductVO();
+//		productVO.setPdName("測試圖片");
+//		productVO.setPdTypeID(41010);
+//		productVO.setPdPrice(100);
+//		productVO.setPdAmount(99);
+//		productVO.setPdDescription("測試同時新增圖片");
+//		productVO.setPdStatus(0);
+//		productVO.setPdStar(3);
+//		// 準備置入員工數人
+//		List<ProductImgVO> testList = new ArrayList<ProductImgVO>(); 
+//		ProductImgVO productImgXX = new ProductImgVO();   // 員工POJO1
+//		
+//		byte[] pic1 = getPictureByteArray("C:\\Users\\871104\\Desktop\\Tibame\\專題\\ProductImg\\Product (1).jpg");
+//
+//		productImgXX.setPdImg(pic1);
+//		productImgXX.setPdImgName("測試圖片一");
+//		
+//		ProductImgVO productImgYY = new ProductImgVO();   // 員工POJO2
+//		
+//		byte[] pic2 = getPictureByteArray("C:\\Users\\871104\\Desktop\\Tibame\\專題\\ProductImg\\Product (1).webp");
+//
+//		productImgYY.setPdImg(pic2);
+//		productImgYY.setPdImgName("測試圖片二");
+//
+//		testList.add(productImgXX);
+//		testList.add(productImgYY);
+//		
+//		dao.insertWithProductImg(productVO , testList);
 		
 		
 		// �s�W
@@ -484,7 +558,20 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 //		System.out.println("---------------------");
 
 		// �d��
-		List<ProductVO> list = dao.getAll();
+//		List<ProductVO> list = dao.getAll();
+//		for (ProductVO aproduct : list) {
+//			System.out.print(aproduct.getPdID() + ",");
+//			System.out.print(aproduct.getPdName() + ",");
+//			System.out.print(aproduct.getPdTypeID() + ",");
+//			System.out.print(aproduct.getPdPrice() + ",");
+//			System.out.print(aproduct.getPdAmount() + ",");
+//			System.out.print(aproduct.getPdDescription() + ",");
+//			System.out.print(aproduct.getPdStatus() + ",");
+//			System.out.print(aproduct.getPdStar());
+//			System.out.println(aproduct.getPdUpdate());
+//			System.out.println();
+//		}
+		List<ProductVO> list = dao.getUp();
 		for (ProductVO aproduct : list) {
 			System.out.print(aproduct.getPdID() + ",");
 			System.out.print(aproduct.getPdName() + ",");
@@ -498,6 +585,12 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			System.out.println();
 		}
 	}
+	
+	
+	
+	
+	
+	
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		FileInputStream fis = new FileInputStream(path);
 		byte[] buffer = new byte[fis.available()];
@@ -506,3 +599,5 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		return buffer;
 	}
 }
+
+

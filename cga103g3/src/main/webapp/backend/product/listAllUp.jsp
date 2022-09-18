@@ -8,7 +8,7 @@
 
 <%
 ProductService productsvc = new ProductService();
-List<ProductVO> list = productsvc.getAll();
+List<ProductVO> list = productsvc.getUp();
 ProductImgService productImgsvc = new ProductImgService();
 List<ProductImgVO> list1 = productImgsvc.getAll();
 pageContext.setAttribute("list", list);

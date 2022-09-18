@@ -14,4 +14,6 @@ public interface ProductDAO_interface {
 //	      public Set<ProductVO> getProductByPdID(Integer pdID);
 	    //同時新增部門與員工 (實務上並不常用, 但,可用在訂單主檔與明細檔一次新增成功)
 	      public void insertWithProductImg(ProductVO productVO , List<ProductImgVO> list);
+          public List<ProductVO> getUp();
+
 }
