@@ -6,7 +6,6 @@ import java.util.List;
 import org.json.JSONArray;
 
 import com.google.gson.Gson;
-import com.product.model.ProductDAO;
 import com.product.model.ProductDAO_interface;
 import com.product.model.ProductVO;
 
@@ -18,7 +17,7 @@ import com.product.model.ProductVO;
 
 // 用sessionId自redis取得購物車內的資料：jedis.lrange(key, 0, -1)，用itemId比對mySQL取得商品價格、比對庫存
 public class CartService {
-	private Gson gson = new Gson();
+	private Gson gson = new Gson(); 
 	
 	private CartDAO_interface dao; 
 	private CartRedisDAO daoR; 
