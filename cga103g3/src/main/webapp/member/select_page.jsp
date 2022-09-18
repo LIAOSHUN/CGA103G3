@@ -53,7 +53,7 @@
   
 
   <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
-   
+ 
   <li>
      <FORM METHOD="post" ACTION="member.do" >
        <b>選擇會員編號:</b>
@@ -68,7 +68,7 @@
   </li>
   
   <li>
-     <FORM METHOD="post" ACTION="member.do" >
+     <FORM METHOD="post" ACTION="member.com" >
        <b>選擇姓名:</b>
        <select size="1" name="memID">
          <c:forEach var="memberVO" items="${memberSvc.all}" > 
