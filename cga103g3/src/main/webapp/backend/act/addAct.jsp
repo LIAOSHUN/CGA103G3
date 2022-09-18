@@ -7,6 +7,7 @@
 <%
 ActVO actVO = (ActVO) request.getAttribute("actVO");
 %>
+<%@include file="/backend/bkhead.jsp"%>
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
@@ -18,16 +19,16 @@ ActVO actVO = (ActVO) request.getAttribute("actVO");
     position: absolute;
 }
 h3 {
-	margin: 0px 300px;
+	margin-left: 30px;
 }
 table {
-	width: 950px;
+	width: 960px;
 	background-color: white;
 	margin-bottom: 5px;
 	line-height: 25px;
 	position:absolute;
 	margin-top: 10px;
-	margin-left: 287px;
+	margin-left: 30px;
 }
 
 table, th, td {
@@ -123,14 +124,13 @@ td {
 			</tr>
 			<tr></tr>
 		</table>
-		<div style="position: relative; padding-top: 600px; padding-left:300px">
+		<div style="position: relative; padding-top: 600px; padding-left:35px">
 			<br> <input type="hidden" name="action" value="insert"> 
 			<input type="hidden" name="actRegistration"	value="<%= (actVO==null)? "0" : actVO.getActRegistration()%>" />
 			<input class="submit" type="submit" value="送出新增">
 		</div>
 	</FORM>
 	</div>
-	<%@ include file="/backend/backendhead.jsp" %>
 </body>
 
 
@@ -195,3 +195,4 @@ $(function(){
 	
 </script>
 </html>
+<%@include file="/backend/bkfoot.jsp"%>

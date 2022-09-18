@@ -11,7 +11,7 @@
     pageContext.setAttribute("list",list);
 %>
 
-
+<%@include file="/backend/bkhead.jsp"%>
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -19,15 +19,15 @@
 
 	<style>
 	table {
-		width: 950px;
+		width: 960px;
 		background-color: white;
 		margin-bottom: 5px;
 		line-height: 25px;		/*表格行高固定*/
 /* 		table-layout:fixed;		/*表格寬度固定*/ */
 		word-break:break-all;	/*td內容過長不會被撐開*/
 		position:absolute;
-		margin-top: 100px;
-		margin-left: 287px;
+		margin-top: 20px;
+		margin-left: 30px;
 	}
 	table, th, td {
 		border: 1px solid #CCCCFF;
@@ -82,7 +82,7 @@
 			</c:forEach>
 		</table>
 	</div>
-		<%@ include file="/backend/backendhead.jsp" %>
 
 </body>
 </html>
+<%@include file="/backend/bkfoot.jsp"%>
