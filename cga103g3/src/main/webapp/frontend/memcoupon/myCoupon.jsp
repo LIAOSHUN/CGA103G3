@@ -6,8 +6,8 @@
 
 <jsp:useBean id="memCouponSvc" scope="page" class="com.memcoupon.model.MemCouponService" />
 <%
-	Integer memID =   Integer.parseInt(request.getParameter("memID"));
-	
+// 	Integer memID =   Integer.parseInt(request.getParameter("memID"));
+	Integer memID = (Integer)request.getSession().getAttribute("memID");
 	List<MemCouponVO> list = memCouponSvc.showMemCouponByMemID(memID);
 	pageContext.setAttribute("list",list);
 %>

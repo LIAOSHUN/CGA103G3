@@ -10,8 +10,8 @@
 <jsp:useBean id="orderListSvc" scope="page" class="com.orderlist.model.OrderListService" />
 <jsp:useBean id="orderDetailSvc" scope="page" class="com.orderdetail.model.OrderDetailService" />
 <%
-	Integer memID =  Integer.valueOf(request.getParameter("memID")) ;
-	
+// 	Integer memID =  Integer.valueOf(request.getParameter("memID")) ;
+	Integer memID = (Integer)request.getSession().getAttribute("memID");
 	List<OrderListVO> list = orderListSvc.showOrderByMemID(memID);
 	pageContext.setAttribute("list",list);
 %>

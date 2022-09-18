@@ -13,6 +13,18 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
+
+
+<!-- 	<filter> -->
+<!-- 		<filter-name>FrontFilterServlet</filter-name> -->
+<!-- 		<filter-class>com.filter.controller.FrontFilterServlet</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>FrontFilterServlet</filter-name> -->
+<!-- 		<url-pattern>/frontend/cart/checkout.jsp</url-pattern> -->
+<!-- 	</filter-mapping> -->
+
+
 	<servlet>
 		<servlet-name>ScheduleServlet1</servlet-name>
 		<servlet-class>com.coupontype.controller.ScheduleServlet</servlet-class>
@@ -170,7 +182,7 @@
 		<servlet-name>ActImgServlet</servlet-name>
 		<url-pattern>/frontend/actimg/actimg.do</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>AddActFavServlet</servlet-name>
 		<servlet-class>com.actfav.controller.AddActFavServlet</servlet-class>

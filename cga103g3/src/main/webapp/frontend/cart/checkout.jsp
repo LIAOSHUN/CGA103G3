@@ -9,8 +9,8 @@
   <%
 	MemberVO_cart memberVO = new MemberVO_cart();
 	MemberJDBCDAO_cart dao = new MemberJDBCDAO_cart();
-// 	Integer memID = (Integer)request.getSession().getAttribute("memID");
-	memberVO = dao.findByPrimaryKey(11001);
+	Integer memID = (Integer)request.getSession().getAttribute("memID");
+	memberVO = dao.findByPrimaryKey(memID);
 	String name = memberVO.getMemName();
   %>
 
@@ -135,7 +135,7 @@
 
 
 <!-- 會員ID先寫死 -->
-<input type="hidden" name="memID" value="11002">
+<input type="hidden" name="memID" value=<%=memID %>>
 			
                     
 

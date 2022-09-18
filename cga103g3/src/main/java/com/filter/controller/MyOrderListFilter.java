@@ -14,13 +14,13 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-@WebFilter(	filterName = "FrontFilterServlet",
-servletNames = {"DcartServlet"}
-//urlPatterns = {"/frontend/cart/checkout.jsp"}
+@WebFilter(	filterName = "MyOrderListFilter",
+//servletNames = {"DcartServlet"}
+urlPatterns = {"/frontend/orderlist/myOrderList.jsp", "/frontend/memcoupon/myCoupon.jsp"}
 		)
-public class FrontFilterServlet extends HttpFilter {
+public class MyOrderListFilter extends HttpFilter {
 
-public FrontFilterServlet() {
+public MyOrderListFilter() {
 	super();
 }
 	
@@ -44,7 +44,7 @@ public FrontFilterServlet() {
 		if( memAccount == null || (memAccount.trim()).length() == 0){
 //			req.getRequestDispatcher("../../BackLogin.jsp").forward(request, response);
 			//存現在網頁到location
-			session.setAttribute("location", req.getContextPath() + "/frontend/cart/testpro.jsp");
+			session.setAttribute("location", req.getRequestURI());
 			//跳轉頁面至登入頁面
 			res.sendRedirect("../../member/memberLogin.jsp");
 			return;
