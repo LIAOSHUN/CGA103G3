@@ -121,7 +121,7 @@ public class ScheduleServlet extends HttpServlet {
 			}
 		};
 		
-		Calendar cal = new GregorianCalendar(2022, Calendar.SEPTEMBER, 12, 0, 0, 0);//9/12號 凌晨1200開始
+		Calendar cal = new GregorianCalendar(2022, Calendar.SEPTEMBER, 18, 0, 0, 0);//9/17號 凌晨1200開始
 		timer.scheduleAtFixedRate(task, cal.getTime(),24*60*60*1000);//從上面指定時間開始，並在每天執行一次
 	}
 

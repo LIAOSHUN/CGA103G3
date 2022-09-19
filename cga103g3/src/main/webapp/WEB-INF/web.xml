@@ -15,16 +15,6 @@
 
 
 
-<!-- 	<filter> -->
-<!-- 		<filter-name>FrontFilterServlet</filter-name> -->
-<!-- 		<filter-class>com.filter.controller.FrontFilterServlet</filter-class> -->
-<!-- 	</filter> -->
-<!-- 	<filter-mapping> -->
-<!-- 		<filter-name>FrontFilterServlet</filter-name> -->
-<!-- 		<url-pattern>/frontend/cart/checkout.jsp</url-pattern> -->
-<!-- 	</filter-mapping> -->
-
-
 	<servlet>
 		<servlet-name>ScheduleServlet1</servlet-name>
 		<servlet-class>com.coupontype.controller.ScheduleServlet</servlet-class>
@@ -72,7 +62,10 @@
 		<servlet-name>CartServlet</servlet-name>
 		<url-pattern>/frontend/cart/cart.do</url-pattern>
 	</servlet-mapping>
-
+	<servlet-mapping>
+		<servlet-name>CartServlet</servlet-name>
+		<url-pattern>/backend/product/cart.do</url-pattern>
+	</servlet-mapping>
 
 
 
@@ -83,6 +76,10 @@
 	<servlet-mapping>
 		<servlet-name>GetCartServlet</servlet-name>
 		<url-pattern>/frontend/cart/getCart.do</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>GetCartServlet</servlet-name>
+		<url-pattern>/backend/listOneProduct/getCart.do</url-pattern>
 	</servlet-mapping>
 
 

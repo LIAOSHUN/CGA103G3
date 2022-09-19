@@ -98,14 +98,14 @@ pageContext.setAttribute("list1", list1);
 									</div>
 
 									<input class="mtext-104 cl3 txt-center num-product"
-										type="number" name="num-product" value="1">
+										type="number" name="num-product" value="1" id = "count">
 
 									<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 										<i class="fs-16 zmdi zmdi-plus"></i>
 									</div>
 								</div>
 
-								<button
+								<button id = "addCart"
 									class="flex-c-m stext-101  size-101 bg1 bor1 hov-btn666 p-lr-15 trans-04 js-addcart-detail"
 									style="color: #222;">加入購物車</button>
 							</div>
@@ -136,9 +136,52 @@ pageContext.setAttribute("list1", list1);
 </body>
 
 
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+
+let addCart = document.querySelector('#addCart');
+let count1 = document.querySelector('#count');
+
+
+let pdID = <%=productVO.getPdID() %>;
+
+
+
+addCart.addEventListener('click', function () {
+	
+	let newCount = count1.value;
+	console.log(newCount)
+	console.log(pdID)
+	
+	   $.ajax({
+		url: "cart.do",
+		type: "POST",
+		data: {
+				action: "addItem",
+				count:newCount,
+				pdID:pdID,
+			  },
+
+		})	
+	
+	
+		
+});
 
 
 
 
-</html>
+
+
+
+
+
+	
+</script>
+
+
+
+
 <%@include file="/frontend/frontendfoot.jsp"%>
+</html>
