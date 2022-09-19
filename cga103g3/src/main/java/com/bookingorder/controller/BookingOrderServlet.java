@@ -326,7 +326,7 @@ req.setAttribute("bookingOrdVO", bookingOrdVO); // 含有輸入格式錯誤的em
 			}
 			/***************************3.查詢完成,準備轉交(Send the Success view)************/
 			req.setAttribute("list", list);
-			String url = "/frontend/booking/getOneBookingOrd.jsp"; // 查詢單筆資料轉跳 getOneBookingOrd.jsp
+			String url = "/frontend/booking/MemBookingOrd.jsp"; // 查詢單筆資料轉跳 getOneBookingOrd.jsp
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}

@@ -33,10 +33,8 @@ public class BookingOrderFetch extends HttpServlet {
 		
 		BookingOrderVO bokOrdVO = json2Pojo(req, BookingOrderVO.class);
 		
-		
 		BookingOrdService bokOrdSvc = new BookingOrdService();
-		bokOrdVO = bokOrdSvc.addBooking(bokOrdVO);
-
+		bokOrdSvc.addBooking(bokOrdVO);
 		
 	}
 

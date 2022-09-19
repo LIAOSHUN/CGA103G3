@@ -382,7 +382,6 @@ public class BookingOrdDAO implements BookingOrder_interface{
 	@Override
 	public List<BookingOrderVO> getBookingOrd(Integer memID) {
 		List<BookingOrderVO> list = new ArrayList<>();
-		BookingOrderVO bov = new BookingOrderVO();
 		try (
 				Connection con = ds.getConnection();
 				PreparedStatement ps = con.prepareStatement(GET_BOOKING_ORD);
@@ -392,6 +391,7 @@ public class BookingOrdDAO implements BookingOrder_interface{
 			ResultSet rs = ps.executeQuery();
 			
 			while (rs.next()) {
+				BookingOrderVO bov = new BookingOrderVO();
 				bov.setBookingID(rs.getInt("BookingID"));
 				bov.setMemID(rs.getInt("MemID"));
 				bov.setBookingDate(rs.getDate("BookingDate"));
