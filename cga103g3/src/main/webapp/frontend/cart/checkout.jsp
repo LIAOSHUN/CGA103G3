@@ -219,7 +219,7 @@
                            <jsp:useBean id="memCouponSvc" scope="page" class="com.memcoupon.model.MemCouponService" />
 								<select name="coupNo" id="coupon" >
 						             <option  value="0">不使用優惠券,-$0</option>
-						                  <c:forEach var="memCouponVO" items="${memCouponSvc.showMemCouponByMemID(11002)}" > 
+						                  <c:forEach var="memCouponVO" items="${memCouponSvc.showMemCouponByMemID(memID)}" > 
 						                      <c:if test="${memCouponVO.coupStatus == 0}">
 		         								<option  value="${memCouponVO.coupNo}" >${memCouponVO.couponTypeVO.coupName},-$${memCouponVO.couponTypeVO.coupDiscount}</option>
 		        							  </c:if>

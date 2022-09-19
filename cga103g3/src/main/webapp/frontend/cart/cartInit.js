@@ -9,6 +9,18 @@ function init() {
 				
 			}
 		})
+//   $.ajax({
+//			url: "getCartHumber.do",
+//			type: "POST",
+//			data: {
+//				
+//			},
+//			success: function(){
+//				
+//			}
+//		})
+		
+		
 }
 
 window.onload = init;

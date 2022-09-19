@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.coupontype.model.*"%>
 <%@ page import="com.memcoupon.model.*"%>
@@ -419,9 +420,9 @@
 											<td>${orderListVO.memberVO.memName}</td> 
 											<td><c:if test="${orderListVO.coupNo == 0 }"><span>未用</span></c:if>
 												<c:if test="${orderListVO.coupNo != 0 }"><span>${orderListVO.coupNo}</span></c:if></td>
-											<td>$${orderListVO.ordLastPrice}</td>
+											<td>$<fmt:formatNumber value="${orderListVO.ordLastPrice}"/></td>
 											<td><c:if test="${orderListVO.ordStatus == 0 }"><span class="badge bg-label-warning me-1">未出貨</span></c:if><c:if test="${orderListVO.ordStatus == 1 }"><span class="badge bg-label-info me-1">已出貨</span></c:if><c:if test="${orderListVO.ordStatus == 2 }"><span class="badge bg-label-success me-1">已完成</span></c:if><c:if test="${orderListVO.ordStatus == 3 }"><span class="badge bg-label-danger me-1">已取消</span></c:if></td>
-											<td>${orderListVO.ordCreate}</td>
+											<td><fmt:formatDate value="${orderListVO.ordCreate}" pattern="yyyy/MM/dd  HH點mm分" /></td>
 											<td>${orderListVO.recName}</td>
 											<td>${orderListVO.recPhone}</td>
 											<td>${orderListVO.recAddress}</td>

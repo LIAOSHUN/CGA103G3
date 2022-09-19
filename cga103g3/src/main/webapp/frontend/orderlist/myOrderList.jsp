@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.cart.model.*"%>
 <%@ page import="com.coupontype.model.*"%>
@@ -75,13 +76,13 @@
 		<tr>
 		
 			<td>${orderListVO.ordNo}</td>
-			<td>${orderListVO.ordCreate}</td>
+			<td><fmt:formatDate value="${orderListVO.ordCreate}" pattern="yyyy/MM/dd  HH點mm分" /></td>
 			<td>
 				<c:if test="${orderListVO.ordPick == 0 }"><button style="background-color: #53C4FF;border-radius: 8px;">店面取貨</button></c:if>
 				<c:if test="${orderListVO.ordPick == 1 }"><button style="background-color: #59DE5C;border-radius: 8px;">超商取貨</button></c:if>
 				<c:if test="${orderListVO.ordPick == 2 }"><button style="background-color: #FF8800;border-radius: 8px;">宅配取貨</button></c:if>
 			</td>
-			<td>$${orderListVO.ordLastPrice}</td>
+			<td>$<fmt:formatNumber value="${orderListVO.ordLastPrice}"/></td>
 			<td>
 				<c:if test="${orderListVO.ordStatus == 0 }"><button style="background-color: #e3e66c;border-radius: 8px;">未出貨</button></c:if>
 				<c:if test="${orderListVO.ordStatus == 1 }"><button style="background-color: #DB9414;border-radius: 8px;">已出貨</button></c:if>

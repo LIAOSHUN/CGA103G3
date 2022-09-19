@@ -61,11 +61,15 @@
 	<servlet-mapping>
 		<servlet-name>CartServlet</servlet-name>
 		<url-pattern>/frontend/cart/cart.do</url-pattern>
-	</servlet-mapping>
-	<servlet-mapping>
-		<servlet-name>CartServlet</servlet-name>
+		<url-pattern>/frontend/actfav/cart.do</url-pattern>
+		<url-pattern>/frontend/actregis/cart.do</url-pattern>
+		<url-pattern>/frontend/booking/cart.do</url-pattern>
+		<url-pattern>/frontend/memcoupon/cart.do</url-pattern>
+		<url-pattern>/frontend/orderlist/cart.do</url-pattern>
+		<url-pattern>/member/cart.do</url-pattern>
 		<url-pattern>/backend/product/cart.do</url-pattern>
 	</servlet-mapping>
+
 
 
 
@@ -81,6 +85,29 @@
 		<servlet-name>GetCartServlet</servlet-name>
 		<url-pattern>/backend/listOneProduct/getCart.do</url-pattern>
 	</servlet-mapping>
+
+
+
+
+<!-- 	<servlet> -->
+<!-- 		<servlet-name>GetCartHumberServlet</servlet-name> -->
+<!-- 		<servlet-class>com.cart.controller.GetCartHumberServlet</servlet-class> -->
+<!-- 	</servlet> -->
+
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>GetCartServlet</servlet-name> -->
+<!-- 		<url-pattern>/frontend/cart/getCartHumber.do</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+
+<!-- 	<servlet-mapping> -->
+<!-- 		<servlet-name>GetCartHumberServlet</servlet-name> -->
+<!-- 		<url-pattern>/backend/listOneProduct/getCartHumber.do</url-pattern> -->
+<!-- 	</servlet-mapping> -->
+
+
+
+
+
 
 
 

@@ -64,7 +64,7 @@ public class MyCouponServlet extends HttpServlet {
 		couponTypeService.updateQuantity(coupTypeNo);
 	
 		/***************************3.新增完成,準備轉交(Send the Success view)***********/
-		String url = "/frontend/memcoupon/myCoupon.jsp";
+		String url = "/backend/coupontype/listAllCouponType.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllCouponType.jsp
 		successView.forward(req, res);			
 	}
