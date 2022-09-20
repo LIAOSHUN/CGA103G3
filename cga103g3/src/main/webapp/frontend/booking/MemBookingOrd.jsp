@@ -104,7 +104,7 @@ pageContext.setAttribute("list", list);
 						<td>${bookingOrderVO.boxID}</td>
 						<td>${bookingOrderVO.bookingNote}</td>						
 						<td>${(bookingOrderVO.bookingStatus == 1)? '<span class="badge bg-label-success">訂位成功</span>':'<span class="badge bg-label-dark">訂位結束</span>'}</td>
-                        <td><div class="dropdown"><button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button><div class="dropdown-menu"><a class="dropdown-item" href="<%=request.getContextPath()%>/bookingorder/bookingorder.do?bookingID=${bookingOrderVO.bookingID}&bookingStatus=0&&action=finish_BoookingOrder"><i class="bx bx-x-circle"></i>取消訂單</a></div></div></td>
+                        <td><div class="dropdown"><button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown"><i class="bx bx-dots-vertical-rounded"></i></button><div class="dropdown-menu"><a class="dropdown-item" href="<%=request.getContextPath()%>/bookingorder/bookingorder.do?bookingID=${bookingOrderVO.bookingID}&bookingStatus=0&&action=cancle_BoookingOrder"><i class="bx bx-x-circle"></i>取消訂單</a></div></div></td>
                       </tr>
                     </c:forEach>
                     </tbody>

@@ -1,4 +1,4 @@
-window.addEventListener("load", function() {
+window.addEventListener("load", function () {
 	let bookingTitle = document.getElementById('bookingTitle');
 	let text_muted = document.getElementById('text-muted');
 	let show = this.document.getElementById('show');
@@ -206,8 +206,10 @@ function bookingBtn() {
 		})
 	})
 		.then(response => {
+			console.log(response);
 			if (response.ok) {
-				alert('訂位送出，請至信箱查收是否成功訂位!!');
 			}
 		})
-	}
+	alert('訂位送出，請至信箱查收是否成功訂位!!');
+	window.location.href = "/cga103g3/frontend/booking/MemBookingOrd.jsp";
+}
