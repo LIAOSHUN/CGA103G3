@@ -43,6 +43,8 @@ public class CartServlet extends HttpServlet {
 			//cookie的cookiekey:shoppingCart cookieValue:sessionid
 			//Redis：(cookieValue(sessionid), {"pdID": "xxx","count": "x"})
 			
+			
+			
 			// 檢視user是否已經有存放cookie
 			for (int i = 0; i < cookies.length; i++) {
 				Cookie userCookie = cookies[i];
@@ -50,7 +52,11 @@ public class CartServlet extends HttpServlet {
 				if ("shoppingCart".equals(userCookie.getName())) {
 					// 讓每的頁面可以透過sessionId呼叫CartService的方法
 					
-
+					System.out.println(userCookie.getValue());
+					System.out.println("舊車");
+					
+					
+					//可以讓getcart找車
 					session.setAttribute("sessionId", userCookie.getValue());
 					
 //					String url = "/frontend/cart/testpro.jsp";
@@ -68,7 +74,7 @@ public class CartServlet extends HttpServlet {
 
 				session.setAttribute("sessionId", session.getId());
 				res.addCookie(shoppingCart);
-				
+				System.out.println("初始化新車");
 //				res.sendRedirect(req.getRequestURI());
 
 //				String url = "/frontend/cart/testpro.jsp";

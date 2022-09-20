@@ -77,6 +77,29 @@
 
 
 	<servlet>
+		<servlet-name>InitCartServlet</servlet-name>
+		<servlet-class>com.cart.controller.InitCartServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>InitCartServlet</servlet-name>
+		<url-pattern>/frontend/act/initCart.do</url-pattern>
+		<url-pattern>/frontend/actfav/initCart.do</url-pattern>
+		<url-pattern>/frontend/actregis/initCart.do</url-pattern>
+		<url-pattern>/frontend/booking/initCart.do</url-pattern>
+		<url-pattern>/frontend/cart/initCart.do</url-pattern>
+		<url-pattern>/frontend/member/initCart.do</url-pattern>
+		<url-pattern>/frontend/memcoupon/initCart.do</url-pattern>
+		<url-pattern>/frontend/orderlist/initCart.do</url-pattern>
+		<url-pattern>/frontend/product/initCart.do</url-pattern>
+		<url-pattern>/frontend/initCart.do</url-pattern>
+		<url-pattern>/backend/product/initCart.do</url-pattern>
+		
+	</servlet-mapping>
+
+
+
+
+	<servlet>
 		<servlet-name>GetCartServlet</servlet-name>
 		<servlet-class>com.cart.controller.GetCartServlet</servlet-class>
 	</servlet>
