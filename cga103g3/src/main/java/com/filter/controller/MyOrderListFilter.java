@@ -46,7 +46,7 @@ public MyOrderListFilter() {
 			//存現在網頁到location
 			session.setAttribute("location", req.getRequestURI());
 			//跳轉頁面至登入頁面
-			res.sendRedirect("../../member/memberLogin.jsp");
+			res.sendRedirect("../member/memberLogin.jsp");
 			return;
 		}else{
 			//回傳正常頁面

@@ -215,7 +215,7 @@
 	<%}%>
 	
 	<div>
-		<a href="testpro.jsp" class="flex-c-m stext-101 cl0 size-101 bg2  hov-btn3 p-lr-15 trans-04 pointer" style="color:#39ac7e;"> 前 往 商 城 繼 續 購 物</a>
+		<a href="<%=request.getContextPath()%>/frontend/product/listAllUp.jsp" class="flex-c-m stext-101 cl0 size-101 bg2  hov-btn3 p-lr-15 trans-04 pointer" style="color:#39ac7e;"> 前 往 商 城 繼 續 購 物</a>
 	</div>
 	
 	<%@ include file="../frontendfoot.jsp" %>

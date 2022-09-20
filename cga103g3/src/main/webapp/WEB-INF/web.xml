@@ -60,13 +60,16 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>CartServlet</servlet-name>
-		<url-pattern>/frontend/cart/cart.do</url-pattern>
+		<url-pattern>/frontend/act/cart.do</url-pattern>
 		<url-pattern>/frontend/actfav/cart.do</url-pattern>
 		<url-pattern>/frontend/actregis/cart.do</url-pattern>
 		<url-pattern>/frontend/booking/cart.do</url-pattern>
+		<url-pattern>/frontend/cart/cart.do</url-pattern>
+		<url-pattern>/frontend/member/cart.do</url-pattern>
 		<url-pattern>/frontend/memcoupon/cart.do</url-pattern>
 		<url-pattern>/frontend/orderlist/cart.do</url-pattern>
-		<url-pattern>/member/cart.do</url-pattern>
+		<url-pattern>/frontend/product/cart.do</url-pattern>
+		<url-pattern>/frontend/cart.do</url-pattern>
 		<url-pattern>/backend/product/cart.do</url-pattern>
 	</servlet-mapping>
 
@@ -89,20 +92,20 @@
 
 
 
-<!-- 	<servlet> -->
-<!-- 		<servlet-name>GetCartHumberServlet</servlet-name> -->
-<!-- 		<servlet-class>com.cart.controller.GetCartHumberServlet</servlet-class> -->
-<!-- 	</servlet> -->
+	<!-- <servlet> -->
+	<!-- <servlet-name>GetCartHumberServlet</servlet-name> -->
+	<!-- <servlet-class>com.cart.controller.GetCartHumberServlet</servlet-class> -->
+	<!-- </servlet> -->
 
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>GetCartServlet</servlet-name> -->
-<!-- 		<url-pattern>/frontend/cart/getCartHumber.do</url-pattern> -->
-<!-- 	</servlet-mapping> -->
+	<!-- <servlet-mapping> -->
+	<!-- <servlet-name>GetCartServlet</servlet-name> -->
+	<!-- <url-pattern>/frontend/cart/getCartHumber.do</url-pattern> -->
+	<!-- </servlet-mapping> -->
 
-<!-- 	<servlet-mapping> -->
-<!-- 		<servlet-name>GetCartHumberServlet</servlet-name> -->
-<!-- 		<url-pattern>/backend/listOneProduct/getCartHumber.do</url-pattern> -->
-<!-- 	</servlet-mapping> -->
+	<!-- <servlet-mapping> -->
+	<!-- <servlet-name>GetCartHumberServlet</servlet-name> -->
+	<!-- <url-pattern>/backend/listOneProduct/getCartHumber.do</url-pattern> -->
+	<!-- </servlet-mapping> -->
 
 
 
@@ -283,5 +286,46 @@
 		<servlet-name>MemberServlet</servlet-name>
 		<url-pattern>/frontend/member/member.do</url-pattern>
 	</servlet-mapping>
+
+
+
+
+<!-- 	<filter> -->
+<!-- 		<filter-name>BackendFilterServlet</filter-name> -->
+<!-- 		<filter-class>com.filter.controller.BackendFilterServlet</filter-class> -->
+<!-- 	</filter> -->
+<!-- 	<filter-mapping> -->
+<!-- 		<filter-name>BackendFilterServlet</filter-name> -->
+<!-- 		<url-pattern>/backend/act/addAct.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/act/listAllAct.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/act/listOneAct.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/act/update_act_input.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/actregis/listAllActRegis.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/bookingorder/model_AddBookingOrder.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/bookingorder/model_AllBookingOrder.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/bookingorder/model_GetBookingStauts.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/bookingorder/model_GetOneBookingOrd.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/bookingorder/model_GetStoreBookingOrd.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/bookingorder/model_UpdateBookingOrd.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/box/model_AddBox.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/box/model_AllBox.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/box/model_ListOneStoreBox.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/box/model_UpdateBox.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/boxtype/model_AddBoxType.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/boxtype/model_AllBoxType.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/boxtype/model_UpdateBoxType.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/coupontype/addCouponType.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/coupontype/couponType_select_page.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/coupontype/listAllCouponType.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/coupontype/listOneCouponType.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/coupontype/sendCoupon.jsp</url-pattern> -->
+<!-- 		<url-pattern>/backend/coupontype/updateCouponType.jsp</url-pattern> -->
+
+<!-- 		<dispatcher>REQUEST</dispatcher> -->
+<!-- 		<dispatcher>FORWARD</dispatcher> -->
+<!-- 		<dispatcher>INCLUDE</dispatcher> -->
+<!-- 		<dispatcher>ERROR</dispatcher> -->
+<!-- 		<dispatcher>ASYNC</dispatcher> -->
+<!-- 	</filter-mapping> -->
 
 </web-app>

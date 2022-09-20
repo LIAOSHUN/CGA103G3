@@ -14,11 +14,10 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-@WebFilter(	filterName = "FrontFilterServlet",
-servletNames = {"DcartServlet"}
-//urlPatterns = {"/frontend/cart/checkout.jsp"}
+@WebFilter(	filterName = "BackendFilterServlet",
+urlPatterns = {"/backend/*"}
 		)
-public class FrontFilterServlet extends HttpFilter {
+public class BackendFilterServlet extends HttpFilter {
 
 
 	public void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
