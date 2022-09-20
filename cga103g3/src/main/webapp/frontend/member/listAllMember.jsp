@@ -3,6 +3,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.member.model.*"%>
 <%-- 此頁練習採用 EL 的寫法取值 --%>
+<%@include file="/backend/bkhead.jsp"%>
 
 <%
 MemberService memberSvc = new MemberService();
@@ -131,3 +132,4 @@ th, td {
 
 </body>
 </html>
+<%@include file="/backend/bkfoot.jsp"%>
