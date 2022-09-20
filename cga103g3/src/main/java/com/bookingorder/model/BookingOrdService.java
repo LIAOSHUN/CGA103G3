@@ -89,6 +89,7 @@ public class BookingOrdService {
 		return dao.getBookingStatusInfo(bookingStatus);
 	}
 	
+	// 會員查詢訂位訂單
 	public List<BookingOrderVO> getBookingOrd(Integer memID) {
 		return dao.getBookingOrd(memID);
 	}

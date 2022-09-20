@@ -1,7 +1,13 @@
+<%@page import="com.member.model.MemberVO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@include file="/frontend/frontendhead.jsp"%>
+<%@ page import="java.util.*"%>
+<%@ page import="com.member.model.*"%>
 
+<%
+Integer memID = (Integer)session.getAttribute("MemID"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
+%>
 
 <!DOCTYPE html>
 <html>
@@ -50,7 +56,7 @@
 </head>
 <body>
 <!-- 	==================================================== 圖片 ================================================================ -->
-					<div class="row g-0">
+					<div class="row g-0" style="width:1200px;margin: 0 auto;">
                       <div class="col-md-8">
                         <div class="card-body">
                           <h5 class="card-title"><b>訂位說明</b></h5>
@@ -68,13 +74,13 @@
 
 <!-- 	==================================================== 表單 ================================================================ -->                  
 			<form id="form">
-				<div class="card mb-4">
+				<div class="card mb-4" style="width:1000px;margin: 0 auto;">
                     <h5 class="card-header">門市訂位</h5>
                     <div class="card-body">
                     
                       <div class="mb-3">
                         <label for="memID" class="form-label">會員</label>
-                        <input id="memID" type="text" class="form-control" placeholder="Enter Name" autocomplete="off">
+                        <input id="memID" type="text" class="form-control" autocomplete="off" value="<%=memID%>" readonly>
                       </div>
                       
                       <div class="mb-3">

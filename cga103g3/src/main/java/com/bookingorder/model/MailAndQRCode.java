@@ -46,7 +46,7 @@ public class MailAndQRCode {
 
 		// QR Code設定
 		String[] link = new String[5];
-		link[0] = "https://th.bing.com/th/id/OIP.giV4vwUhD8QY4F0aoTanDgHaE0?pid=ImgDet&rs=1";
+		link[0] = "https://www.facebook.com/tibame.java.wu/photos/pb.100065094785083.-2207520000../712193665642985/?type=3";
 		link[1] = "https://cdn-static.tibame.com/temp/679c5c25-c0d6-419a-a65f-e848180278a1_0322_v2.png";
 		link[2] = "https://scontent.ftpe8-1.fna.fbcdn.net/v/t31.18172-8/26023855_688604831335202_1735860882321999830_o.jpg?"
 				+ "_nc_cat=109&ccb=1-7&_nc_sid=730e14&_nc_ohc=BzjZuIkyhQEAX8fZ0aX&_nc_ht=scontent.ftpe8-1.fna&oh=00_AT9SM1LwPwF364Ml-0P3azqu2NP4MbpxXgXR1K5x2D3rMQ&oe=63455017";
@@ -93,7 +93,7 @@ public class MailAndQRCode {
 			// ●5-2) 下拉式選單【選取裝置】--> 選取【Windows 電腦】
 			// ●5-3) 最後按【產生】密碼
 			final String myGmail = "ufo3068@gmail.com";
-			final String myGmail_password = "riszhbzajlvwlokp";
+			final String myGmail_password = "qmjipwcrjyfnofme";
 			Session session = Session.getInstance(props, new Authenticator() {
 				protected PasswordAuthentication getPasswordAuthentication() {
 					return new PasswordAuthentication(myGmail, myGmail_password);

@@ -326,7 +326,7 @@ req.setAttribute("bookingOrdVO", bookingOrdVO); // 含有輸入格式錯誤的em
 			}
 			/***************************3.查詢完成,準備轉交(Send the Success view)************/
 			req.setAttribute("list", list);
-			String url = "/frontend/booking/getOneBookingOrd.jsp"; // 查詢單筆資料轉跳 getOneBookingOrd.jsp
+			String url = "/frontend/booking/MemBookingOrd.jsp"; // 查詢單筆資料轉跳 getOneBookingOrd.jsp
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
@@ -376,6 +376,33 @@ req.setAttribute("bookingOrdVO", bookingOrdVO); // 含有輸入格式錯誤的em
 			successView.forward(req, res);
 		}
 
+/*************************************************** 會員"取消"訂位訂單(取消訂單) ******************************************************/
+		if("cancle_BoookingOrder".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+			Integer bookingID = Integer.valueOf(req.getParameter("bookingID").trim());
+			
+			BookingOrderVO bokOrdVO = new BookingOrderVO();
+			bokOrdVO.setBookingID(bookingID);
+			bokOrdVO.setBookingStatus(0);
+			
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/frontend/index.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+			
+			BookingOrdService bokOrdSvc = new BookingOrdService();
+			bokOrdVO = bokOrdSvc.cancelBooking(bookingID, 0);
+			
+			req.setAttribute("bokOrdVO", bokOrdVO);
+			String url = "/frontend/booking/MemBookingOrd.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
+		}
 		
 	}
 }
