@@ -4,6 +4,8 @@ import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import com.bookingorder.model.BookingOrderVO;
+
 public class ActRegisService {
 	private ActRegisDAO_interface dao;
 
@@ -27,6 +29,14 @@ public class ActRegisService {
 
 		return actRegisVO;
 	}
+	
+	//for fetch api
+		public ActRegisVO addActRegis(ActRegisVO actRegisVO) {
+			dao.insert(actRegisVO);
+			
+			return actRegisVO;
+		}
+
 
 	public ActRegisVO updateBkActRegis(Integer memID, Integer actID, Integer actNum, 
 			Integer actFee, Integer feeStatus, Integer regisStatus) {

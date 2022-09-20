@@ -96,14 +96,14 @@
 			<table style="left: 150px;">
 				<tr style="line-height: 2.7;">
 					<td>
-						<a href="<%=request.getContextPath()%>/ActRegisServlet?actID=${actVO.actID}&action=insert" id="forRegis">
-							<button class="btnn btn-info btnToConfirm">確 認 報 名</button>
-						</a>
+						
+							<button class="btnn btn-info btnToConfirm" onclick="onRegisClick()">確 認 報 名</button>
+						
 					</td>					
 				</tr>
 				<tr style="line-height: 2.5;">
 					<td>
-						<a href="../act/listAllActF.jsp">
+						<a href="/cga103g3/frontend/act/listAllActF.jsp">
 							<button class="btnn btn-info btnBack">前往活動列表</button>
 						</a>
 					</td>					
@@ -124,7 +124,32 @@
 	document.querySelector('#actNum').onchange = function() {
 		document.querySelector('#fee').innerHTML = document.querySelector('#actNum').value * ${actVO.actFee} + ' 元';
 	}
-	
+	function onRegisClick(){
+		console.log('test');
+	    let actNum = document.querySelector('#actNum');
+	    let actFee = document.querySelector('#fee');
+		console.log(actNum.value);
+
+	    fetch('/cga103g3/RegisFetch', {
+	        method: 'POST',
+	        headers: { 'Content-Type': 'application/json' },
+	        body: JSON.stringify({
+	        	actID: ${actVO.actID},
+	            actNum: actNum.value,
+	            actFee: actFee.textContent
+	        })
+	    })
+// 	    .then(res => res.json())
+// 	    .then(body => {
+// 	        const { successful, message } = body;
+// 	            if (successful) {
+// 	                alert('報名成功!');
+// 	            } else {
+// 	                alert(message ?? '報名失敗');
+// 	            }
+// 	    });
+// 	    window.location.href = "/cga103g3/frontend/actregis/listMemRegis.jsp"
+	}
 </script>
 </body>
 </html>
