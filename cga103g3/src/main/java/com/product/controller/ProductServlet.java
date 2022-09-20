@@ -92,7 +92,7 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("productVO", productVO); // 資料庫取出的empVO物件,存入req
-			String url = "/backend/product/update_product_input_final.jsp";
+			String url = "/frontend/product/update_product_input_final.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 		}
