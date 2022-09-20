@@ -14,28 +14,26 @@ import javax.servlet.http.HttpFilter;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-@WebFilter(	filterName = "BackendFilterServlet",
-urlPatterns = {"/backend/*"}
-		)
+//@WebFilter(	filterName = "BackendFilterServlet",
+//urlPatterns = {"/backend/*" ,"/frontend/member/listAllMember.jsp"}
+//		)
 public class BackendFilterServlet extends HttpFilter {
 
 
 	public void doFilter(HttpServletRequest req, HttpServletResponse res, FilterChain chain) throws IOException, ServletException {
 		
-		//讀取的網頁路徑
-//		String uri = req.getRequestURI();
-//		System.out.println(uri);
-		String memAccount = (String) req.getSession().getAttribute("memAccount");
+		Integer empID = (Integer) req.getSession().getAttribute("empID");
 		
 		HttpSession session = req.getSession();
 		
 		//以下判斷有無登入
-		if( memAccount == null || (memAccount.trim()).length() == 0){
+		if( empID == null ){
 			//存現在網頁到location
-//			session.setAttribute("location", req.getContextPath() + "/frontend/cart/testpro.jsp");
-			session.setAttribute("location", req.getContextPath() + "/frontend/cart/getCart.do");
+			
+//			session.setAttribute("location", req.getContextPath() + "/backend/index.jsp");
 			//跳轉頁面至登入頁面
-			res.sendRedirect("../member/memberLogin.jsp");
+			System.out.println("111");
+			res.sendRedirect( req.getContextPath() + "/backend/employee/employeeLogin.jsp");
 			return;
 		}else{
 			//回傳正常頁面

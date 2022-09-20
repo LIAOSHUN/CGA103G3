@@ -290,12 +290,13 @@
 
 
 
-<!-- 	<filter> -->
-<!-- 		<filter-name>BackendFilterServlet</filter-name> -->
-<!-- 		<filter-class>com.filter.controller.BackendFilterServlet</filter-class> -->
-<!-- 	</filter> -->
-<!-- 	<filter-mapping> -->
-<!-- 		<filter-name>BackendFilterServlet</filter-name> -->
+	<filter>
+		<filter-name>BackendFilterServlet</filter-name>
+		<filter-class>com.filter.controller.BackendFilterServlet</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>BackendFilterServlet</filter-name>
+		<url-pattern>/backend/index.jsp</url-pattern>
 <!-- 		<url-pattern>/backend/act/addAct.jsp</url-pattern> -->
 <!-- 		<url-pattern>/backend/act/listAllAct.jsp</url-pattern> -->
 <!-- 		<url-pattern>/backend/act/listOneAct.jsp</url-pattern> -->
@@ -321,11 +322,11 @@
 <!-- 		<url-pattern>/backend/coupontype/sendCoupon.jsp</url-pattern> -->
 <!-- 		<url-pattern>/backend/coupontype/updateCouponType.jsp</url-pattern> -->
 
-<!-- 		<dispatcher>REQUEST</dispatcher> -->
-<!-- 		<dispatcher>FORWARD</dispatcher> -->
-<!-- 		<dispatcher>INCLUDE</dispatcher> -->
-<!-- 		<dispatcher>ERROR</dispatcher> -->
-<!-- 		<dispatcher>ASYNC</dispatcher> -->
-<!-- 	</filter-mapping> -->
+		<dispatcher>REQUEST</dispatcher>
+		<dispatcher>FORWARD</dispatcher>
+		<dispatcher>INCLUDE</dispatcher>
+		<dispatcher>ERROR</dispatcher>
+		<dispatcher>ASYNC</dispatcher>
+	</filter-mapping>
 
 </web-app>
