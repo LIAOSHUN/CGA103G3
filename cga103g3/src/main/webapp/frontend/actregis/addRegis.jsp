@@ -125,10 +125,10 @@
 		document.querySelector('#fee').innerHTML = document.querySelector('#actNum').value * ${actVO.actFee} + ' 元';
 	}
 	function onRegisClick(){
-		if(${memID} == "" || ${memID} == null) {
+		if(${empty memID}) {
 			window.location.href = "/cga103g3/frontend/member/memberLogin.jsp";
 			return;
-		} 
+		} else {			
 		console.log('test');
 	    let actNum = document.querySelector('#actNum');
 	    let actFee = document.querySelector('#fee');
@@ -138,7 +138,7 @@
 	        method: 'POST',
 	        headers: { 'Content-Type': 'application/json' },
 	        body: JSON.stringify({
-	        	memID: ${memID},
+// 	        	memID: ${memID},
 	        	actID: ${actVO.actID},
 	            actNum: actNum.value,
 	            actFee: actFee.textContent
@@ -154,6 +154,7 @@
 // 	            }
 // 	    });
 // 	    window.location.href = "/cga103g3/frontend/actregis/listMemRegis.jsp"
+		}
 	}
 </script>
 </body>
