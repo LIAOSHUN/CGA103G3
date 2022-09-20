@@ -24,6 +24,7 @@ pageContext.setAttribute("list2", list2);
 
 <head>
 <title>絆桌</title>
+<script src="node_modules/tablefilter/dist/tablefilter/tablefilter.js"></script>
 </head>
 <body>
 
@@ -34,16 +35,19 @@ pageContext.setAttribute("list2", list2);
 				<div class="flex-w flex-l-m filter-tope-group m-tb-10">
 					<button
 						class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1"
-						data-filter="*">所有桌遊</button>
-						
+						data-filter="*" style="font-size: 20px;">所有桌遊</button>
+
 					<c:forEach var="productTypeVO" items="${list2}">
-						<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5"
-							data-filter=".${productTypeVO.pdTypeName}">${productTypeVO.pdTypeName}</button>
-							
+						<FORM METHOD="post" ACTION="/cga103g3/product/ShowProductType">
+							<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 " 
+							data-filter=".${productTypeVO.pdTypeName}"
+							style="font-size: 20px;">${productTypeVO.pdTypeName}
+							</button>
+								<input type="hidden" name="pdTypeID" value="${productTypeVO.pdTypeID}"> 
+								<input type="hidden" name="action" value="getOne_Type">
+						</FORM>
+
 					</c:forEach>
-					
-
-
 				</div>
 
 				<div class="flex-w flex-c-m m-tb-10">
@@ -67,7 +71,7 @@ pageContext.setAttribute("list2", list2);
 						<input
 							class="mtext-107 cl2 size-114 plh2 p-r-15 light-table-filter"
 							data-table="order-table" type="text" name="search-product"
-							placeholder="Search">
+							placeholder="搜尋...">
 					</div>
 				</div>
 
@@ -77,47 +81,64 @@ pageContext.setAttribute("list2", list2);
 
 				<!-- =========================================================================================================================================== -->
 				<!-- Shoping Cart -->
-				<form class="bg0 p-t-75 p-b-85">
-					<div class="container">
-						<div>
-							<div class="m-l-25 m-r--38 m-lr-0-xl">
-								<table class="table-shopping-cart order-table">
-									<thead>
-										<tr>
-											<th style="font-size: 20px; width: 15%">遊戲圖片</th>
-											<th style="font-size: 20px; width: 20%">遊戲名稱</th>
-											<th style="font-size: 20px; width: 15%">遊戲圖片</th>
-											<th style="font-size: 20px; width: 15%">金額</th>
-											<th style="font-size: 20px;">遊戲特色</th>
+				<div class="container ">
+					<div class="m-l-25 m-r--38 m-lr-0-xl ">
+						<br> <br>
+						<table class="table-shopping-cart order-table ">
+							<thead>
+								<tr>
+									<th style="font-size: 20px; width: 15%">遊戲圖片</th>
+									<th style="font-size: 20px; width: 20%">遊戲名稱</th>
+									<th style="font-size: 20px; width: 10%">遊戲種類</th>
+									<th style="font-size: 20px; width: 10%">金額</th>
+									<th style="font-size: 20px; width: 5%">遊戲特色</th>
 
-										</tr>
-									</thead>
-									<tbody>
-										<c:forEach var="productVO" items="${list}">
 
-											<tr class="table_row">
+								</tr>
 
-												<td><c:forEach var="productImgVO" items="${list1}"
-														varStatus="imgCount" begin="1" end="1">
+							</thead>
+							<c:forEach var="productVO" items="${list}">
+								<tbody >
 
-														<div>
-															<img
-																src="<%=request.getContextPath()%>/ShowProductImg?pdID=${productVO.pdID}&count=${imgCount.count}"
-																width=80% alt="IMG">
-														</div>
-													</c:forEach></td>
-												<td style="font-size: 20px;"><b>${productVO.pdName}</b></td>
-												<td style="font-size: 20px;"><b>${productVO.productTypeVO.pdTypeName}</b></td>
-												<td style="font-size: 20px;"><b>${productVO.pdPrice}</b></td>
-												<td style="width: 70%; font-size: 18px;"><b>${productVO.pdDescription}</b></td>
-											</tr>
-										</c:forEach>
-									</tbody>
-								</table>
-							</div>
-						</div>
+									<tr class="table_row isotope-item ${productVO.productTypeVO.pdTypeName} " >
+
+										<td><c:forEach var="productImgVO" items="${list1}"
+												varStatus="imgCount" begin="1" end="1">
+
+												<div>
+													<img
+														src="<%=request.getContextPath()%>/ShowProductImg?pdID=${productVO.pdID}&count=${imgCount.count}"
+														width=80% alt="IMG">
+												</div>
+											</c:forEach></td>
+										<td style="font-size: 20px;"><b>${productVO.pdName}</b></td>
+										<td style="font-size: 20px;"><b>${productVO.productTypeVO.pdTypeName}</b></td>
+										<td style="font-size: 20px;"><b>${productVO.pdPrice}</b></td>
+										<td style="width: 30%; font-size: 18px;"><b>${productVO.pdDescription}</b></td>
+										<td>&emsp;</td>
+										<td>&emsp;</td>
+
+										<td>
+											<FORM METHOD="post"
+												ACTION="<%=request.getContextPath()%>/backend/product/product.do">
+												<input type="hidden" name="pdID" value="${productVO.pdID}">
+												
+												
+												<input type="hidden" name="action"
+													value="getOne_For_Display">
+													<button class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer">
+												看更多
+												</button>
+											</FORM>
+										</td>
+
+									</tr>
+								</tbody>
+							</c:forEach>
+
+						</table>
 					</div>
-				</form>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -178,10 +199,5 @@ pageContext.setAttribute("list2", list2);
 
 	})(document);
 </script>
-
-
-
-
-
 </html>
 <%@include file="/frontend/frontendfoot.jsp"%>

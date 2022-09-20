@@ -33,7 +33,7 @@ public class ProductService {
 		return productVO;
 	}
 
-	public ProductVO updateProduct(Integer pdID, String pdName, Integer pdPrice,
+	public ProductVO updateProduct(Integer pdID, String pdName,Integer pdTypeID, Integer pdPrice,
 			Integer pdAmount, String pdDescription, Integer pdStatus,
 			Integer pdStar) {
 //		,Timestamp pdUpdate
@@ -41,6 +41,7 @@ public class ProductService {
 		ProductVO productVO = new ProductVO();
 		
 		productVO.setPdID(pdID);
+		productVO.setPdTypeID(pdTypeID);
 		productVO.setPdName(pdName);
 		productVO.setPdPrice(pdPrice);
 		productVO.setPdAmount(pdAmount);
@@ -67,6 +68,11 @@ public class ProductService {
 	
 	public List<ProductVO> getUp() {
 		return dao.getUp();
+	}
+	public List<ProductVO> getType(Integer pdTypeID) {
+		ProductVO productVO = new ProductVO();
+		productVO.setPdTypeID(pdTypeID);
+		return dao.getType(pdTypeID);
 	}
 	
 	

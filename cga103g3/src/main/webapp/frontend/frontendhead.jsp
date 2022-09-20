@@ -50,17 +50,17 @@
 			<div class="wrap-menu-desktop">
 				<nav class="limiter-menu-desktop p-l-45">
 					<!-- Logo desktop -->
-					<a href="BackEndTemplate.html" class="logo">
+					<a href="<%=request.getContextPath()%>/frontend/index.jsp" class="logo">
 						<img src="<%=request.getContextPath()%>/frontend/frontend_template/images/icons/LOGO_WISH3.0.png" alt="IMG-LOGO" width="100px">
 					</a>
 					<!-- Menu desktop -->
 					<div class="menu-desktop">
 						<ul class="main-menu">
 							<li class="active-menu">
-								<a href="Top&Fot.html">首頁</a>
+								<a href="<%=request.getContextPath()%>/frontend/index.jsp">首頁</a>
 							</li>
 							<li>
-								<a href="product.html">商城</a>
+								<a href="<%=request.getContextPath()%>/frontend/product/listAllUp.jsp">商城</a>
 							</li>
 
 							<li>
@@ -82,6 +82,15 @@
 					</div>
 					<!-- Icon header 搜尋、購物車、漢堡 -->
 					<div class="wrap-icon-header flex-w flex-r-m h-full">
+					
+					<a href="貼會員中心連結">
+							<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+								<i class="zmdi zmdi-account"></i>
+							</div>
+						</a>
+					
+					
+					
 						<a href="<%=request.getContextPath()%>/frontend/cart/getCart.do" >
 							<div class="flex-c-m h-full p-l-18 p-r-25 bor5" >
 								<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11  js-show-cart">
@@ -109,6 +118,10 @@
 			</div>
 			<!-- Icon header -->
 			<div class="wrap-icon-header flex-w flex-r-m h-full m-r-15">
+			
+			
+			
+			
 				<div class="flex-c-m h-full p-r-10">
 					<div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 js-show-modal-search">
 						<i class="zmdi zmdi-search"></i>
@@ -133,7 +146,7 @@
 		<div class="menu-mobile">
 			<ul class="main-menu-m">
 				<li>
-					<a href="Top&Fot.html">首頁</a>
+					<a href="<%=request.getContextPath()%>/frontend/index.jsp">首頁</a>
 					<ul class="sub-menu-m">
 						<li><a href="index.html">Homepage 1</a></li>
 						<li><a href="home-02.html">Homepage 2</a></li>
@@ -144,7 +157,7 @@
 					</span>
 				</li>
 				<li>
-					<a href="product.html">商城</a>
+					<a href="<%=request.getContextPath()%>/frontend/product/listAllUp.jsp">商城</a>
 				</li>
 				<li>
 					<a href="shoping-cart.html" class="label1 rs1" data-label1="hot">Features</a>
@@ -175,7 +188,7 @@
 			<div class="sidebar-content flex-w w-full p-lr-65 js-pscroll">
 				<ul class="sidebar-link w-full">
 					<li class="p-b-13">
-						<a href="Top&Fot.html" class="stext-102 cl2 hov-cl1 trans-04">
+						<a href="<%=request.getContextPath()%>/frontend/index.jsp" class="stext-102 cl2 hov-cl1 trans-04">
 							首頁
 						</a>
 					</li>

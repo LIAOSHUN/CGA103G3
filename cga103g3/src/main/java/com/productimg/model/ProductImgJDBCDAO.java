@@ -394,19 +394,6 @@ public class ProductImgJDBCDAO implements  ProductImgDAO_interface {
 		}
 		return list;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-
 	public static void main(String[] args) {
 
 		ProductImgJDBCDAO dao = new ProductImgJDBCDAO();

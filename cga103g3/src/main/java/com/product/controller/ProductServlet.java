@@ -1,6 +1,7 @@
 package com.product.controller;
 
 import java.io.*;
+import java.sql.Timestamp;
 import java.util.*;
 
 import javax.servlet.*;
@@ -91,7 +92,7 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("productVO", productVO); // 資料庫取出的empVO物件,存入req
-			String url = "/backend/product/update_product_input.jsp";
+			String url = "/backend/product/update_product_input_final.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 		}
@@ -111,6 +112,9 @@ public class ProductServlet extends HttpServlet {
 			if (pdName == null || pdName.trim().length() == 0) {
 				errorMsgs.add("遊戲名稱請勿空白");
 			}
+//			PDTYPEID
+			Integer pdTypeID = Integer.valueOf(req.getParameter("pdTypeID").trim());
+
 //				PDPRICE
 			Integer pdPrice = null;
 			try {
@@ -160,10 +164,12 @@ public class ProductServlet extends HttpServlet {
 				errorMsgs.add("推薦度請填數字1~5");
 
 			}
-
+			
 			ProductVO productVO = new ProductVO();
 			productVO.setPdID(pdID);
 			productVO.setPdName(pdName);
+			productVO.setPdPrice(pdTypeID);
+
 			productVO.setPdPrice(pdPrice);
 			productVO.setPdAmount(pdAmount);
 			productVO.setPdDescription(pdDescription);
@@ -180,7 +186,7 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 2.開始修改資料 *****************************************/
 			ProductService productSvc = new ProductService();
-			productVO = productSvc.updateProduct(pdID, pdName, pdPrice, pdAmount, pdDescription, pdStatus, pdStar);
+			productVO = productSvc.updateProduct(pdID, pdName, pdTypeID, pdPrice, pdAmount, pdDescription, pdStatus, pdStar);
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("productVO", productVO); // 資料庫update成功後,正確的的empVO物件,存入req
