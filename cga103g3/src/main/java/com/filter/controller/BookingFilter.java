@@ -31,7 +31,7 @@ public class BookingFilter implements Filter{
 		
 		// 從session裡取會員編號資訊
 //		String memID = (String) session.getAttribute("MemID");
-		Integer memID = (Integer) session.getAttribute("MemID");
+		Integer memID = (Integer) session.getAttribute("memID");
 		
 		// 判斷如果沒有取到會員資訊,就跳轉到登陸頁面  || "".equals(memID) || (memID.trim()).length() == 0
 		if (memID == null) {
@@ -41,7 +41,7 @@ public class BookingFilter implements Filter{
 		servletResponse.sendRedirect("./BookingLogin.jsp");
 		} else {
 		// 已經登陸,繼續此次請求
-		session.setAttribute("MemID", memID);
+		session.setAttribute("memID", memID);
 		chain.doFilter(request, response);
 		}
 		

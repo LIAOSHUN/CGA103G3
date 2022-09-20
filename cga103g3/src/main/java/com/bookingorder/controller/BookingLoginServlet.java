@@ -82,7 +82,7 @@ public class BookingLoginServlet extends HttpServlet {
 			
 			/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 			session.setAttribute("memAccount",user.getMemAccount());
-			session.setAttribute("MemID", memberVO.getMemID());
+			session.setAttribute("memID", memberVO.getMemID());
 			
 			res.sendRedirect(location);
 			
