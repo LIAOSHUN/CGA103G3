@@ -38,7 +38,7 @@ public class MemberServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/member/select_page.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -51,7 +51,7 @@ public class MemberServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/member/select_page.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
@@ -64,14 +64,14 @@ public class MemberServlet extends HttpServlet {
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
-				RequestDispatcher failureView = req.getRequestDispatcher("/emp/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/member/select_page.jsp");
 				failureView.forward(req, res);
 				return;// 程式中斷
 			}
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("memberVO", memberVO); // 資料庫取出的empVO物件,存入req
-			String url = "/member/listOneMember.jsp";
+			String url = "/frontend/member/listOneMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -92,7 +92,7 @@ public class MemberServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("memberVO", memberVO); // 資料庫取出的empVO物件,存入req
-			String url = "/member/update_member_input.jsp";
+			String url = "/frontend/member/update_member_input.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 		}
@@ -198,7 +198,7 @@ public class MemberServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/update_member_input.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/member/update_member_input.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
 			}
@@ -299,7 +299,7 @@ public class MemberServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/member/register.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/frontend/member/register.jsp");
 				failureView.forward(req, res);
 				return;
 			}
@@ -310,7 +310,7 @@ public class MemberServlet extends HttpServlet {
 					memAddress, memBirthday, memCard);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/member/listAllMember.jsp";
+			String url = "/frontend/member/listAllMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}
@@ -330,7 +330,7 @@ public class MemberServlet extends HttpServlet {
 			memberSvc.deleteMember(memID);
 
 			/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
-			String url = "/member/listAllMember.jsp";
+			String url = "/frontend/member/listAllMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 			successView.forward(req, res);
 		}
@@ -366,7 +366,7 @@ public class MemberServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("memberLogin.jsp");
+						.getRequestDispatcher("/frontend/member/memberLogin.jsp");
 				failureView.forward(req, res);
 				return;//程式中斷
 			}
@@ -383,7 +383,7 @@ public class MemberServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("memberLogin.jsp");
+						.getRequestDispatcher("/frontend/member/memberLogin.jsp");
 				failureView.forward(req, res);
 				
 				return;//程式中斷
@@ -398,16 +398,18 @@ public class MemberServlet extends HttpServlet {
 			/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 			session.setAttribute("memAccount",user.getMemAccount());
 			session.setAttribute("memID", user1.getMemID());
-			
+			session.setAttribute("memEmail", user1.getMemEmail());
+
 			
 			
 //			System.out.println(req.getSession().getAttribute("memAccount"));      //測試Session
 //			System.out.println(req.getSession().getAttribute("memID"));      //測試Session
-			
+//			System.out.println(req.getSession().getAttribute("memEmail"));      //測試Session
+//
 			String location=(String)session.getAttribute("location");
 			res.sendRedirect(location);
 			
-//			String url = "login_success.jsp"; 
+//			String url = "listOneMember.jsp"; 
 //			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 //			successView.forward(req, res);
 
@@ -415,13 +417,87 @@ public class MemberServlet extends HttpServlet {
 		/**********************************************************************************************************************/
 
 		
+		/**********************************登入***********************************************************************************/
+		
+		if ("memberLoginIndex".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
 
+//			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			
+			
+		    String memAccount = req.getParameter("memAccount");
+		    String memPassWord = req.getParameter("memPassWord");
+
+		    // 【檢查該帳號 , 密碼是否有效】
+			if (memAccount == null || (memAccount.trim()).length() == 0) {
+				errorMsgs.add("請輸入會員帳號");
+			}
+			if (memPassWord == null || (memPassWord.trim()).length() == 0) {
+				errorMsgs.add("請輸入會員密碼");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/frontend/member/memberLoginIndex.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+			
+			
+			/***************************2.開始查詢資料*****************************************/
+			MemberService memberSvc = new MemberService();
+//			Mem_VO memVO = memSvc.getOneMem(mem_no);
+			MemberVO user = memberSvc.MemberLogin(memAccount, memPassWord);
+
+			if (user == null ) {
+				errorMsgs.add("帳號或密碼輸入錯誤");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/frontend/member/memberLoginIndex.jsp");
+				failureView.forward(req, res);
+				
+				return;//程式中斷
+			}
+			/*******************************************************************************************/
+			MemberVO user1 = memberSvc.MemberFindmemID(memAccount);
+			req.setAttribute("memberVO", user1); // 資料庫取出的empVO物件,存入req
+
+			
+			
+			
+			/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+			session.setAttribute("memAccount",user.getMemAccount());
+			session.setAttribute("memID", user1.getMemID());
+			session.setAttribute("memEmail", user1.getMemEmail());
+
+			
+			
+//			System.out.println(req.getSession().getAttribute("memAccount"));      //測試Session
+//			System.out.println(req.getSession().getAttribute("memID"));      //測試Session
+//			System.out.println(req.getSession().getAttribute("memEmail"));      //測試Session
+//
+//			String location=(String)session.getAttribute("location");
+//			res.sendRedirect(location);
+			
+			String url = "../index.jsp"; 
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+			successView.forward(req, res);
+
+		}
+		/**********************************************************************************************************************/
 		
 		/**********************************登出*******************************************************************************/
 		
 		if ("memberLogout".equals(action)) {
 			session.removeAttribute("user");
-			String url = "/member/memberLogin.jsp";
+			String url = "/frontend/member/memberLogin.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}

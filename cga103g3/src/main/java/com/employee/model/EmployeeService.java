@@ -2,6 +2,8 @@ package com.employee.model;
 
 import java.util.List;
 
+import com.member.model.MemberVO;
+
 
 public class EmployeeService {
 	private EmployeeDAO_interface dao;
@@ -57,5 +59,11 @@ public class EmployeeService {
 	public List<EmployeeVO> getAll() {
 		return dao.getAll();
 
+	}
+	public EmployeeVO EmployeeLogin(String empAccount,String empPassWord) {
+		return dao.EmployeeLogin(empAccount, empPassWord);
+	}
+	public EmployeeVO EmployeeFindempID(String empAccount) {
+		return dao.EmployeeFindempID(empAccount);
 	}
 }
