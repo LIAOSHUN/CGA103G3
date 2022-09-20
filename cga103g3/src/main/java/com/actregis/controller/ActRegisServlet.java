@@ -29,7 +29,6 @@ public class ActRegisServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-		
 		if ("getByOneAct_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
@@ -283,7 +282,7 @@ public class ActRegisServlet extends HttpServlet {
 			}
 			
 			// 更改activity表格的報名人數
-			Integer actRegistration = Integer.valueOf(req.getParameter("actRegistration").trim());
+			Integer actRegistration = Integer.valueOf(req.getParameter("actNum").trim());
 
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {

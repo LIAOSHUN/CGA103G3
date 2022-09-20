@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebFilter(filterName = "ActFilterServlet", 
-servletNames = "ActRegisServlet")
-//urlPatterns = {"/frontend/actregis/*"})
-public class ActFilterServlet extends HttpFilter implements Filter {
+servletNames = "RegisFetch",
+urlPatterns = {"/frontend/actregis/*"})
+public class ActFilterServlet implements Filter {
    
 	private FilterConfig config;
 
@@ -31,7 +31,7 @@ public class ActFilterServlet extends HttpFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
-		
+		System.out.println("testt");
 		// 獲得在下面程式碼中要用的request,response,session物件
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse res = (HttpServletResponse) response;
@@ -51,7 +51,7 @@ public class ActFilterServlet extends HttpFilter implements Filter {
 //		session.setAttribute("actID", actID);
 //		session.setAttribute("action", showActForRegis);
 		// 跳轉到登入頁面
-		res.sendRedirect("../member/memberLogin.jsp");
+		res.sendRedirect("/cga103g3/frontend/member/memberLogin.jsp");
 		return;
 		} else {
 		// 已經登入,繼續此次請求
