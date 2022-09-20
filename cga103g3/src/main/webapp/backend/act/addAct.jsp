@@ -13,7 +13,7 @@ ActVO actVO = (ActVO) request.getAttribute("actVO");
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&amp;display=swap" rel="stylesheet">
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<title>活動新增 - addAct.jsp</title>
+<title>活動新增</title>
 
 <style>
 .container_main {
