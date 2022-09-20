@@ -12,14 +12,13 @@ public class ActRegisService {
 //		dao = new ActRegisJDBCDAO();
 	}
 
-	public ActRegisVO addActRegis(Integer memID, Integer actID, LocalDateTime regisTime, 
+	public ActRegisVO addActRegis(Integer memID, Integer actID, 
 			Integer actNum, Integer actFee, Integer feeStatus, Integer regisStatus) {
 
 		ActRegisVO actRegisVO = new ActRegisVO();
 
 		actRegisVO.setMemID(memID);
 		actRegisVO.setActID(actID);
-		actRegisVO.setRegisTime(regisTime);
 		actRegisVO.setActNum(actNum);
 		actRegisVO.setActFee(actFee);
 		actRegisVO.setFeeStatus(feeStatus);

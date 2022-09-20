@@ -11,7 +11,7 @@
     pageContext.setAttribute("list",list);
 %>
 
-<%@include file="/backend/bkhead.jsp"%>
+
 <html>
 <head>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -44,6 +44,7 @@
 
 </head>
 <body>
+<%@include file="/backend/bkhead.jsp"%>
 	<div>
 		<table>
 			<tr>
@@ -83,6 +84,6 @@
 		</table>
 	</div>
 
+<%@include file="/backend/bkfoot.jsp"%>
 </body>
 </html>
-<%@include file="/backend/bkfoot.jsp"%>

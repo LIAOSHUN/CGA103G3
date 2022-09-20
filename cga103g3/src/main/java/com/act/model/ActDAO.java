@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -213,8 +214,7 @@ public class ActDAO implements ActDAO_interface {
 			// 將auto commit解除
 			con.setAutoCommit(false);
 
-			String cols[] = { "ActID" };
-			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt = con.prepareStatement(INSERT_STMT, Statement.RETURN_GENERATED_KEYS);	// Statement.RETURN_GENERATED_KEYS綁定主鍵
 			pstmt.setInt(1, actVO.getStoreID());
 			pstmt.setString(2, actVO.getActTitle());
 			pstmt.setString(3, actVO.getActDescription());

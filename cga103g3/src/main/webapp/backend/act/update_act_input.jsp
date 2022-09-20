@@ -13,20 +13,20 @@ ActVO actVO = (ActVO) request.getAttribute("actVO"); //ActServlet.java (Concroll
 
 <style>
 .container_main {
-    padding-top: 100px;
-    position: absolute;
+    padding-top: 30px;
+/*     position: absolute; */
 }
 h3 {
-	margin: 0px 300px;
+	padding-left: 30px;
 }
 table {
-	width: 950px;
+	width: 945px;
 	background-color: white;
 	margin-bottom: 5px;
 	line-height: 25px;
 	position:absolute;
 	margin-top: 10px;
-	margin-left: 287px;
+	margin-left: 30px;
 }
 
 table, th, td {
@@ -48,6 +48,7 @@ td {
 
 </head>
 <body bgcolor='white'>
+	<%@include file="/backend/bkhead.jsp"%>
 	<div class="container_main">
 
 	<h3>資料修改:</h3>
@@ -144,7 +145,7 @@ td {
 			</tr>
 			<tr></tr>
 		</table>
-		<div style="position: relative; padding-top: 670px; padding-left:300px">
+		<div style="position: relative; padding-top: 670px; padding-left:30px">
 			<br> <input type="hidden" name="action" value="update"> 
 			<input type="hidden" name="actRegistration" value="<%=actVO.getActRegistration()%>" />
 			<input type="hidden" name="actID" value="<%=actVO.getActID()%>">
@@ -152,7 +153,7 @@ td {
 		</div>
 	</FORM>
 	</div>
-	<%@ include file="/backend/backendhead.jsp" %>
+	<%@include file="/backend/bkfoot.jsp"%>
 </body>
 
 
