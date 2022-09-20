@@ -45,7 +45,7 @@
   	width: 10px;
   	
   	justify-content: center;
-	-ms-align-items: center;
+	-ms-align-items: center; 
 	align-items: center;
 	font-family: Poppins-Medium;
 	
