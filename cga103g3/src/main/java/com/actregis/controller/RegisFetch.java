@@ -10,11 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.actregis.model.ActRegisService;
 import com.actregis.model.ActRegisVO;
-import com.bookingorder.model.BookingOrdService;
-import com.bookingorder.model.BookingOrderVO;
 
-
-import static com.core.utils.JSONTrans.*;
+import static com.core.utils.JSONTransTime.*;
 
 @WebServlet("/RegisFetch")
 public class RegisFetch extends HttpServlet {

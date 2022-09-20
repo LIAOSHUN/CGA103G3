@@ -138,7 +138,7 @@
 	        method: 'POST',
 	        headers: { 'Content-Type': 'application/json' },
 	        body: JSON.stringify({
-// 	        	memID: ${memID},
+	        	memID: ${memID},
 	        	actID: ${actVO.actID},
 	            actNum: actNum.value,
 	            actFee: actFee.textContent
