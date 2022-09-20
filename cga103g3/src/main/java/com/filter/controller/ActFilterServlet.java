@@ -51,7 +51,7 @@ public class ActFilterServlet extends HttpFilter implements Filter {
 //		session.setAttribute("actID", actID);
 //		session.setAttribute("action", showActForRegis);
 		// 跳轉到登入頁面
-		res.sendRedirect("/cga103g3/member/memberLogin.jsp");
+		res.sendRedirect("../member/memberLogin.jsp");
 		return;
 		} else {
 		// 已經登入,繼續此次請求
