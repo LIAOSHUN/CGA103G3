@@ -8,6 +8,8 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.*;
 
 import com.employee.model.*;
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
 @MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 
 public class EmployeeServlet extends HttpServlet {
@@ -22,7 +24,8 @@ public class EmployeeServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		
+		HttpSession session = req.getSession();
+
 		
 		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
@@ -39,7 +42,7 @@ public class EmployeeServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/emp/select_page.jsp");
+							.getRequestDispatcher("/backend/employee/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -53,7 +56,7 @@ public class EmployeeServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/employee/select_page.jsp");
+							.getRequestDispatcher("/backend/employee/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
@@ -67,14 +70,14 @@ public class EmployeeServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/employee/select_page.jsp");
+							.getRequestDispatcher("/backend/employee/select_page.jsp");
 					failureView.forward(req, res);
 					return;//程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("employeeVO", employeeVO); // 資料庫取出的empVO物件,存入req
-				String url = "/employee/listOneEmployee.jsp";
+				String url = "/backend/employee/listOneEmployee.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 				successView.forward(req, res);
 		}
@@ -96,7 +99,7 @@ public class EmployeeServlet extends HttpServlet {
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("employeeVO", employeeVO);         // 資料庫取出的empVO物件,存入req
-				String url = "/employee/update_employee_input.jsp";
+				String url = "/backend/employee/update_employee_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
 		}
@@ -174,7 +177,7 @@ public class EmployeeServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("employeeVO", employeeVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/employee/update_employee_input.jsp");
+							.getRequestDispatcher("/backend/employee/update_employee_input.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -186,7 +189,7 @@ public class EmployeeServlet extends HttpServlet {
 				
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("employeeVO", employeeVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/employee/listOneEmployee.jsp";
+				String url = "/backend/employee/listOneEmployee.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 		}
@@ -269,7 +272,7 @@ public class EmployeeServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("employeeVO", employeeVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/employee/addEmployee.jsp");
+							.getRequestDispatcher("/backend/employee/addEmployee.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -280,7 +283,7 @@ public class EmployeeServlet extends HttpServlet {
 						empHireDate,empStatus);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/employee/listAllEmployee.jsp";
+				String url = "/backend/employee/listAllEmployee.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 		}
@@ -301,12 +304,109 @@ public class EmployeeServlet extends HttpServlet {
 				employeeSvc.deleteEmployee(empID);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/employee/listAllEmployee.jsp";
+				String url = "/backend/employee/listAllEmployee.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 		}
 	
 	
+		
+		
+		
+		/**********************************登入***********************************************************************************/
+		
+		if ("employeeLogin".equals(action)) {
+			
+			List<String> errorMsgs = new LinkedList<String>();
+
+//			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			
+			
+		    String empAccount = req.getParameter("empAccount");
+		    String empPassWord = req.getParameter("empPassWord");
+
+		    // 【檢查該帳號 , 密碼是否有效】
+			if (empAccount == null || (empAccount.trim()).length() == 0) {
+				errorMsgs.add("請輸入會員帳號");
+			}
+			if (empPassWord == null || (empPassWord.trim()).length() == 0) {
+				errorMsgs.add("請輸入會員密碼");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/employee/employeeLogin.jsp");
+				failureView.forward(req, res);
+				return;//程式中斷
+			}
+			
+			
+			/***************************2.開始查詢資料*****************************************/
+			EmployeeService employeeSvc = new EmployeeService();
+//			Mem_VO memVO = memSvc.getOneMem(mem_no);
+		   EmployeeVO admin = employeeSvc.EmployeeLogin(empAccount, empPassWord);
+
+			if (admin == null ) {
+				errorMsgs.add("帳號或密碼輸入錯誤");
+			}
+			// Send the use back to the form, if there were errors
+			if (!errorMsgs.isEmpty()) {
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/backend/employee/employeeLogin.jsp");
+				failureView.forward(req, res);
+				
+				return;//程式中斷
+			}
+			/*******************************************************************************************/
+			EmployeeVO admin1 = employeeSvc.EmployeeFindempID(empAccount);
+			req.setAttribute("employeeVO", admin); // 資料庫取出的empVO物件,存入req
+
+			
+			
+			
+			/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+			session.setAttribute("empID", admin1.getEmpID());
+
+			
+			
+			System.out.println(req.getSession().getAttribute("empID"));      //測試Session
+
+//			String location=(String)session.getAttribute("location");
+//			res.sendRedirect(location);
+			
+			String url = "/backend/employee/listOneEmployee.jsp"; 
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+			successView.forward(req, res);
+
+		}
+		/**********************************************************************************************************************/
+
+		
+
+		
+		/**********************************登出*******************************************************************************/
+		
+		if ("employeeLogout".equals(action)) {
+			session.removeAttribute("admin");
+			String url = "/backend/employee/employeeLogin.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
+			successView.forward(req, res);
+		}
+
+		
+		/**********************************************************************************************************************/
+
+		
+		
+		
+		
+		
+		
+		
 	
 	
 	}

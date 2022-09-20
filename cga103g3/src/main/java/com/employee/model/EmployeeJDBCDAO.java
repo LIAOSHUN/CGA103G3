@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.member.model.MemberVO;
+
 public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 
 	private static final String INSERT_STMT = 
@@ -25,6 +27,8 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 			"DELETE FROM employee where EmpID = ?";
 		private static final String UPDATE = 
 			"UPDATE employee set EmpName=?,EmpPhone=?,EmpAvatar=?,EmpAccount=?,EmpPassword=?,EmpHiredate=?,EmpStatus=? where EmpID = ?";
+		private static final String EmployeeLogin = "SELECT EmpAccount ,EmpPassWord FROM Employee WHERE EmpAccount=? and EmpPassWord=?";
+	    private static final String EmployeeFindempID = "SELECT empID  FROM employee WHERE empAccount=?";
 
 	
 	
@@ -349,5 +353,124 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 //			System.out.println();
 //		}
 //	
+	}
+
+	@Override
+	public EmployeeVO EmployeeLogin(String empAccount, String empPassWord) {
+		EmployeeVO EmpVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(URL, USERNAME,PASSWORD);
+			pstmt = con.prepareStatement(EmployeeLogin);
+
+			pstmt.setString(1, empAccount);
+			pstmt.setString(2, empPassWord);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVo 也稱為 Domain objects
+				EmpVO = new EmployeeVO();
+				EmpVO.setEmpAccount(rs.getString("empAccount"));
+				EmpVO.setEmpPassWord(rs.getString("empPassWord"));
+			}
+				
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return EmpVO;	}
+
+	@Override
+	public EmployeeVO EmployeeFindempID(String empAccount) {
+		// TODO Auto-generated method stub
+
+		EmployeeVO employeeVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			pstmt = con.prepareStatement(EmployeeFindempID);
+
+			pstmt.setString(1, empAccount);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+
+				employeeVO = new EmployeeVO();
+				employeeVO.setEmpID(rs.getInt("empID"));
+
+
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return employeeVO;
 	}
 }
