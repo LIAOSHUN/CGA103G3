@@ -7,7 +7,7 @@
 <jsp:useBean id="actSvc" scope="page" class="com.act.model.ActService" />
 <%
 	actVO = (ActVO) request.getAttribute("actVO");
-	Integer memID = (Integer)session.getAttribute("MemID");
+	Integer memID = (Integer)session.getAttribute("memID");
 %>
 <!DOCTYPE html>
 <html>
@@ -134,6 +134,7 @@
 	        method: 'POST',
 	        headers: { 'Content-Type': 'application/json' },
 	        body: JSON.stringify({
+// 	        	memID: ${memID},
 	        	actID: ${actVO.actID},
 	            actNum: actNum.value,
 	            actFee: actFee.textContent

@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebFilter(filterName = "ActFilterServlet", 
-servletNames = "RegisFetch")
-//urlPatterns = {"/frontend/actregis/*"})
-public class ActFilterServlet extends HttpFilter implements Filter {
+servletNames = "RegisFetch",
+urlPatterns = {"/frontend/actregis/*"})
+public class ActFilterServlet implements Filter {
    
 	private FilterConfig config;
 
