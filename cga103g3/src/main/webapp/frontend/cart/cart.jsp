@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>cart.jsp</title>
+<title>cart.jsp</title> 
 <style>
   
     table {
