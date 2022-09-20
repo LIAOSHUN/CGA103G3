@@ -1,9 +1,13 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.product.model.*"%>
+<%@ page import="com.producttype.model.*"%>
+
 
 <%
 ProductVO productVO = (ProductVO) request.getAttribute("productVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
+ProductTypeVO productTypeVO = (ProductTypeVO) request.getAttribute("productTypeVO");
+
 %>
 
 <html>
@@ -76,6 +80,11 @@ ProductVO productVO = (ProductVO) request.getAttribute("productVO"); //EmpServle
 	<tr>
 		<td>遊戲名稱:</td>
 		<td><input type="TEXT" name="pdName" size="45" value="<%=productVO.getPdName()%>" /></td>
+	</tr>
+	
+	<tr>
+		<td>遊戲種類:</td>
+		<td><input type="TEXT" name="pdTypeID" size="45" value="<%=productVO.getPdTypeID()%>" /></td>
 	</tr>
 	
 	<tr>

@@ -29,6 +29,8 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 			"UPDATE product set PdName=?,pdTypeID=?, PdPrice=?, PdAmount=?, PdDescription=?, PdStatus=?, PdStar=? where PdID = ?";
 		private static final String GET_ALL_UP = 
 				"SELECT PdID,PdName,pdTypeID,PdPrice,PdAmount,PdDescription,PdStatus,PdStar,PdUpdate FROM product where PdStatus=1 order by PdUpdate desc";
+		private static final String GET_TYPE = 
+				"SELECT PdID,PdName,pdTypeID,PdPrice,PdAmount,PdDescription,PdStatus,PdStar,PdUpdate FROM product where PdStatus=1 and pdTypeID=? order by PdUpdate desc";
 
 	@Override
 	public void insert(ProductVO productVO) {
@@ -473,6 +475,75 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 		return list;
 	}
 	
+	@Override
+	public List<ProductVO> getType(Integer pdTypeID) {
+		List<ProductVO> list = new ArrayList<ProductVO>();
+		ProductVO productVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_TYPE);
+			
+			pstmt.setInt(1, pdTypeID);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				// empVO �]�٬� Domain objects
+				productVO = new ProductVO();
+				productVO.setPdID(rs.getInt("pdID"));
+				productVO.setPdName(rs.getString("pdName"));
+				productVO.setPdTypeID(rs.getInt("pdTypeID"));
+				productVO.setPdPrice(rs.getInt("pdPrice"));
+				productVO.setPdAmount(rs.getInt("pdAmount"));
+				productVO.setPdDescription(rs.getString("pdDescription"));
+				productVO.setPdStatus(rs.getInt("pdStatus"));
+				productVO.setPdStar(rs.getInt("pdStar"));
+				productVO.setPdUpdate(rs.getTimestamp("pdUpdate"));
+				list.add(productVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
 	
 	
 	
@@ -571,7 +642,20 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 //			System.out.println(aproduct.getPdUpdate());
 //			System.out.println();
 //		}
-		List<ProductVO> list = dao.getUp();
+//		List<ProductVO> list = dao.getUp();
+//		for (ProductVO aproduct : list) {
+//			System.out.print(aproduct.getPdID() + ",");
+//			System.out.print(aproduct.getPdName() + ",");
+//			System.out.print(aproduct.getPdTypeID() + ",");
+//			System.out.print(aproduct.getPdPrice() + ",");
+//			System.out.print(aproduct.getPdAmount() + ",");
+//			System.out.print(aproduct.getPdDescription() + ",");
+//			System.out.print(aproduct.getPdStatus() + ",");
+//			System.out.print(aproduct.getPdStar());
+//			System.out.println(aproduct.getPdUpdate());
+//			System.out.println();
+//		}
+		List<ProductVO> list = dao.getType(41001);
 		for (ProductVO aproduct : list) {
 			System.out.print(aproduct.getPdID() + ",");
 			System.out.print(aproduct.getPdName() + ",");
