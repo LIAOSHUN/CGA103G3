@@ -273,7 +273,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>EmployeeServlet</servlet-name>
-		<url-pattern>backend/employee/employee.do</url-pattern>
+		<url-pattern>/backend/employee/employee.do</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>MemberServlet</servlet-name>
@@ -281,7 +281,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>MemberServlet</servlet-name>
-		<url-pattern>frontend/member/member.do</url-pattern>
+		<url-pattern>/frontend/member/member.do</url-pattern>
 	</servlet-mapping>
 
 </web-app>
