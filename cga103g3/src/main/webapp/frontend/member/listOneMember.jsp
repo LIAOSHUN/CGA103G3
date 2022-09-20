@@ -4,7 +4,7 @@
 
 <%
 MemberService memSVC = new MemberService();
-MemberVO memberVO=memSVC.getOneMember((Integer)(session.getAttribute("memID")));
+MemberVO memberVO = memSVC.getOneMember((Integer) (session.getAttribute("memID")));
 %>
 <%@include file="/frontend/frontendhead.jsp"%>
 
@@ -58,8 +58,8 @@ th, td {
 			<td>
 				<h3>會員資料 - ListOneMember.jsp</h3>
 				<h4>
-					<a href="../index.jsp"><img src="images/back1.gif"
-						width="100" height="32" border="0">回首頁</a>
+					<a href="../index.jsp"><img src="images/back1.gif" width="100"
+						height="32" border="0">回首頁</a>
 				</h4>
 			</td>
 		</tr>
@@ -80,6 +80,8 @@ th, td {
 			<th>證明</th>
 			<th>違規記點</th>
 			<th>狀態</th>
+			<th>修改</th>
+
 		</tr>
 		<tr>
 			<td><%=memberVO.getMemID()%></td>
@@ -94,7 +96,15 @@ th, td {
 			<td><%=memberVO.getMemBirthday()%></td>
 			<td><%=memberVO.getMemCard()%></td>
 			<td><%=memberVO.getMemStatus()%></td>
-
+			<td>
+				<FORM METHOD="post"
+					ACTION="<%=request.getContextPath()%>/frontend/member/member.do"
+					style="margin-bottom: 0px;">
+					<input type="submit" value="修改"> <input type="hidden"
+						name="memID" value="${memberVO.memID}"> <input
+						type="hidden" name="action" value="getOne_For_Update">
+				</FORM>
+			</td>
 		</tr>
 	</table>
 
