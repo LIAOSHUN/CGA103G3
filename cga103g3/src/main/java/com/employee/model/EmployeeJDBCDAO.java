@@ -36,6 +36,7 @@ public class EmployeeJDBCDAO implements EmployeeDAO_interface {
 	
 	@Override
 	public void insert(EmployeeVO employeeVO) {
+		
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
