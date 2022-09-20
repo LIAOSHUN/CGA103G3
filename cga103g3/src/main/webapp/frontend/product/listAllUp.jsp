@@ -120,7 +120,7 @@ pageContext.setAttribute("list2", list2);
 
 										<td>
 											<FORM METHOD="post"
-												ACTION="<%=request.getContextPath()%>/backend/product/product.do">
+												ACTION="<%=request.getContextPath()%>/product/ProductServlet">
 												<input type="hidden" name="pdID" value="${productVO.pdID}">
 												
 												
