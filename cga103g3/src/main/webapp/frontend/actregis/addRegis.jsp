@@ -7,6 +7,7 @@
 <jsp:useBean id="actSvc" scope="page" class="com.act.model.ActService" />
 <%
 	actVO = (ActVO) request.getAttribute("actVO");
+	Integer memID = (Integer)session.getAttribute("MemID");
 %>
 <!DOCTYPE html>
 <html>
@@ -95,7 +96,7 @@
 			<table style="left: 150px;">
 				<tr style="line-height: 2.7;">
 					<td>
-						<a href="<%=request.getContextPath()%>/ActRegisServlet?actID=${actVO.actID}&action=insert">
+						<a href="<%=request.getContextPath()%>/ActRegisServlet?actID=${actVO.actID}&action=insert" id="forRegis">
 							<button class="btnn btn-info btnToConfirm">確 認 報 名</button>
 						</a>
 					</td>					
@@ -123,6 +124,7 @@
 	document.querySelector('#actNum').onchange = function() {
 		document.querySelector('#fee').innerHTML = document.querySelector('#actNum').value * ${actVO.actFee} + ' 元';
 	}
+	
 </script>
 </body>
 </html>

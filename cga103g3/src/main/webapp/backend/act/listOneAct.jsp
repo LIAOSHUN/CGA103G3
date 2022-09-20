@@ -21,12 +21,12 @@
 
 <style>
 h3 {
-	margin: 0px 300px;
+	margin: 0px 30px;
 }
 table {
-	width: 925px;
+	width: 945px;
 	background-color: white;
-	margin: 20px 300px 50px;
+	margin: 0px 30px 50px;
 	line-height: 25px;		/*表格行高固定*/
 /* 		table-layout:fixed;		/*表格寬度固定*/ */
 	text-align: center;
@@ -46,7 +46,8 @@ th, td {
 
 </head>
 <body>
-	<table style="margin-top: 100px">
+<%@include file="/backend/bkhead.jsp"%>
+	<table style="margin-top: 50px">
 		<tr>
 				<th>活動編號</th>
 				<th>店面</th>
@@ -68,8 +69,8 @@ th, td {
 					<td><c:if test="${actVO.dateNum == '14' }">下午場<br>(14:00~17:00)</c:if>
 						<c:if test="${actVO.dateNum == '18' }">晚場<br>(18:00~21:00)</c:if>
 					</td>
-					<td>${actVO.regisMax}</td>
-					<td>${actVO.actRegistration}</td>
+					<td>${actVO.regisMax} 人</td>
+					<td>${actVO.actRegistration} 人</td>
 					<td><c:if test="${actVO.actStatus == '0' }">0：活動中止</c:if>
 						<c:if test="${actVO.actStatus == '1' }">1：報名中</c:if>
 						<c:if test="${actVO.actStatus == '2' }">2：額滿截止</c:if>
@@ -97,8 +98,8 @@ th, td {
 				<td>${actRegisVO.memberVO.memAccount}</td>
 				<td>${actRegisVO.memberVO.memName}</td>
 				<td>${actRegisVO.memberVO.memPh}</td>
-				<td>${actRegisVO.actNum}</td>
-				<td>${actRegisVO.actFee}</td>
+				<td>${actRegisVO.actNum} 人</td>
+				<td>${actRegisVO.actFee} 元</td>
 			</tr>
 		</c:forEach>
 	</table>
@@ -125,8 +126,7 @@ th, td {
 		</c:forEach>
 		</c:if>
 	</table>
-	
-	<%@ include file="/backend/backendhead.jsp" %>
+
 	<script>
 	$(document).ready(function(){
 	    $(".update").mouseup(function (e) {
@@ -137,5 +137,6 @@ th, td {
 		});			
 	})
 	</script>
+	<%@include file="/backend/bkfoot.jsp"%>
 </body>
 </html>

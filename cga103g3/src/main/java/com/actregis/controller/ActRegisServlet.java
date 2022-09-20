@@ -256,15 +256,15 @@ public class ActRegisServlet extends HttpServlet {
         if ("insert".equals(action)) { // 來自addActRegis.jsp的請求  
         	
         	HttpSession session = req.getSession();
-    		MemberVO memVO = (MemberVO) (session.getAttribute("memVO"));
+        	
 			
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 				/***********************1.接收請求參數 - 輸入格式的錯誤處理*************************/
-			Integer memID = memVO.getMemID();
+			
+			Integer memID = (Integer) (session.getAttribute("memID"));
 			Integer actID = Integer.valueOf(req.getParameter("actID").trim());
-			LocalDateTime regisTime = LocalDateTime.parse(req.getParameter("regisTime").trim(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 			Integer actNum = Integer.valueOf(req.getParameter("actNum").trim());
 			
 			Integer actFee = null;
@@ -295,7 +295,7 @@ public class ActRegisServlet extends HttpServlet {
 				
 				/***************************2.開始新增資料***************************************/
 				ActRegisService actRegisSvc = new ActRegisService();
-				actRegisSvc.addActRegis(memID, actID, regisTime, actNum, actFee, feeStatus, regisStatus);
+				actRegisSvc.addActRegis(memID, actID, actNum, actFee, feeStatus, regisStatus);
 				ActService actSvc = new ActService();
 				ActVO actVO = actSvc.updateActRegistration(actRegistration);
 				

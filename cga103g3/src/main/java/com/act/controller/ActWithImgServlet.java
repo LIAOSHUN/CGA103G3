@@ -113,20 +113,19 @@ public class ActWithImgServlet extends HttpServlet {
 //			ArticleService articleSvc = new ArticleService();
 //			String getCheck = articleSvc.insertWithPic(articleVO, articlePictureVO);
 //			=========================================================================
-			// 測試多張圖片
+			// 多張圖片
 			Collection<Part> parts = req.getParts();
-			List<ActImgVO> list = new ArrayList<ActImgVO>();
-
-			byte[] actImgFile = null;
+			List<ActImgVO> imglist = new ArrayList<ActImgVO>();
+			
 			for (Part part : parts) {
 				if (part.getContentType() != null && part.getContentType().contains("image/")) {
 					InputStream in = part.getInputStream();
-					actImgFile = new byte[in.available()];
+					byte[] actImgFile = new byte[in.available()];
 					in.read(actImgFile);
 					in.close();
 					ActImgVO actImgVO = new ActImgVO();
 					actImgVO.setActImgFile(actImgFile);
-					list.add(actImgVO);
+					imglist.add(actImgVO);
 				}
 			}
 			if (!errorMsgs.isEmpty()) {
@@ -138,7 +137,7 @@ public class ActWithImgServlet extends HttpServlet {
 			
 			/***************************2.開始新增訂單***************************************/
 			ActService actSvc = new ActService();
-			actSvc.insertWithActImgs(actVO, list);
+			actSvc.insertWithActImgs(actVO, imglist);
 			/***************************3.新增完成,準備轉交(Send the Success view)***********/
 
 				// 新增成功後跳轉列表

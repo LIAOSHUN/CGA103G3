@@ -7,7 +7,10 @@
 <%
 ActVO actVO = (ActVO) request.getAttribute("actVO");
 %>
+
 <html>
+<link href='https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css' rel='stylesheet'></link>
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC&amp;display=swap" rel="stylesheet">
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <title>活動新增 - addAct.jsp</title>
@@ -18,16 +21,16 @@ ActVO actVO = (ActVO) request.getAttribute("actVO");
     position: absolute;
 }
 h3 {
-	margin: 0px 300px;
+	margin-left: 30px;
 }
 table {
-	width: 950px;
+	width: 960px;
 	background-color: white;
 	margin-bottom: 5px;
 	line-height: 25px;
 	position:absolute;
 	margin-top: 10px;
-	margin-left: 287px;
+	margin-left: 30px;
 }
 
 table, th, td {
@@ -45,24 +48,38 @@ th, td {
 td {
 	text-align: left !important;
 }
+img.preview{
+	width: 300px;
+}
+.picture_list {
+	list-style: none;
+	margin-top: 1rem !important;
+    margin-bottom: 1rem !important;
+    padding-left: 10px !important;
+}
+ul > li{
+	display: inline-block;
+	vertical-align: top;
+}
 </style>
 
 </head>
 <body bgcolor='white'>
+	<%@include file="/backend/bkhead.jsp"%>
 	<div class="container_main">
 	<h3>活動新增:</h3>
 
 	<%-- 錯誤表列 --%>
 	<c:if test="${not empty errorMsgs}">
-		<font style="color: red; font-weight: bold" >請修正以下錯誤：</font>
+		<font style="color: red; font-weight: bold; padding-left: 30px; font-size: 20px" >請修正以下錯誤：</font>
 		<ul>
 			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
+				<li style="color: red">${message}</li><br>
 			</c:forEach>
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="act.do" name="form1">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ActWithImgServlet" name="form1" enctype="multipart/form-data">
 		<table class="main_table">
 		<tr><td></td></tr>
 			<tr>
@@ -123,14 +140,19 @@ td {
 			</tr>
 			<tr></tr>
 		</table>
-		<div style="position: relative; padding-top: 600px; padding-left:300px">
+		<div style="position: relative; padding-top: 600px; padding-left:35px">
 			<br> <input type="hidden" name="action" value="insert"> 
 			<input type="hidden" name="actRegistration"	value="<%= (actVO==null)? "0" : actVO.getActRegistration()%>" />
+			<label class="btn btn-info">
+		      <input id="phfile" style="display:none;" type="file" accept="image/*" name="actImgFile" multiple>
+		      <i class="fa fa-photo"></i> 上傳圖片
+		    </label>
+		    <ul class="picture_list"></ul>
 			<input class="submit" type="submit" value="送出新增">
 		</div>
 	</FORM>
 	</div>
-	<%@ include file="/backend/backendhead.jsp" %>
+	<%@include file="/backend/bkfoot.jsp"%>
 </body>
 
 
@@ -148,14 +170,19 @@ td {
 }
 
 .xdsoft_datetimepicker .xdsoft_timepicker {
-	height: 151px; /* height:  151px; */
+	height: 200px; /* height:  151px; */
+}
+.xdsoft_datetimepicker .xdsoft_calendar table{
+	width: 78% !important;
+	text-align: center !important;
 }
  .xdsoft_time_box{
- 	height: 127px !important;
+ 	height: 130px !important;
  }
 </style>
-
+<script src="../act/js/addAct.js"></script>
 <script>
+
 $.datetimepicker.setLocale('zh'); // kr ko ja en
 $(function(){
 	 $('#act_date1').datetimepicker({
