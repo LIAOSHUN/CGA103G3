@@ -26,6 +26,11 @@ public class ProductFavoriteVO implements java.io.Serializable {
 	public void setPdFavDate(Timestamp pdFavDate) {
 		this.pdFavDate = pdFavDate;
 	}
+	public com.product.model.ProductVO getProductVO() {
+	    com.product.model.ProductService productSvc = new com.product.model.ProductService();
+	    com.product.model.ProductVO productVO = productSvc.getOneProduct(pdID);
+	    return productVO;
+    }
 	
 	}
 

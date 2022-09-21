@@ -25,6 +25,62 @@ pageContext.setAttribute("list2", list2);
 <head>
 <title>絆桌</title>
 <script src="node_modules/tablefilter/dist/tablefilter/tablefilter.js"></script>
+<style>
+		.ratings {
+		position: relative;
+		vertical-align: middle;
+		display: inline-block;
+		color: #ddd; /*背景星星顏色*/
+		overflow: hidden;
+		font-size: 20px; /*調整字體大小可放大縮小星星*/
+		text-shadow: 0px 1px 0 #999;
+		}
+		.star5 {
+		width: 100%; /*調整寬度可變更星等*/
+		position: absolute;
+		left: 0;
+		top: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		color: #D56A16; /*前景星星顏色*/
+		}
+		.star1 {
+		width: 20%; /*調整寬度可變更星等*/
+		position: absolute;
+		left: 0;
+		top: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		color: #D56A16; /*前景星星顏色*/
+		}
+		.star2 {
+		width: 40%; /*調整寬度可變更星等*/
+		position: absolute;
+		left: 0;
+		top: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		color: #D56A16; /*前景星星顏色*/
+		}
+		.star3 {
+		width: 60%; /*調整寬度可變更星等*/
+		position: absolute;
+		left: 0;
+		top: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		color: #D56A16; /*前景星星顏色*/
+		}
+		.star4 {
+		width: 80%; /*調整寬度可變更星等*/
+		position: absolute;
+		left: 0;
+		top: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		color: #D56A16; /*前景星星顏色*/
+		}
+		</style>
 </head>
 <body>
 
@@ -38,7 +94,7 @@ pageContext.setAttribute("list2", list2);
 						data-filter="*" style="font-size: 20px;">所有桌遊</button>
 
 					<c:forEach var="productTypeVO" items="${list2}">
-						<FORM METHOD="post" ACTION="/cga103g3/product/ShowProductType">
+						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/product/ShowProductType">
 							<button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 " 
 							data-filter=".${productTypeVO.pdTypeName}"
 							style="font-size: 20px;">${productTypeVO.pdTypeName}
@@ -111,16 +167,19 @@ pageContext.setAttribute("list2", list2);
 														width=80% alt="IMG">
 												</div>
 											</c:forEach></td>
-										<td style="font-size: 20px;"><b>${productVO.pdName}</b></td>
+										<td style="font-size: 20px;"><b>${productVO.pdName}</b><br><div class="ratings">
+											<div class="empty_star">★★★★★</div>
+											<div class=" star${productVO.pdStar} "  >★★★★★</div>
+											</div></td>
 										<td style="font-size: 20px;"><b>${productVO.productTypeVO.pdTypeName}</b></td>
-										<td style="font-size: 20px;"><b>${productVO.pdPrice}</b></td>
+										<td style="font-size: 20px;"><b>${productVO.pdPrice}元</b></td>
 										<td style="width: 30%; font-size: 18px;"><b>${productVO.pdDescription}</b></td>
 										<td>&emsp;</td>
 										<td>&emsp;</td>
 
 										<td>
 											<FORM METHOD="post"
-												ACTION="<%=request.getContextPath()%>/product/ProductServlet">
+												ACTION="<%=request.getContextPath()%>/frontend/product/ProductServlet">
 												<input type="hidden" name="pdID" value="${productVO.pdID}">
 												
 												

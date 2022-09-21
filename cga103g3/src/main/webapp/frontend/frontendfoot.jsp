@@ -191,7 +191,7 @@
 
 
 
-				swal(nameProduct, "is added to wishlist !", "success");
+				swal(nameProduct, "已加入收藏 !", "success");
 
 				$(this).addClass('js-addedwish-detail');
 				}
