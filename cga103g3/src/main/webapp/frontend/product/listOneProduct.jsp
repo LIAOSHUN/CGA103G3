@@ -19,6 +19,67 @@ pageContext.setAttribute("list1", list1);
 <head>
 <title>絆桌</title>
 <style>
+.ratings {
+	position: relative;
+	vertical-align: middle;
+	display: inline-block;
+	color: #ddd; /*背景星星顏色*/
+	overflow: hidden;
+	font-size: 20px; /*調整字體大小可放大縮小星星*/
+	text-shadow: 0px 1px 0 #999;
+}
+
+.star5 {
+	width: 100%; /*調整寬度可變更星等*/
+	position: absolute;
+	left: 0;
+	top: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	color: #D56A16; /*前景星星顏色*/
+}
+
+.star1 {
+	width: 20%; /*調整寬度可變更星等*/
+	position: absolute;
+	left: 0;
+	top: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	color: #D56A16; /*前景星星顏色*/
+}
+
+.star2 {
+	width: 40%; /*調整寬度可變更星等*/
+	position: absolute;
+	left: 0;
+	top: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	color: #D56A16; /*前景星星顏色*/
+}
+
+.star3 {
+	width: 60%; /*調整寬度可變更星等*/
+	position: absolute;
+	left: 0;
+	top: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	color: #D56A16; /*前景星星顏色*/
+}
+
+.star4 {
+	width: 80%; /*調整寬度可變更星等*/
+	position: absolute;
+	left: 0;
+	top: 0;
+	white-space: nowrap;
+	overflow: hidden;
+	color: #D56A16; /*前景星星顏色*/
+}
+</style>
+<style>
 .hov-btn666:hover {
 	border-color: #72c2bd;
 	background-color: #72c2bd;
@@ -68,9 +129,14 @@ pageContext.setAttribute("list1", list1);
 				<div class="col-md-6 col-lg-5 p-b-30">
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
 						<h4 class="mtext-105 cl2 js-name-detail p-b-14"><%=productVO.getPdName()%></h4>
-
-						<span class="mtext-106 cl2"> $58.79 </span> <br> <br> <strong
-							class="mtext-106" style="font-size: 15px;"> 剩餘數量:<%=productVO.getPdPrice()%>
+						<div class="ratings">
+							<div class="empty_star">★★★★★</div>
+							<div class=" star${productVO.pdStar} ">★★★★★</div>
+						</div>
+						<br> <br>  <span class="mtext-106 cl2">
+							<%=productVO.getPdPrice()%>元
+						</span> <br> <br> <strong class="mtext-106"
+							style="font-size: 15px;"> 剩餘數量:<%=productVO.getPdAmount()%>
 						</strong>
 
 						<p class="stext-102 cl3 p-t-23"><%=productVO.getPdDescription()%></p>
@@ -98,14 +164,14 @@ pageContext.setAttribute("list1", list1);
 									</div>
 
 									<input class="mtext-104 cl3 txt-center num-product"
-										type="number" name="num-product" value="1" id = "count">
+										type="number" name="num-product" value="1" id="count">
 
 									<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 										<i class="fs-16 zmdi zmdi-plus"></i>
 									</div>
 								</div>
 
-								<button id = "addCart"
+								<button id="addCart"
 									class="flex-c-m stext-101  size-101 bg1 bor1 hov-btn666 p-lr-15 trans-04 js-addcart-detail"
 									style="color: #222;">加入購物車</button>
 							</div>

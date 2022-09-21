@@ -186,7 +186,7 @@ public class ProductFavoriteJDBCDAO implements ProductFavoriteDAO_interface {
 		// �s�W
 		ProductFavoriteVO productFavoriteVO1 = new ProductFavoriteVO();
 		productFavoriteVO1.setMemID(11001);
-		productFavoriteVO1.setPdID(21018);
+		productFavoriteVO1.setPdID(21009);
 
 		dao.insert(productFavoriteVO1);
 

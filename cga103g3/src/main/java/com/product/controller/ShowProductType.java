@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.product.model.ProductService;
 import com.product.model.ProductVO;
-@WebServlet("/product/ShowProductType")
+@WebServlet({"/product/ShowProductType","/frontend/product/ShowProductType"})
 
 public class ShowProductType extends HttpServlet{
 	

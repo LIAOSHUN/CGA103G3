@@ -12,7 +12,9 @@ import javax.servlet.http.*;
 import com.product.model.*;
 import com.productimg.model.ProductImgVO;
 @MultipartConfig
-@WebServlet("/product/ProductServlet")
+@WebServlet({"/product/ProductServlet","/frontend/product/ProductServlet"})
+
+
 public class ProductServlet extends HttpServlet {
 
 	public void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
