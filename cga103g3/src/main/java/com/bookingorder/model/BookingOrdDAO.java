@@ -198,7 +198,7 @@ public class BookingOrdDAO implements BookingOrder_interface{
 				bov.setBookingID(rs.getInt("BookingID"));
 				bov.setMemID(rs.getInt("MemID"));
 				bov.setBookingDate(rs.getDate("BookingDate"));
-//				bov.setBookingStart(rs.getString("BookingStart"));
+				bov.setBookingStartValue(rs.getString("BookingStart"));
 				int start = Integer.valueOf(rs.getString("BookingStart").trim());
 				for(int i = 0;i <= start; i++) {
 					if(i == start) {
@@ -208,7 +208,7 @@ public class BookingOrdDAO implements BookingOrder_interface{
 				String bookingStart = ((start < 10)? ("0"+ start) : start) + ":00";
 				bov.setBookingStart(bookingStart);
 				
-//				bov.setBookingEnd(rs.getString("BookingEnd"));
+				bov.setBookingEndValue(rs.getString("BookingEnd"));
 				int end = Integer.valueOf(rs.getString("BookingEnd"));
 				for(int i = 0;i <= end; i++) {
 					if(i == end) {

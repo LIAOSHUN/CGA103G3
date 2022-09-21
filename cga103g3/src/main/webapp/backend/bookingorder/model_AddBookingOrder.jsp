@@ -500,7 +500,7 @@ BookingOrderVO bookingOrdVO = (BookingOrderVO) request.getAttribute("bookingOrdV
                           
                           <div>
                         	<label for="bookingNote" class="form-label">預約備註</label>
-                       		<textarea name="bookingNote" class="form-control" id="bookingNote" rows="3"></textarea>
+                       		<textarea name="bookingNote" class="form-control" id="bookingNote" rows="3">${bookingOrdVO.bookingNote}</textarea>
                       	  </div>
 
                         </div>

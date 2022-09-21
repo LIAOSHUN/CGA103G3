@@ -266,16 +266,14 @@ public class BookingOrderServlet extends HttpServlet {
 				errorMsgs.add("請輸入日期!");
 			}
 			
+			//驗證起始與結束時間
+			if(Integer.valueOf(req.getParameter("bookingStart").trim()) > Integer.valueOf(req.getParameter("bookingEnd").trim())) {
+				errorMsgs.add("訂位時間有誤，結束時間早於起始時間");
+			}
+			
 			String bookingStart = req.getParameter("bookingStart").trim();
 			
 			String bookingEnd = req.getParameter("bookingEnd").trim();
-			
-			//驗證起始與結束時間
-			Integer checkStartTime = Integer.valueOf(bookingStart);
-			Integer checkEndTime = Integer.valueOf(bookingEnd);
-			if(checkEndTime < checkStartTime) {
-				errorMsgs.add("訂位時間有誤，結束時間早於起始時間");
-			}
 			
 			String bookingNote = req.getParameter("bookingNote").trim();
 			if (bookingNote == null || (bookingNote.trim().length()) == 0) {

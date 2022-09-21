@@ -443,7 +443,7 @@ BookingOrderVO bokOrdVO = (BookingOrderVO) request.getAttribute("bokOrdVO");
                          <div class="mb-3 col-md-6">
                             <label for="bookingStart" class="form-label">預約起始時間</label>
                             <select name="bookingStart" id="bookingStart" class="select2 form-select">
-                              <option value="" selected="selected" hidden><%=bokOrdVO.getBookingStart() %></option>
+                              <option value="<%=bokOrdVO.getBookingStartValue()%>" selected="selected" hidden><%=bokOrdVO.getBookingStart() %></option>
                               <option value="0">00:00</option>
                               <option value="1">01:00</option>
                               <option value="2">02:00</option>
@@ -474,7 +474,7 @@ BookingOrderVO bokOrdVO = (BookingOrderVO) request.getAttribute("bokOrdVO");
                           <div class="mb-3 col-md-6">
                             <label for="bookingEnd" class="form-label">預約結束時間</label>
                             <select name="bookingEnd" id="bookingEnd" class="select2 form-select">
-                            <option value="" selected="selected" hidden><%=bokOrdVO.getBookingEnd() %></option>
+                            <option value="<%=bokOrdVO.getBookingEndValue()%>" selected="selected" hidden><%=bokOrdVO.getBookingEnd() %></option>
                               <option value="0">00:00</option>
                               <option value="1">01:00</option>
                               <option value="2">02:00</option>

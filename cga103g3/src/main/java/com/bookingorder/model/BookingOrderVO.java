@@ -12,6 +12,8 @@ public class BookingOrderVO implements java.io.Serializable {
 	private Integer boxID;
 	private String bookingNote;
 	private Integer bookingStatus;
+	private String bookingStartValue;
+	private String bookingEndValue;
 	// 頁面顯示
 //	private String bookingStatusShow;
 	
@@ -94,6 +96,22 @@ public class BookingOrderVO implements java.io.Serializable {
 
 	public void setBookingStatus(Integer bookingStatus) {
 		this.bookingStatus = bookingStatus;
+	}
+
+	public String getBookingStartValue() {
+		return bookingStartValue;
+	}
+
+	public void setBookingStartValue(String bookingStartValue) {
+		this.bookingStartValue = bookingStartValue;
+	}
+
+	public String getBookingEndValue() {
+		return bookingEndValue;
+	}
+
+	public void setBookingEndValue(String bookingEndValue) {
+		this.bookingEndValue = bookingEndValue;
 	}
 
 	public com.box.model.BoxVO getBoxVO() {

@@ -164,32 +164,37 @@ function bookingBtn() {
 	}
 
 	if (store.value == '選擇門市' || store.value == '') {
-		alert('未選擇門市');
+//		alert('未選擇門市');
+		swal("無效訂位", "未 選 擇 門 市", "warning");
 		return;
 	}
 
 	if (bookingDate.value == 0 || bookingDate.value == '') {
-		alert('未選擇訂位日期');
+//		alert('未選擇訂位日期');
+		swal("無效訂位", "未 選 擇 訂 位 日 期", "warning");
 		return;
 	}
 
 	if (boxSize.value == '選擇包廂' || boxSize.value.length == 0) {
-		alert('未選擇選擇包廂');
+//		alert('未選擇選擇包廂');
+		swal("無效訂位", "未 選 擇 選 擇 包 廂", "warning");
 		return;
 	}
 
 	if (bookingStart.value == '選擇時間' || bookingStart.value == 0) {
-		alert('未選擇訂位時間');
+//		alert('未選擇訂位時間');
+		swal("無效訂位", "未 選 擇 訂 位 時 間", "warning");
 		return;
 	}
 
 	if (bookingEnd.value == '選擇時間' || bookingEnd.value == 0) {
-		alert('未選擇結束時間');
+//		alert('未選擇結束時間');
+		swal("無效訂位", "未 選 擇 結 束 時 間", "warning");
 		return;
 	}
 
 	console.log(memID.value, store.value, bookingDate.value, boxSize.value, bookingStart.value, bookingEnd.value, bookingNote.value);
-	document.getElementById('form').submit();
+//	document.getElementById('form').submit();
 	// http://localhost:8081/CGA103G3_07/bookingorderfetch/bookingorder.do
 	fetch("/cga103g3/bookingorderfetch/bookingorder.do", {
 		method: 'POST',
@@ -210,6 +215,9 @@ function bookingBtn() {
 			if (response.ok) {
 			}
 		})
-	alert('訂位送出，請至信箱查收是否成功訂位!!');
-	window.location.href = "/cga103g3/frontend/booking/index.jsp";
+//	alert('訂位送出，請至信箱查收是否成功訂位!!');
+	swal("訂位送出", "請至信箱查收是否成功訂位!!", "success");
+	setTimeout(function(){
+    	window.location.href = "/cga103g3/frontend/index.jsp";
+	},5000);
 }
