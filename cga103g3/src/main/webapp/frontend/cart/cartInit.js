@@ -1,7 +1,8 @@
 function init() {
    $.ajax({
-			url: "initCart.do",
-//			url: "cart.do",
+			url: "getCart.do",
+//			url: "initCart.do",
+			url: "cart.do",
 			type: "POST",
 			data: {
 				action: "init"

@@ -71,5 +71,68 @@ public class GetCartServlet extends HttpServlet {
 		
 		
 	}
+	
+	
+	
+//	public void init(HttpServletRequest req,  HttpServletResponse res) throws ServletException {
+//		
+//		
+//		
+//		HttpSession session = req.getSession();
+//		Cookie[] cookies = req.getCookies();
+//		// 檢視user是否已經有存放cookie
+//		for (int i = 0; i < cookies.length; i++) {
+//			Cookie userCookie = cookies[i];
+//			
+//			if ("shoppingCart".equals(userCookie.getName())) {
+//				// 讓每的頁面可以透過sessionId呼叫CartService的方法
+//				
+//				System.out.println(userCookie.getValue());
+//				System.out.println("舊車");
+//				
+//				
+//				//可以讓getcart找車
+//				session.setAttribute("sessionId", userCookie.getValue());
+//				
+//				return;
+//			}
+//		}
+//		
+//		
+//		
+//		
+//		// 若未找到shoppingCart，新增cookie，並將session作為key存入Redis
+//		//cookie的key:shoppingCart value:sessionid
+//		Cookie shoppingCart = new Cookie("shoppingCart", session.getId());
+//		shoppingCart.setMaxAge(3 * 24 * 60 * 60); // 存活3天，以秒為單位
+//		shoppingCart.setHttpOnly(true); 
+//		
+//		session.setAttribute("sessionId", session.getId());
+//		res.addCookie(shoppingCart);
+//		System.out.println("初始化新車");
+//		
+//		
+//		
+//		
+//	}
+	
+//	public void service(HttpServletRequest req,  HttpServletResponse res)  throws ServletException, IOException{
+//		
+//		
+//		
+//
+//		
+//		String sessionId = (String) req.getSession().getAttribute("sessionId");//取得session的ID
+//		CartService cartSvc = new CartService();
+//		List<CartItemVO> cartItems = new ArrayList<CartItemVO>();
+//		cartItems = cartSvc.getCart(sessionId);
+//		
+//		req.setAttribute("cartItems", cartItems);
+//		String url = "/frontend/cart/cart.jsp";
+//		RequestDispatcher rd = req.getRequestDispatcher(url);
+//		rd.forward(req, res);
+//		
+//
+//	}	
 
 }

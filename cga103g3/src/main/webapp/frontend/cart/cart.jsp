@@ -139,7 +139,7 @@
 		<table class="wrap-table-shopping-cart">
     		<tr class="table_head"> 
       			<th class="column-1">遊戲名稱</th>
-<!--       			<th class="column-1">遊戲圖片</th> -->
+      			<th class="column-1">遊戲圖片</th>
       			<th class="column-3">單價</th>
       			<th class="column-4">數量</th>
       			<th class="column-5">價格</th>
@@ -157,13 +157,13 @@
 						<input class="pdID" type="checkbox" name="pdID"  value="<%=cartItem.getPdID().toString()%>" onchange="f1()">
 					</div>  
 				</td>
-<!-- 				<td class="column-1"> -->
-<!-- 					<div> -->
-<!-- 						<img -->
-<%-- 						src="<%=request.getContextPath()%>/ShowProductImg?pdID=<%=cartItem.getPdID()%>&count=1" --%>
-<!-- 						width=20% alt="IMG"> -->
-<!-- 					</div> -->
-<!-- 				</td> -->
+				<td class="column-1">
+					<div>
+						<img
+						src="<%=request.getContextPath()%>/ShowProductImg?pdID=<%=cartItem.getPdID()%>&count=1"
+						width=80px alt="IMG">
+					</div>
+				</td>
 				
 				<td class="column-3" >
 					$<span class='price'><%=cartItem.getPdPrice()%></span>
@@ -248,8 +248,8 @@
 	
 	
 	<div>
-<%-- 		<a href="<%=request.getContextPath()%>/frontend/product/listAllUp.jsp" class="flex-c-m stext-101 cl0 size-101 bg2  hov-btn3 p-lr-15 trans-04 pointer" style="color:#39ac7e;"> 前 往 商 城 繼 續 購 物</a> --%>
-		<a href="<%=request.getContextPath()%>/frontend/cart/test.jsp" class="flex-c-m stext-101 cl0 size-101 bg2  hov-btn3 p-lr-15 trans-04 pointer" style="color:#39ac7e;"> 前 往 商 城 繼 續 購 物</a>
+		<a href="<%=request.getContextPath()%>/frontend/product/listAllUp.jsp" class="flex-c-m stext-101 cl0 size-101 bg2  hov-btn3 p-lr-15 trans-04 pointer" style="color:#39ac7e;"> 前 往 商 城 繼 續 購 物</a>
+<%-- 		<a href="<%=request.getContextPath()%>/frontend/cart/test.jsp" class="flex-c-m stext-101 cl0 size-101 bg2  hov-btn3 p-lr-15 trans-04 pointer" style="color:#39ac7e;"> 前 往 商 城 繼 續 購 物</a> --%>
 	</div>
 	
 	<%@ include file="../frontendfoot.jsp" %>
