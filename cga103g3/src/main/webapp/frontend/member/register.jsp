@@ -16,10 +16,10 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 	rel="stylesheet">
 
 <!-- Bootstrap -->
-<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/frontend/booking/css/bootstrap.min.css" />
 
 <!-- Custom stlylesheet -->
-<link type="text/css" rel="stylesheet" href="css/style.css" />
+<link type="text/css" rel="stylesheet" href="<%=request.getContextPath()%>/frontend/booking/css/style.css" />
 
 <!-- Date -->
 <link rel="stylesheet"
@@ -96,18 +96,18 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 		<div class="card mb-4" style="width: 1000px; margin: 0 auto;">
 			<h5 class="card-header">會員註冊</h5>
 			<div class="card-body">
-		<%-- 錯誤表列 --%>
-		<div style="width: 1000px; margin: 0 auto;">
-			<c:if test="${not empty errorMsgs}">
-				<font style="color: red">請修正以下錯誤:</font>
-				<ul>
-					<c:forEach var="message" items="${errorMsgs}">
-						<li style="color: red">${message}</li>
-					</c:forEach>
-				</ul>
-			</c:if>
+				<%-- 錯誤表列 --%>
+				<div style="width: 1000px; margin: 0 auto;">
+					<c:if test="${not empty errorMsgs}">
+						<font style="color: red">請修正以下錯誤:</font>
+						<ul>
+							<c:forEach var="message" items="${errorMsgs}">
+								<li style="color: red">${message}</li>
+							</c:forEach>
+						</ul>
+					</c:if>
 
-		</div>
+				</div>
 				<div class="mb-3">
 					<label for="memName" class="form-label">姓名:</label> <input
 						id="memName" name="memName" type="text" class="form-control"
@@ -179,8 +179,8 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 
 
 
-				<input type="hidden" name="action" value="registerInsert"> <input
-					type="submit" value="送出">
+				<input  type="hidden" name="action"
+					value="registerInsert"> <input class="mybtn" type="submit" value="送出">
 
 
 			</div>
@@ -204,18 +204,34 @@ try {
 %>
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/frontend/member/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/frontend/member/datetimepicker/jquery.js"></script>
+<script
+	src="<%=request.getContextPath()%>/frontend/member/datetimepicker/jquery.js"></script>
 <script
 	src="<%=request.getContextPath()%>/frontend/member/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <style>
 .xdsoft_datetimepicker .xdsoft_datepicker {
-	width: 300px; 
+	width: 300px;
 }
 
 .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-	height: 151px; 
+	height: 151px;
 }
+
+
+.mybtn {
+    border-radius: 5px;
+    background-color: #242c6d;
+    border: 1px solid #242c6d;
+    color: #fff;
+    border-radius: 3px;
+    font-size: 14px;
+    cursor: pointer;
+    vertical-align: middle;
+    padding: 5px 12px;
+}
+
+
 </style>
 
 <script>
@@ -225,8 +241,8 @@ try {
 	       timepicker:false,       //timepicker:true,
 	       step: 1,                //step: 60 (這是timepicker的預設間隔60分鐘)
 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-		   value: '<%=memBirthday%>
-	', // value:   new Date(),
+		   value: '<%=memBirthday%>',
+		   // value:   new Date(),
 	});
 </script>
 
