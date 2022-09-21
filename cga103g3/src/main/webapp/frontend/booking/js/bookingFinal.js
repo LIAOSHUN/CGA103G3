@@ -211,5 +211,5 @@ function bookingBtn() {
 			}
 		})
 	alert('訂位送出，請至信箱查收是否成功訂位!!');
-	window.location.href = "/cga103g3/frontend/booking/MemBookingOrd.jsp";
+	window.location.href = "/cga103g3/frontend/booking/index.jsp";
 }

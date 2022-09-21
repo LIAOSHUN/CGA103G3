@@ -8,6 +8,12 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.bookingorder.model.*"%>
 
+<%
+Integer storeID = (Integer)request.getAttribute("storeID");
+BookingSetService bookingSetSvc = new BookingSetService();
+List<BookingSetVO> list = bookingSetSvc.getStroeBookingOrd(storeID);
+pageContext.setAttribute("list", list);
+%>
 
 <!DOCTYPE html>
 <html
@@ -60,7 +66,7 @@
         <!-- Menu -->
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-            <a href="Top&Fot.html" class="app-brand-link">
+            <a href="<%=request.getContextPath()%>/backend/index.jsp" class="app-brand-link">
               <span class="app-brand-logo demo">
                <img src="<%=request.getContextPath()%>/backend/backend_template/html/board-game (1).png" alt="LogoTest" width="35px">
               </span>
@@ -76,7 +82,7 @@
 
             <!-- Dashboard -->
             <li class="menu-item ">
-              <a href="<%=request.getContextPath()%>/backend/selectAll_page.jsp" class="menu-link">
+              <a href="<%=request.getContextPath()%>/backend/index.jsp" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">首頁</div>
               </a>
@@ -93,13 +99,13 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">管理員資料管理</div>
+                  <a href="<%=request.getContextPath()%>/backend/employee/addEmployee.jsp" class="menu-link">
+                    <div data-i18n="Account">新增管理員</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">管理員權限管理</div>
+                  <a href="<%=request.getContextPath()%>/backend/employee/listAllEmployee.jsp" class="menu-link">
+                    <div data-i18n="Notifications">管理員管理</div>
                   </a>
                 </li>
               </ul>
@@ -111,31 +117,31 @@
                 </a>
                 <ul class="menu-sub">
                   <li class="menu-item">
-                    <a href="pages-account-settings-account.html" class="menu-link">
+                    <a href="<%=request.getContextPath()%>/frontend/member/listAllMember.jsp" class="menu-link">
                       <div data-i18n="Account">會員資料管理</div>
                     </a>
                   </li>
                 </ul>
               </li>
 <!-- ======================================================================================================= -->
-            <li class="menu-item">
+            <li class="menu-item ">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bx-box"></i>
                 <div data-i18n="Account Settings">商品管理</div>
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
+                  <a href="<%=request.getContextPath()%>/backend/product/addProduct3.jsp" class="menu-link">
                     <div data-i18n="Account">新增商品</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">修改商品</div>
+                  <a href="<%=request.getContextPath()%>/backend/product/listAllProductFinal.jsp" class="menu-link">
+                    <div data-i18n="Notifications">商品管理</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="pages-account-settings-connections.html" class="menu-link">
+                  <a href="<%=request.getContextPath()%>/backend/orderlistback/magOrderList.jsp" class="menu-link">
                     <div data-i18n="Connections">訂單管理</div>
                   </a>
                 </li>
@@ -147,28 +153,23 @@
                 <i class="menu-icon tf-icons bx bx-detail"></i>
                 <div data-i18n="Account Settings">遊戲分類管理</div>
               </a>
+               <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="<%=request.getContextPath()%>/backend/producttype/addProductType2.jsp" class="menu-link">
+                    <div data-i18n="Account">新增遊戲種類</div>
+                  </a>
+                </li>
+              </ul>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
+                  <a href="<%=request.getContextPath()%>/backend/producttype/listAllProductType2.jsp" class="menu-link">
                     <div data-i18n="Account">遊戲種類管理</div>
                   </a>
                 </li>
               </ul>
             </li>
 <!-- ======================================================================================================= -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-collection "></i>
-                <div data-i18n="Account Settings">討論區管理</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">文章管理</div>
-                  </a>
-                </li>
-              </ul>
-            </li>
+
 <!-- == Leo ================================================================================================= -->
             <li class="menu-item">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
@@ -226,7 +227,7 @@
               </ul>
             </li>
 <!-- == Leo ================================================================================================= -->
-            <li class="menu-item active">
+            <li class="menu-item open active">
               <a href="javascript:void(0);" class="menu-link menu-toggle">
                 <i class="menu-icon tf-icons bx bxs-calendar-check "></i>
                 <div data-i18n="Account Settings"><b>門市訂位管理</b></div>
@@ -237,22 +238,22 @@
                     <div data-i18n="Account">所有訂位訂單</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="${storeID==51001? 'menu-item active':'menu-item'}">
                   <a href="<%=request.getContextPath()%>/GetStoreBookingOrd/GetStoreBookingOrd.do?StoreID=51001&action=get_StoreBookingOrd" class="menu-link">
                     <div data-i18n="Account">Java店/訂單</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="${storeID==51002? 'menu-item active':'menu-item'}">
                   <a href="<%=request.getContextPath()%>/GetStoreBookingOrd/GetStoreBookingOrd.do?StoreID=51002&action=get_StoreBookingOrd" class="menu-link">
                     <div data-i18n="Account">Servlet店/訂單</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="${storeID==51003? 'menu-item active':'menu-item'}">
                   <a href="<%=request.getContextPath()%>/GetStoreBookingOrd/GetStoreBookingOrd.do?StoreID=51003&action=get_StoreBookingOrd" class="menu-link">
                     <div data-i18n="Account">MySQL店/訂單</div>
                   </a>
                 </li>
-                <li class="menu-item">
+                <li class="${storeID==51004? 'menu-item active':'menu-item'}">
                   <a href="<%=request.getContextPath()%>/GetStoreBookingOrd/GetStoreBookingOrd.do?StoreID=51004&action=get_StoreBookingOrd" class="menu-link">
                     <div data-i18n="Account">不一樣的養身店/訂單</div>
                   </a>
@@ -267,32 +268,22 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">報名管理</div>
+                  <a href="<%=request.getContextPath()%>/backend/act/addAct.jsp" class="menu-link">
+                    <div data-i18n="Account">新增活動</div>
                   </a>
                 </li>
               </ul>
-            </li>
-<!-- ======================================================================================================= -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-lock-open-alt "></i>
-                <div data-i18n="Account Settings">檢舉管理</div>
-              </a>
+               <ul class="menu-sub">
+                <li class="menu-item">
+                  <a href="<%=request.getContextPath()%>/backend/act/listAllAct.jsp" class="menu-link">
+                    <div data-i18n="Account">活動列表</div>
+                  </a>
+                </li>
+              </ul>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">文章檢舉</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">會員檢舉</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">留言檢舉</div>
+                  <a href="<%=request.getContextPath()%>/backend/actregis/listAllActRegis.jsp" class="menu-link">
+                    <div data-i18n="Account">報名列表</div>
                   </a>
                 </li>
               </ul>
@@ -305,42 +296,25 @@
               </a>
               <ul class="menu-sub">
                 <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
+                  <a href="<%=request.getContextPath()%>/backend/coupontype/addCouponType.jsp" class="menu-link">
                     <div data-i18n="Account">新增優惠券</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
+                  <a href="<%=request.getContextPath()%>/backend/coupontype/sendCoupon.jsp" class="menu-link">
                     <div data-i18n="Account">優惠券發放</div>
                   </a>
                 </li>
                 <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
+                  <a href="<%=request.getContextPath()%>/backend/coupontype/listAllCouponType.jsp" class="menu-link">
                     <div data-i18n="Account">優惠券管理</div>
                   </a>
                 </li>
               </ul>
             </li>
-<!-- ======================================================================================================= -->
-            <li class="menu-item">
-              <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-search "></i>
-                <div data-i18n="Account Settings">FQ管理</div>
-              </a>
-              <ul class="menu-sub">
-                <li class="menu-item">
-                  <a href="pages-account-settings-account.html" class="menu-link">
-                    <div data-i18n="Account">線上文字客服</div>
-                  </a>
-                </li>
-                <li class="menu-item">
-                  <a href="pages-account-settings-notifications.html" class="menu-link">
-                    <div data-i18n="Notifications">聊天機器人設定</div>
-                  </a>
-                </li>
-              </ul>
-            </li>          
           </ul>
+<!-- ======================================================================================================= -->
+          
         </aside>
         <!-- Layout container -->
         <div class="layout-page">
@@ -441,7 +415,7 @@
              
               <!-- Basic Bootstrap Table -->
               <div class="card">
-                <h5 class="card-header">門市訂位訂單表</h5>
+                <h5 class="card-header">${storeID} / 門市訂位訂單表</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
                     <thead>
@@ -458,7 +432,8 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-            <c:forEach var="bokSetVO" items="${list}" >
+             <%@ include file="./file/page1.file"%>
+            <c:forEach var="bokSetVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
                       <tr>
                         <td>${bokSetVO.bookingID}</td>
 						<td>${bokSetVO.memID}</td>
@@ -474,6 +449,7 @@
                     </c:forEach>
                     </tbody>
                   </table>
+                <%@ include file="./file/page2.file"%>
                 </div>
               </div>
               <!--/ Basic Bootstrap Table -->

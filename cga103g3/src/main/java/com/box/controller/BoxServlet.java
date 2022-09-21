@@ -64,12 +64,13 @@ public class BoxServlet extends HttpServlet {
 			Integer storeID = Integer.valueOf(str);
 
 			/*************************** 2.開始查詢資料 *****************************************/
-			BoxService boxSvc = new BoxService();
-			List<BoxVO> list = boxSvc.getBoxOfStore(storeID);
+//			BoxService boxSvc = new BoxService();
+//			List<BoxVO> list = boxSvc.getBoxOfStore(storeID);
+//			req.setAttribute("list", list);
 			
 			
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) *************/
-			req.setAttribute("list", list);
+			req.setAttribute("storeID", storeID);
 			String url = "/backend/box/model_ListOneStoreBox.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交listOneStoreBox.jsp
 			successView.forward(req, res);
@@ -149,7 +150,10 @@ public class BoxServlet extends HttpServlet {
 				BoxService boxSvcOld = new BoxService();
 				BoxVO boxVOOld = boxSvcOld.getOneBox(boxID);
 
-				
+				// 訂位時間驗證
+				if(Integer.valueOf(req.getParameter("boxBkStart")) > Integer.valueOf(req.getParameter("boxBkEnd"))) {
+					errorMsgs.add("預約時間: 起始時間不可大於結束時間");
+				}
 				String boxBkStart = req.getParameter("boxBkStart");
 				String boxBkEnd = req.getParameter("boxBkEnd");
 				
@@ -217,6 +221,10 @@ req.setAttribute("boxVO", boxVO); // 含有輸入格式錯誤的boxVO物件,也�
 				
 			String boxDescription = req.getParameter("boxDescription").trim();
 			
+			// 訂位時間驗證
+			if(Integer.valueOf(req.getParameter("boxBkStart")) > Integer.valueOf(req.getParameter("boxBkEnd"))) {
+				errorMsgs.add("預約時間: 起始時間不可大於結束時間");
+			}
 			String boxBkStart = req.getParameter("boxBkStart");
 			String boxBkEnd = req.getParameter("boxBkEnd");
 			

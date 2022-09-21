@@ -7,7 +7,7 @@
 <%
 //取得會員訂位訂單資訊
 BookingOrdService boSvc = new BookingOrdService();
-List<BookingOrderVO> list = boSvc.getBookingOrd((Integer)(session.getAttribute("MemID")));
+List<BookingOrderVO> list = boSvc.getBookingOrd((Integer)(session.getAttribute("memID")));
 pageContext.setAttribute("list", list);
 %>
 
