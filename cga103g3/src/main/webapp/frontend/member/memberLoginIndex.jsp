@@ -54,7 +54,7 @@
           <div class="card" style="width:600px;margin: 0 auto;">
             <div class="card-body">
               <h4 class="mb-2">Welcome to 絆桌! 👋</h4>
-              <p class="mb-4">沒登入或註冊無法進入訂位系統</p>
+              <p class="mb-4"></p>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
 	<ul>
