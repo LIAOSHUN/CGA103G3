@@ -50,7 +50,7 @@ public class BookingOrderServlet extends HttpServlet {
 			
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/selectAll_page.jsp");
+						.getRequestDispatcher("/backend/bookingorder/model_AllBookingOrder.jsp");
 				failureView.forward(req, res);
 				return;//程式中斷
 			}
@@ -60,7 +60,7 @@ public class BookingOrderServlet extends HttpServlet {
 			session.setAttribute("list", list);    // 資料庫取出的list物件,存入session
 			
 			// Send the Success view
-			String url = "/backend/bookingorder/allBookingOrder.jsp";
+			String url = "/backend/bookingorder/model_AllBookingOrder.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交AllBox.jsp
 			successView.forward(req, res);
 		}
@@ -109,7 +109,7 @@ public class BookingOrderServlet extends HttpServlet {
 
 
 		
-/*************************************************** "修改"訂位訂單(查詢單筆轉跳) ******************************************************/	
+/*************************************************** 後台"修改"訂位訂單(查詢單筆轉跳) ******************************************************/	
 		if ("getOne_For_Update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -128,7 +128,7 @@ public class BookingOrderServlet extends HttpServlet {
 			
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/selectAll_page.jsp");
+						.getRequestDispatcher("/backend/bookingorder/model_AllBookingOrder.jsp");
 				failureView.forward(req, res);
 				return;//程式中斷
 			}
@@ -140,7 +140,7 @@ public class BookingOrderServlet extends HttpServlet {
 		}
 
 		
-/*************************************************** "修改"訂位訂單資訊 ******************************************************/	
+/*************************************************** 後台"修改"訂位訂單資訊 ******************************************************/	
 		if("update_BookingOrder".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -204,7 +204,7 @@ public class BookingOrderServlet extends HttpServlet {
 			successView.forward(req, res);
 		}
 		
-/*************************************************** "修改"訂位訂單(結束訂單) ******************************************************/
+/*************************************************** 後台"修改"訂位訂單(結束訂單) ******************************************************/
 		if("finish_BoookingOrder".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -233,7 +233,7 @@ public class BookingOrderServlet extends HttpServlet {
 		}
 		
 		
-/*************************************************** "新增"訂位訂單 ******************************************************/	
+/*************************************************** 後台"新增"訂位訂單 ******************************************************/	
 		if("insert".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -266,16 +266,14 @@ public class BookingOrderServlet extends HttpServlet {
 				errorMsgs.add("請輸入日期!");
 			}
 			
+			//驗證起始與結束時間
+			if(Integer.valueOf(req.getParameter("bookingStart").trim()) > Integer.valueOf(req.getParameter("bookingEnd").trim())) {
+				errorMsgs.add("訂位時間有誤，結束時間早於起始時間");
+			}
+			
 			String bookingStart = req.getParameter("bookingStart").trim();
 			
 			String bookingEnd = req.getParameter("bookingEnd").trim();
-			
-			//驗證起始與結束時間
-			Integer checkStartTime = Integer.valueOf(bookingStart);
-			Integer checkEndTime = Integer.valueOf(bookingEnd);
-			if(checkEndTime < checkStartTime) {
-				errorMsgs.add("訂位時間有誤，結束時間早於起始時間");
-			}
 			
 			String bookingNote = req.getParameter("bookingNote").trim();
 			if (bookingNote == null || (bookingNote.trim().length()) == 0) {
@@ -307,7 +305,7 @@ req.setAttribute("bookingOrdVO", bookingOrdVO); // 含有輸入格式錯誤的em
 		}
 
 		
-/*************************************************** "客戶單筆"查詢 ******************************************************/	
+/*************************************************** 前台"客戶單筆"查詢 ******************************************************/	
 		if ("getOne_BookingOrd".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -320,7 +318,7 @@ req.setAttribute("bookingOrdVO", bookingOrdVO); // 含有輸入格式錯誤的em
 			
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/selectAll_page.jsp");
+						.getRequestDispatcher("/frontend/index.jsp");
 				failureView.forward(req, res);
 				return;//程式中斷
 			}
@@ -331,7 +329,7 @@ req.setAttribute("bookingOrdVO", bookingOrdVO); // 含有輸入格式錯誤的em
 			successView.forward(req, res);
 		}
 
-/*************************************************** "會員"取消訂單 ******************************************************/	
+/*************************************************** 前台"會員"取消訂單 ******************************************************/	
 		if("cancle_bookingOrd".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -347,7 +345,7 @@ req.setAttribute("bookingOrdVO", bookingOrdVO); // 含有輸入格式錯誤的em
 			
 			if (!errorMsgs.isEmpty()) {
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/selectAll_page.jsp");
+						.getRequestDispatcher("/frontend/index.jsp");
 				failureView.forward(req, res);
 				return;//程式中斷
 			}
@@ -356,12 +354,12 @@ req.setAttribute("bookingOrdVO", bookingOrdVO); // 含有輸入格式錯誤的em
 			bokOrdVO = bokOrdSvc.cancelBooking(bookingID, 0);
 			
 			req.setAttribute("bokOrdVO", bokOrdVO);
-			String url = "/backend/selectAll_page.jsp";
+			String url = "/frontend/index.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 		}
 		
-/*************************************************** "刪除"訂位訂單 ******************************************************/
+/*************************************************** 後台"刪除"訂位訂單 ******************************************************/
 		if("delete".equals(action)) {
 			Integer bookingID = Integer.valueOf(req.getParameter("bookingID").trim());
 			

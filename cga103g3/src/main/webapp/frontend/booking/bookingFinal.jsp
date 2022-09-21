@@ -53,6 +53,8 @@ Integer memID = (Integer)session.getAttribute("memID"); //EmpServlet.java (Concr
     <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="<%=request.getContextPath()%>/backend/backend_template/assets/js/config.js"></script>
+    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
 <!-- 	==================================================== 圖片 ================================================================ -->
@@ -144,7 +146,7 @@ Integer memID = (Integer)session.getAttribute("memID"); //EmpServlet.java (Concr
     minDate: 1,
 		maxDate: "15D",
 		dateFormat: "yy-mm-dd",
-		beforeShowDay: function (date1) { return [date1.getDay() != 2, '']; }
+		beforeShowDay: function (date1) { return [date1.getDay() != 4, '']; }
 	});
 </script>
 

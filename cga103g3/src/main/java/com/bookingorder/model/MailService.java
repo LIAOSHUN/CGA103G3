@@ -37,7 +37,7 @@ public class MailService {
        //     ●5-2) 下拉式選單【選取裝置】--> 選取【Windows 電腦】
        //     ●5-3) 最後按【產生】密碼
 	     final String myGmail = "ufo3068@gmail.com";
-	     final String myGmail_password = "qmjipwcrjyfnofme";
+	     final String myGmail_password = "lhnvyflavfjbtcip";
 		   Session session = Session.getInstance(props, new Authenticator() {
 			   protected PasswordAuthentication getPasswordAuthentication() {
 				   return new PasswordAuthentication(myGmail, myGmail_password);
@@ -60,21 +60,6 @@ public class MailService {
 	     e.printStackTrace();
      }
    }
-	
-//	 public static void main (String args[]){
-//
-//      String to = "ufo3068@gmail.com";
-//      
-//      String subject = "密碼通知";
-//      
-//      String ch_name = "leo";
-//      String passRandom = "111";
-//      String messageText = "Hello! " + ch_name + " 請謹記此密碼: " + passRandom + "\n" +" (已經啟用)"; 
-//       
-//      MailService mailService = new MailService();
-//      mailService.sendMail(to, subject, messageText);
-//
-//   }
 
 
 }

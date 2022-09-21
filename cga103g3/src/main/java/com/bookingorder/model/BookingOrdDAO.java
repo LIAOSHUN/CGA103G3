@@ -136,34 +136,13 @@ public class BookingOrdDAO implements BookingOrder_interface{
 			con.commit();
 			con.setAutoCommit(true);
 
-			messageText = "<h3>訂位通知</h3>訂位成功，請準時報到，謝謝。";
+			messageText = "<h3>訂位通知</h3>訂位成功，報到時請出示以下QR Code，謝謝。";
 			mailAndQRCode.sendMailAndQRCode(to, subject, messageText);
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-
-//	@Override
-//	public void insert(BookingOrderVO bookingOrderVO) {
-//		try (
-//				Connection con = ds.getConnection();
-//				PreparedStatement ps = con.prepareStatement(INSERT_STMT);
-//			){
-//			
-//			ps.setInt(1, bookingOrderVO.getMemID());
-//			ps.setDate(2, bookingOrderVO.getBookingDate());
-//			ps.setString(3, bookingOrderVO.getBookingStart());
-//			ps.setString(4, bookingOrderVO.getBookingEnd());
-//			ps.setInt(5, bookingOrderVO.getBoxID());
-//			ps.setString(6, bookingOrderVO.getBookingNote());
-//			
-//			ps.execute();
-//			
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
 	
 	@Override
 	public void cancel(BookingOrderVO bookingOrderVO) {
@@ -219,7 +198,7 @@ public class BookingOrdDAO implements BookingOrder_interface{
 				bov.setBookingID(rs.getInt("BookingID"));
 				bov.setMemID(rs.getInt("MemID"));
 				bov.setBookingDate(rs.getDate("BookingDate"));
-//				bov.setBookingStart(rs.getString("BookingStart"));
+				bov.setBookingStartValue(rs.getString("BookingStart"));
 				int start = Integer.valueOf(rs.getString("BookingStart").trim());
 				for(int i = 0;i <= start; i++) {
 					if(i == start) {
@@ -229,7 +208,7 @@ public class BookingOrdDAO implements BookingOrder_interface{
 				String bookingStart = ((start < 10)? ("0"+ start) : start) + ":00";
 				bov.setBookingStart(bookingStart);
 				
-//				bov.setBookingEnd(rs.getString("BookingEnd"));
+				bov.setBookingEndValue(rs.getString("BookingEnd"));
 				int end = Integer.valueOf(rs.getString("BookingEnd"));
 				for(int i = 0;i <= end; i++) {
 					if(i == end) {

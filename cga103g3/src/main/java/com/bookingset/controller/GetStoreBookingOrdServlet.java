@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.bookingset.model.BookingSetService;
-import com.bookingset.model.BookingSetVO;
 
 @WebServlet("/GetStoreBookingOrd/GetStoreBookingOrd.do")
 public class GetStoreBookingOrdServlet extends HttpServlet {
@@ -26,7 +24,7 @@ public class GetStoreBookingOrdServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-		/*************************************************** "查詢"門市訂位訂單 ******************************************************/	
+		/*************************************************** 後台"查詢"門市訂位訂單 ******************************************************/	
 		if("get_StoreBookingOrd".equals(action)){
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -45,14 +43,15 @@ public class GetStoreBookingOrdServlet extends HttpServlet {
 			}
 			
 			Integer storeID = Integer.valueOf(str);
+			req.setAttribute("storeID", storeID);
 			
-			BookingSetVO bokSetVO = new BookingSetVO();
-			bokSetVO.setStoreID(storeID);
-			
-			BookingSetService bookingSetSvc = new BookingSetService();
-			List<BookingSetVO> list = bookingSetSvc.getStroeBookingOrd(storeID);
-			
-			req.setAttribute("list", list);
+//			BookingSetVO bokSetVO = new BookingSetVO();
+//			bokSetVO.setStoreID(storeID);
+//			
+//			BookingSetService bookingSetSvc = new BookingSetService();
+//			List<BookingSetVO> list = bookingSetSvc.getStroeBookingOrd(storeID);
+//			
+//			req.setAttribute("list", list);
 			String url = "/backend/bookingorder/model_GetStoreBookingOrd.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);

@@ -132,20 +132,16 @@ public class StoreServlet extends HttpServlet {
 			if (storePhone1 == null || storePhone1.trim().length() == 0) {
 				errorMsgs.add("電話號碼: 請勿空白");
 			} else if(!storePhone1.trim().matches(storePhone1Reg)) { //以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("電話號碼: 只能為數字，長度有誤");
+				errorMsgs.add("電話號碼: 區域與電話請用-隔開，只能為數字，長度有誤\"");
             }
 			
 			String storePhone2 = req.getParameter("storePhone2").trim();
 			String storePhone2Reg = "^[(0-9)]{8,12}$";
 			if(storePhone2.trim().length() != 0 && !storePhone2.trim().matches(storePhone2Reg)) { //以下練習正則(規)表示式(regular-expression)
-				errorMsgs.add("電話號碼2: 只能為數字，長度有誤");
+				errorMsgs.add("電話號碼2: 區域與電話請用-隔開，只能為數字，長度有誤\"");
             }
 			
 			String storeEmail = req.getParameter("storeEmail").trim();
-//			String storeEmailReg = "^[(a-zA-Z0-9)(@)(.)(_)]$";
-//			if(!storeEmail.trim().matches(storeEmailReg)) { //以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("門市信箱: 只能為數字及英文，需有@");
-//            }
 			
 			Part part = req.getPart("storeImg");
 			InputStream in = part.getInputStream();
@@ -153,8 +149,14 @@ public class StoreServlet extends HttpServlet {
 			in.read(storeImg);
 			in.close();
 			
+			// 營業時間判斷
+			if(Integer.valueOf(req.getParameter("storeClose").trim()) < Integer.valueOf(req.getParameter("storeOpen").trim())) {
+				errorMsgs.add("營業時間: 打烊時間不可晚於起始時間");
+			}
 			String storeOpen = req.getParameter("storeOpen").trim();
 			String storeClose = req.getParameter("storeClose").trim();
+
+
 			String storeOff = req.getParameter("storeOff").trim();
 			switch (storeOff) {
 			case "日": {
@@ -258,13 +260,13 @@ public class StoreServlet extends HttpServlet {
 				if (storePhone1 == null || storePhone1.trim().length() == 0) {
 					errorMsgs.add("電話號碼1: 請勿空白");
 				} else if(!storePhone1.trim().matches(storePhone1Reg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("電話號碼1: 只能為數字，長度有誤");
+					errorMsgs.add("電話號碼1: 區域與電話請用-隔開，只能為數字，長度有誤");
 	            }
 				
 				String storePhone2 = req.getParameter("storePhone2").trim();
 				String storePhone2Reg = "^[(0-9)]{8,12}$";
 				if(storePhone2.trim().length() != 0 && !storePhone2.trim().matches(storePhone2Reg)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("電話號碼2: 只能為數字，長度有誤");
+					errorMsgs.add("電話號碼2: 區域與電話請用-隔開，只能為數字，長度有誤\"");
 	            }
 				
 				String storeEmail = req.getParameter("storeEmail").trim();
@@ -280,8 +282,13 @@ public class StoreServlet extends HttpServlet {
 				}
 				in.close();
 				
+				// 營業時間判斷
+				if(Integer.valueOf(req.getParameter("storeClose").trim()) < Integer.valueOf(req.getParameter("storeOpen").trim())) {
+					errorMsgs.add("營業時間: 打烊時間不可晚於起始時間");
+				}
 				String storeOpen = req.getParameter("storeOpen");
 				String storeClose = req.getParameter("storeClose");
+				
 				String storeOff = req.getParameter("storeOff");
 				Integer empID = Integer.valueOf(req.getParameter("empID").trim());
 				try {
