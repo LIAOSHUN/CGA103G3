@@ -60,9 +60,9 @@ public class ProductFavoriteServlet extends HttpServlet {
 			productFavoriteVO = productFavoriteService.addProductFavorite(memID, pdID);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/frontend/product/listAllFavorite.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
+//			String url = "/frontend/product/listAllFavorite.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url);
+//			successView.forward(req, res);
 		}
 
 		if ("delete".equals(action)) { // 來自listAllEmp.jsp
