@@ -37,7 +37,7 @@ h4 {
 
 <style>
 table {
-	width: 800px;
+	width: 100%;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
