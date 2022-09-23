@@ -56,12 +56,13 @@ public class ActService {
 
 		return actVO;
 	}
-	public ActVO updateActRegistration(Integer actRegistration) {
-		ActVO actVO = new ActVO();
-		actVO.setActRegistration(actRegistration);
-		dao.numPlus(actVO);
+	public void updateActRegistration(Integer actID, Integer actRegistration) {
+//		ActVO actVO = new ActVO();
+//		actVO.setActID(actID);
+//		actVO.setActRegistration(actRegistration);
+		dao.numPlus(actID, actRegistration);
 		
-		return actVO;
+//		return actVO;
 	}
 
 	public ActVO getOneAct(Integer actID) {
@@ -80,7 +81,7 @@ public class ActService {
 		dao.insertWithActImgs(actVO, imglist);
 	}
 	
-	public void changeState(ActVO actVO) {
-		dao.changeState(actVO);
+	public void changeState(Integer actID) {
+		dao.changeState(actID);
 	}
 }

@@ -96,11 +96,11 @@ public class ActJDBCDAO implements ActDAO_interface{
 	}
 
 	@Override
-	public void changeState(ActVO actVO) {
+	public void changeState(Integer actID) {
 		try (Connection con = DriverManager.getConnection(url, userid, passwd);
 			PreparedStatement pstmt = con.prepareStatement(UPDATE_STATE)) {
 			Class.forName(driver);
-			pstmt.setInt(1, actVO.getActID());
+			pstmt.setInt(1, actID);
 			pstmt.executeUpdate();
 			
 			// Handle any driver errors
@@ -115,11 +115,11 @@ public class ActJDBCDAO implements ActDAO_interface{
 	}
 	
 	@Override
-	public void numPlus(ActVO actVO) {
+	public void numPlus(Integer actID, Integer actRegistration) {
 		try (Connection con = DriverManager.getConnection(url, userid, passwd);
 				PreparedStatement pstmt = con.prepareStatement(UPDATE_NUM)) {
 			Class.forName(driver);
-			pstmt.setInt(1, actVO.getActID());
+			pstmt.setInt(1, actID);
 			pstmt.executeUpdate();
 			
 			// Handle any driver errors

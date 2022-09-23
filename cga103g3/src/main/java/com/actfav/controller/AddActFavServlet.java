@@ -26,15 +26,10 @@ public class AddActFavServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = req.getSession();
-		MemberVO memVO = (MemberVO) (session.getAttribute("memVO"));
-		PrintWriter out = res.getWriter();
+//		MemberVO memberVO = (MemberVO) (session.getAttribute("memberVO"));
+//		PrintWriter out = res.getWriter();
 
-		if (memVO == null) {
-			/**** 沒有會員身分回傳0 ****/
-			out.print(0);
-//			response.sendRedirect("/CGA101G1/frontend/memLogin/login.html");
-		} else {
-			Integer memID = memVO.getMemID();
+			Integer memID = (Integer) session.getAttribute("memID");
 //		Integer memID = 11001;		// 注意要會員編號改成活的
 
 //			System.out.println(request.getParameter("actID"));
@@ -43,20 +38,20 @@ public class AddActFavServlet extends HttpServlet {
 			// 先查有沒有重複
 
 			ActFavService actFavSvc = new ActFavService();
-			ActFavVO actFavVO = actFavSvc.getOneFavByOneMem(memID, actID);
-			if (actFavVO.getActID() == 0) {
+//			ActFavVO actFavVO = actFavSvc.getOneFavByOneMem(memID, actID);
+			actFavSvc.addActFav(memID, actID, LocalDateTime.now());
+			res.sendRedirect("/cga103g3/frontend/actfav/listFav.jsp");
+//			if (actFavVO.getActID() == 0) {
 //				System.out.println("沒有加過要加入清單");
-				actFavSvc.addActFav(memID, actID, LocalDateTime.now());
-//				res.sendRedirect("/CGA101G1/frontend/Product/HomePageinshop.html");
 				/**** 成功加入回傳1 ****/
-				out.print(1);
-			} else {
+//				out.print(1);
+//			} else {
 
 				/**** 成功加入回傳2 ****/
 //				System.out.println("重複添加");
-				out.print(2);
+//				out.print(2);
 //				res.sendRedirect("/CGA101G1/frontend/Product/HomePageinshop.html");
-			}
-		}	
+//			}
+			
 	}
 }

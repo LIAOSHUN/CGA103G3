@@ -87,7 +87,7 @@ public class ActServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
   				RequestDispatcher failureView = req
-  						.getRequestDispatcher("/backend/act/listAllAct.jsp");
+  						.getRequestDispatcher("/frontend/act/listAllActF.jsp");
   				failureView.forward(req, res);
 			}
 		}
@@ -109,7 +109,7 @@ public class ActServlet extends HttpServlet {
 			} catch (Exception e) {
 				e.printStackTrace();
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/backend/act/listAllAct.jsp");
+						.getRequestDispatcher("/frontend/act/listAllActF.jsp");
 				failureView.forward(req, res);
 			}
 		}

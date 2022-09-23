@@ -92,7 +92,7 @@
 				<tr>
 					<td><b>報名總費用：</b></td>
 					<td>
-						<input type="text" name="actFee" id="fee">
+						<input type="text" name="actFee" id="fee" readonly style="display: inline;"> 元
 					</td>
 				</tr>
 			</table>
@@ -100,17 +100,14 @@
 				<input type="hidden" name="action" value="insert">
 				<input type="hidden" name="memID" value="${memID}">
 				<input type="hidden" name="actID" value="${actVO.actID}">
-<!-- 				<input type="hidden" name="actFee" id="actFee"> -->
 				<input type="hidden" name="feeStatus" value="0" />
 				<input type="hidden" name="regisStatus" value="1" />
 			</div>
 				</form>
 			<table style="left: 150px;">
 				<tr style="line-height: 2.7;">
-					<td>
-						
-							<button class="btnn btn-info btnToConfirm" type="submit" form="form1" value="Submit">確 認 報 名</button>
-						
+					<td>					
+							<button class="btnn btn-info btnToConfirm" type="submit" form="form1" value="Submit">確 認 報 名</button>						
 					</td>					
 				</tr>
 				<tr style="line-height: 2.5;">
@@ -130,13 +127,14 @@
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/js/bootstrap.js"></script>
 <script>
 	window.onload = function() {
-		const fee = document.querySelector('#fee');
-		fee.innerHTML = ${actVO.actFee} +' 元';		
+		let fee = document.querySelector('#fee');
+		fee.value = ${actVO.actFee};		
 	}
 	document.querySelector('#actNum').onchange = function() {
-		document.querySelector('#fee').innerHTML = document.querySelector('#actNum').value * ${actVO.actFee} + ' 元';
+		document.querySelector('#fee').value = document.querySelector('#actNum').value * ${actVO.actFee};
+// 		document.getElementById('fee').setAttribute = ("value", "test");
 // 		let newFee = document.querySelector('#actNum').value * ${actVO.actFee};
-		document.querySelector('#actFee').setAttribute("value", document.querySelector('#actNum').value * ${actVO.actFee});
+// 		document.querySelector('#actFee').setAttribute("value", document.querySelector('#actNum').value * ${actVO.actFee});
 	}
 // 	function onRegisClick(){
 // 		if(${empty memID}) {

@@ -22,13 +22,12 @@ public class DelActFavServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		
 		HttpSession session = req.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
-		Integer memID = memberVO.getMemID();
-		String delActID = req.getParameter("actID");
-		Integer delActFav = Integer.valueOf(delActID);
+//		MemberVO memberVO = (MemberVO) session.getAttribute("memberVO");
+		Integer memID = (Integer) session.getAttribute("memID");
+		Integer actID = Integer.valueOf(req.getParameter("actID"));
 		
 		ActFavService actFavSvc = new ActFavService();
-		actFavSvc.deleteActFav(memID, delActFav);
-		res.sendRedirect("/frontend/actfav/listFav.jsp");
+		actFavSvc.deleteActFav(memID, actID);
+		res.sendRedirect("/cga103g3/frontend/actfav/listFav.jsp");
 	}
 }

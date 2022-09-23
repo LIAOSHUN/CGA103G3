@@ -46,7 +46,7 @@ public class ActDAO implements ActDAO_interface {
 	private static final String UPDATE_STATE = "update activity set ActStatus=2 where ActID = ?";
 	private static final String UPDATE_NUM = 
 			"update activity a JOIN actregistered r ON a.ActID = r.ActID "
-			+ "set a.ActRegistration=a.ActRegistration + r.ActNum where ActID = ?";
+			+ "set a.ActRegistration=a.ActRegistration + r.ActNum where a.ActID = ?";
 	private static final String GET_IMGS_BYACTID_STMT = "SELECT ActImgID, ActID, ActImgFile "
 			+ "FROM actimg where ActID = ? order by ActImgID ";
 
@@ -100,10 +100,10 @@ public class ActDAO implements ActDAO_interface {
 	}
 	
 	@Override
-	public void changeState(ActVO actVO) {
+	public void changeState(Integer actID) {
 		try (Connection con = ds.getConnection();
 			PreparedStatement pstmt = con.prepareStatement(UPDATE_STATE)) {
-			pstmt.setInt(1, actVO.getActID());
+			pstmt.setInt(1, actID);
 			pstmt.executeUpdate();
 			
 		} catch (SQLException se) {
@@ -112,10 +112,10 @@ public class ActDAO implements ActDAO_interface {
 	}
 	
 	@Override
-	public void numPlus(ActVO actVO) {
+	public void numPlus(Integer actID, Integer actRegistration) {
 		try (Connection con = ds.getConnection();
 				PreparedStatement pstmt = con.prepareStatement(UPDATE_NUM)) {
-			pstmt.setInt(1, actVO.getActID());
+			pstmt.setInt(1, actID);
 			pstmt.executeUpdate();
 			
 		} catch (SQLException se) {

@@ -266,12 +266,8 @@ public class ActRegisServlet extends HttpServlet {
 			Integer actID = Integer.valueOf(req.getParameter("actID").trim());
 			Integer actNum = Integer.valueOf(req.getParameter("actNum").trim());
 			
-			Integer actFee = null;
-			try {
-				actFee = Integer.valueOf(req.getParameter("actFee").trim());
-			} catch (NumberFormatException e) {
-				errorMsgs.put("actFee","請填數字");
-			}
+			Integer actFee = Integer.valueOf(req.getParameter("actFee").trim());
+
 			Integer feeStatus = Integer.valueOf(req.getParameter("feeStatus").trim());
 			if (feeStatus == null) {
 				feeStatus = 0;
@@ -287,7 +283,7 @@ public class ActRegisServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/backend/actregis/addActRegis.jsp");
+							.getRequestDispatcher("/frontend/actregis/addRegis.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -296,10 +292,10 @@ public class ActRegisServlet extends HttpServlet {
 				ActRegisService actRegisSvc = new ActRegisService();
 				actRegisSvc.addActRegis(memID, actID, actNum, actFee, feeStatus, regisStatus);
 				ActService actSvc = new ActService();
-				ActVO actVO = actSvc.updateActRegistration(actRegistration);
+				actSvc.updateActRegistration(actID, actRegistration);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				req.setAttribute("actVO", actVO);
+//				req.setAttribute("actVO", actVO);
 				String url = "/frontend/act/listAllActF.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllActRegis.jsp
 				successView.forward(req, res);				
