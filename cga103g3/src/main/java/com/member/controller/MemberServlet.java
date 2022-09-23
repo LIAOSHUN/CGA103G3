@@ -106,7 +106,6 @@ public class MemberServlet extends HttpServlet {
 
 			/*************************** 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 			Integer memID = Integer.valueOf(req.getParameter("memID").trim());
-
 			Integer gradeID = Integer.valueOf(req.getParameter("gradeID").trim());
 
 			String memName = req.getParameter("memName"); // 姓名
@@ -140,7 +139,6 @@ public class MemberServlet extends HttpServlet {
 			if (memGender == null || memGender.trim().length() == 0) { // 性別
 				errorMsgs.add("性別請勿空白");
 			}
-			System.out.println(memGender);
 
 			String memPh = req.getParameter("memPh").trim(); // 電話
 			String memPhReg = "^[0-9]{10}$";
@@ -164,7 +162,6 @@ public class MemberServlet extends HttpServlet {
 			java.sql.Date memBirthday = null; // 生日
 			try {
 				memBirthday = java.sql.Date.valueOf(req.getParameter("memBirthday").trim());
-				System.out.println(memBirthday);
 			} catch (IllegalArgumentException e) {
 				memBirthday = new java.sql.Date(System.currentTimeMillis());
 				errorMsgs.add("請輸入日期!");
@@ -208,13 +205,18 @@ public class MemberServlet extends HttpServlet {
 			memberVO = memberSvc.updateMember(memID, gradeID, memName, memAccount, memPassWord, memGender, memPh,
 					memEmail, memAddress, memBirthday, memCard, memVio, memStatus);
 
+			
+			session.setAttribute("memID",memID);
+
+			
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("memberVO", memberVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/member/listOneMember.jsp";
+			String url = "/frontend/member/listOneMember.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
 
+		
 		if ("registerInsert".equals(action)) { // 來自addEmp.jsp的請求
 
 			List<String> errorMsgs = new LinkedList<String>();
