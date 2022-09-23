@@ -192,6 +192,9 @@
 
 					<li class="p-b-13"><a href="<%=request.getContextPath()%>/frontend/member/memberCentre.jsp"
 						class="stext-102 cl2 hov-cl1 trans-04"> 會員中心 </a></li>
+						
+					<li class="p-b-13"><a href="<%=request.getContextPath()%>/frontend/product/listAllFavorite.jsp"
+						class="stext-102 cl2 hov-cl1 trans-04"> 商品收藏 </a></li>
 
 					<li class="p-b-13"><a
 						href="<%=request.getContextPath()%>/frontend/orderlist/myOrderList.jsp"

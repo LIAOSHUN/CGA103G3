@@ -119,7 +119,7 @@ pageContext.setAttribute("list1", list1);
 													width=80% alt="IMG">
 											</div>
 										</c:forEach></td>
-									<td style="font-size: 20px;"><b>${productVO.pdName}</b><br>
+									<td style="font-size: 20px;"><b>${productFavoriteVO.productVO.pdName}</b><br>
 									<div class="ratings">
 											<div class="empty_star">々々々々々</div>
 											<div class=" star${productFavoriteVO.productVO.pdStar} ">々々々々々</div>

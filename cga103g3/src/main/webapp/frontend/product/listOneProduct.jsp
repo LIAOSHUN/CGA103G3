@@ -151,14 +151,14 @@ pageContext.setAttribute("list1", list1);
 
 						<div class="flex-w flex-r-m p-b-10">
 							<div class="flex-m bor9 p-r-10 m-r-11">
-							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/productfavorite/ProductFavoriteServlet"  name="form1">
+<%-- 							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/productfavorite/ProductFavoriteServlet"  name="form1"> --%>
 								<button 
 									class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
-									data-tooltip="加入收藏"> <i class="zmdi zmdi-favorite"></i>
+									data-tooltip="加入收藏" id="addfav"> <i class="zmdi zmdi-favorite"></i>
 								</button>
 								<input type="hidden" name="pdID" value="${productVO.pdID}"> 
 								<input type="hidden" name="action" value="insert">
-								</FORM>
+<!-- 								</FORM> -->
 								
 							</div>
 							<div class="size-204 flex-w flex-m respon6-next">
@@ -224,6 +224,7 @@ addCart.addEventListener('click', function () {
 	let newCount = count1.value;
 	console.log(newCount)
 	console.log(pdID)
+	let pdID = <%=productVO.getPdID() %>;
 	
 	   $.ajax({
 		url: "cart.do",
@@ -241,8 +242,24 @@ addCart.addEventListener('click', function () {
 });
 
 
+let addfav = document.querySelector('#addfav');
 
+addfav.addEventListener('click', function () {
+	
+	
+	   $.ajax({
+		url: "<%=request.getContextPath()%>/frontend/productfavorite/ProductFavoriteServlet",
+		type: "POST",
+		data: {
+				action: "insert",
+				pdID:pdID,
+			  },
 
+		})	
+	
+	
+		
+});
 
 
 
