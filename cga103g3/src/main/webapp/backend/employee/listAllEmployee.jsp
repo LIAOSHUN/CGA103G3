@@ -56,31 +56,17 @@ th, td {
 </head>
 <body bgcolor='white'>
 
-	<h4>此頁練習採用 EL 的寫法取值:</h4>
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>所有員工資料 - listAllEmp.jsp</h3>
-				<h4>
-					<a href="select_page.jsp"><img src="images/back1.gif"
-						width="100" height="32" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
 
 	<table>
 		<tr>
 			<th>員工編號</th>
 			<th>員工姓名</th>
 			<th>電話</th>
-			<th>頭像</th>
 			<th>帳號</th>
 			<th>密碼</th>
 			<th>入職時間</th>
 			<th>狀態</th>
 			<th>修改</th>
-			<th>刪除</th>
 		</tr>
 		<%@ include file="page1.file"%>
 		<c:forEach var="employeeVO" items="${list}" begin="<%=pageIndex%>"
@@ -90,7 +76,6 @@ th, td {
 				<td>${employeeVO.empID}</td>
 				<td>${employeeVO.empName}</td>
 				<td>${employeeVO.empPhone}</td>
-				<td>${employeeVO.empAvatar}</td>
 				<td>${employeeVO.empAccount}</td>
 				<td>${employeeVO.empPassWord}</td>
 				<td>${employeeVO.empHireDate}</td>
@@ -98,20 +83,11 @@ th, td {
 
 				<td>
 					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/employee/employee.do"
+						ACTION="<%=request.getContextPath()%>/backend/employee/employee.do"
 						style="margin-bottom: 0px;">
 						<input type="submit" value="修改"> <input type="hidden"
 							name="empID" value="${employeeVO.empID}"> <input type="hidden"
 							name="action" value="getOne_For_Update">
-					</FORM>
-				</td>
-				<td>
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/employee/employee.do"
-						style="margin-bottom: 0px;">
-						<input type="submit" value="刪除"> <input type="hidden"
-							name="empID" value="${employeeVO.empID}"> <input type="hidden"
-							name="action" value="delete">
 					</FORM>
 				</td>
 			</tr>

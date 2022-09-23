@@ -14,7 +14,7 @@ pageContext.setAttribute("list", list);
 
 <html>
 <head>
-<title>所有員工資料 - listAllMember.jsp</title>
+<title>所有會員資料 - listAllMember.jsp</title>
 
 <style>
 table#table-1 {
@@ -56,14 +56,11 @@ th, td {
 </head>
 <body bgcolor='white'>
 
-	<h4>此頁練習採用 EL 的寫法取值:</h4>
 	<table id="table-1">
 		<tr>
 			<td>
-				<h3>所有員工資料 - listAllMember.jsp</h3>
+				<h3>所有會員資料 - listAllMember.jsp</h3>
 				<h4>
-					<a href="select_page.jsp"><img src="images/back1.gif"
-						width="100" height="32" border="0">回首頁</a>
 				</h4>
 			</td>
 		</tr>
@@ -81,11 +78,9 @@ th, td {
 			<th>Email</th>
 			<th>地址</th>
 			<th>生日</th>
-			<th>證明</th>
 			<th>違規記點</th>
 			<th>狀態</th>
 			<th>修改</th>
-			<th>刪除</th>
 
 		</tr>
 		<%@ include file="page1.file"%>
@@ -103,26 +98,16 @@ th, td {
 				<td>${memberVO.memEmail}</td>
 				<td>${memberVO.memAddress}</td>
 				<td>${memberVO.memBirthday}</td>
-				<td>${memberVO.memCard}</td>
 				<td>${memberVO.memVio}</td>
 				<td>${memberVO.memStatus}</td>
 
 				<td>
 					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/member/member.do"
+						ACTION="<%=request.getContextPath()%>/frontend/member/member.do"
 						style="margin-bottom: 0px;">
 						<input type="submit" value="修改"> <input type="hidden"
 							name="memID" value="${memberVO.memID}"> <input
-							type="hidden" name="action" value="getOne_For_Update">
-					</FORM>
-				</td>
-				<td>
-					<FORM METHOD="post"
-						ACTION="<%=request.getContextPath()%>/member/member.do"
-						style="margin-bottom: 0px;">
-						<input type="submit" value="刪除"> <input type="hidden"
-							name="memID" value="${memberVO.memID}"> <input
-							type="hidden" name="action" value="delete">
+							type="hidden" name="action" value="getOne_For_Update1">
 					</FORM>
 				</td>
 			</tr>
