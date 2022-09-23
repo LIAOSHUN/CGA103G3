@@ -52,8 +52,8 @@ public class CartServlet extends HttpServlet {
 				if ("shoppingCart".equals(userCookie.getName())) {
 					// 讓每的頁面可以透過sessionId呼叫CartService的方法
 					
-					System.out.println(userCookie.getValue());
-					System.out.println("舊車");
+//					System.out.println(userCookie.getValue());
+//					System.out.println("舊車");
 					
 					
 					//可以讓getcart找車
@@ -67,10 +67,10 @@ public class CartServlet extends HttpServlet {
 				Cookie shoppingCart = new Cookie("shoppingCart", session.getId());
 				shoppingCart.setMaxAge(3 * 24 * 60 * 60); // 存活3天，以秒為單位
 				shoppingCart.setHttpOnly(true); 
-
+				shoppingCart.setPath("/");;
 				session.setAttribute("sessionId", session.getId());
 				res.addCookie(shoppingCart);
-				System.out.println("初始化新車");
+//				System.out.println("初始化新車");
 			}
 		}
 		
