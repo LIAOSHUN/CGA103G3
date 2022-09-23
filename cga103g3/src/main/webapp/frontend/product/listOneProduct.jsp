@@ -151,10 +151,15 @@ pageContext.setAttribute("list1", list1);
 
 						<div class="flex-w flex-r-m p-b-10">
 							<div class="flex-m bor9 p-r-10 m-r-11">
-								<a href="#"
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/productfavorite/ProductFavoriteServlet"  name="form1">
+								<button 
 									class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100"
 									data-tooltip="加入收藏"> <i class="zmdi zmdi-favorite"></i>
-								</a>
+								</button>
+								<input type="hidden" name="pdID" value="${productVO.pdID}"> 
+								<input type="hidden" name="action" value="insert">
+								</FORM>
+								
 							</div>
 							<div class="size-204 flex-w flex-m respon6-next">
 								<div class="wrap-num-product flex-w m-r-20 m-tb-10">

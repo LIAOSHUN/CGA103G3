@@ -94,7 +94,7 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 3.查詢完成,準備轉交(Send the Success view) ************/
 			req.setAttribute("productVO", productVO); // 資料庫取出的empVO物件,存入req
-			String url = "/frontend/product/update_product_input_final.jsp";
+			String url = "/backend/product/update_product_input_final.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 			successView.forward(req, res);
 		}
@@ -192,7 +192,7 @@ public class ProductServlet extends HttpServlet {
 
 			/*************************** 3.修改完成,準備轉交(Send the Success view) *************/
 			req.setAttribute("productVO", productVO); // 資料庫update成功後,正確的的empVO物件,存入req
-			String url = "/backend/product/listOneProduct.jsp";
+			String url = "/backend/product/listAllProductFinal.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 			successView.forward(req, res);
 		}
@@ -290,7 +290,7 @@ public class ProductServlet extends HttpServlet {
 			productVO = productSvc.addProduct(pdName, pdPrice, pdAmount, pdDescription, pdStatus, pdStar);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/backend/product/listAllProduct.jsp";
+			String url = "/backend/product/listAllProductFinal.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}
@@ -514,7 +514,7 @@ public class ProductServlet extends HttpServlet {
 			productVO = productSvc.addProductWithProductImg(pdName, pdTypeID, pdPrice, pdAmount, pdDescription, pdStatus, pdStar, pdImgCover, pdImgCoverName, pdImg01, pdImg01Name, pdImg02, pdImg02Name);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
-			String url = "/backend/product/listAllProduct.jsp";
+			String url = "/backend/product/listAllProductFinal.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 			successView.forward(req, res);
 		}

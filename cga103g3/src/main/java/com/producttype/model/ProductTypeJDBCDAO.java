@@ -12,7 +12,7 @@ public class ProductTypeJDBCDAO implements ProductTypeDAO_interface {
 	private static final String INSERT_STMT = 
 			"INSERT INTO producttype (PdTypeName) VALUES (?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT PdTypeID,PdTypeName FROM producttype order by PdTypeID";
+			"SELECT PdTypeID,PdTypeName FROM producttype order by PdTypeID desc";
 		private static final String GET_ONE_STMT = 
 			"SELECT PdTypeID,PdTypeName FROM producttype where PdTypeID = ?";
 		private static final String DELETE = 

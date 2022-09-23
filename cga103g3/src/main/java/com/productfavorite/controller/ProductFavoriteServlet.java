@@ -13,6 +13,8 @@ import com.product.model.*;
 import com.productfavorite.model.ProductFavoriteService;
 import com.productfavorite.model.ProductFavoriteVO;
 import com.productimg.model.ProductImgVO;
+import com.member.model.*;
+
 @WebServlet("/frontend/productfavorite/ProductFavoriteServlet")
 public class ProductFavoriteServlet extends HttpServlet {
 
@@ -24,6 +26,8 @@ public class ProductFavoriteServlet extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
+		HttpSession session = req.getSession();
+		MemberVO memVO = (MemberVO) (session.getAttribute("memVO"));
 		
 		if ("insert".equals(action)) { // 來自addEmp.jsp的請求
 
@@ -31,11 +35,10 @@ public class ProductFavoriteServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-
 			/*********************** 1.接收請求參數 - 輸入格式的錯誤處理 *************************/
 //			MEMID
-			Integer memID = null;
-			memID = Integer.valueOf(req.getParameter("memID").trim());
+			Integer memID = 11004;
+//			memID = Integer.valueOf(req.getParameter("memID").trim());
 //			PDID
 			Integer pdID = null;
 			pdID = Integer.valueOf(req.getParameter("pdID").trim());
@@ -57,6 +60,9 @@ public class ProductFavoriteServlet extends HttpServlet {
 			productFavoriteVO = productFavoriteService.addProductFavorite(memID, pdID);
 
 			/*************************** 3.新增完成,準備轉交(Send the Success view) ***********/
+			String url = "/frontend/product/listAllFavorite.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url);
+			successView.forward(req, res);
 		}
 
 		if ("delete".equals(action)) { // 來自listAllEmp.jsp

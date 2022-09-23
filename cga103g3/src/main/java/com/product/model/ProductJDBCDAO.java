@@ -20,7 +20,7 @@ public class ProductJDBCDAO implements ProductDAO_interface {
 	private static final String INSERT_STMT = 
 			"INSERT INTO product (PdName,pdTypeID,PdPrice,PdAmount,PdDescription,PdStatus,PdStar) VALUES (?, ?, ?, ?, ?, ?,?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT PdID,PdName,pdTypeID,PdPrice,PdAmount,PdDescription,PdStatus,PdStar,PdUpdate FROM product order by PdID";
+			"SELECT PdID,PdName,pdTypeID,PdPrice,PdAmount,PdDescription,PdStatus,PdStar,PdUpdate FROM product order by PdUpdate desc";
 		private static final String GET_ONE_STMT = 
 			"SELECT PdID,PdName,pdTypeID,PdPrice,PdAmount,PdDescription,PdStatus,PdStar,PdUpdate FROM product where PdID = ?";
 		private static final String DELETE = 
