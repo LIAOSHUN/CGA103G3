@@ -499,7 +499,7 @@ public class MemberServlet extends HttpServlet {
 		
 		if ("memberLogout".equals(action)) {
 			session.removeAttribute("user");
-			String url = "/frontend/member/memberLogin.jsp";
+			String url = "/frontend/index.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}

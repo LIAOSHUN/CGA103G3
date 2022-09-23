@@ -171,10 +171,10 @@
 	</div>
 
 	<div style="width: 100%; text-align: center;">
-		<div class="mb-3">
-			<button class=" stext-101  size-116 bg3 bor14 hov-btn87 p-lr-15 trans-04 pointer" style="width:10% ;color:rgb(0, 0, 0);size: 20px;" type="submit">登出</button>
 			<input type="hidden" name="action" value="memberLogout">
-		</div>
+			                <div class="mb-3">
+                  <button class=" stext-101  size-116 bg3 bor14 hov-btn87 p-lr-15 trans-04 pointer" style="width:10% ;color:rgb(0, 0, 0);size: 20px;" type="submit">登出</button><input type="hidden" name="action" value="memberLogout">
+                </div>
 	</div>
 
 
