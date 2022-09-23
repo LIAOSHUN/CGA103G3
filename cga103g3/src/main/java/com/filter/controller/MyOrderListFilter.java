@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 @WebFilter(	filterName = "MyOrderListFilter",
 //servletNames = {"DcartServlet"}
-urlPatterns = {"/frontend/orderlist/myOrderList.jsp", "/frontend/memcoupon/myCoupon.jsp"}
+urlPatterns = {"/frontend/orderlist/myOrderList.jsp", "/frontend/memcoupon/myCoupon.jsp", "/frontend/member/memberCentre.jsp"}
 		)
 public class MyOrderListFilter extends HttpFilter {
 

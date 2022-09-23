@@ -59,11 +59,7 @@ public class CartServlet extends HttpServlet {
 					//可以讓getcart找車
 					session.setAttribute("sessionId", userCookie.getValue());
 					
-//					String url = "/frontend/cart/testpro.jsp";
-//					RequestDispatcher rd = req.getRequestDispatcher(url);
-//					rd.forward(req, res);
 					return;
-//					res.sendRedirect(req.getRequestURI());
 				}
 
 				// 若未找到shoppingCart，新增cookie，並將session作為key存入Redis
@@ -75,11 +71,6 @@ public class CartServlet extends HttpServlet {
 				session.setAttribute("sessionId", session.getId());
 				res.addCookie(shoppingCart);
 				System.out.println("初始化新車");
-//				res.sendRedirect(req.getRequestURI());
-
-//				String url = "/frontend/cart/testpro.jsp";
-//				RequestDispatcher rd = req.getRequestDispatcher(url);
-//				rd.forward(req, res);
 			}
 		}
 		
