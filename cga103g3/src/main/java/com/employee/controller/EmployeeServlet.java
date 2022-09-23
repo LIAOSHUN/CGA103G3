@@ -185,9 +185,11 @@ public class EmployeeServlet extends HttpServlet {
 				employeeVO = employeeSvc.updateEmployee(empID, empName, empPhone, empAvatar, empAccount,empPassWord, empHireDate
 						,empStatus);
 				
+				session.setAttribute("empID",empID);
+
 				/***************************3.修改完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("employeeVO", employeeVO); // 資料庫update成功後,正確的的empVO物件,存入req
-				String url = "/backend/employee/listOneEmployee.jsp";
+				String url = "/backend/employee/listAllEmployee.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneEmp.jsp
 				successView.forward(req, res);
 		}
@@ -280,6 +282,7 @@ public class EmployeeServlet extends HttpServlet {
 				employeeVO = empSvc.addEmployee(empName,empPhone,empAvatar, empAccount, empPassWord,
 						empHireDate,empStatus);
 				
+
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
 				String url = "/backend/employee/listAllEmployee.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
@@ -389,7 +392,7 @@ public class EmployeeServlet extends HttpServlet {
 		/**********************************登出*******************************************************************************/
 		
 		if ("employeeLogout".equals(action)) {
-			session.removeAttribute("admin");
+			session.removeAttribute("empID");
 			String url = "/backend/employee/employeeLogin.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
