@@ -3,12 +3,14 @@
 <%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <%@ page import="java.util.*"%>
 <%@ page import="com.actregis.model.*"%>
+<jsp:useBean id="memberVO" scope="request" class="com.member.model.MemberVO" />
 
 <%
     ActRegisService actRegisSvc = new ActRegisService();
-    List<ActRegisVO> list = actRegisSvc.getMemRegis((Integer)(session.getAttribute("MemID")));   // ("會員登入後擷取會員ID"));
+    List<ActRegisVO> list = actRegisSvc.getMemRegis((Integer)(session.getAttribute("memID")));   // ("會員登入後擷取會員ID"));
 //     List<ActRegisVO> list = actRegisSvc.getMemRegis(11001);
     pageContext.setAttribute("list",list);
+//     session.setAttribute("memID", memID);
 %>
 
 

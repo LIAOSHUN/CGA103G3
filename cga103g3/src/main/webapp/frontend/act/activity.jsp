@@ -1,3 +1,4 @@
+<%@page import="com.member.model.MemberVO"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,12 +7,14 @@
 <%@page import="com.actimg.model.*"%>
 <%@page import="com.act.model.*"%>
 <jsp:useBean id="actVO" scope="request" class="com.act.model.ActVO" />
-<jsp:useBean id="memVO" scope="request" class="com.member.model.MemberVO" />
+<jsp:useBean id="memberVO" scope="request" class="com.member.model.MemberVO" />
 <jsp:useBean id="actSvc" scope="page" class="com.act.model.ActService" />
 <jsp:useBean id="actImgSvc" scope="page" class="com.actimg.model.ActImgService" />
 <jsp:useBean id="actFavSvc" scope="page" class="com.actfav.model.ActFavService" />
 <%
 	actVO = (ActVO) request.getAttribute("actVO");
+	Integer memID = (Integer)session.getAttribute("memID");
+	session.setAttribute("memID", memID);
 %>
 <!DOCTYPE html>
 <html>
@@ -141,13 +144,20 @@
 					<b>報名費用：</b><span>每人 ${actVO.actFee} 元</span>
 				</div>
 				<div class="forBtn">
-					<a href="<%=request.getContextPath()%>/ActServlet?actID=${actVO.actID}&action=showActForRegis">
-						<button class="btnn btn-info btnToRegis" style="margin-left: 50px;">
-							<b>活動報名</b>
-						</button>
-					</a>
-					<a href="../actfav/listFav.jsp">
-						<button class="btnn btn-info btnToFav" onclick="onAddFavClick(`${actVO.actID}`)" style="margin-left: 35px;">
+					<c:if test="${actVO.actStatus == '1' }">
+						<a href="<%=request.getContextPath()%>/ActServlet?actID=${actVO.actID}&action=showActForRegis">
+							<button class="btnn btn-info btnToRegis" style="margin-left: 50px;">
+								<b>活動報名</b>
+							</button>
+						</a>
+					</c:if>
+					<c:if test="${actVO.actStatus == '0' || actVO.actStatus == '2'}">
+							<button class="btnn btn-info btnToRegis" style="margin-left: 50px;" disabled>
+								<b>已截止</b>
+							</button>
+						</c:if>
+					<a href="<%=request.getContextPath()%>/AddActFavServlet?actID=${actVO.actID}">
+						<button class="btnn btn-info btnToFav" style="margin-left: 35px;">
 							<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
 								<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
 							</svg>
@@ -185,11 +195,13 @@
 			.then(res => res.json())
 			.then(data => {
 				console.log(data);
-				if (data == 0) {
-					alert('需登入會員');
-					location.assign(`/cga103g3/frontend/member/login`);
-				} else if (data == 1) {
+// 				if (data == 0) {
+// 					alert('需登入會員');
+// 					location.assign(`/cga103g3/frontend/member/memberLogin.jsp`);
+// 				} else 
+					if (data == 1) {
 					alert('已成功加入收藏清單');
+					location.assign(`/cga103g3/frontend/actfav/listFav.jsp`);
 				} else if (data == 2) {
 					alert('收藏清單已有此活動');
 				}

@@ -26,30 +26,30 @@ public class ActStatusChangeServlet extends HttpServlet {
        Timer timer;
       public void init() throws ServletException {
     	  ActService actSvc = new ActService();
-    	  List<ActVO> allList = actSvc.getAll();
-    	  List<ActVO> list = allList.stream()
-    			    .filter(e -> e.getActStatus().equals(1))
-    	  			.collect(Collectors.toList());
-    	  getServletContext().setAttribute("list", list);
+    	  List<ActVO> list = actSvc.getAll();
+//    	  List<ActVO> list = allList.stream()
+//    			  .filter(e -> e.getActStatus().equals(1))
+//    			  .collect(Collectors.toList());
+//    	  getServletContext().setAttribute("list", list);
     	  
     	  TimerTask task = new TimerTask() {
 			
 			@Override
 			public void run() {
-				List<ActVO> list = (List<ActVO>) getServletContext().getAttribute("list");
+//				List<ActVO> list = (List<ActVO>) getServletContext().getAttribute("list");
 				for (ActVO actVO : list) {
 					LocalDateTime endTime = actVO.getActTimeEnd();
 					LocalDateTime today;
 					try {
 						today = LocalDateTime.now();
 						if(today.isAfter(endTime)) {
-							actSvc.changeState(actVO);
-							list = actSvc.getAll();
-							getServletContext().setAttribute("list", list);
+							actSvc.changeState(actVO.getActID());
+//							list = actSvc.getAll();
+//							getServletContext().setAttribute("list", list);
 						} else if (actVO.getRegisMax() == actVO.getActRegistration()) {
-							actSvc.changeState(actVO);
-							list = actSvc.getAll();
-							getServletContext().setAttribute("list", list);
+							actSvc.changeState(actVO.getActID());
+//							list = actSvc.getAll();
+//							getServletContext().setAttribute("list", list);
 						}
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -58,13 +58,13 @@ public class ActStatusChangeServlet extends HttpServlet {
 			}
 		};
 		timer = new Timer();
-		Calendar rightNow = Calendar.getInstance();
-		int year = rightNow.get(Calendar.YEAR);
-		int month = rightNow.get(Calendar.MONTH);
-		int day = rightNow.get(Calendar.DAY_OF_MONTH);
+//		Calendar rightNow = Calendar.getInstance();
+//		int year = rightNow.get(Calendar.YEAR);
+//		int month = rightNow.get(Calendar.MONTH);
+//		int day = rightNow.get(Calendar.DAY_OF_MONTH);
 		
-		Calendar calen = new GregorianCalendar(year, month, day, 0, 0, 0);
-		timer.scheduleAtFixedRate(task, calen.getTime(), 60*60*1000);
+		Calendar calen = new GregorianCalendar(2022, Calendar.SEPTEMBER, 20, 0, 0, 0);
+		timer.scheduleAtFixedRate(task, calen.getTime(), 24*60*60*1000);
       }
    
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {

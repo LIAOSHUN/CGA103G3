@@ -26,8 +26,8 @@ public class ActRegisDAO implements ActRegisDAO_interface {
 	}
 	private static final String INSERT_STMT = 
 		"insert into actregistered (MemID, ActID, RegisTime, ActNum, ActFee, FeeStatus, "
-		+ "RegisStatus, ActReview, Satisfaction, ReviewDate) "
-		+ "values (?, ?, Now(), ?, ?, ?, ?, ?, ?, Now())";
+		+ "RegisStatus) "
+		+ "values (?, ?, Now(), ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = 
 		"select MemID, ActID, RegisTime, ActNum, ActFee, FeeStatus, "
 		+ "RegisStatus, ActReview, Satisfaction, ReviewDate "
@@ -59,8 +59,6 @@ public class ActRegisDAO implements ActRegisDAO_interface {
 			pstmt.setInt(4, actRegisVO.getActFee());
 			pstmt.setInt(5, actRegisVO.getFeeStatus());
 			pstmt.setInt(6, actRegisVO.getRegisStatus());
-			pstmt.setString(7, actRegisVO.getActReview());
-			pstmt.setInt(8, actRegisVO.getSatisfaction());
 
 			pstmt.executeUpdate();
 			

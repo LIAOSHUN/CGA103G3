@@ -9,6 +9,7 @@
     ActService actSvc = new ActService();
     List<ActVO> list = actSvc.getAll();
     pageContext.setAttribute("list",list);
+    LocalDateTime nowTime = LocalDateTime.now();
 %>
 
 <!DOCTYPE html>
@@ -57,7 +58,7 @@
 
 	<main>
 		<div class="container-main">
-			<table>
+			<table id="actInfo">
 			<tr>
 				<th>店面</th>
 				<th>活動標題</th>
@@ -66,7 +67,7 @@
 				<th>報名期限</th>
 				<th>報名</th>
 			</tr>
-			<c:forEach var="actVO" items="${list}">				
+			<c:forEach var="actVO" items="${list}" varStatus="status">				
 				<tr>
 					<td>${actVO.storeVO.storeName}</td>
 					<td><a href="<%=request.getContextPath()%>/ActServlet?actID=${actVO.actID}&action=showActInfo" class="actInfo">
@@ -75,11 +76,15 @@
 					<td><c:if test="${actVO.dateNum == '14' }">下午場（14:00~17:00）</c:if>
 						<c:if test="${actVO.dateNum == '18' }">晚場（18:00~21:00）</c:if>
 					</td>
-					<td><javatime:format value="${actVO.actTimeEnd}" pattern="yyyy-MM-dd HH:mm" /></td>
-					<td>
-						<a href="<%=request.getContextPath()%>/ActServlet?actID=${actVO.actID}&action=showActForRegis">
-							<button>我要報名</button>
-						</a>
+					<td id="timeEnd${status.count}"><javatime:format value="${actVO.actTimeEnd}" pattern="yyyy-MM-dd HH:mm" /></td>
+					<td><c:if test="${actVO.actStatus == '1' }">
+							<a href="<%=request.getContextPath()%>/ActServlet?actID=${actVO.actID}&action=showActForRegis">
+								<button id="regis">我要報名</button>
+							</a>
+						</c:if>
+						<c:if test="${actVO.actStatus == '0' || actVO.actStatus == '2'}">
+							<button id="timeEnd" disabled>已截止</button>
+						</c:if>
 					</td>
 				</tr>
 			</c:forEach>
@@ -91,5 +96,23 @@
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/popper/popper.js"></script>
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/js/bootstrap.js"></script>
+<!-- <script> -->
+// window.onload = function() {
+// 	let regis = document.querySelector('#regis');
+// 	let cells = document.getElementById("actInfo").rows.item(0).cells.length;
+// 	for (let i = 1; i < cells; i++) {
+// 		let timeEnd = document.querySelector(`#timeEnd + i`).innerText + ':00';
+// 		console.log(document.querySelector(`#timeEnd + i`));
+// 		let changeString = timeEnd.replace(new RegExp("-","gm"),"/");
+// 		let Endtime = (new Date(changeString)).getTime();
+// 		let newTime = new Date();
+		
+// 		if(newTime.getTime() == Endtime) {
+// 			regis.setAttribute("hidden", true);
+// 			timeEnd.removeAttribute("hidden");
+// 		}	
+// 	}
+// }
+<!-- </script> -->
 </body>
 </html>

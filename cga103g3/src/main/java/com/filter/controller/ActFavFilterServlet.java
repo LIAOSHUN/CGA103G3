@@ -14,9 +14,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebFilter(filterName = "ActFilterServlet", 
-servletNames = "ActRegisServlet")
+servletNames = "AddActFavServlet")
 //urlPatterns = {"/frontend/actregis/*"})
-public class ActFilterServlet implements Filter {
+public class ActFavFilterServlet implements Filter {
    
 	private FilterConfig config;
 
@@ -46,7 +46,8 @@ public class ActFilterServlet implements Filter {
 		// 判斷如果沒有取到會員資訊,就跳轉到登入頁面  || "".equals(memID) || (memID.trim()).length() == 0
 		if (memID == null) {
 		//存現在網頁到location
-		session.setAttribute("location", req.getContextPath()+ "/ActServlet?actID="+actID+"&action=showActForRegis");
+		session.setAttribute("location", req.getContextPath()+ "/ActServlet?actID="+actID+"&action=showActInfo");
+		session.setAttribute("memID", memID);
 //		session.setAttribute("actID", actID);
 //		session.setAttribute("action", showActForRegis);
 		// 跳轉到登入頁面

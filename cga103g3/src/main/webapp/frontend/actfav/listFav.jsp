@@ -5,12 +5,14 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.time.LocalDateTime"%>
 <%@ page import="com.actfav.model.*"%>
+<jsp:useBean id="memberVO" scope="request" class="com.member.model.MemberVO" />
 <jsp:useBean id="actVO" scope="request" class="com.act.model.ActVO" />
 <%
     ActFavService actFavSvc = new ActFavService();
+	List<ActFavVO> list = actFavSvc.getByMem((Integer)(session.getAttribute("memID")));
 //ActFavVO actFavVO = (ActFavVO) session.getAttribute("member");("會員登入後擷取會員ID"));
 //List<ActFavVO> list = actFavSvc.getByMem(member.getMemID());("會員登入後擷取會員ID"));
-    List<ActFavVO> list = actFavSvc.getByMem(11002);
+//     List<ActFavVO> list = actFavSvc.getByMem(11002);
     pageContext.setAttribute("list",list);
 %>
 
@@ -86,7 +88,9 @@
 						</a>
 					</td>
 						<td>
-							<button onclick="onDelFav(${actVO.actID})">移除</button>
+							<a href="<%=request.getContextPath()%>/DelActFavServlet?actID=${actFavVO.actVO.actID}">
+								<button onclick="onDelFav()">移除</button>
+							</a>
 						</td>
 					</tr>
 				</c:forEach>
@@ -99,16 +103,17 @@
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/popper/popper.js"></script>
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/js/bootstrap.js"></script>
 <script>
-	function onDelFav(actID) {
+	function onDelFav() {
 		if (!confirm('確定刪除?')) {
         return;
     	}
-		let url = `/cga103g3/DelActFavServlet?actID=${actVO.actID}`;
+		let url = `/cga103g3/DelActFavServlet`;
 		fetch(url, {
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
-				actID: `${actVO.actID}`
+// 				actID: ${actFavVO.actVO.actID},
+				memID: ${memID}
 			})
 		})
 			.then(res => res.json())
