@@ -20,15 +20,15 @@ public class ActRegisJDBCDAO implements ActRegisDAO_interface {
 	private static final String GET_ALL_STMT = 
 		"select MemID, ActID, RegisTime, ActNum, ActFee, FeeStatus, "
 		+ "RegisStatus, ActReview, Satisfaction, ReviewDate "
-		+ "from actregistered order by ActID";
+		+ "from actregistered order by RegisTime desc ";
 	private static final String GET_ONEACT_STMT = 
 		"select MemID, ActID, RegisTime, ActNum, ActFee, FeeStatus, "
 		+ "RegisStatus, ActReview, Satisfaction, ReviewDate "
-		+ "from actregistered where ActID = ?";
+		+ "from actregistered where ActID = ? order by RegisTime desc ";
 	private static final String GET_ONEMEM_STMT = 
 		"select MemID, ActID, RegisTime, ActNum, ActFee, FeeStatus, "
 		+ "RegisStatus, ActReview, Satisfaction, ReviewDate "
-		+ "from actregistered where MemID = ?";
+		+ "from actregistered where MemID = ? order by RegisTime desc ";
 	private static final String GET_ONE_FORUPDATE = 
 			"select MemID, ActID, RegisTime, ActNum, ActFee, FeeStatus, "
 			+ "RegisStatus, ActReview, Satisfaction, ReviewDate "

@@ -65,10 +65,11 @@
 <%@ include file="../frontendhead.jsp" %>
 	<main>
 		<div class="container-main">
+				<form method="post" action="<%=request.getContextPath()%>/ActRegisServlet" name="form1" id="form1">
 			<table style="left: 50px;">
 				<tr>
 					<td><b>活動名稱： </b></td>
-					<td><span name="actTitle">${actVO.actTitle}</span></td>
+					<td><span id="actTitle">${actVO.actTitle}</span></td>
 				</tr>
 				<tr>
 					<td><b>活動日期： </b></td>
@@ -90,14 +91,23 @@
 				</tr>
 				<tr>
 					<td><b>報名總費用：</b></td>
-					<td><span name="actFee" id="fee"></span></td>
+					<td><span id="fee"></span></td>
 				</tr>
 			</table>
+			<div>
+				<input type="hidden" name="action" value="insert">
+				<input type="hidden" name="memID" value="${memID}">
+				<input type="hidden" name="actID" value="${actVO.actID}">
+				<input type="hidden" name="actFee" id="actFee">
+				<input type="hidden" name="feeStatus" value="0" />
+				<input type="hidden" name="regisStatus" value="1" />
+			</div>
+				</form>
 			<table style="left: 150px;">
 				<tr style="line-height: 2.7;">
 					<td>
 						
-							<button class="btnn btn-info btnToConfirm" onclick="onRegisClick()">確 認 報 名</button>
+							<button class="btnn btn-info btnToConfirm" type="submit" form="form1" value="Submit">確 認 報 名</button>
 						
 					</td>					
 				</tr>
@@ -118,32 +128,34 @@
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/js/bootstrap.js"></script>
 <script>
 	window.onload = function() {
-		const actFee = document.querySelector('#fee');
-		actFee.innerHTML = ${actVO.actFee} +' 元';		
+		const fee = document.querySelector('#fee');
+		fee.innerHTML = ${actVO.actFee} +' 元';		
 	}
 	document.querySelector('#actNum').onchange = function() {
 		document.querySelector('#fee').innerHTML = document.querySelector('#actNum').value * ${actVO.actFee} + ' 元';
+// 		let newFee = document.querySelector('#actNum').value * ${actVO.actFee};
+		document.querySelector('#actFee').setAttribute("value", document.querySelector('#actNum').value * ${actVO.actFee});
 	}
-	function onRegisClick(){
-		if(${empty memID}) {
-			window.location.href = "/cga103g3/frontend/member/memberLogin.jsp";
-			return;
-		} else {			
-		console.log('test');
-	    let actNum = document.querySelector('#actNum');
-	    let actFee = document.querySelector('#fee');
-		console.log(actNum.value);
+// 	function onRegisClick(){
+// 		if(${empty memID}) {
+// 			window.location.href = "/cga103g3/frontend/member/memberLogin.jsp";
+// 			return;
+// 		} else {			
+// 		console.log('test');
+// 	    let actNum = document.querySelector('#actNum');
+// 	    let actFee = document.querySelector('#fee');
+// 		console.log(actNum.value);
 
-	    fetch('/cga103g3/RegisFetch', {
-	        method: 'POST',
-	        headers: { 'Content-Type': 'application/json' },
-	        body: JSON.stringify({
-	        	memID: ${memID},
-	        	actID: ${actVO.actID},
-	            actNum: actNum.value,
-	            actFee: actFee.textContent
-	        })
-	    })
+// 	    fetch('/cga103g3/RegisFetch', {
+// 	        method: 'POST',
+// 	        headers: { 'Content-Type': 'application/json' },
+// 	        body: JSON.stringify({
+// 	        	memID: ${memID},
+// 	        	actID: ${actVO.actID},
+// 	            actNum: actNum.value,
+// 	            actFee: actFee.textContent
+// 	        })
+// 	    })
 // 	    .then(res => res.json())
 // 	    .then(body => {
 // 	        const { successful, message } = body;
@@ -154,8 +166,8 @@
 // 	            }
 // 	    });
 // 	    window.location.href = "/cga103g3/frontend/actregis/listMemRegis.jsp"
-		}
-	}
+// 		}
+// 	}
 </script>
 </body>
 </html>

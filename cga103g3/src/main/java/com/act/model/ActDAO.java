@@ -37,14 +37,16 @@ public class ActDAO implements ActDAO_interface {
 			+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	private static final String GET_ALL_STMT = "select ActID, StoreID, ActTitle, ActDescription, ActTimeStart, ActTimeEnd, "
 			+ "ActDate, RegisMax, ActFee, ActRegistration, ActStatus " 
-			+ "from activity order by ActID";
+			+ "from activity order by ActDate desc";
 	private static final String GET_ONE_STMT = "select ActID, StoreID, ActTitle, ActDescription, ActTimeStart, ActTimeEnd, "
 			+ "ActDate, RegisMax, ActFee, ActRegistration, ActStatus " 
 			+ "from activity where ActID = ?";
 	private static final String UPDATE = "update activity set StoreID=?, ActTitle=?, ActDescription=?, ActTimeStart=?, ActTimeEnd=?, "
 			+ "ActDate=?, RegisMax=?, ActFee=?, ActRegistration=?, ActStatus=? where ActID = ?";
 	private static final String UPDATE_STATE = "update activity set ActStatus=2 where ActID = ?";
-	private static final String UPDATE_NUM = "update activity set ActRegistration=ActRegistration + 1 where ActID = ?";
+	private static final String UPDATE_NUM = 
+			"update activity a JOIN actregistered r ON a.ActID = r.ActID "
+			+ "set a.ActRegistration=a.ActRegistration + r.ActNum where ActID = ?";
 	private static final String GET_IMGS_BYACTID_STMT = "SELECT ActImgID, ActID, ActImgFile "
 			+ "FROM actimg where ActID = ? order by ActImgID ";
 
