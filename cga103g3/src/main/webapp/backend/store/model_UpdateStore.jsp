@@ -524,7 +524,7 @@ StoreVO stVO = (StoreVO) request.getAttribute("stVO"); //StoreServlet.java (Conc
                           </div>
                           
                           <div class="mb-3 col-md-6">
-                            <label for="storeOff" class="form-label">門市打烊時間</label>
+                            <label for="storeOff" class="form-label">門市公休日</label>
                             <select name="storeOff" id="storeOff" class="select2 form-select">
                             <option value="<%=stVO.getStoreOff() %>" selected="selected" hidden><%=stVO.getStoreOff() %></option>
                               <option value="日">日</option>

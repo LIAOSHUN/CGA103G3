@@ -1,3 +1,4 @@
+<%@page import="javax.mail.search.IntegerComparisonTerm"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ include file="/frontend/frontendhead.jsp"%>
@@ -6,8 +7,9 @@
 
 <%
 //取得會員訂位訂單資訊
+Integer memID = (Integer)(session.getAttribute("memID"));
 BookingOrdService boSvc = new BookingOrdService();
-List<BookingOrderVO> list = boSvc.getBookingOrd((Integer)(session.getAttribute("memID")));
+List<BookingOrderVO> list = boSvc.getBookingOrd(memID);
 pageContext.setAttribute("list", list);
 %>
 
@@ -75,7 +77,7 @@ pageContext.setAttribute("list", list);
              
               <!-- Basic Bootstrap Table -->
               <div class="card">
-                <h5 class="card-header">訂位訂單表</h5>
+                <h5 class="card-header">${memID} / 訂位訂單表</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
                     <thead>
