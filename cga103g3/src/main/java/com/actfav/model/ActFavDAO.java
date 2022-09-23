@@ -34,11 +34,11 @@ public class ActFavDAO implements ActFavDAO_interface {
 			+ "from actfavorites order by MemID";
 	private static final String GET_BYMEM = 
 			"select MemID, ActID, ActFavDate "
-			+ "from actfavorites where MemID = ?";
+			+ "from actfavorites where MemID = ? order by ActFavDate desc ";
 	private static final String GET_BYJOIN =
 			"select f.MemID, f.ActID, a.StoreID, a.ActTitle, a.ActTimeEnd, a.ActDate, f.ActFavDate "
 			+ "from activity a JOIN actfavorites f ON a.ActID = f.ActID "
-			+ "where f.MemID = ?";
+			+ "where f.MemID = ? order by f.ActFavDate desc ";
 	private static final String GET_ONEFAV_BYMEM = 
 			"select MemID, ActID, ActFavDate "
 			+ "from actfavorites where MemID = ? and ActID = ?";
