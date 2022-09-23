@@ -67,7 +67,7 @@
 							<img
 								src="<%=request.getContextPath()%>/frontend/frontend_template/images/首頁跑馬05.jpg"
 								alt="IMG-BANNER">
-							<FORM METHOD="post" ACTION="/cga103g3/product/ShowProductType">
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/orderlist/myOrderList.jsp">
 
 								<button
 									class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
@@ -94,7 +94,7 @@
 							<img
 								src="<%=request.getContextPath()%>/frontend/frontend_template/images/首頁跑馬06.jpg"
 								alt="IMG-BANNER">
-							<FORM METHOD="post" ACTION="/cga103g3/product/ShowProductType">
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/actregis/listMemRegis.jsp">
 
 								<button href="product.html"
 									class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
@@ -119,7 +119,7 @@
 							<img
 								src="<%=request.getContextPath()%>/frontend/frontend_template/images/首頁跑馬04.jpg"
 								alt="IMG-BANNER">
-							<FORM METHOD="post" ACTION="/cga103g3/product/ShowProductType">
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/frontend/memcoupon/myCoupon.jsp">
 
 								<button
 									class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
@@ -146,8 +146,8 @@
 							<img
 								src="<%=request.getContextPath()%>/frontend/frontend_template/images/首頁跑馬02.jpg"
 								alt="IMG-BANNER">
-							<FORM METHOD="post" ACTION="/cga103g3/product/ShowProductType">
-								<button href="product.html"
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/actfav/listFav.jsp">
+								<button
 									class="block1-txt ab-t-l s-full flex-col-l-sb p-lr-38 p-tb-34 trans-03 respon3">
 									<div class="block1-txt-child1 flex-col-l">
 										<span class="block1-name ltext-102 trans-04 p-b-8"> <font
@@ -159,7 +159,7 @@
 										<div class="block1-link stext-101 cl0 trans-09">查看</div>
 									</div>
 								</button>
-								<input type="hidden" name="pdTypeID" value="41010"> <input
+								<input type="hidden" name="pdTypeID" value="memID"> <input
 									type="hidden" name="action" value="getOne_Type">
 							</FORM>
 						</div>
