@@ -7,7 +7,7 @@
 <!DOCTYPE html> 
 <html>
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8"> 
 <title>cart.jsp</title> 
 <style>
   
