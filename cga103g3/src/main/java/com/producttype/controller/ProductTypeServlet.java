@@ -97,7 +97,7 @@ public class ProductTypeServlet extends HttpServlet {
 								
 				/***************************3.查詢完成,準備轉交(Send the Success view)************/
 				req.setAttribute("productTypeVO", productTypeVO);         // 資料庫取出的empVO物件,存入req
-				String url = "/backend/producttype/update_producttype_input.jsp";
+				String url = "/backend/producttype/listAllProductType2.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 				successView.forward(req, res);
 		}
@@ -178,7 +178,7 @@ public class ProductTypeServlet extends HttpServlet {
 			productTypeVO = productTypeSvc.addProductType(pdTypeName);
 				
 				/***************************3.新增完成,準備轉交(Send the Success view)***********/
-				String url = "/backend/producttype/listAllProductType.jsp";
+				String url = "/backend/producttype/listAllProductType2.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllEmp.jsp
 				successView.forward(req, res);				
 		}
@@ -199,7 +199,7 @@ public class ProductTypeServlet extends HttpServlet {
 				productTypeSvc.deleteProductType(pdTypeID);
 				
 				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
-				String url = "/backend/producttype/listAllProductType.jsp";
+				String url = "/backend/producttype/listAllProductType2.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
 		}

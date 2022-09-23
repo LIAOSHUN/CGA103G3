@@ -21,7 +21,7 @@ public class ProductFavoriteJDBCDAO implements ProductFavoriteDAO_interface {
 	private static final String INSERT_STMT = 
 			"INSERT INTO productfavorites (memID,pdID) VALUES (?, ?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT memID,pdID,pdfavdate FROM productfavorites order by pdfavdate desc";
+			"SELECT memID,pdID,pdfavdate FROM productfavorites where memID=11004 order by pdfavdate desc";
 		private static final String DELETE = 
 			"DELETE FROM productfavorites where memID = ? and pdID= ? " ;
 
