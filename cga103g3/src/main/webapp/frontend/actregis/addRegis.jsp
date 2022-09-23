@@ -91,14 +91,16 @@
 				</tr>
 				<tr>
 					<td><b>報名總費用：</b></td>
-					<td><span id="fee"></span></td>
+					<td>
+						<input type="text" name="actFee" id="fee">
+					</td>
 				</tr>
 			</table>
 			<div>
 				<input type="hidden" name="action" value="insert">
 				<input type="hidden" name="memID" value="${memID}">
 				<input type="hidden" name="actID" value="${actVO.actID}">
-				<input type="hidden" name="actFee" id="actFee">
+<!-- 				<input type="hidden" name="actFee" id="actFee"> -->
 				<input type="hidden" name="feeStatus" value="0" />
 				<input type="hidden" name="regisStatus" value="1" />
 			</div>
