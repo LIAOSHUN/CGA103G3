@@ -209,36 +209,52 @@ pageContext.setAttribute("list1", list1);
 
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+
 <script>
 
 let addCart = document.querySelector('#addCart');
 let count1 = document.querySelector('#count');
+let cartNum = document.querySelector('#cartNum');
 
 
-let pdID = <%=productVO.getPdID() %>;
+const pdID = <%=productVO.getPdID() %>;
 
 
 
 addCart.addEventListener('click', function () {
 	
 	let newCount = count1.value;
-	console.log(newCount)
-	console.log(pdID)
-	let pdID = <%=productVO.getPdID() %>;
 	
 	   $.ajax({
 		url: "cart.do",
 		type: "POST",
+		
 		data: {
 				action: "addItem",
 				count:newCount,
 				pdID:pdID,
 			  },
+			  success: function(){
+				
+				   $.ajax({
+						url: "initCart.do",
+						type: "POST",
+						
+						data: {
+							
+						},
+						success: function(data){
+							console.log(data);
+							console.log(data.length);
+							cartNum.innerText = data.length;
+							
+						}
+					})
+				
+				
+				}	  
 
 		})	
-	
-	
-		
 });
 
 
@@ -254,7 +270,7 @@ addfav.addEventListener('click', function () {
 				action: "insert",
 				pdID:pdID,
 			  },
-
+			
 		})	
 	
 	

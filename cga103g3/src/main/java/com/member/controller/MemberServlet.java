@@ -497,7 +497,7 @@ public class MemberServlet extends HttpServlet {
 		
 		/**********************************登出*******************************************************************************/
 		
-<<<<<<< HEAD
+
 		  if ("memberLogout".equals(action)) {
 			   
 			   session.removeAttribute("memID");
@@ -508,7 +508,7 @@ public class MemberServlet extends HttpServlet {
 			   RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			   successView.forward(req, res);
 			  }
-=======
+
 		if ("memberLogout".equals(action)) {
 			
 			session.removeAttribute("memID");
@@ -519,7 +519,7 @@ public class MemberServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
->>>>>>> refs/remotes/origin/ku
+
 
 		
 		/**********************************************************************************************************************/

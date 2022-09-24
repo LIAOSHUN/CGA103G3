@@ -27,8 +27,6 @@ public class GetCartHumberServlet extends HttpServlet {
 
 	public void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
-		req.setCharacterEncoding("UTF-8");
-		HttpSession session = req.getSession();
 		Gson gson = new Gson();
 		
 		String sessionId = (String) req.getSession().getAttribute("sessionId");//取得session的ID
@@ -37,10 +35,10 @@ public class GetCartHumberServlet extends HttpServlet {
 		cartItems = cartSvc.getCart(sessionId);
 		
 		
-		
+		res.setContentType("application/json; charset = UTF-8");
 		PrintWriter out = res.getWriter();
-		String cartItemsJson = gson.toJson(cartItems);
-		out.write(cartItemsJson);
+		String cartItemsJson2 = gson.toJson(cartItems);
+		out.write(cartItemsJson2);
 		out.flush();
 		out.close();
 	}

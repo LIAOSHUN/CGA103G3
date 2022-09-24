@@ -30,9 +30,9 @@
     text-align: center;
   }
   
-  tr:nth-child(odd){
-  	background-color: #eee
-  }
+   tr:nth-child(odd){ 
+   	background-color: #eee 
+   } 
 </style>
 
 <style>
@@ -150,7 +150,7 @@
 	 			for (int index = 0; index < cartItems.size(); index++) {
 				 	CartItemVO cartItem = cartItems.get(index);
 			%>
-	
+			
 			<tr class="tr table_row" >
 				<td class="column-1"><%=cartItem.getPdName()%> 
 					<div id="pdIDbutton">
@@ -180,6 +180,7 @@
 		            <input type="button" id='delete' value="x" class="delete flex-c-m stext-101 cl0 size-202 bg3 bor7 hov-btn3 p-lr-15 trans-04 pointer" >
 		        </td>
 			</tr>
+
 	<%}%>
 		</table>
         </form>
@@ -187,8 +188,7 @@
     		<input type="checkbox" name="checkItems" id="checkItems" value="全選/全不選"><span>全選</span>
         </div>
         
-        	<c:if
-				test="${orderListVO.ordStatus != 2 && orderListVO.ordStatus != 3}" >
+        	
         		<div id='checkoutbutton'>
         			<button form="Form" type="submit" id='checkout' value="結帳就對了!" 
         			class="flex-c-m stext-101 cl0 size-101 bg2 bor14 hov-btn3 p-lr-15 trans-04 pointer"
@@ -196,7 +196,7 @@
     					結帳go!
     				</button>
         		</div>
-			</c:if>									
+												
     </div>
     
 </div>    
@@ -249,7 +249,6 @@
 	
 	<div>
 		<a href="<%=request.getContextPath()%>/frontend/product/listAllUp.jsp" class="flex-c-m stext-101 cl0 size-101 bg2  hov-btn3 p-lr-15 trans-04 pointer" style="color:#39ac7e;"> 前 往 商 城 繼 續 購 物</a>
-<%-- 		<a href="<%=request.getContextPath()%>/frontend/cart/test.jsp" class="flex-c-m stext-101 cl0 size-101 bg2  hov-btn3 p-lr-15 trans-04 pointer" style="color:#39ac7e;"> 前 往 商 城 繼 續 購 物</a> --%>
 	</div>
 	
 	<%@ include file="../frontendfoot.jsp" %>
@@ -291,7 +290,7 @@
 	
 
 			
-			//消費者按按鈕時觸發
+			//checkbox時有變動時觸發或有刪除商品時觸發，來檢查此刻到底有沒有商品被打勾
 				function f1(){
 					for(let index = 0; index < <%=cartItems.size()%>;index++){
 						// 如果此次點擊是被勾選，結帳按鈕顯示
@@ -316,24 +315,24 @@
 				
 				
 // 				檢查假如全部商品都隱藏的話，重刷頁面			
-// 				function f2(){
-// 					console.log('成功');
-<%-- 					for(let index = 0; index < <%=cartItems.size()%>;index++){ --%>
-// 						console.log('進來');
-// 						console.log(pdIDs[index].style.display !== "none");
+				function f2(){
+					let count = 0;//隱藏數目
+					for(let index = 0; index < <%=cartItems.size()%>;index++){
 						
+						//商品假如被隱藏的話，累加"隱藏數目"一次
+						if(trs[index].style.display === "none"){
+							count++;
+							console.log(count);
+						}
+					}
+					//當隱藏數目等於購物車的商品數量，代表全部商品皆被隱藏
+					if(<%=cartItems.size()%> === count ){
 						
-// 						if(pdIDs[index].style.display !== "none"){
-// 							return;
-// 						}
+						setTimeout(() => location.reload(), 1000);
 						
-// 					}
-					
-<%-- 					if(<%=cartItems.size()%> === 0){ --%>
-						
-// 						location.reload();
-// 					}
-// 				}
+					}
+
+				}
 				
 				
 			//全選/不選
@@ -368,23 +367,70 @@
 			var checkElements = document.getElementsByName('pdID');
 			
 			deletes[index].addEventListener('click', function () {
-				$.ajax({
-					url: "cart.do",
-					type: "POST",
-					data: {
-							action: "deleteItem",
-							pdID:pdID,
-						},
-						success: function(){
-							//隱形
-							trs[index].setAttribute('style', 'display: none');
-							//取消勾選
-							var checkElement = checkElements[index];
-		                    checkElement.checked = null;
-		                    //檢驗沒商品時，重刷頁面
-// 		                    f2();
-						}
-				})
+				
+				/* sweetalert */
+	 			 const swalWithBootstrapButtons = Swal.mixin({
+	 		        customClass: {
+	 		            confirmButton: 'btn btn-success ml-3',
+	 		            cancelButton: 'btn btn-danger mr-3'
+	 		        },
+	 		        buttonsStyling: false
+	 		    })
+
+				
+				 swalWithBootstrapButtons.fire({
+	        		title: '確定將此遊戲移除購物車嗎?',
+	        		text: "請珍惜每次的羈絆",
+	        		icon: 'warning',
+	        		showCancelButton: true,
+	        		confirmButtonText: '是的!',
+	        		cancelButtonText: '我再想想',
+	        		reverseButtons: true
+	    		}).then((result) => {
+	    			if (result.isConfirmed) {
+	 		            swalWithBootstrapButtons.fire(
+	 		                '已成功刪除此遊戲商品!',
+	 		                '若想再次將商品加入購物車，請至購物商城',
+	 		                'success'
+	 		            )
+				
+						$.ajax({
+							url: "cart.do",
+							type: "POST",
+							data: {
+									action: "deleteItem",
+									pdID:pdID,
+								},
+								success: function(){
+									//取消勾選
+									var checkElement = checkElements[index];
+				                    checkElement.checked = null;
+									//隱形
+									trs[index].setAttribute('style', 'display: none');
+									//結帳按鈕隱形
+									f1();
+				                    //檢驗沒商品時，重刷頁面
+									f2();
+									//更新購物車icon數量
+										$.ajax({
+											url: "initCart.do",
+											type: "POST",
+														
+											data: {
+															
+											},
+											success: function(data){
+												console.log(data);
+												console.log(data.length);
+												cartNum.innerText = data.length;
+															
+											}
+										})
+
+								}
+						})
+	    			}
+	    		})
 			});
 		}
 	
@@ -469,11 +515,31 @@
  											pdID:pdID,
  										},
  									success: function(){
- 										//隱形
- 										trs[index].setAttribute('style', 'display: none');
  										//取消勾選
  										var checkElement = checkElements[index];
  					                    checkElement.checked = null;
+ 										//隱形
+ 										trs[index].setAttribute('style', 'display: none');
+ 										//結帳按鈕隱形
+ 										f1();
+ 					                 //檢驗沒商品時，重刷頁面
+ 										f2();
+ 										//更新購物車icon數量
+ 										$.ajax({
+ 											url: "initCart.do",
+ 											type: "POST",
+ 														
+ 											data: {
+ 															
+ 											},
+ 											success: function(data){
+ 												console.log(data);
+ 												console.log(data.length);
+ 												cartNum.innerText = data.length;
+ 															
+ 											}
+ 										})
+
  									}
  								})	
  		    			  }

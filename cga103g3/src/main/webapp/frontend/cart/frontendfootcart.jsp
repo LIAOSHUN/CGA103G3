@@ -251,21 +251,21 @@ getCart.addEventListener('click', function () {
 					
 					console.log(objs);
 					
-// 					for(let i = 0; i < objs.length; i++){
-// 						let obj = objs[i];
-// 						totalItems += obj.count;
-// 						let itemSum = obj.count * obj.pdPrice;
-// 						html += `<tr>
-// 		                            <td class="align-middle text-center">
-// 		                                <i id="${obj.itemId}" class="far fa-trash-alt deleteItem"></i>
-// 		                            </td>
-// 		                            <td class="align-middle">${obj.pdName}</td>
-// 		                            <td class="align-middle count">${obj.count}</td>
-// 		                            <td class="align-middle text-right">$ ${itemSum}</td>
-// 		                        </tr>`;
-// 					}
-// 					$("#cartbody").append(html);
-// 					$(".totalItems").text(totalItems);
+					for(let i = 0; i < objs.length; i++){
+						let obj = objs[i];
+						totalItems += obj.count;
+						let itemSum = obj.count * obj.pdPrice;
+						html += `<tr>
+		                            <td class="align-middle text-center">
+		                                <i id="${obj.itemId}" class="far fa-trash-alt deleteItem"></i>
+		                            </td>
+		                            <td class="align-middle">${obj.pdName}</td>
+		                            <td class="align-middle count">${obj.count}</td>
+		                            <td class="align-middle text-right">$ ${itemSum}</td>
+		                        </tr>`;
+					}
+					$("#cartbody").append(html);
+					$(".totalItems").text(totalItems);
 					
 			}	
 	})	

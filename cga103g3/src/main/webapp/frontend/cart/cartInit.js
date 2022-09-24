@@ -11,16 +11,34 @@ function init() {
 				
 			}
 		})
-//   $.ajax({
-//			url: "getCartHumber.do",
-//			type: "POST",
-//			data: {
-//				
-//			},
-//			success: function(){
-//				
-//			}
-//		})
+		
+		
+		$.ajax({
+			url: "initCart.do",
+			type: "POST",
+						
+			data: {
+							
+			},
+			success: function(data){
+//				console.log(data);
+//				console.log(data.length);
+				cartNum.innerText = data.length;
+							
+			}
+		})
+		
+		
+   $.ajax({
+			url: "getCartHumber.do",
+			type: "POST",
+			data: {
+				
+			},
+			success: function(){
+				
+			}
+		})
 		
 		
 }

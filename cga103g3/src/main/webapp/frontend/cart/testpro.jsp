@@ -46,7 +46,6 @@
 
 </head>
 <body>
-<%@ include file="../frontendhead2.jsp" %>
 <table >
 	<tr>
 		<th>商品id</th>
@@ -151,7 +150,6 @@
 	<input type="submit" value="查看購物車">
 	<input type="hidden" name="action"	value="getCart">
  </FORM>
- <%@ include file="../frontendfoot2.jsp" %>
 </body>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>

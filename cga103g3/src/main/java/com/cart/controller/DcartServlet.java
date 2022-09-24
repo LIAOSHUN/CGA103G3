@@ -39,25 +39,39 @@ public class DcartServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			Integer pdID = 0;
 			if (values != null)  {
+				
 				for (int i = 0; i < values.length; i++) {
 					sessionId = (String) req.getSession().getAttribute("sessionId");
 					CartService cartSvc = new CartService();
 					pdID = Integer.valueOf(values[i]);
-					CartItemVO itemchecked = cartSvc.getOneChecked(sessionId, pdID);
 					
-					checkedlist.add(itemchecked);//將每一個被選取的商品加入被選取商品的list
+//					System.out.println("pdID" + "=" + pdID );
+					//必須過濾掉，其實redis裡已經沒有的商品id ，因為servlet 會抓所有的id
+					List<CartItemVO> nowList = cartSvc.getCart(sessionId);
+					for (int j = 0; j < nowList.size(); j++) {
+						Integer nowPdID = nowList.get(j).getPdID();
+						if(!nowPdID.equals(pdID)) { //如果現存redis的商品ID都沒有等於pdID的話，代表他其實已被刪除，則跳過，不加入checkedlist
+//							System.out.println("nowPdID" + "=" + nowPdID );
+							continue;
+						}	
+						CartItemVO itemchecked = cartSvc.getOneChecked(sessionId, nowPdID);
+//						System.out.println("itemchecked" + "=" + itemchecked.getPdID() );
+						checkedlist.add(itemchecked);//將每一個被選取的商品加入被選取商品的list
+					}
+
 				}
 				
 				//回傳被選取商品的list
+				
 				req.setAttribute("checkedlist", checkedlist);
 				String url = "/frontend/cart/checkout.jsp";
 				RequestDispatcher rd = req.getRequestDispatcher(url);
 				rd.forward(req, res);
 				
 			}else{
+				System.out.println("0");
 				String url = "/frontend/cart/cart.jsp";
-				RequestDispatcher rd = req.getRequestDispatcher(url);
-				rd.forward(req, res);
+				res.encodeRedirectURL(url);
 			};
 			
 		}

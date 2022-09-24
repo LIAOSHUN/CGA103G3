@@ -154,8 +154,8 @@ pageContext.setAttribute("list2", list2);
 
 							</thead>
 							<c:forEach var="productVO" items="${list}">
+									<input type="hidden" value="${productVO.pdID}" class="pdID"> 
 								<tbody >
-
 									<tr class="table_row isotope-item ${productVO.productTypeVO.pdTypeName} " >
 
 										<td><c:forEach var="productImgVO" items="${list1}"
@@ -189,6 +189,10 @@ pageContext.setAttribute("list2", list2);
 												看更多
 												</button>
 											</FORM>
+											<br>
+											<button 
+												class="flex-c-m stext-101 cl0 size-116 bg3 bor14 hov-btn3 p-lr-15 trans-04 pointer addCart "
+												>加入購物車</button>
 										</td>
 
 									</tr>
@@ -207,8 +211,11 @@ pageContext.setAttribute("list2", list2);
 
 </body>
 
-
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+
+
 	(function(document) {
 		'use strict';
 
@@ -257,6 +264,67 @@ pageContext.setAttribute("list2", list2);
 		});
 
 	})(document);
+	
+	
+	
+	
+	let addCart = document.querySelectorAll('.addCart');
+	let pdIDs = document.querySelectorAll('.pdID');
+
+
+	for(let index = 0; index < ${list.size()};index++){
+		
+		let pdID = parseInt(pdIDs[index].value);
+		
+		
+	addCart[index].addEventListener('click', function () {
+		
+		
+		Swal.fire({
+			  position: 'center',
+			  icon: 'success',
+			  title: '成功加入購物車',
+			  showConfirmButton: false,
+			  timer: 1500
+			})
+		
+		   $.ajax({
+			url: "cart.do",
+			type: "POST",
+			data: {
+					action: "addItem",
+					count:1,
+					pdID:pdID,
+				  },
+
+					success: function(){
+							//更新購物車icon數量
+							$.ajax({
+								url: "initCart.do",
+								type: "POST",
+											
+								data: {
+												
+								},
+								success: function(data){
+									console.log(data);
+									console.log(data.length);
+									cartNum.innerText = data.length;
+												
+								}
+							})  
+					}
+			})
+			
+
+	});
+	
+	}
+	
+	
+	
+	
+	
 </script>
 </html>
 <%@include file="/frontend/frontendfoot.jsp"%>

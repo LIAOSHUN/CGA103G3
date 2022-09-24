@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -226,10 +227,80 @@
 	</script>
 	<!--===============================================================================================-->
 	<script src="<%=request.getContextPath()%>/frontend/frontend_template/js/main.js"></script>
+	<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script src="<%= request.getContextPath() %>/frontend/cart/cartInit.js"></script>
+<script>
+let getCart = document.querySelector('#getCart');
+let productDetails = document.querySelector('.productDetail');
 
-
+getCart.addEventListener('click', function () {
 	
+	$.ajax({
+		url: "getCartHumber.do",
+		type: "POST",
+			
+			success: function(objs){
+					let html = "";
+					
+					
+					if(objs.length === 0){
+						
+						html += `
+							<span>目前尚無商品</span>`;
+						
+						$("#cartbody").html(html);
+					}else{
+						for(let i = 0; i < objs.length; i++){
+							let obj = objs[i];
+							let itemSum = obj.count * obj.pdPrice;
+							
+							
+							html += `
+								<div class="header-cart-item-img" id="\${obj.pdID}">
+									<img src="<%=request.getContextPath()%>/ShowProductImg?pdID=\${obj.pdID}&count=1" alt="IMG">
+								</div>
+								<div class="header-cart-item-txt p-t-8">
+									<tr class="header-cart-item-txt p-t-8">
+										<td class="header-cart-item-name m-b-18 hov-cl1 trans-04"><button class="productDetail" >\${obj.pdName}</button></td>
+										<br><td class="header-cart-item-info">\${obj.count}個</td>
+										<br><td class="header-cart-item-info">$ \${itemSum}</td>
+									</tr>
+								<hr>
+								</div>`;
+								
+						}
+						$("#cartbody").html(html);
+						
+					}
+					
+			}	
+	})	
+});
+
+// for(let i = 0; i < cartLength; i++){
+	
+// 	productDetails[i].addEventListener('click', function () {
+// 		console.log(cartLength);
+// 		$.ajax({
+<%-- 			url: "<%=request.getContextPath()%>/frontend/product/ProductServlet", --%>
+// 			type: "POST",
+// 			data: {
+// 					action: "getOne_For_Display",
+// 					pdID:0,
+// 				},
+				
+// 				success: function(){
+// 					console.log("yes");
+// 				}
+// 		})	
+// 	});
+	
+	
+// }
+
+
+
+</script>	
 
 </body>
 

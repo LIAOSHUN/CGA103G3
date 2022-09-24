@@ -75,18 +75,18 @@ public class CartRedisDAO  {
 
 		Gson gson = new Gson();
 		Jedis jedis = null;
-		jedis = pool.getResource();
+		jedis = pool.getResource();//使用連線池
 		jedis.select(1);
 		
 
 		List<String> cartItems = getCart(sessionId);//先把他的車叫出來
 
 		if (cartItems != null) {
-			for (int i = 0; i < cartItems.size(); i++) {
-				CartItemVO orgItem = gson.fromJson(cartItems.get(i), CartItemVO.class);//將他的車的商品一個一個取出來
+			for (int i = 0; i < cartItems.size(); i++) {//將車子的商品進行迭代
+				CartItemVO orgItem = gson.fromJson(cartItems.get(i), CartItemVO.class);//利用Gson對映javabean
 
-				Integer wantAddItemId = cartItemVO.getPdID();
-				Integer orgItemId = orgItem.getPdID();
+				Integer wantAddItemId = cartItemVO.getPdID();//欲加入的商品ID
+				Integer orgItemId = orgItem.getPdID();//原有車中的商品ID
 
 				// 若購物車內已有該商品ID則增加數量
 				if (wantAddItemId.equals(orgItemId)) {

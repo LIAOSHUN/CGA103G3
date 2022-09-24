@@ -64,12 +64,11 @@ public class ScheduleServlet extends HttpServlet {
 					couponTypeVO = listCouponType.get(i);
 					
 					java.util.Date date1 = new java.util.Date();//現在時間
-					java.util.Date date2 = couponTypeVO.getCoupEnd();//優惠券類型的到期日
+					java.util.Date date2 = couponTypeVO.getCoupEnd();//優惠券的到期日
 					Date dateModify = new Date(date1.getTime() - (1000 * 60 * 60 * 24));
-					//如果date1晚於date2 將過期優惠券下架
+					//如果date1晚於date2 ，代表過期，將過期優惠券下架
 					 if (dateModify.after(date2)) { 
-//						 System.out.println("優惠券類型下架");
-						 couponTypeService.updateDown(couponTypeVO.getCoupTypeNo());//改成已下架 
+						 couponTypeService.updateDown(couponTypeVO.getCoupTypeNo());//狀態改成已下架 
 			         }
 
 				}
@@ -81,11 +80,10 @@ public class ScheduleServlet extends HttpServlet {
 					 			
 					 
 					java.util.Date date1 = new java.util.Date();//現在時間
-					java.util.Date date2 = memCouponVO.getCouponTypeVO().getCoupEnd();//會員擁有的優惠券，找出他是哪個類型，在找出此類型的到期日
+					java.util.Date date2 = memCouponVO.getCouponTypeVO().getCoupEnd();//會員優惠券，先找哪個類型，再找出此類型的到期日
 					Date dateModify = new Date(date1.getTime() - (1000 * 60 * 60 * 24));
 					//如果date1晚於date2 則將優惠券下架，會員優惠券改為已過期
 					 if (dateModify.after(date2)) {
-//						 System.out.println("我的優惠券過期");
 						 memCouponService.updateStatusRoutine(memCouponVO.getCoupNo(), 2);//改過期(2:過期)
 			         }
 					 
@@ -97,9 +95,8 @@ public class ScheduleServlet extends HttpServlet {
 					 MemberJDBCDAO_cart memberJDBCDAO_cart = new MemberJDBCDAO_cart();
 					 MemberVO_cart memberVO_cart = memberJDBCDAO_cart.findByPrimaryKey(memCouponVO.getMemID());
 					 String memName = memberVO_cart.getMemName();
-					 //如果date2等於ateRemind 則會員優惠券到期前三天，寄信提醒
+					 //如果date2等於dateRemind 則會員優惠券到期前三天，寄信提醒
 					 if (fmt.format(dateRemind).equals(fmt.format(date2))) {
-//						 System.out.println("你的優惠券剩三天期限"); 
 						 
 						 // 發送 Email 通知
 						 String to = "u5msaaay@gmail.com"; // 要抓會員 email 
@@ -121,7 +118,7 @@ public class ScheduleServlet extends HttpServlet {
 			}
 		};
 		
-		Calendar cal = new GregorianCalendar(2022, Calendar.SEPTEMBER, 18, 0, 0, 0);//9/17號 凌晨1200開始
+		Calendar cal = new GregorianCalendar(2022, Calendar.SEPTEMBER, 24, 0, 0, 0);//9/17號 凌晨1200開始
 		timer.scheduleAtFixedRate(task, cal.getTime(),24*60*60*1000);//從上面指定時間開始，並在每天執行一次
 	}
 

@@ -1,10 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
+
+
+
 <head>
 <title>絆桌</title>
+
+<style>
+#cartNum {
+    font-size: 8px;
+    background: #ff0000;
+    color: #fff;
+    padding: 0 2px;
+    vertical-align: top;
+    margin-left: -5px;
+}
+.badgeNum {
+  padding-left: 5px !important;
+  padding-right: 5px !important;
+  border-radius: 100%;
+}
+
+.label-warning[href],
+.badgeNum-warning[href] {
+  background-color: #c67605;
+}
+
+</style>
+
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <META http-equiv="Content-Type" content="text/html; charset=BIG5">
@@ -95,15 +123,16 @@
 							<div class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
 								<i class="zmdi zmdi-account"></i>
 							</div>
-						</a> <a href="<%=request.getContextPath()%>/frontend/cart/getCart.do">
-							<div class="flex-c-m h-full p-l-18 p-r-25 bor5">
+						</a>
+<%-- 						 <a href="<%=request.getContextPath()%>/frontend/cart/getCart.do"> --%>
+							
+							<div class="flex-c-m h-full p-l-18 p-r-25 bor5" id="getCart">
 								<div
 									class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11  js-show-cart">
 									<!-- <div class="icon-header-item cl2 hov-cl1 trans-04 p-lr-11 icon-header-noti js-show-cart" data-notify="2"></div> -->
-									<i class="zmdi zmdi-shopping-cart"></i>
+									<i class="zmdi zmdi-shopping-cart"></i><span class="badgeNum badgeNum-warning" id= "cartNum">0</span>
 								</div>
 							</div> <input type="hidden" name="action" value="getCart">
-						</a>
 
 						<div class="flex-c-m h-full p-lr-19">
 							<div
@@ -115,6 +144,46 @@
 				</nav>
 			</div>
 		</div>
+		
+		
+		<!-- Cart -->
+	<div class="wrap-header-cart js-panel-cart">
+		<div class="s-full js-hide-cart"></div>
+
+		<div class="header-cart flex-col-l p-l-65 p-r-25">
+			<div class="header-cart-title flex-w flex-sb-m p-b-8">
+				<span class="mtext-103 cl2">
+					購物車明細
+				</span>
+
+				<div class="fs-35 lh-10 cl2 p-lr-5 pointer hov-cl1 trans-04 js-hide-cart">
+					<i class="zmdi zmdi-close"></i>
+				</div>
+			</div>
+			
+			<div class="header-cart-content flex-w js-pscroll">
+				<ul class="header-cart-wrapitem w-full" >
+
+
+					
+					<li class="header-cart-item flex-w flex-t m-b-12" id="cartbody">
+						
+
+
+					</li>
+
+				</ul>
+				
+				<div class="header-cart-buttons flex-w w-full">
+						<a href="<%=request.getContextPath()%>/frontend/cart/getCart.do" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
+							查 看 購 物 車 詳 情
+						</a>
+				</div>
+			</div>
+		</div>
+	</div>
+		
+		
 		<!-- Header Mobile -->
 		<div class="wrap-header-mobile">
 			<!-- Logo moblie -->

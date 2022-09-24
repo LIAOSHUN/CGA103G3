@@ -107,7 +107,7 @@
 		
 		<!-- Cart -->
 	<div class="wrap-header-cart js-panel-cart">
-<%@ include file="/frontend/cart/cart.jsp" %>
+<%-- <%@ include file="/frontend/cart/cart.jsp" %> --%>
 		<div class="s-full js-hide-cart"></div>
 
 		<div class="header-cart flex-col-l p-l-65 p-r-25">
@@ -124,35 +124,35 @@
 			<div class="header-cart-content flex-w js-pscroll">
 				<ul class="header-cart-wrapitem w-full" id="cartbody">
 
-	<% 
-		List<CartItemVO> cartItems = (List<CartItemVO>)request.getSession().getAttribute("cartItems");
-	%>
-	<%if (cartItems != null && (cartItems.size() > 0)) {%>
+<%-- 	<%  --%>
+// // 		List<CartItemVO> cartItems = (List<CartItemVO>)request.getSession().getAttribute("cartItems");
+<%-- 	%> --%>
+<%-- 	<%if (cartItems != null && (cartItems.size() > 0)) {%> --%>
 					
-	<%
-	 	for (int index = 0; index < cartItems.size(); index++) {
-		CartItemVO cartItem = cartItems.get(index);
-	%>		
+<%-- 	<% --%>
+// 	 	for (int index = 0; index < cartItems.size(); index++) {
+// 		CartItemVO cartItem = cartItems.get(index);
+<%-- 	%>		 --%>
 					
 					<li class="header-cart-item flex-w flex-t m-b-12">
 						
 
 						<div class="header-cart-item-txt p-t-8">
 							<a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-								<%=cartItem.getPdName()%>
+<%-- 								<%=cartItem.getPdName()%> --%>
 							</a>
 
 							<span class="header-cart-item-info">
-								<%=cartItem.getPdPrice()%>
+<%-- 								<%=cartItem.getPdPrice()%> --%>
 							</span>
 							<span class="header-cart-item-info">
-								<%=cartItem.getCount()%>
+<%-- 								<%=cartItem.getCount()%> --%>
 							</span>
 							
 							
 						</div>
 					</li>
-<%}%>
+<%-- <%}%> --%>
 
 				</ul>
 				
@@ -160,7 +160,7 @@
 					<div class="header-cart-total w-full p-tb-40">
 						Total: $75.00
 					</div>
-<%}else{%>
+<%-- <%}else{%> --%>
 
 
 
@@ -168,7 +168,7 @@
 
 
 
-<%}%>
+<%-- <%}%> --%>
 					<div class="header-cart-buttons flex-w w-full">
 						<a href="shoping-cart.html" class="flex-c-m stext-101 cl0 size-107 bg3 bor2 hov-btn3 p-lr-15 trans-04 m-r-8 m-b-10">
 							View Cart
