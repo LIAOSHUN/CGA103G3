@@ -4,7 +4,16 @@
 
 <%
 EmployeeService empSVC = new EmployeeService();
-EmployeeVO employeeVO=empSVC.getOneEmployee((Integer)(session.getAttribute("empID")));%>
+EmployeeVO employeeVO=empSVC.getOneEmployee((Integer)(session.getAttribute("empID")));
+
+
+
+
+%>
+
+
+
+
 
 <html>
 <head>

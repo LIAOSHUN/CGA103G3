@@ -482,7 +482,7 @@ public class MemberServlet extends HttpServlet {
 			
 			
 //			System.out.println(req.getSession().getAttribute("memAccount"));      //測試Session
-//			System.out.println(req.getSession().getAttribute("memID"));      //測試Session
+			System.out.println(req.getSession().getAttribute("memID"));      //測試Session
 //			System.out.println(req.getSession().getAttribute("memEmail"));      //測試Session
 //
 //			String location=(String)session.getAttribute("location");
@@ -497,18 +497,6 @@ public class MemberServlet extends HttpServlet {
 		
 		/**********************************登出*******************************************************************************/
 		
-<<<<<<< HEAD
-		  if ("memberLogout".equals(action)) {
-			   
-			   session.removeAttribute("memID");
-			   session.removeAttribute("memAccount");
-			   session.removeAttribute("memEmail");
-
-			   String url = "/frontend/index.jsp";
-			   RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
-			   successView.forward(req, res);
-			  }
-=======
 		if ("memberLogout".equals(action)) {
 			
 			session.removeAttribute("memID");
@@ -519,7 +507,6 @@ public class MemberServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 成功轉交 listOneEmp.jsp
 			successView.forward(req, res);
 		}
->>>>>>> refs/remotes/origin/ku
 
 		
 		/**********************************************************************************************************************/

@@ -239,6 +239,7 @@ public class EmployeeServlet extends HttpServlet {
 					errorMsgs.add("使用者名稱: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				}
 				
+				
 				String empPassWord = req.getParameter("empPassWord"); // 密碼
 				String empPassWordReg = "^[(a-zA-Z0-9_)]{6,20}$";
 				if (empPassWord == null || empPassWord.trim().length() == 0) {
