@@ -72,7 +72,6 @@
                   <div class="d-flex justify-content-between">
                     <label class="form-label" for="password">密碼</label>
                     <a href="auth-forgot-password-basic.html">
-                      <small>Forgot Password?</small>
                     </a>
                   </div>
                   <div class="input-group input-group-merge">

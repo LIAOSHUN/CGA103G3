@@ -333,10 +333,10 @@ public class EmployeeServlet extends HttpServlet {
 
 		    // 【檢查該帳號 , 密碼是否有效】
 			if (empAccount == null || (empAccount.trim()).length() == 0) {
-				errorMsgs.add("請輸入會員帳號");
+				errorMsgs.add("請輸入帳號");
 			}
 			if (empPassWord == null || (empPassWord.trim()).length() == 0) {
-				errorMsgs.add("請輸入會員密碼");
+				errorMsgs.add("請輸入密碼");
 			}
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {

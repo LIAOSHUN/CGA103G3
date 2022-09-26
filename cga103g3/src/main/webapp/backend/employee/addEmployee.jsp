@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.employee.model.*"%>
 <%@include file="/backend/bkhead.jsp"%>
@@ -6,201 +6,219 @@
 <%
   EmployeeVO employeeVO = (EmployeeVO) request.getAttribute("employeeVO");
 %>
-
+<!DOCTYPE html>
 <html>
+
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>­û¤u¸ê®Æ·s¼W - addEmployee.jsp</title>
+<title>çµ†æ¡Œ</title>
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700"
+	rel="stylesheet">
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
+<!-- Bootstrap -->
+<link type="text/css" rel="stylesheet"
+	href="<%=request.getContextPath()%>/frontend/booking/css/bootstrap.min.css" />
 
+<!-- Custom stlylesheet -->
+<link type="text/css" rel="stylesheet"
+	href="<%=request.getContextPath()%>/frontend/booking/css/style.css" />
+
+<!-- Date -->
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+<script src="https://code.jquery.com/ui/1.13.0/jquery-ui.js"></script>
+
+
+<!-- Favicon -->
+<link rel="icon" type="image/x-icon"
+	href="<%=request.getContextPath()%>/backend/backend_template/html/board-game (1).png" />
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link
+	href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+	rel="stylesheet" />
+<!-- Icons. Uncomment required icon fonts -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/fonts/boxicons.css" />
+<!-- Core CSS -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/css/core.css"
+	class="template-customizer-core-css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/css/theme-default.css"
+	class="template-customizer-theme-css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/backend/backend_template/assets/css/demo.css" />
+<!-- Vendors CSS -->
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css" />
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/apex-charts/apex-charts.css" />
+<!-- Page CSS -->
+<!-- Helpers -->
+<script
+	src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/js/helpers.js"></script>
+<!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
+<!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
+<script
+	src="<%=request.getContextPath()%>/backend/backend_template/assets/js/config.js"></script>
 </head>
-<body bgcolor='white'>
+<body>
+	<!-- 	==================================================== åœ–ç‰‡ ================================================================ -->
 
-<table id="table-1">
-	<tr><td>
-		 <h3>­û¤u¸ê®Æ·s¼W - addEmp.jsp</h3></td><td>
-		 <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">¦^­º­¶</a></h4>
-	</td></tr>
-</table>
-
-<h3>¸ê®Æ·s¼W:</h3>
-
-<%-- ¿ù»~ªí¦C --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
-<FORM METHOD="post" ACTION="employee.do" name="form1" enctype="multipart/form-data">
-<table>
-	<tr>
-		<td>­û¤u©m¦W:</td>
-		<td><input type="TEXT" name="empName" size="45" 
-			 value="<%= (employeeVO==null)? "§d¥Ã§Ó" : employeeVO.getEmpName()%>" /></td>
-	</tr>
-	<tr>
-		<td>­û¤u¹q¸Ü:</td>
-		<td><input type="TEXT" name="empPhone" size="45"
-			 value="<%= (employeeVO==null)? "MANAGER" : employeeVO.getEmpPhone()%>" /></td>
-	</tr>
-
-	<tr>
-		<td>­û¤uÀY¶K:</td>
-		<td><input type="file" name="empAvatar" size="45" ></td>
-		
-	</tr>
-	<tr>
-		<td>±b¸¹:</td>
-		<td><input type="TEXT" name="empAccount" size="45"
-			 value="<%= (employeeVO==null)? "100" : employeeVO.getEmpAccount()%>" /></td>
-	</tr>
-	<tr>
-		<td>±K½X:</td>
-		<td><input type="TEXT" name="empPassWord" size="45"
-			 value="<%= (employeeVO==null)? "100" : employeeVO.getEmpPassWord()%>" /></td>
-	</tr>
-	<tr>
-		<td>¶±¥Î¤é´Á:</td>
-		<td><input name="empHireDate" id="f_date1" type="text"></td>
-	</tr>
-	<tr>
-		<td>ª¬ºA:</td>
-		<td><input type="TEXT" name="empStatus" size="45"
-			 value="<%= (employeeVO==null)? "100" : employeeVO.getEmpStatus()%>" /></td>
-	</tr>
+	<!-- 	==================================================== åœ–ç‰‡ ================================================================ -->
 
 
 
-</table>
-<br>
-<input type="hidden" name="action" value="insert">
-<input type="submit" value="°e¥X·s¼W"></FORM>
+
+
+	<!-- 	==================================================== è¡¨å–® ================================================================ -->
+	<form id="form" METHOD="post" ACTION="employee.do" name="form1"
+		enctype="multipart/form-data">
+
+		<div class="card mb-4" style="width: 1000px; margin: 0 auto;">
+			<h5 class="card-header">æœƒå“¡è¨»å†Š</h5>
+			<div class="card-body">
+				<%-- éŒ¯èª¤è¡¨åˆ— --%>
+				<div style="width: 1000px; margin: 0 auto;">
+					<c:if test="${not empty errorMsgs}">
+						<font style="color: red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+						<ul>
+							<c:forEach var="message" items="${errorMsgs}">
+								<li style="color: red">${message}</li>
+							</c:forEach>
+						</ul>
+					</c:if>
+
+				</div>
+				<div class="mb-3">
+					<label for="empName" class="form-label">å§“å:</label> <input
+						id="empName" name="empName" type="text" class="form-control"
+						autocomplete="off"
+						 value="<%= (employeeVO==null)? "å³æ°¸å¿—" : employeeVO.getEmpName()%>" >
+				</div>
+
+				<div class="mb-3">
+					<label for="empPhone" class="form-label">é›»è©±:</label> <input
+						id="empPhone" name="empPhone" type="text" class="form-control"
+						autocomplete="off"
+						value="<%= (employeeVO==null)? "09" : employeeVO.getEmpPhone()%>">
+				</div>
+
+				<div class="mb-3">
+					<label for="empAvatar" class="form-label">é ­è²¼:</label> <input
+						id="empAvatar" name="empAvatar" type="file"
+						class="form-control" autocomplete="off">
+				</div>
+
+			<div class="mb-3">
+					<label for="empAccount" class="form-label">å¸³è™Ÿï¼š</label> <input
+						id="empAccount" name="empAccount" type="text" class="form-control"
+						autocomplete="off"
+						 value="<%= (employeeVO==null)? "user" : employeeVO.getEmpAccount()%>">
+				</div>
+
+
+			<div class="mb-3">
+					<label for="empPassWord" class="form-label">å¯†ç¢¼ï¼š</label> <input
+						id="empPassWord" name="empPassWord" type="password" class="form-control"
+						autocomplete="off"
+						 value="<%= (employeeVO==null)? "" : employeeVO.getEmpPassWord()%>">
+				</div>
+
+
+				<div class="mb-3">
+					<label for="empHireDate" class="form-label">ç”Ÿæ—¥:</label> <input
+						id="fdate1" name="empHireDate" type="text" class="form-control"
+						autocomplete="off">
+				</div>
+
+
+			<div class="mb-3">
+					<label for="empStatus" class="form-label"></label> <input
+						id="empStatus" name="empStatus" type="hidden" class="form-control"
+						autocomplete="off"
+						 value="<%= (employeeVO==null)? "1" : employeeVO.getEmpStatus()%>">
+				</div>
+
+
+
+
+
+
+
+				<input type="hidden" name="action" value="insert"> <input
+					class="mybtn" type="submit" value="é€å‡º">
+
+
+			</div>
+		</div>
+	</form>
+
+
+
+
+
+
+
 </body>
-
-
-
-<!-- =========================================¥H¤U¬° datetimepicker ¤§¬ÛÃö³]©w========================================== -->
-
-<% 
-  java.sql.Date empHireDate = null;
-  try {
-	  empHireDate = employeeVO.getEmpHireDate();
-   } catch (Exception e) {
-	   empHireDate = new java.sql.Date(System.currentTimeMillis());
-   }
+<%
+java.sql.Date empHireDate = null;
+try {
+	empHireDate = employeeVO.getEmpHireDate();
+} catch (Exception e) {
+	empHireDate = new java.sql.Date(System.currentTimeMillis());
+}
 %>
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script
+	src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+<script
+	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <style>
-  .xdsoft_datetimepicker .xdsoft_datepicker {
-           width:  300px;   /* width:  300px; */
-  }
-  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-           height: 151px;   /* height:  151px; */
-  }
+.xdsoft_datetimepicker .xdsoft_datepicker {
+	width: 300px;
+}
+
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	height: 151px;
+}
+
+.mybtn {
+	border-radius: 5px;
+	background-color: #242c6d;
+	border: 1px solid #242c6d;
+	color: #fff;
+	border-radius: 3px;
+	font-size: 14px;
+	cursor: pointer;
+	vertical-align: middle;
+	padding: 5px 12px;
+}
+
+.gender {
+	display: inline-block;
+}
 </style>
 
 <script>
         $.datetimepicker.setLocale('zh');
-        $('#f_date1').datetimepicker({
+        $('#fdate1').datetimepicker({
 	       theme: '',              //theme: 'dark',
 	       timepicker:false,       //timepicker:true,
-	       step: 1,                //step: 60 (³o¬Otimepickerªº¹w³]¶¡¹j60¤ÀÄÁ)
+	       step: 1,                //step: 60 (é€™æ˜¯timepickerçš„é è¨­é–“éš”60åˆ†é˜)
 	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
-		   value: '<%=empHireDate%>', // value:   new Date(),
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // ¥h°£¯S©w¤£§t
-           //startDate:	            '2017/07/10',  // °_©l¤é
-           //minDate:               '-1970-01-01', // ¥h°£¤µ¤é(¤£§t)¤§«e
-           //maxDate:               '+1970-01-01'  // ¥h°£¤µ¤é(¤£§t)¤§«á
-        });
-        
-        
-   
-        // ----------------------------------------------------------¥H¤U¥Î¨Ó±Æ©wµLªk¿ï¾Üªº¤é´Á-----------------------------------------------------------
-
-        //      1.¥H¤U¬°¬Y¤@¤Ñ¤§«eªº¤é´ÁµLªk¿ï¾Ü
-        //      var somedate1 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-
-        
-        //      2.¥H¤U¬°¬Y¤@¤Ñ¤§«áªº¤é´ÁµLªk¿ï¾Ü
-        //      var somedate2 = new Date('2017-06-15');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-
-
-        //      3.¥H¤U¬°¨â­Ó¤é´Á¤§¥~ªº¤é´ÁµLªk¿ï¾Ü (¤]¥i«ö»İ­n´«¦¨¨ä¥L¤é´Á)
-        //      var somedate1 = new Date('2017-06-15');
-        //      var somedate2 = new Date('2017-06-25');
-        //      $('#f_date1').datetimepicker({
-        //          beforeShowDay: function(date) {
-        //        	  if (  date.getYear() <  somedate1.getYear() || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() <  somedate1.getMonth()) || 
-        //		           (date.getYear() == somedate1.getYear() && date.getMonth() == somedate1.getMonth() && date.getDate() < somedate1.getDate())
-        //		             ||
-        //		            date.getYear() >  somedate2.getYear() || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() >  somedate2.getMonth()) || 
-        //		           (date.getYear() == somedate2.getYear() && date.getMonth() == somedate2.getMonth() && date.getDate() > somedate2.getDate())
-        //              ) {
-        //                   return [false, ""]
-        //              }
-        //              return [true, ""];
-        //      }});
-        
+		   value: '<%=empHireDate%>'
+		   ,
+	// value:   new Date(),
+	});
 </script>
+
+
 </html>
+
 <%@include file="/backend/bkfoot.jsp"%>

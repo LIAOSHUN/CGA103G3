@@ -4,16 +4,7 @@
 
 <%
 EmployeeService empSVC = new EmployeeService();
-EmployeeVO employeeVO=empSVC.getOneEmployee((Integer)(session.getAttribute("empID")));
-
-
-
-
-%>
-
-
-
-
+EmployeeVO employeeVO=empSVC.getOneEmployee((Integer)(session.getAttribute("empID")));%>
 
 <html>
 <head>
@@ -65,7 +56,6 @@ th, td {
 			<th>員工編號</th>
 			<th>員工姓名</th>
 			<th>電話</th>
-			<th>頭像</th>
 			<th>帳號</th>
 			<th>密碼</th>
 			<th>入職時間</th>
@@ -76,7 +66,6 @@ th, td {
 			<td><%=employeeVO.getEmpID()%></td>
 			<td><%=employeeVO.getEmpName()%></td>
 			<td><%=employeeVO.getEmpPhone()%></td>
-			<td><%=employeeVO.getEmpAvatar()%></td>
 			<td><%=employeeVO.getEmpAccount()%></td>
 			<td><%=employeeVO.getEmpPassWord()%></td>
 			<td><%=employeeVO.getEmpHireDate()%></td>

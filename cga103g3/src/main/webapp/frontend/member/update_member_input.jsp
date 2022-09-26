@@ -104,9 +104,9 @@ MemberVO memberVO = (MemberVO) request.getAttribute("memberVO"); //EmpServlet.ja
 
 			</div>
 			<div class="mb-3">
-				<label for="gradeID" class="form-label"></label> <input id="gradeID"
-					name="gradeID" type="hidden" class="form-control" autocomplete="off"
-					value="<%=memberVO.getGradeID()%>">
+				<label for="gradeID" class="form-label">·|­ûµ¥¯Å</label> <input id="gradeID"
+					name="gradeID" type="text" class="form-control" autocomplete="off"
+					value="<%=memberVO.getGradeID()%>" readonly >
 			</div>
 			
 			<div class="mb-3">
