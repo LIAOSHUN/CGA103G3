@@ -79,7 +79,7 @@
 		enctype="multipart/form-data">
 
 		<div class="card mb-4" style="width: 1000px; margin: 0 auto;">
-			<h5 class="card-header">會員註冊</h5>
+			<h5 class="card-header">員工註冊</h5>
 			<div class="card-body">
 				<%-- 錯誤表列 --%>
 				<div style="width: 1000px; margin: 0 auto;">
