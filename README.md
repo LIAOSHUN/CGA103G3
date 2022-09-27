@@ -1,4 +1,8 @@
-# 負責項目：購物車 / 訂單管理 /優惠券
+# 負責項目：購物車(套件名:cart) / 訂單管理(套件名:orderlist、orderdetail)/ 優惠券(套件名:coupontype、memcoupon)
+
+## [專案負責部分pdf介紹](https://drive.google.com/file/d/1o_waNAihJx0Qv4za-GUu9IJDhaYL5xXG/view?usp=sharing)
+
+## [專案負責部分影片介紹](https://www.youtube.com/watch?v=ucJHwV3ladU)
 
 
 
@@ -14,3 +18,11 @@
 ## 優惠券
 * 以排程器自動下架已過期的優惠券。
 * 以排程器篩選出到期前三天的優惠券，並發信提醒。
+
+![image](https://user-images.githubusercontent.com/108620186/192571435-0f808cb7-ff6c-4657-847b-6f4f2bcb3f31.png)
+--- 
+![image](https://user-images.githubusercontent.com/108620186/192571705-25836f8b-b124-4fff-9a80-edcef3476c7f.png)
+--- 
+![image](https://user-images.githubusercontent.com/108620186/192572036-6057542d-be02-481e-a77d-b3699538ad87.png)
+--- 
+![image](https://user-images.githubusercontent.com/108620186/192572252-bf529c3c-f9d0-42a5-8c4d-02a9559f66d9.png)
