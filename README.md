@@ -1,12 +1,9 @@
-# 負責項目：購物車(套件名:cart) / 訂單管理(套件名:orderlist、orderdetail)/ 優惠券(套件名:coupontype、memcoupon)
+## 負責項目：購物車(套件名:cart) / 訂單管理(套件名:orderlist、orderdetail)/ 優惠券(套件名:coupontype、memcoupon)
 
-## [專案負責部分pdf介紹](https://drive.google.com/file/d/1o_waNAihJx0Qv4za-GUu9IJDhaYL5xXG/view?usp=sharing)
-
-## [專案負責部分影片介紹](https://www.youtube.com/watch?v=ucJHwV3ladU)
-
-
-
-
+### [專案負責部分pdf介紹](https://drive.google.com/file/d/1o_waNAihJx0Qv4za-GUu9IJDhaYL5xXG/view?usp=sharing)
+![個人專題pdf qrcode](https://user-images.githubusercontent.com/108620186/192589174-9e5f7514-ffba-4886-ac7a-1fe5ce9f1dbb.png)
+### [專案負責部分影片介紹](https://www.youtube.com/watch?v=ucJHwV3ladU)
+![專題youtube QRCODE](https://user-images.githubusercontent.com/108620186/192589190-b66b1ec7-b227-4411-b16b-47a14547a204.png)
 ## 購物車
 * 使用 Cookie 存放 SessionId，讓使用者在登入前就能夠將商品加入購物車，即使離開網站，下次回訪依然可以保留購物車的內容。
 * 使用 Redis 存放購物車清單項目，Key 存放 SessionId (Cookie 的 Value)，Value 存放購物車清單項目。
