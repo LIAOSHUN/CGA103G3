@@ -306,12 +306,12 @@ public class ActRegisServlet extends HttpServlet {
 
 			Map<String,String> errorMsgs = new LinkedHashMap<String,String>();
 			req.setAttribute("errorMsgs", errorMsgs);
+			HttpSession session = req.getSession();
 			
 			/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
-			Integer memID = Integer.valueOf(req.getParameter("memID").trim());
+			Integer memID = (Integer) session.getAttribute("memID");
 			Integer actID = Integer.valueOf(req.getParameter("actID").trim());
 			
-			Integer regisStatus = Integer.valueOf(req.getParameter("regisStatus").trim());
 			
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
@@ -323,11 +323,10 @@ public class ActRegisServlet extends HttpServlet {
 			
 			/***************************2.開始修改資料*****************************************/
 			ActRegisService actRegisSvc = new ActRegisService();
-			ActRegisVO actRegisVO = actRegisSvc.cancelActRegis(memID, actID, regisStatus);
+			actRegisSvc.cancelActRegis(memID, actID);
 			
 			/***************************3.修改完成,準備轉交(Send the Success view)*************/
-			req.setAttribute("actRegisVO", actRegisVO); // 資料庫update成功後,正確的的actRegisVO物件,存入req
-			String url = "/backend/actregis/listOneActRegis.jsp";
+			String url = "/frontend/actregis/listMemRegis.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneActRegis.jsp
 			successView.forward(req, res);
 		}

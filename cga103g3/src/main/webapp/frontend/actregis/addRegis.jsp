@@ -107,7 +107,7 @@
 			<table style="left: 150px;">
 				<tr style="line-height: 2.7;">
 					<td>					
-							<button class="btnn btn-info btnToConfirm" type="submit" form="form1" value="Submit">確 認 報 名</button>						
+							<button class="btnn btn-info btnToConfirm" type="submit" form="form1" value="Submit" id="btnSubmit">確 認 報 名</button>						
 					</td>					
 				</tr>
 				<tr style="line-height: 2.5;">
@@ -135,6 +135,9 @@
 // 		document.getElementById('fee').setAttribute = ("value", "test");
 // 		let newFee = document.querySelector('#actNum').value * ${actVO.actFee};
 // 		document.querySelector('#actFee').setAttribute("value", document.querySelector('#actNum').value * ${actVO.actFee});
+	}
+	document.querySelector('#btnSubmit').onclick = function() {
+		swal('報名成功', '感謝您的報名', 'success');
 	}
 // 	function onRegisClick(){
 // 		if(${empty memID}) {

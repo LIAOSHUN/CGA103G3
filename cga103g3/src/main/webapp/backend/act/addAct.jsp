@@ -70,14 +70,14 @@ ul > li{
 	<h3>活動新增:</h3>
 
 	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red; font-weight: bold; padding-left: 30px; font-size: 20px" >請修正以下錯誤：</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li><br>
-			</c:forEach>
-		</ul>
-	</c:if>
+<%-- 	<c:if test="${not empty errorMsgs}"> --%>
+<!-- 		<font style="color: red; font-weight: bold; padding-left: 30px; font-size: 20px" >請修正以下錯誤：</font> -->
+<!-- 		<ul> -->
+<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 				<li style="color: red">${message}</li><br> --%>
+<%-- 			</c:forEach> --%>
+<!-- 		</ul> -->
+<%-- 	</c:if> --%>
 
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/ActWithImgServlet" name="form1" enctype="multipart/form-data">
 		<table class="main_table">
@@ -94,24 +94,24 @@ ul > li{
 			<tr>
 				<td>活動標題:</td>
 				<td><input type="TEXT" name="actTitle" size="45"
-					value="<%= (actVO==null)? "" : actVO.getActTitle()%>" /></td>
+					value="<%= (actVO==null)? "" : actVO.getActTitle()%>" /></td><td>${errorMsgs.actTitle}</td>
 			</tr>
 			<tr>
 				<td>活動敘述:</td>
 				<td><textarea rows="10" cols="43" maxlength="300"
-						name="actDescription"><%= (actVO==null)? "" : actVO.getActDescription()%></textarea></td>
+						name="actDescription"><%= (actVO==null)? "" : actVO.getActDescription()%></textarea></td><td>${errorMsgs.actDescription}</td>
 			</tr>
 			<tr>
 				<td>報名開始日期:</td>
-				<td><input name="actTimeStart" id="act_date1" type="text"></td>
+				<td><input name="actTimeStart" id="act_date1" type="text"></td><td>${errorMsgs.actTimeStart}</td>
 			</tr>
 			<tr>
 				<td>報名截止日期:</td>
-				<td><input name="actTimeEnd" id="act_date2" type="text"></td>
+				<td><input name="actTimeEnd" id="act_date2" type="text"></td><td>${errorMsgs.actTimeEnd}</td>
 			</tr>
 			<tr>
 				<td>活動日期:</td>
-				<td><input name="actDate" id="act_date3" type="text"></td>
+				<td><input name="actDate" id="act_date3" type="text"></td><td>${errorMsgs.actDate}</td>
 			</tr>
 			<tr>
 				<td>人數上限:<font color=red><b>*</b></font></td>

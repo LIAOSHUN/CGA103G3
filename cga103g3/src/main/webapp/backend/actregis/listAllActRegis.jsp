@@ -45,15 +45,14 @@
 <body bgcolor='white'>
 <%@include file="/backend/bkhead.jsp"%>
 <div>
-	<h3 style="margin-bottom: 0px;">所有活動列表</h3>
+	<h3 style="margin-bottom: 0px;">所有活動報名清單</h3>
 <table>
 	<tr>
 		<th>會員編號</th>
-		<th>活動編號</th>
+		<th>活動標題</th>
 		<th>報名時間</th>
 		<th>報名人數</th>
 		<th>報名總費用</th>
-		<th>繳費狀態</th>
 		<th>報名狀態</th>
 	</tr>
 
@@ -62,12 +61,10 @@
 		<tr>
 			<td>${actRegisVO.memID}</td>
 			<td><a href="<%=request.getContextPath()%>/ActServlet?actID=${actRegisVO.actID}&action=getOne_For_Display" class="actInfo">
-					${actRegisVO.actID}</a></td>
+					${actRegisVO.actVO.actTitle}</a></td>
 			<td><javatime:format value="${actRegisVO.regisTime}" pattern="yyyy-MM-dd HH:mm" /></td>
 			<td>${actRegisVO.actNum} 人</td>
 			<td>${actRegisVO.actFee} 元</td>
-			<td><c:if test="${actRegisVO.feeStatus == 0 }">0：未繳費</c:if>
-				<c:if test="${actRegisVO.feeStatus == 1 }">1：已繳費</c:if></td> 
 			<td><c:if test="${actRegisVO.regisStatus == 0 }">0：取消報名</c:if>
 				<c:if test="${actRegisVO.regisStatus == 1 }">1：報名</c:if></td> 
 		</tr>

@@ -62,6 +62,7 @@
 
 	<main>
 		<div class="container-main">
+			<h3 style="padding-top: 30px; padding-left: 50px; text-align:left;">我的活動收藏</h3>
 			<table>
 				<tr>
 					<th>店面</th>

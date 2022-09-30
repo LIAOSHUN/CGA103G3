@@ -54,16 +54,8 @@ public class ActRegisService {
 		return actRegisVO;
 	}
 	
-	public ActRegisVO cancelActRegis(Integer memID, Integer actID, Integer regisStatus) {
-		
-		ActRegisVO actRegisVO = new ActRegisVO();
-		
-		actRegisVO.setMemID(memID);
-		actRegisVO.setActID(actID);
-		actRegisVO.setRegisStatus(regisStatus);
-		dao.update(actRegisVO);
-		
-		return actRegisVO;
+	public void cancelActRegis(Integer memID, Integer actID) {
+		dao.changeState(memID, actID);
 	}
 	
 	public ActRegisVO updateFrActRegis(Integer memID, Integer actID, 

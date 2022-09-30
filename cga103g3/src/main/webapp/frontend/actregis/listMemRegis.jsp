@@ -60,13 +60,14 @@
 <%@ include file="../frontendhead.jsp" %>
 <main>
 <div class="container-main">
+<h3 style="padding-top: 30px; padding-left: 50px; text-align:left;">我的活動</h3>
 <table>
 	<tr>
 		<th>活動名稱</th>
 		<th>活動日期</th>
 		<th>報名人數</th>
 		<th>報名總費用</th>
-		<th>評價/取消報名</th>
+		<th>取消報名</th>
 	</tr>
 	<c:forEach var="actRegisVO" items="${list}">		
 		<tr>
@@ -77,16 +78,16 @@
 			<td>${actRegisVO.actNum}</td>
 			<td>${actRegisVO.actFee}</td>
 			<td>
-				<a href="">
-					<button style="padding-right: 20px;">
-						評價
-					</button>
-				</a>
-				<a href="">
-					<button>
-						取消報名
-					</button>
-				</a>
+				<c:if test="${actRegisVO.regisStatus == '1' }">
+					<a href="<%=request.getContextPath()%>/ActRegisServlet?actID=${actRegisVO.actID}&action=cancel">
+						<button onclick="onCancel()">
+							取消報名
+						</button>
+					</a>
+				</c:if>
+				<c:if test="${actRegisVO.regisStatus == '0' }">
+					<button disabled>已取消	</button>
+				</c:if>
 			</td>
 		</tr>
 	</c:forEach>
@@ -97,6 +98,27 @@
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/jquery/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/libs/popper/popper.js"></script>
 <script src="<%=request.getContextPath()%>/backend/backend_template/assets/vendor/js/bootstrap.js"></script>
-
+<script>
+function onCancel() {
+	if (!confirm('是否確定取消報名?')) {
+    return;
+	}
+	let url = `/cga103g3/ActRegisServlet`;
+	fetch(url, {
+		method: 'POST',
+		headers: { 'Content-Type': 'application/json' },
+		body: JSON.stringify({
+			memID: ${memID},
+			action: cancel,
+		})
+	})
+		.then(res => res.json())
+		.then(body => {
+			if (body.successful) {
+				location.reload();
+			}
+		});
+}
+</script>
 </body>
 </html>

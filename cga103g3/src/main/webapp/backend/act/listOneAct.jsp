@@ -103,29 +103,29 @@ th, td {
 			</tr>
 		</c:forEach>
 	</table>
-	<h3>評價列表</h3>
-	<table style="padding-top: 30px;">
-		<tr>
-				<th>編號</th>
-				<th>會員帳號</th>
-				<th>會員姓名</th>
-				<th>活動評價內容</th>
-				<th>滿意度</th>
-				<th>評價日期</th>
-		</tr>
-		<c:if test="${actRegisVO.actReview > 0 }">
-		<c:forEach var="actRegisVO" items="${list}" varStatus="revStatus">
-			<tr>
-				<td>${revStatus.count}</td>
-				<td>${actRegisVO.memberVO.memAccount}</td>
-				<td>${actRegisVO.memberVO.memName}</td>
-				<td>${actRegisVO.actReview}</td>
-				<td>${actRegisVO.satisfaction}</td>
-				<td>${actRegisVO.reviewDate}</td>
-			</tr>
-		</c:forEach>
-		</c:if>
-	</table>
+<!-- 	<h3>評價列表</h3> -->
+<!-- 	<table style="padding-top: 30px;"> -->
+<!-- 		<tr> -->
+<!-- 				<th>編號</th> -->
+<!-- 				<th>會員帳號</th> -->
+<!-- 				<th>會員姓名</th> -->
+<!-- 				<th>活動評價內容</th> -->
+<!-- 				<th>滿意度</th> -->
+<!-- 				<th>評價日期</th> -->
+<!-- 		</tr> -->
+<%-- 		<c:if test="${actRegisVO.actReview > 0 }"> --%>
+<%-- 		<c:forEach var="actRegisVO" items="${list}" varStatus="revStatus"> --%>
+<!-- 			<tr> -->
+<%-- 				<td>${revStatus.count}</td> --%>
+<%-- 				<td>${actRegisVO.memberVO.memAccount}</td> --%>
+<%-- 				<td>${actRegisVO.memberVO.memName}</td> --%>
+<%-- 				<td>${actRegisVO.actReview}</td> --%>
+<%-- 				<td>${actRegisVO.satisfaction}</td> --%>
+<%-- 				<td>${actRegisVO.reviewDate}</td> --%>
+<!-- 			</tr> -->
+<%-- 		</c:forEach> --%>
+<%-- 		</c:if> --%>
+<!-- 	</table> -->
 
 	<script>
 	$(document).ready(function(){

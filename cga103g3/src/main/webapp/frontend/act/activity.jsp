@@ -200,7 +200,7 @@
 // 					location.assign(`/cga103g3/frontend/member/memberLogin.jsp`);
 // 				} else 
 					if (data == 1) {
-					alert('已成功加入收藏清單');
+						swal("已成功加入收藏清單", "", "success");
 					location.assign(`/cga103g3/frontend/actfav/listFav.jsp`);
 				} else if (data == 2) {
 					alert('收藏清單已有此活動');

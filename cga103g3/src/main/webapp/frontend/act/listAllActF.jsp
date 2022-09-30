@@ -58,6 +58,7 @@
 
 	<main>
 		<div class="container-main">
+		<h3 style="padding-top: 30px; padding-left: 50px; text-align:left;">活動列表</h3>
 			<table id="actInfo">
 			<tr>
 				<th>店面</th>

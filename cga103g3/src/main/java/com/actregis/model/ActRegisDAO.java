@@ -47,6 +47,8 @@ public class ActRegisDAO implements ActRegisDAO_interface {
 	private static final String UPDATE = 
 		"update actregistered set RegisTime=Now(), ActNum=?, ActFee=?, FeeStatus=?, "
 		+ "RegisStatus=?, ActReview=?, Satisfaction=?, ReviewDate=Now() where MemID = ? and ActID = ?";
+	private static final String UPDATE_STATUS = 
+		"update actregistered set RegisStatus=0 where MemID = ? and ActID = ?";
 	
 	@Override
 	public void insert(ActRegisVO actRegisVO) {
@@ -86,6 +88,21 @@ public class ActRegisDAO implements ActRegisDAO_interface {
 			pstmt.executeUpdate();
 			
 		// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		}	
+	}
+	@Override
+	public void changeState(Integer memID, Integer actID) {
+		try (Connection con = ds.getConnection();
+				PreparedStatement pstmt = con.prepareStatement(UPDATE_STATUS)) {			
+			pstmt.setInt(1, memID);
+			pstmt.setInt(2, actID);
+			
+			pstmt.executeUpdate();
+			
+			// Handle any SQL errors
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
